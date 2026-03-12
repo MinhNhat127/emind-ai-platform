@@ -1,0 +1,74 @@
+/* Design System Tokens — Figma: nnR31yPLq4jhQJAn2pP6A0 */
+:root {
+  /* ── Primary (Blue) ── */
+  --color-primary-400: #58a6e5;   /* focus ring */
+  --color-primary-500: #0a66c2;   /* default / main */
+  --color-primary-700: #084c8f;   /* hover */
+  --color-primary-800: #063e75;   /* ghost text / menu */
+
+  /* ── Primary surface ── */
+  --color-primary-50:  #f0f7fd;   /* even row */
+  --color-primary-100: #e1f0fa;   /* selected bg */
+  --color-primary-200: #bfdff6;   /* table header / in-progress bg */
+
+  /* ── Grey ── */
+  --color-grey-50:  #f4f5fa;      /* page background */
+  --color-grey-100: #e3e7f0;      /* table border / disabled sub bg */
+  --color-grey-200: #c8ced8;      /* disabled bg (button) */
+  --color-grey-300: #aab3c4;      /* neutral border / placeholder text */
+  --color-grey-400: #8a96a8;      /* disabled text / badge */
+  --color-grey-500: #6b7688;
+  --color-grey-600: #4b566a;      /* label text */
+  --color-grey-700: #303a4c;
+  --color-grey-800: #141c25;      /* body text */
+  --color-grey-900: #091119;
+  --color-grey-950: #04080b;
+
+  /* ── Red (Alert) ── */
+  --color-red-50:  #ffecec;       /* cancel status bg */
+  --color-red-300: #ff9191;       /* required badge bg */
+  --color-red-500: #ff0000;       /* error / alert */
+
+  /* ── Orange ── */
+  --color-orange-400: #fe8100;
+  --color-orange-500: #dd6f00;
+
+  /* ── Yellow ── */
+  --color-yellow-50:  #fff8f0;    /* pending status bg */
+  --color-yellow-500: #ffc400;    /* pending text */
+
+  /* ── Green ── */
+  --color-green-50:  #dcffe2;     /* completed status bg */
+  --color-green-500: #16a34a;     /* completed text */
+
+  /* ── Light Blue ── */
+  --color-light-blue-100: #d1f4ff;  /* hover/selected row */
+
+  /* ── Common ── */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ── Typography ── */
+  --font-family: 'Noto Sans JP', 'Noto Sans', sans-serif;
+
+  /* ── Spacing scale ── */
+  --space-2:  2px;
+  --space-4:  4px;
+  --space-6:  6px;
+  --space-8:  8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+
+  /* ── Border radius ── */
+  --radius-4:  4px;   /* inputs */
+  --radius-6:  6px;   /* buttons standard / status badge */
+  --radius-8:  8px;   /* sidebar item / big button */
+  --radius-16: 16px;  /* pill badge */
+  --radius-22: 22px;  /* round button */
+
+  /* ── Shadows ── */
+  --shadow-modal: 0px 24px 48px rgba(62, 52, 69, 0.15);
+  --shadow-dropdown: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-button-press: 0 2px 4px rgba(0, 0, 0, 0.25), 2px 0 4px rgba(0, 0, 0, 0.3);
+}

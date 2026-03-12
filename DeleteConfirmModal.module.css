@@ -1,0 +1,137 @@
+@import './design-tokens.css';
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal {
+  background: var(--color-white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-modal);
+  width: 100%;
+  max-width: 420px;
+  font-family: var(--font-family);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--color-grey-100);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-grey-800);
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--color-grey-500);
+  cursor: pointer;
+  border-radius: var(--radius-6);
+  transition: background 0.15s, color 0.15s;
+}
+
+.closeBtn:hover {
+  background: var(--color-grey-100);
+  color: var(--color-grey-800);
+}
+
+.body {
+  padding: 32px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.warningIcon {
+  color: var(--color-orange-400);
+  flex-shrink: 0;
+}
+
+.message {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-grey-800);
+  line-height: 1.6;
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.productName {
+  color: var(--color-grey-800);
+}
+
+.subMessage {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-grey-500);
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-grey-100);
+}
+
+.btnAlert {
+  height: 44px;
+  padding: 0 16px;
+  background: var(--color-red-500);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-6);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  letter-spacing: 0;
+}
+
+.btnAlert:hover { background: #ce0000; }
+
+.btnSecondary {
+  height: 44px;
+  padding: 0 16px;
+  background: var(--color-white);
+  color: var(--color-primary-500);
+  border: 1.5px solid var(--color-primary-500);
+  border-radius: var(--radius-6);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  letter-spacing: 0;
+}
+
+.btnSecondary:hover {
+  border-color: var(--color-primary-700);
+  color: var(--color-primary-700);
+}
