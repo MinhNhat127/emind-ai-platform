@@ -1,0 +1,21 @@
+{
+  "name": "production-management-system",
+  "version": "1.0.0",
+  "description": "生産管理システム - Production Management System",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . -p 3001",
+    "build": "echo 'Static HTML project - no build needed'",
+    "start": "npx serve . -p 3000"
+  },
+  "keywords": [
+    "production",
+    "management",
+    "manufacturing",
+    "schedule",
+    "task",
+    "resource"
+  ],
+  "author": "",
+  "license": "MIT"
+}
