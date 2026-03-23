@@ -336,57 +336,151 @@
     background: #f1f5f9; border-radius: 4px;
     font-size: 11px; color: #64748b; margin: 1px;
   }
+
+  /* ===== LOGIN ===== */
+  .login-screen {
+    position: fixed; inset: 0; z-index: 999;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .login-screen.hidden { display: none; }
+  .login-box {
+    background: #fff; border-radius: 16px;
+    padding: 40px 36px; width: 380px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+  .login-logo { font-size: 36px; margin-bottom: 8px; }
+  .login-title { font-size: 20px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .login-sub { font-size: 12px; color: #9ca3af; margin-bottom: 32px; }
+  .login-label { text-align: left; font-size: 12px; font-weight: 600; color: #374151; display: block; margin-bottom: 6px; }
+  .login-input {
+    width: 100%; padding: 12px 16px;
+    border: 2px solid #e5e7eb; border-radius: 8px;
+    font-size: 15px; outline: none; text-align: center;
+    letter-spacing: 2px; transition: border-color 0.2s;
+    margin-bottom: 16px;
+  }
+  .login-input:focus { border-color: #3b82f6; }
+  .login-btn {
+    width: 100%; padding: 12px;
+    background: #1a1a2e; color: #fff;
+    border: none; border-radius: 8px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .login-btn:hover { background: #2d2d4e; }
+  .login-hint {
+    margin-top: 20px; font-size: 11px; color: #9ca3af;
+    background: #f9fafb; border-radius: 8px; padding: 10px;
+    text-align: left; line-height: 1.8;
+  }
+  .login-error {
+    color: #ef4444; font-size: 12px; margin-bottom: 12px;
+    display: none;
+  }
+
+  /* ===== ADMIN SIDEBAR ===== */
+  .sidebar-admin { background: #0f3460; }
+  .sidebar-admin .sidebar-logo { color: #60a5fa; border-bottom-color: rgba(255,255,255,0.1); }
+  .sidebar-admin .nav-item.active { background: rgba(96,165,250,0.15); color: #60a5fa; border-left-color: #60a5fa; }
+
+  /* ===== COMPANY MANAGEMENT PAGE ===== */
+  .company-table-wrap { overflow-x: auto; }
+  .status-active { color: #10b981; font-weight: 600; }
+  .status-inactive { color: #9ca3af; }
 </style>
 </head>
 <body>
-<div class="app">
 
-<!-- Sidebar -->
-<div class="sidebar">
+<!-- ===== LOGIN SCREEN ===== -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">🏭</div>
+    <div class="login-title">E-Mind Platform</div>
+    <div class="login-sub">エンジニアデザインAIプラットフォーム</div>
+    <label class="login-label">ユーザーID</label>
+    <input class="login-input" type="text" id="login-id" placeholder="IDを入力" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-error" id="login-error">IDが見つかりません。再入力してください。</div>
+    <button class="login-btn" onclick="doLogin()">ログイン</button>
+    <div class="login-hint">
+      <strong>テスト用ID：</strong><br>
+      🔑 <code>admin</code> → システム管理者<br>
+      🏢 <code>company</code> → 会社ユーザー
+    </div>
+  </div>
+</div>
+
+<div class="app" id="main-app" style="display:none">
+
+<!-- Sidebar: Admin -->
+<div class="sidebar sidebar-admin" id="sidebar-admin" style="display:none">
   <div class="sidebar-logo">
-    🏭 生産管理システム
-    <span>Production Management v1.0</span>
+    🔑 E-Mind Admin
+    <span>システム管理者</span>
+  </div>
+  <div class="nav-group">
+    <div class="nav-label">管理</div>
+    <div class="nav-item active" onclick="navigate('companies', this)">
+      <span class="nav-icon">🏢</span> 会社管理
+    </div>
+  </div>
+  <div class="nav-group" style="margin-top:auto;padding-top:16px">
+    <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.4)">
+      <span class="nav-icon">🚪</span> ログアウト
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar: Company -->
+<div class="sidebar" id="sidebar-company" style="display:none">
+  <div class="sidebar-logo">
+    🏭 E-Mind Platform
+    <span id="sidebar-company-name">会社ユーザー</span>
   </div>
   <div class="nav-group">
     <div class="nav-label">メイン</div>
-    <div class="nav-item active" onclick="navigate('schedule')">
+    <div class="nav-item active" onclick="navigate('schedule',this)">
       <span class="nav-icon">📅</span> スケジュール管理
     </div>
-    <div class="nav-item" onclick="navigate('progress')">
+    <div class="nav-item" onclick="navigate('progress',this)">
       <span class="nav-icon">📊</span> 進捗（タスク）管理
     </div>
-    <div class="nav-item" onclick="navigate('resource')">
+    <div class="nav-item" onclick="navigate('resource',this)">
       <span class="nav-icon">👥</span> リソース管理
     </div>
   </div>
   <div class="nav-group">
     <div class="nav-label">管理</div>
-    <div class="nav-item" onclick="navigate('qa')">
+    <div class="nav-item" onclick="navigate('qa',this)">
       <span class="nav-icon">❓</span> 質問管理
       <span class="notif" style="margin-left:auto">3</span>
     </div>
-    <div class="nav-item" onclick="navigate('issues')">
+    <div class="nav-item" onclick="navigate('issues',this)">
       <span class="nav-icon">⚠️</span> 課題管理
       <span class="notif" style="margin-left:auto">2</span>
     </div>
-    <div class="nav-item" onclick="navigate('report')">
+    <div class="nav-item" onclick="navigate('report',this)">
       <span class="nav-icon">📋</span> 報告書作成
     </div>
   </div>
   <div class="nav-group">
     <div class="nav-label">コミュニケーション</div>
-    <div class="nav-item" onclick="navigate('files')">
+    <div class="nav-item" onclick="navigate('files',this)">
       <span class="nav-icon">📁</span> ファイル共有
     </div>
-    <div class="nav-item" onclick="navigate('chat')">
+    <div class="nav-item" onclick="navigate('chat',this)">
       <span class="nav-icon">💬</span> チャット機能
       <span class="notif" style="margin-left:auto">5</span>
     </div>
   </div>
   <div class="nav-group">
     <div class="nav-label">サポート</div>
-    <div class="nav-item" onclick="navigate('help')">
+    <div class="nav-item" onclick="navigate('help', this)">
       <span class="nav-icon">🆘</span> ヘルプ機能
+    </div>
+    <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.4)">
+      <span class="nav-icon">🚪</span> ログアウト
     </div>
   </div>
 </div>
@@ -396,16 +490,111 @@
   <div class="header">
     <div class="header-title" id="page-title">スケジュール管理</div>
     <div class="header-actions">
-      <select style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px">
+      <select id="project-select" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;display:none">
         <option>案件：A社 製造ライン改修</option>
         <option>案件：B社 設備導入</option>
         <option>案件：C社 品質改善</option>
       </select>
-      <div class="avatar">田中</div>
+      <div class="avatar" id="user-avatar">--</div>
     </div>
   </div>
 
   <div class="content">
+
+    <!-- ===== 会社管理 (ADMIN) ===== -->
+    <div class="page" id="page-companies">
+      <div class="section-header">
+        <div class="section-title">🏢 会社管理</div>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('modal-company').classList.add('open')">+ 会社登録</button>
+      </div>
+
+      <div class="filter-bar">
+        <input type="text" placeholder="🔍 会社名・コードで検索" style="width:220px">
+        <select>
+          <option>全ステータス</option>
+          <option>利用中</option>
+          <option>停止中</option>
+        </select>
+        <select>
+          <option>全国</option>
+          <option>日本</option>
+          <option>ベトナム</option>
+          <option>その他</option>
+        </select>
+      </div>
+
+      <div class="card" style="padding:0">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>会社コード</th>
+              <th>会社名</th>
+              <th>国</th>
+              <th>住所</th>
+              <th>ステータス</th>
+              <th>利用期限</th>
+              <th>登録日</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="company-table-body">
+            <tr>
+              <td><span class="tag">COMP-001</span></td>
+              <td><strong>E-Mind株式会社</strong></td>
+              <td>🇯🇵 日本</td>
+              <td>東京都渋谷区...</td>
+              <td><span class="status-active">● 利用中</span></td>
+              <td>2026/12/31</td>
+              <td>2025/01/01</td>
+              <td>
+                <button class="btn btn-outline btn-sm" onclick="openEditCompany('COMP-001','E-Mind株式会社')">編集</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b" onclick="confirmDeleteCompany('COMP-001')">停止</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="tag">COMP-002</span></td>
+              <td><strong>ABC Manufacturing Vietnam</strong></td>
+              <td>🇻🇳 ベトナム</td>
+              <td>ホーチミン市...</td>
+              <td><span class="status-active">● 利用中</span></td>
+              <td>2026/06/30</td>
+              <td>2025/03/15</td>
+              <td>
+                <button class="btn btn-outline btn-sm" onclick="openEditCompany('COMP-002','ABC Manufacturing Vietnam')">編集</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b">停止</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="tag">COMP-003</span></td>
+              <td><strong>Techno Solutions</strong></td>
+              <td>🇯🇵 日本</td>
+              <td>大阪府大阪市...</td>
+              <td><span class="status-inactive">○ 停止中</span></td>
+              <td>2025/03/31</td>
+              <td>2024/10/01</td>
+              <td>
+                <button class="btn btn-outline btn-sm" onclick="openEditCompany('COMP-003','Techno Solutions')">編集</button>
+                <button class="btn btn-sm" style="background:#d1fae5;color:#065f46">再開</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="tag">COMP-004</span></td>
+              <td><strong>DevStar Co., Ltd.</strong></td>
+              <td>🇻🇳 ベトナム</td>
+              <td>ハノイ市...</td>
+              <td><span class="status-active">● 利用中</span></td>
+              <td>2026/09/30</td>
+              <td>2025/04/01</td>
+              <td>
+                <button class="btn btn-outline btn-sm">編集</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b">停止</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:12px;color:#9ca3af;text-align:right;margin-top:8px">全4社 / うち利用中3社</div>
+    </div>
 
     <!-- ===== スケジュール管理 ===== -->
     <div class="page active" id="page-schedule">
@@ -1183,6 +1372,52 @@
   </div>
 </div>
 
+<!-- Modal: 会社登録/編集 -->
+<div class="modal-overlay" id="modal-company">
+  <div class="modal">
+    <div class="modal-title" id="modal-company-title">🏢 会社登録</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">会社コード（自動採番）</label>
+        <input class="form-control" type="text" id="company-code" placeholder="COMP-005" readonly style="background:#f9fafb;color:#9ca3af">
+      </div>
+      <div class="form-group">
+        <label class="form-label">国</label>
+        <select class="form-control" id="company-country">
+          <option>🇯🇵 日本</option>
+          <option>🇻🇳 ベトナム</option>
+          <option>その他</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">会社名 *</label>
+      <input class="form-control" type="text" id="company-name" placeholder="会社名を入力">
+    </div>
+    <div class="form-group">
+      <label class="form-label">住所</label>
+      <input class="form-control" type="text" id="company-address" placeholder="住所を入力">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">ステータス</label>
+        <select class="form-control" id="company-status">
+          <option>利用中</option>
+          <option>停止中</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">利用期限</label>
+        <input class="form-control" type="date" id="company-expiry">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="document.getElementById('modal-company').classList.remove('open')">キャンセル</button>
+      <button class="btn btn-primary" onclick="saveCompany()">保存</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal: 課題登録 -->
 <div class="modal-overlay" id="modal-issue">
   <div class="modal">
@@ -1233,33 +1468,105 @@
 </div>
 
 <script>
+// ===== PAGE CONFIG =====
 const pages = {
-  schedule: { id: 'page-schedule', title: 'スケジュール管理' },
-  progress: { id: 'page-progress', title: '進捗（タスク）管理' },
-  resource: { id: 'page-resource', title: 'リソース管理' },
-  qa:       { id: 'page-qa',       title: '質問管理' },
-  issues:   { id: 'page-issues',   title: '課題管理' },
-  report:   { id: 'page-report',   title: '報告書作成（出勤表）' },
-  files:    { id: 'page-files',    title: 'ファイル共有' },
-  chat:     { id: 'page-chat',     title: 'チャット機能' },
-  help:     { id: 'page-help',     title: 'ヘルプ機能' },
+  companies:{ id: 'page-companies', title: '会社管理', adminOnly: true },
+  schedule: { id: 'page-schedule',  title: 'スケジュール管理' },
+  progress: { id: 'page-progress',  title: '進捗（タスク）管理' },
+  resource: { id: 'page-resource',  title: 'リソース管理' },
+  qa:       { id: 'page-qa',        title: '質問管理' },
+  issues:   { id: 'page-issues',    title: '課題管理' },
+  report:   { id: 'page-report',    title: '報告書作成（出勤表）' },
+  files:    { id: 'page-files',     title: 'ファイル共有' },
+  chat:     { id: 'page-chat',      title: 'チャット機能' },
+  help:     { id: 'page-help',      title: 'ヘルプ機能' },
 };
 
-function navigate(key) {
-  // Hide all pages
+// ===== USERS =====
+const users = {
+  'admin':   { name: 'Admin', role: 'admin',   avatar: 'AD' },
+  'company': { name: 'Company', role: 'company', avatar: '会社', companyName: 'E-Mind株式会社' },
+};
+
+let currentUser = null;
+
+// ===== LOGIN =====
+function doLogin() {
+  const id = document.getElementById('login-id').value.trim().toLowerCase();
+  const user = users[id];
+  if (!user) {
+    document.getElementById('login-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('login-error').style.display = 'none';
+  currentUser = user;
+
+  // Show app
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('main-app').style.display = 'flex';
+
+  // Setup role UI
+  if (user.role === 'admin') {
+    document.getElementById('sidebar-admin').style.display = 'flex';
+    document.getElementById('sidebar-company').style.display = 'none';
+    document.getElementById('project-select').style.display = 'none';
+    document.getElementById('user-avatar').textContent = user.avatar;
+    navigate('companies', document.querySelector('#sidebar-admin .nav-item'));
+  } else {
+    document.getElementById('sidebar-admin').style.display = 'none';
+    document.getElementById('sidebar-company').style.display = 'flex';
+    document.getElementById('project-select').style.display = 'block';
+    document.getElementById('user-avatar').textContent = user.avatar;
+    if (user.companyName) document.getElementById('sidebar-company-name').textContent = user.companyName;
+    navigate('schedule', document.querySelector('#sidebar-company .nav-item.active'));
+  }
+}
+
+// ===== LOGOUT =====
+function doLogout() {
+  currentUser = null;
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('main-app').style.display = 'none';
+  document.getElementById('login-id').value = '';
+  document.getElementById('sidebar-admin').style.display = 'none';
+  document.getElementById('sidebar-company').style.display = 'none';
+}
+
+// ===== NAVIGATE =====
+function navigate(key, navEl) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-  // Show target page
   const p = pages[key];
+  if (!p) return;
   document.getElementById(p.id).classList.add('active');
   document.getElementById('page-title').textContent = p.title;
-
-  // Highlight nav
-  event.currentTarget.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  else if (event && event.currentTarget) event.currentTarget.classList.add('active');
 }
 
-// Close modal on overlay click
+// ===== COMPANY MANAGEMENT =====
+function openEditCompany(code, name) {
+  document.getElementById('modal-company-title').textContent = '🏢 会社編集';
+  document.getElementById('company-code').value = code;
+  document.getElementById('company-name').value = name;
+  document.getElementById('modal-company').classList.add('open');
+}
+
+function confirmDeleteCompany(code) {
+  if (confirm(code + ' を停止してもよいですか？')) {
+    alert('会社を停止しました。');
+  }
+}
+
+function saveCompany() {
+  const name = document.getElementById('company-name').value.trim();
+  if (!name) { alert('会社名を入力してください。'); return; }
+  document.getElementById('modal-company').classList.remove('open');
+  alert('保存しました：' + name);
+}
+
+// ===== MODAL CLOSE ON OVERLAY CLICK =====
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('open');
