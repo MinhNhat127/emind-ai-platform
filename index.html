@@ -6,7 +6,7 @@
 <title>生産管理システム</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', -apple-system, sans-serif; background: #f0f2f5; color: #1a1a2e; }
+  body { font-family: 'Segoe UI', -apple-system, sans-serif; background: #f3f4f5; color: #333333; }
 
   /* Layout */
   .app { display: flex; height: 100vh; }
@@ -14,7 +14,7 @@
   /* Sidebar */
   .sidebar {
     width: 220px; min-width: 220px;
-    background: #1a1a2e;
+    background: #2d6b67;
     color: #fff;
     display: flex; flex-direction: column;
     overflow-y: auto;
@@ -23,7 +23,7 @@
     padding: 20px 16px;
     font-size: 15px; font-weight: 700;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    color: #7eb3ff;
+    color: #a8dbd9;
     letter-spacing: 0.5px;
   }
   .sidebar-logo span { font-size: 11px; display: block; color: #aaa; font-weight: 400; margin-top: 2px; }
@@ -40,8 +40,8 @@
     border-left: 3px solid transparent;
     transition: all 0.15s;
   }
-  .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
-  .nav-item.active { background: rgba(126,179,255,0.15); color: #7eb3ff; border-left-color: #7eb3ff; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .nav-item.active { background: rgba(168,219,217,0.2); color: #a8dbd9; border-left-color: #a8dbd9; }
   .nav-icon { font-size: 16px; width: 20px; text-align: center; }
 
   /* Main */
@@ -60,8 +60,8 @@
     font-size: 13px; cursor: pointer; transition: all 0.15s;
     font-weight: 500;
   }
-  .btn-primary { background: #3b82f6; color: #fff; }
-  .btn-primary:hover { background: #2563eb; }
+  .btn-primary { background: #3c8b86; color: #fff; }
+  .btn-primary:hover { background: #306f6b; }
   .btn-outline { background: #fff; color: #374151; border: 1px solid #d1d5db; }
   .btn-outline:hover { background: #f9fafb; }
   .btn-sm { padding: 5px 12px; font-size: 12px; }
@@ -69,7 +69,7 @@
 
   .avatar {
     width: 34px; height: 34px; border-radius: 50%;
-    background: #3b82f6; color: #fff;
+    background: #3c8b86; color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 600; cursor: pointer;
   }
@@ -98,7 +98,8 @@
   .stat-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; }
   .stat-value { font-size: 26px; font-weight: 700; margin: 4px 0 2px; }
   .stat-sub { font-size: 11px; color: #6b7280; }
-  .stat.blue .stat-value { color: #3b82f6; }
+  .stat.blue .stat-value { color: #3c8b86; }
+  .stat.teal .stat-value { color: #3c8b86; }
   .stat.green .stat-value { color: #10b981; }
   .stat.orange .stat-value { color: #f59e0b; }
   .stat.red .stat-value { color: #ef4444; }
@@ -125,7 +126,7 @@
     height: 18px; border-radius: 3px;
     display: inline-block;
   }
-  .bar-done { background: #3b82f6; }
+  .bar-done { background: #3c8b86; }
   .bar-doing { background: #f59e0b; }
   .bar-plan { background: #e2e8f0; }
   .gantt tr:hover td { background: #f8fafc; }
@@ -152,7 +153,7 @@
     display: inline-block; padding: 2px 10px; border-radius: 20px;
     font-size: 11px; font-weight: 600;
   }
-  .badge-blue { background: #dbeafe; color: #1d4ed8; }
+  .badge-blue { background: #d1eceb; color: #1a6b67; }
   .badge-green { background: #d1fae5; color: #065f46; }
   .badge-orange { background: #fef3c7; color: #92400e; }
   .badge-red { background: #fee2e2; color: #991b1b; }
@@ -169,7 +170,7 @@
     background: #e5e7eb; border-radius: 4px; height: 8px;
     overflow: hidden; min-width: 80px;
   }
-  .progress-bar { height: 8px; border-radius: 4px; background: #3b82f6; }
+  .progress-bar { height: 8px; border-radius: 4px; background: #3c8b86; }
 
   /* Chat */
   .chat-wrap { display: flex; height: calc(100vh - 140px); gap: 16px; }
@@ -188,7 +189,7 @@
     display: flex; flex-direction: column; gap: 2px;
   }
   .chat-room:hover { background: #f8fafc; }
-  .chat-room.active { background: #eff6ff; border-left: 3px solid #3b82f6; }
+  .chat-room.active { background: #e8f5f4; border-left: 3px solid #3c8b86; }
   .chat-room-name { font-weight: 600; }
   .chat-room-last { font-size: 11px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .chat-main {
@@ -208,7 +209,7 @@
   .msg.me { flex-direction: row-reverse; }
   .msg-avatar {
     width: 32px; height: 32px; border-radius: 50%;
-    background: #3b82f6; color: #fff;
+    background: #3c8b86; color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: 600; flex-shrink: 0;
   }
@@ -219,7 +220,7 @@
     padding: 8px 12px; border-radius: 12px;
     font-size: 13px; line-height: 1.5;
   }
-  .msg.me .msg-bubble { background: #3b82f6; color: #fff; }
+  .msg.me .msg-bubble { background: #3c8b86; color: #fff; }
   .msg-name { font-size: 11px; color: #9ca3af; margin-bottom: 2px; }
   .msg-time { font-size: 10px; color: #9ca3af; margin-top: 2px; }
   .chat-input-area {
@@ -231,7 +232,7 @@
     border: 1px solid #d1d5db; font-size: 13px;
     outline: none;
   }
-  .chat-input:focus { border-color: #3b82f6; }
+  .chat-input:focus { border-color: #3c8b86; }
 
   /* Files */
   .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
@@ -241,7 +242,7 @@
     cursor: pointer; text-align: center;
     transition: all 0.15s;
   }
-  .file-item:hover { border-color: #3b82f6; box-shadow: 0 2px 8px rgba(59,130,246,0.1); }
+  .file-item:hover { border-color: #3c8b86; box-shadow: 0 2px 8px rgba(60,139,134,0.15); }
   .file-icon { font-size: 36px; margin-bottom: 8px; }
   .file-name { font-size: 12px; font-weight: 600; margin-bottom: 2px; word-break: break-all; }
   .file-meta { font-size: 11px; color: #9ca3af; }
@@ -277,7 +278,7 @@
     border-radius: 10px; padding: 20px;
     cursor: pointer; transition: all 0.15s;
   }
-  .help-item:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
+  .help-item:hover { border-color: #3c8b86; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
   .help-item-icon { font-size: 28px; margin-bottom: 10px; }
   .help-item-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
   .help-item-desc { font-size: 12px; color: #6b7280; line-height: 1.5; }
@@ -292,7 +293,7 @@
     border-radius: 6px; font-size: 13px; outline: none;
     background: #fff;
   }
-  .filter-bar select:focus, .filter-bar input:focus { border-color: #3b82f6; }
+  .filter-bar select:focus, .filter-bar input:focus { border-color: #3c8b86; }
 
   /* Modal */
   .modal-overlay {
@@ -315,7 +316,7 @@
     border: 1px solid #d1d5db; border-radius: 6px;
     font-size: 13px; outline: none;
   }
-  .form-control:focus { border-color: #3b82f6; }
+  .form-control:focus { border-color: #3c8b86; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
 
@@ -361,7 +362,7 @@
     letter-spacing: 2px; transition: border-color 0.2s;
     margin-bottom: 16px;
   }
-  .login-input:focus { border-color: #3b82f6; }
+  .login-input:focus { border-color: #3c8b86; }
   .login-btn {
     width: 100%; padding: 12px;
     background: #1a1a2e; color: #fff;
@@ -476,7 +477,7 @@
       </div>
     </div>
     <div style="padding:8px 16px 4px;font-size:11px;color:rgba(255,255,255,0.5)">案件</div>
-    <div style="padding:4px 16px 12px;font-size:13px;font-weight:600;color:#7eb3ff;border-bottom:1px solid rgba(255,255,255,0.1)" id="selected-project-name">—</div>
+    <div style="padding:4px 16px 12px;font-size:13px;font-weight:600;color:#a8dbd9;border-bottom:1px solid rgba(255,255,255,0.1)" id="selected-project-name">—</div>
     <div class="nav-group">
       <div class="nav-label">進捗</div>
       <div class="nav-item" onclick="navigate('schedule',this)">
@@ -856,7 +857,7 @@
           </div>
         </div>
         <div style="margin-bottom:8px;font-size:11px;color:#9ca3af;display:flex;gap:16px">
-          <span>■ <span style="color:#3b82f6">完了</span></span>
+          <span>■ <span style="color:#3c8b86">完了</span></span>
           <span>■ <span style="color:#f59e0b">進行中</span></span>
           <span>■ <span style="color:#e2e8f0">計画</span></span>
         </div>
@@ -1030,14 +1031,14 @@
       <div class="resource-grid">
         <div class="resource-card">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <div class="avatar" style="background:#3b82f6">田中</div>
+            <div class="avatar" style="background:#3c8b86">田中</div>
             <div>
               <div class="resource-name">田中 一郎</div>
               <div class="resource-role">プロジェクトマネージャー</div>
             </div>
           </div>
           <div class="resource-util">
-            <span>稼働率</span><span style="font-weight:600;color:#3b82f6">85%</span>
+            <span>稼働率</span><span style="font-weight:600;color:#3c8b86">85%</span>
           </div>
           <div class="progress-bar-wrap"><div class="progress-bar" style="width:85%"></div></div>
           <div style="margin-top:10px;font-size:12px">
