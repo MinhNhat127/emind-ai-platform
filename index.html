@@ -438,49 +438,78 @@
     🏭 E-Mind Platform
     <span id="sidebar-company-name">会社ユーザー</span>
   </div>
-  <div class="nav-group">
-    <div class="nav-label">メイン</div>
-    <div class="nav-item active" onclick="navigate('schedule',this)">
-      <span class="nav-icon">📅</span> スケジュール管理
+
+  <!-- Level 1: Default nav (always shown) -->
+  <div id="nav-level1">
+    <div class="nav-group">
+      <div class="nav-label">メイン</div>
+      <div class="nav-item active" onclick="navigate('projects',this)">
+        <span class="nav-icon">📁</span> 案件管理
+      </div>
+      <div class="nav-item" onclick="navigate('users',this)">
+        <span class="nav-icon">👤</span> ユーザー管理
+      </div>
     </div>
-    <div class="nav-item" onclick="navigate('progress',this)">
-      <span class="nav-icon">📊</span> 進捗（タスク）管理
+    <div class="nav-group">
+      <div class="nav-label">コミュニケーション</div>
+      <div class="nav-item" onclick="navigate('chat',this)">
+        <span class="nav-icon">💬</span> チャット
+        <span class="notif" style="margin-left:auto">5</span>
+      </div>
     </div>
-    <div class="nav-item" onclick="navigate('resource',this)">
-      <span class="nav-icon">👥</span> リソース管理
-    </div>
-  </div>
-  <div class="nav-group">
-    <div class="nav-label">管理</div>
-    <div class="nav-item" onclick="navigate('qa',this)">
-      <span class="nav-icon">❓</span> 質問管理
-      <span class="notif" style="margin-left:auto">3</span>
-    </div>
-    <div class="nav-item" onclick="navigate('issues',this)">
-      <span class="nav-icon">⚠️</span> 課題管理
-      <span class="notif" style="margin-left:auto">2</span>
-    </div>
-    <div class="nav-item" onclick="navigate('report',this)">
-      <span class="nav-icon">📋</span> 報告書作成
-    </div>
-  </div>
-  <div class="nav-group">
-    <div class="nav-label">コミュニケーション</div>
-    <div class="nav-item" onclick="navigate('files',this)">
-      <span class="nav-icon">📁</span> ファイル共有
-    </div>
-    <div class="nav-item" onclick="navigate('chat',this)">
-      <span class="nav-icon">💬</span> チャット機能
-      <span class="notif" style="margin-left:auto">5</span>
+    <div class="nav-group">
+      <div class="nav-label">サポート</div>
+      <div class="nav-item" onclick="navigate('help',this)">
+        <span class="nav-icon">🆘</span> ヘルプ
+      </div>
+      <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.4)">
+        <span class="nav-icon">🚪</span> ログアウト
+      </div>
     </div>
   </div>
-  <div class="nav-group">
-    <div class="nav-label">サポート</div>
-    <div class="nav-item" onclick="navigate('help', this)">
-      <span class="nav-icon">🆘</span> ヘルプ機能
+
+  <!-- Level 2: Project nav (shown when project is selected) -->
+  <div id="nav-level2" style="display:none">
+    <div class="nav-group">
+      <div class="nav-item" onclick="backToProjects()" style="color:rgba(255,255,255,0.5);font-size:12px">
+        <span class="nav-icon">←</span> 案件一覧へ戻る
+      </div>
     </div>
-    <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.4)">
-      <span class="nav-icon">🚪</span> ログアウト
+    <div style="padding:8px 16px 4px;font-size:11px;color:rgba(255,255,255,0.5)">案件</div>
+    <div style="padding:4px 16px 12px;font-size:13px;font-weight:600;color:#7eb3ff;border-bottom:1px solid rgba(255,255,255,0.1)" id="selected-project-name">—</div>
+    <div class="nav-group">
+      <div class="nav-label">進捗</div>
+      <div class="nav-item" onclick="navigate('schedule',this)">
+        <span class="nav-icon">📅</span> スケジュール
+      </div>
+      <div class="nav-item" onclick="navigate('progress',this)">
+        <span class="nav-icon">📊</span> タスク管理
+      </div>
+      <div class="nav-item" onclick="navigate('resource',this)">
+        <span class="nav-icon">👥</span> リソース管理
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">管理</div>
+      <div class="nav-item" onclick="navigate('qa',this)">
+        <span class="nav-icon">❓</span> 質問管理
+        <span class="notif" style="margin-left:auto">3</span>
+      </div>
+      <div class="nav-item" onclick="navigate('issues',this)">
+        <span class="nav-icon">⚠️</span> 課題管理
+        <span class="notif" style="margin-left:auto">2</span>
+      </div>
+      <div class="nav-item" onclick="navigate('report',this)">
+        <span class="nav-icon">📋</span> 報告書
+      </div>
+      <div class="nav-item" onclick="navigate('files',this)">
+        <span class="nav-icon">🗂️</span> ファイル共有
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.4)">
+        <span class="nav-icon">🚪</span> ログアウト
+      </div>
     </div>
   </div>
 </div>
@@ -500,6 +529,202 @@
   </div>
 
   <div class="content">
+
+    <!-- ===== 案件管理 (COMPANY) ===== -->
+    <div class="page" id="page-projects">
+      <div class="section-header">
+        <div class="section-title">📁 案件管理</div>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('modal-project').classList.add('open')">+ 案件登録</button>
+      </div>
+      <div class="filter-bar">
+        <input type="text" placeholder="🔍 案件名・コードで検索" style="width:220px">
+        <select>
+          <option>全ステータス</option>
+          <option>進行中</option>
+          <option>予定</option>
+          <option>完了</option>
+          <option>保留</option>
+        </select>
+      </div>
+      <div class="card" style="padding:0">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>案件コード</th>
+              <th>案件名</th>
+              <th>ステータス</th>
+              <th>開始日</th>
+              <th>終了日</th>
+              <th>メンバー数</th>
+              <th>進捗</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag">PRJ-001</span></td>
+              <td><strong>A社 製造ライン改修</strong></td>
+              <td><span class="badge badge-blue">進行中</span></td>
+              <td>2025/01/10</td>
+              <td>2025/06/30</td>
+              <td>5名</td>
+              <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="progress-bar-wrap" style="min-width:80px"><div class="progress-bar" style="width:68%"></div></div>
+                  <span style="font-size:12px;color:#374151">68%</span>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" onclick="openProject('PRJ-001','A社 製造ライン改修')">開く</button>
+                <button class="btn btn-outline btn-sm">編集</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="tag">PRJ-002</span></td>
+              <td><strong>B社 設備導入</strong></td>
+              <td><span class="badge badge-orange">予定</span></td>
+              <td>2025/04/01</td>
+              <td>2025/09/30</td>
+              <td>3名</td>
+              <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="progress-bar-wrap" style="min-width:80px"><div class="progress-bar" style="width:10%;background:#f59e0b"></div></div>
+                  <span style="font-size:12px;color:#374151">10%</span>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" onclick="openProject('PRJ-002','B社 設備導入')">開く</button>
+                <button class="btn btn-outline btn-sm">編集</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="tag">PRJ-003</span></td>
+              <td><strong>C社 品質改善プロジェクト</strong></td>
+              <td><span class="badge badge-green">完了</span></td>
+              <td>2024/09/01</td>
+              <td>2025/02/28</td>
+              <td>4名</td>
+              <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="progress-bar-wrap" style="min-width:80px"><div class="progress-bar" style="width:100%;background:#10b981"></div></div>
+                  <span style="font-size:12px;color:#374151">100%</span>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" onclick="openProject('PRJ-003','C社 品質改善プロジェクト')">開く</button>
+                <button class="btn btn-outline btn-sm">編集</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="tag">PRJ-004</span></td>
+              <td><strong>D社 PLCシステム更新</strong></td>
+              <td><span class="badge badge-gray">保留</span></td>
+              <td>2025/03/01</td>
+              <td>2025/08/31</td>
+              <td>2名</td>
+              <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="progress-bar-wrap" style="min-width:80px"><div class="progress-bar" style="width:25%;background:#9ca3af"></div></div>
+                  <span style="font-size:12px;color:#374151">25%</span>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" onclick="openProject('PRJ-004','D社 PLCシステム更新')">開く</button>
+                <button class="btn btn-outline btn-sm">編集</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:12px;color:#9ca3af;text-align:right;margin-top:8px">全4件</div>
+    </div>
+
+    <!-- ===== ユーザー管理 (COMPANY) ===== -->
+    <div class="page" id="page-users">
+      <div class="section-header">
+        <div class="section-title">👤 ユーザー管理</div>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('modal-user').classList.add('open')">+ ユーザー追加</button>
+      </div>
+      <div class="filter-bar">
+        <input type="text" placeholder="🔍 名前・メールで検索" style="width:220px">
+        <select>
+          <option>全権限</option>
+          <option>プロジェクトマネージャー</option>
+          <option>メンバー</option>
+        </select>
+        <select>
+          <option>全ステータス</option>
+          <option>有効</option>
+          <option>無効</option>
+        </select>
+      </div>
+      <div class="card" style="padding:0">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>名前</th>
+              <th>メールアドレス</th>
+              <th>権限</th>
+              <th>参加案件数</th>
+              <th>ステータス</th>
+              <th>登録日</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px">田中</div><strong>田中 一郎</strong></div></td>
+              <td>tanaka@emind.co.jp</td>
+              <td><span class="badge badge-purple">PM</span></td>
+              <td>3件</td>
+              <td><span class="status-active">● 有効</span></td>
+              <td>2025/01/01</td>
+              <td>
+                <button class="btn btn-outline btn-sm">編集</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b">無効化</button>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:#10b981">佐藤</div><strong>佐藤 花子</strong></div></td>
+              <td>sato@emind.co.jp</td>
+              <td><span class="badge badge-blue">メンバー</span></td>
+              <td>2件</td>
+              <td><span class="status-active">● 有効</span></td>
+              <td>2025/01/15</td>
+              <td>
+                <button class="btn btn-outline btn-sm">編集</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b">無効化</button>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:#8b5cf6">山田</div><strong>山田 次郎</strong></div></td>
+              <td>yamada@emind.co.jp</td>
+              <td><span class="badge badge-blue">メンバー</span></td>
+              <td>1件</td>
+              <td><span class="status-active">● 有効</span></td>
+              <td>2025/02/01</td>
+              <td>
+                <button class="btn btn-outline btn-sm">編集</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b">無効化</button>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:#f59e0b">LINH</div><strong>LINH Nguyen</strong></div></td>
+              <td>linh@emind.co.jp</td>
+              <td><span class="badge badge-purple">PM</span></td>
+              <td>2件</td>
+              <td><span class="status-active">● 有効</span></td>
+              <td>2025/02/15</td>
+              <td>
+                <button class="btn btn-outline btn-sm">編集</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b">無効化</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:12px;color:#9ca3af;text-align:right;margin-top:8px">全4名</div>
+    </div>
 
     <!-- ===== 会社管理 (ADMIN) ===== -->
     <div class="page" id="page-companies">
@@ -1372,6 +1597,79 @@
   </div>
 </div>
 
+<!-- Modal: 案件登録 -->
+<div class="modal-overlay" id="modal-project">
+  <div class="modal">
+    <div class="modal-title">📁 案件登録</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">案件コード *</label>
+        <input class="form-control" type="text" placeholder="PRJ-005">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ステータス</label>
+        <select class="form-control">
+          <option>予定</option><option>進行中</option><option>保留</option><option>完了</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">案件名 *</label>
+      <input class="form-control" type="text" placeholder="案件名を入力">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">開始日</label>
+        <input class="form-control" type="date">
+      </div>
+      <div class="form-group">
+        <label class="form-label">終了日</label>
+        <input class="form-control" type="date">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">備考</label>
+      <textarea class="form-control" rows="3" placeholder="備考を入力"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="document.getElementById('modal-project').classList.remove('open')">キャンセル</button>
+      <button class="btn btn-primary" onclick="document.getElementById('modal-project').classList.remove('open')">登録</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: ユーザー追加 -->
+<div class="modal-overlay" id="modal-user">
+  <div class="modal">
+    <div class="modal-title">👤 ユーザー追加</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">姓</label>
+        <input class="form-control" type="text" placeholder="田中">
+      </div>
+      <div class="form-group">
+        <label class="form-label">名</label>
+        <input class="form-control" type="text" placeholder="一郎">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">メールアドレス *</label>
+      <input class="form-control" type="email" placeholder="email@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">権限</label>
+      <select class="form-control">
+        <option>メンバー</option>
+        <option>プロジェクトマネージャー</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="document.getElementById('modal-user').classList.remove('open')">キャンセル</button>
+      <button class="btn btn-primary" onclick="document.getElementById('modal-user').classList.remove('open')">招待メール送信</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal: 会社登録/編集 -->
 <div class="modal-overlay" id="modal-company">
   <div class="modal">
@@ -1470,16 +1768,21 @@
 <script>
 // ===== PAGE CONFIG =====
 const pages = {
-  companies:{ id: 'page-companies', title: '会社管理', adminOnly: true },
+  // Admin
+  companies:{ id: 'page-companies', title: '会社管理' },
+  // Company level-1
+  projects: { id: 'page-projects',  title: '案件管理' },
+  users:    { id: 'page-users',     title: 'ユーザー管理' },
+  chat:     { id: 'page-chat',      title: 'チャット' },
+  help:     { id: 'page-help',      title: 'ヘルプ' },
+  // Company level-2 (project-specific)
   schedule: { id: 'page-schedule',  title: 'スケジュール管理' },
-  progress: { id: 'page-progress',  title: '進捗（タスク）管理' },
+  progress: { id: 'page-progress',  title: 'タスク管理' },
   resource: { id: 'page-resource',  title: 'リソース管理' },
   qa:       { id: 'page-qa',        title: '質問管理' },
   issues:   { id: 'page-issues',    title: '課題管理' },
-  report:   { id: 'page-report',    title: '報告書作成（出勤表）' },
+  report:   { id: 'page-report',    title: '報告書作成' },
   files:    { id: 'page-files',     title: 'ファイル共有' },
-  chat:     { id: 'page-chat',      title: 'チャット機能' },
-  help:     { id: 'page-help',      title: 'ヘルプ機能' },
 };
 
 // ===== USERS =====
@@ -1515,10 +1818,12 @@ function doLogin() {
   } else {
     document.getElementById('sidebar-admin').style.display = 'none';
     document.getElementById('sidebar-company').style.display = 'flex';
-    document.getElementById('project-select').style.display = 'block';
+    document.getElementById('project-select').style.display = 'none';
     document.getElementById('user-avatar').textContent = user.avatar;
     if (user.companyName) document.getElementById('sidebar-company-name').textContent = user.companyName;
-    navigate('schedule', document.querySelector('#sidebar-company .nav-item.active'));
+    // Show level-1 nav, navigate to project list
+    showNavLevel(1);
+    navigate('projects', document.querySelector('#nav-level1 .nav-item'));
   }
 }
 
@@ -1530,6 +1835,25 @@ function doLogout() {
   document.getElementById('login-id').value = '';
   document.getElementById('sidebar-admin').style.display = 'none';
   document.getElementById('sidebar-company').style.display = 'none';
+}
+
+// ===== NAV LEVEL SWITCH =====
+function showNavLevel(level) {
+  document.getElementById('nav-level1').style.display = level === 1 ? 'block' : 'none';
+  document.getElementById('nav-level2').style.display = level === 2 ? 'block' : 'none';
+}
+
+// ===== OPEN PROJECT =====
+function openProject(code, name) {
+  document.getElementById('selected-project-name').textContent = name;
+  showNavLevel(2);
+  navigate('schedule', document.querySelector('#nav-level2 .nav-item[onclick*="schedule"]'));
+}
+
+// ===== BACK TO PROJECTS =====
+function backToProjects() {
+  showNavLevel(1);
+  navigate('projects', document.querySelector('#nav-level1 .nav-item'));
 }
 
 // ===== NAVIGATE =====
