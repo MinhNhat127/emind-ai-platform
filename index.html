@@ -1061,6 +1061,185 @@
   .billing-table .badge-confirmed { background: #d1fae5; color: #065f46; border-radius: 99px; padding: 2px 10px; font-size: 11px; font-weight: 600; }
   .billing-dl { background: none; border: none; color: #0ABAB5; cursor: pointer; font-size: 13px; padding: 0; text-decoration: underline; }
 
+  /* ===== NEW PRICING CARDS & TABS (MATCHING DESIGN SCREENSHOTS) ===== */
+  .plan-overview-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #4b5563;
+  }
+  .plan-overview-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .plan-overview-badge.badge-std-mint {
+    background: #e6fcf5;
+    color: #00bba7;
+    border: 1px solid #c3fae8;
+  }
+  .plan-overview-badge.badge-pro-purple {
+    background: #ede9fe;
+    color: #6366f1;
+    border: 1px solid #ddd6fe;
+  }
+  .plan-overview-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .plan-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 900px) {
+    .plan-grid-3 { grid-template-columns: 1fr; }
+  }
+
+  .plan-box-card {
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px 22px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    transition: all 0.2s ease;
+  }
+  .plan-box-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .plan-box-card.card-current {
+    border-color: #00bba7;
+    box-shadow: 0 0 0 1px #00bba7, 0 4px 16px rgba(0, 187, 167, 0.08);
+  }
+  .plan-box-card.card-recommended {
+    border-color: #818cf8;
+    box-shadow: 0 0 0 1px #818cf8, 0 4px 16px rgba(99, 102, 241, 0.08);
+  }
+
+  .plan-box-tag {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1;
+    min-height: 14px;
+  }
+  .plan-box-tag.tag-current {
+    color: #00bba7;
+  }
+  .plan-box-tag.tag-recommended {
+    color: #6366f1;
+  }
+  .plan-box-tag.tag-empty {
+    visibility: hidden;
+  }
+
+  .plan-box-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 14px;
+  }
+
+  .plan-box-price-wrap {
+    margin-bottom: 22px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .plan-box-price {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.5px;
+  }
+  .plan-box-period {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 400;
+  }
+
+  .plan-box-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex: 1;
+  }
+  .plan-box-feat-row {
+    font-size: 14px;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-plan-action {
+    width: 100%;
+    padding: 11px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    box-sizing: border-box;
+  }
+  .btn-plan-action.btn-select {
+    background: #00bba7;
+    color: #ffffff;
+  }
+  .btn-plan-action.btn-select:hover {
+    background: #00a493;
+    box-shadow: 0 4px 12px rgba(0, 187, 167, 0.25);
+  }
+  .btn-plan-action.btn-current-disabled {
+    background: #ffffff;
+    border: 1.5px solid #d1d5db;
+    color: #6b7280;
+    cursor: default;
+  }
+
+  /* Modern Pills Tab Bar */
+  .modern-pill-tabs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .modern-pill-tab {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    user-select: none;
+  }
+  .modern-pill-tab:hover {
+    background: #f3f4f6;
+    color: #111827;
+  }
+  .modern-pill-tab.active {
+    background: #00bba7;
+    color: #ffffff;
+  }
+
   /* ===== Plan tabs ===== */
   .plan-tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb; padding-bottom: 0; flex-wrap: wrap; }
   .plan-tab { padding: 8px 16px; font-size: 13px; font-weight: 500; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; border-radius: 4px 4px 0 0; transition: all 0.15s; }
@@ -1617,10 +1796,10 @@
     <div class="nav-group">
       <div class="nav-label">GÓI DỊCH VỤ</div>
       <div class="nav-item" onclick="navigate('my-plan',this)">
-        <span class="nav-icon">📦</span> Gói cước Doanh nghiệp
+        <span class="nav-icon">📦</span> Quản lý gói công ty
       </div>
       <div class="nav-item" onclick="navigate('personal-plan',this)">
-        <span class="nav-icon">👤</span> Gói cước Cá nhân
+        <span class="nav-icon">👤</span> Quản lý gói cá nhân
       </div>
     </div>
     <div class="nav-group">
@@ -1690,8 +1869,8 @@
 <!-- Main -->
 <div class="main">
   <div class="header">
-    <div class="header-title" id="page-title">スケジュール管理</div>
-    <div class="header-actions">
+    <div class="header-title" id="page-title">Bàn Điều Hành</div>
+    <div class="header-actions" style="display:flex;align-items:center;gap:12px">
       <select id="project-select" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;display:none">
         <option>案件：A社 製造ライン改修</option>
         <option>案件：B社 設備導入</option>
@@ -1700,7 +1879,17 @@
       <button class="btn btn-outline btn-sm" id="role-switcher" onclick="switchRole()" style="display:none">
         <span id="role-switcher-label">🏢 Projectモードへ</span>
       </button>
-      <div class="avatar" id="user-avatar">--</div>
+      <button class="btn-icon" style="background:none;border:none;cursor:pointer;font-size:16px;color:#6b7280;padding:4px" title="Thông báo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      </button>
+      <button class="btn-icon" style="background:none;border:none;cursor:pointer;font-size:16px;color:#6b7280;padding:4px" onclick="navigate('chat', this)" title="Tin nhắn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      </button>
+      <div style="font-size:13px;font-weight:600;color:#374151;display:flex;align-items:center;gap:4px;cursor:pointer;padding:4px 8px;border-radius:6px;background:#f3f4f6">
+        <span>VN</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+      <div class="avatar" id="user-avatar" style="background:#fef3c7;color:#92400e;font-weight:700">NH</div>
     </div>
   </div>
 
@@ -2153,13 +2342,6 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Noto Sans JP', 'Segoe UI', -apple-system, sans-serif; background: #f1f5f9; color: #0f172a; }
 
-  /* Demo Comparison Header Bar */
-  
-  
-  
-  
-  
-
   /* Main Container */
   .dash-container {
     max-width: 1360px;
@@ -2344,47 +2526,6 @@
   }
   .donut-legend-item:hover { background: #e6f7f6; border-color: #089490; }
 
-  /* Table */
-  .vb-table-panel {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 22px 24px;
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.03);
-  }
-  .vb-search-input {
-    padding: 7px 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 12.5px;
-    width: 250px;
-    outline: none;
-    transition: border-color 0.15s ease;
-  }
-  .vb-search-input:focus { border-color: #089490; box-shadow: 0 0 0 3px rgba(8, 148, 144, 0.12); }
-
-  .vb-data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12.5px;
-    margin-top: 14px;
-  }
-  .vb-data-table th {
-    background: #f8fafc;
-    color: #475569;
-    font-weight: 700;
-    text-align: left;
-    padding: 11px 14px;
-    border-bottom: 1px solid #e2e8f0;
-    white-space: nowrap;
-  }
-  .vb-data-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid #f1f5f9;
-    color: #334155;
-  }
-  .vb-data-table tr:hover td { background: #f0fdfa; }
-
   .vb-btn-sm {
     background: #ffffff;
     border: 1px solid #cbd5e1;
@@ -2446,78 +2587,6 @@
     border-radius: 12px !important;
     padding: 22px 24px !important;
   }
-  .vb-table-panel {
-    background: #ffffff;
-    border: 1px solid rgba(226, 232, 240, 0.8) !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02) !important;
-    border-radius: 12px !important;
-    padding: 22px 24px !important;
-  }
-  .vb-data-table th {
-    background: #f8fafc !important;
-    color: #64748b !important;
-    font-size: 11px !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    padding: 12px 14px !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-  }
-  .vb-data-table td {
-    padding: 13px 14px !important;
-    border-bottom: 1px solid #f1f5f9 !important;
-    vertical-align: middle !important;
-  }
-  .vb-data-table tr:hover td {
-    background: #f8fafc !important;
-  }
-
-  /* Client Logo Avatar */
-  .client-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12.5px;
-    font-weight: 800;
-    flex-shrink: 0;
-    letter-spacing: -0.3px;
-  }
-  .client-avatar-b2b {
-    background: #e6f7f6;
-    color: #089490;
-    border: 1px solid rgba(8, 148, 144, 0.2);
-  }
-  .client-avatar-b2c {
-    background: #e0f4fc;
-    color: #009BCC;
-    border: 1px solid rgba(0, 155, 204, 0.2);
-    border-radius: 50%;
-  }
-  .client-avatar-trial {
-    background: #fef3c7;
-    color: #d97706;
-    border: 1px solid rgba(217, 119, 6, 0.25);
-  }
-
-  .client-action-btn {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    color: #475569;
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 11.5px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  .client-action-btn:hover {
-    background: #089490;
-    border-color: #089490;
-    color: #ffffff;
-  }
       </style>
 
       <div class="vb-dash-wrap">
@@ -2536,6 +2605,13 @@
       </div>
 
       <div class="vb-top-actions">
+        <!-- Segment Filter: Toàn bộ / Doanh nghiệp / Cá nhân -->
+        <div class="vb-pill-group" id="vb-segment-group">
+          <button class="vb-pill-btn active" id="btn-seg-all" onclick="filterSegment('ALL')">Toàn bộ</button>
+          <button class="vb-pill-btn" id="btn-seg-b2b" onclick="filterSegment('B2B')">🏢 Doanh nghiệp</button>
+          <button class="vb-pill-btn" id="btn-seg-b2c" onclick="filterSegment('B2C')">👤 Cá nhân</button>
+        </div>
+
         <select id="vb-period-select" onchange="changeDashboardPeriod(this.value)" style="padding:6px 12px;border-radius:8px;border:1px solid #cbd5e1;font-size:12px;font-weight:600;color:#0f172a;background:#fff;cursor:pointer">
           <option value="2026-09" selected>📅 Tháng 09/2026 (Kỳ hiện tại)</option>
           <option value="2026-08">Tháng 08/2026</option>
@@ -2553,7 +2629,7 @@
       </div>
     </div>
 
-    <!-- 4 Unified KPI Cards -->
+    <!-- 4 Unified KPI Cards (Tách Bạch Rõ Ràng Doanh Nghiệp vs Người Dùng) -->
     <div class="vb-kpi-grid">
       
       <!-- Card 1: Khách Hàng -->
@@ -2565,34 +2641,16 @@
           </div>
           <div style="margin-top:2px">
             <span class="vb-kpi-val" id="val-cust">116</span>
-            <span class="vb-kpi-sub">đối tác</span>
+            <span class="vb-kpi-sub" id="sub-cust">đối tác & cá nhân</span>
           </div>
         </div>
-        <div class="vb-kpi-footer">
-          <span class="vb-badge">+18 tháng này</span>
-          <span style="color:#64748b;font-size:11.5px">32 Doanh nghiệp • 84 Cá nhân</span>
+        <div class="vb-kpi-footer" style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
+          <span style="color:#089490;font-weight:700" id="lbl-cust-b2b" title="14 Enterprise + 48 Professional">🏢 62 Doanh nghiệp</span>
+          <span style="color:#009BCC;font-weight:700" id="lbl-cust-b2c" title="42 Basic trả phí + 12 Dùng thử">👤 54 Cá nhân</span>
         </div>
       </div>
 
-      <!-- Card 2: Tài Khoản & Bản Quyền -->
-      <div class="vb-kpi-card">
-        <div>
-          <div class="vb-kpi-header">
-            <span class="vb-kpi-label">TÀI KHOẢN HOẠT ĐỘNG</span>
-            <span class="vb-kpi-icon">👥</span>
-          </div>
-          <div style="margin-top:2px">
-            <span class="vb-kpi-val" id="val-users">512</span>
-            <span class="vb-kpi-sub">người dùng</span>
-          </div>
-        </div>
-        <div class="vb-kpi-footer">
-          <span class="vb-badge">↑ +16.2% MoM</span>
-          <span style="color:#64748b;font-size:11.5px">428 Ghế DN (89%) • 84 Cá nhân</span>
-        </div>
-      </div>
-
-      <!-- Card 3: Doanh Thu Hợp Nhất -->
+      <!-- Card 2: Doanh Thu MRR -->
       <div class="vb-kpi-card">
         <div>
           <div class="vb-kpi-header">
@@ -2601,28 +2659,48 @@
           </div>
           <div style="margin-top:2px">
             <span class="vb-kpi-val" id="val-mrr">¥340,000</span>
+            <span class="vb-kpi-sub" style="font-size:11px;color:#64748b" id="lbl-arr-val">/tháng (ARR: ¥4.08M)</span>
           </div>
         </div>
-        <div class="vb-kpi-footer">
-          <span class="vb-badge">↗ +3.3% vs T8</span>
-          <span style="color:#64748b;font-size:11.5px" id="lbl-mrr-split">DN: ¥248k (73%) • B2C: ¥92k (27%)</span>
+        <div class="vb-kpi-footer" style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
+          <span style="color:#089490;font-weight:700" id="lbl-mrr-b2b" title="Gói Enterprise + Professional">🏢 DN: ¥292.4k (86%)</span>
+          <span style="color:#009BCC;font-weight:700" id="lbl-mrr-b2c" title="Gói Basic cá nhân">👤 Cá nhân: ¥47.6k (14%)</span>
         </div>
       </div>
 
-      <!-- Card 4: AI Dự Báo Toàn Sàn -->
-      <div class="vb-kpi-card" style="border-top:3px solid #009BCC;background:linear-gradient(180deg,#f0f9ff 0%,#fff 100%)">
+      <!-- Card 3: Thực Thu Tháng 09 -->
+      <div class="vb-kpi-card" style="border-top:3px solid #089490">
         <div>
           <div class="vb-kpi-header">
-            <span class="vb-kpi-label" style="color:#009BCC">✨ AI DỰ BÁO (THÁNG 10)</span>
-            <span class="vb-kpi-icon" style="background:#e0f4fc;color:#009BCC">🔮</span>
+            <span class="vb-kpi-label" style="color:#089490">THỰC THU THÁNG 09</span>
+            <span class="vb-kpi-icon" style="background:#e6f7f6;color:#089490">💵</span>
           </div>
           <div style="margin-top:2px">
-            <span class="vb-kpi-val" id="val-ai" style="color:#009BCC">¥367,000</span>
+            <span class="vb-kpi-val" id="val-cash-in" style="color:#089490">¥112,000</span>
+            <span class="vb-kpi-sub" style="font-size:11px;color:#64748b" id="sub-cash">tiền về két</span>
           </div>
         </div>
-        <div class="vb-kpi-footer">
-          <span class="vb-badge" style="background:#e0f4fc;color:#007ea6">🔮 95% tin cậy</span>
-          <span style="color:#007ea6;font-weight:700;font-size:11.5px" id="lbl-ai-growth">+7.9% (+¥27k toàn sàn)</span>
+        <div class="vb-kpi-footer" style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
+          <span style="color:#089490;font-weight:700" id="lbl-cash-b2b" title="Gói tháng DN + Ký mới T9">🏢 DN: ¥94,000</span>
+          <span style="color:#009BCC;font-weight:700" id="lbl-cash-b2c" title="Gói tháng người dùng">👤 Cá nhân: ¥18,000</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Thu Lại Năm 2027 (Gói 1 Năm) -->
+      <div class="vb-kpi-card" style="border-top:3px solid #009BCC">
+        <div>
+          <div class="vb-kpi-header">
+            <span class="vb-kpi-label" style="color:#009BCC">THU LẠI NĂM 2027 (GÓI NĂM)</span>
+            <span class="vb-kpi-icon" style="background:#e0f4fc;color:#009BCC">🎯</span>
+          </div>
+          <div style="margin-top:2px">
+            <span class="vb-kpi-val" id="val-deferred" style="color:#009BCC">¥1,744,000</span>
+            <span class="vb-kpi-sub" style="font-size:11px;color:#009BCC" id="sub-def">26 HĐ</span>
+          </div>
+        </div>
+        <div class="vb-kpi-footer" style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
+          <span style="color:#089490;font-weight:700" id="lbl-def-b2b" title="20 HĐ doanh nghiệp tái ký">🏢 DN: ¥1.52M (20 HĐ)</span>
+          <span style="color:#009BCC;font-weight:700" id="lbl-def-b2c" title="6 HĐ cá nhân tái ký">👤 Cá nhân: ¥224k (6 HĐ)</span>
         </div>
       </div>
 
@@ -2635,457 +2713,227 @@
       <div class="vb-panel">
         <div class="vb-panel-header">
           <div>
-            <h3 class="vb-panel-title">Diễn Biến Doanh Thu MRR</h3>
-            <p class="vb-panel-desc">Thực tế T1–T8 • Kỳ hiện tại T9 • Dự báo AI Q4 (T10–T12)</p>
+            <h3 class="vb-panel-title">Diễn Biến Doanh Thu Năm 2026</h3>
+            <p class="vb-panel-desc">Doanh thu người dùng &amp; đối tác theo 3 gói chính (Enterprise • Professional • Basic) • Biến động theo chu kỳ kinh doanh</p>
           </div>
-          <div style="display:flex;gap:8px;align-items:center;font-size:11.5px;font-weight:700">
-            <span style="display:inline-flex;align-items:center;gap:5px;background:#e6f7f6;color:#089490;padding:3px 8px;border-radius:6px">
-              <span style="width:10px;height:10px;border-radius:2px;background:#089490"></span> Doanh Nghiệp (73%)
+          <div style="display:flex;align-items:center;gap:12px;font-size:11.5px">
+            <span style="display:flex;align-items:center;gap:5px">
+              <span style="width:11px;height:11px;border-radius:2px;background:#089490"></span>
+              <strong style="color:#089490" id="legend-ent">Enterprise (48%)</strong>
             </span>
-            <span style="display:inline-flex;align-items:center;gap:5px;background:#e0f4fc;color:#009BCC;padding:3px 8px;border-radius:6px">
-              <span style="width:10px;height:10px;border-radius:2px;background:#009BCC"></span> Cá Nhân (27%)
+            <span style="display:flex;align-items:center;gap:5px">
+              <span style="width:11px;height:11px;border-radius:2px;background:#009BCC"></span>
+              <strong style="color:#009BCC" id="legend-pro">Professional (38%)</strong>
             </span>
-            <span style="display:inline-flex;align-items:center;gap:5px;background:#f8fafc;color:#0f172a;padding:3px 8px;border-radius:6px;border:1px solid #cbd5e1">
-              ✨ Dự Báo Q4
+            <span style="display:flex;align-items:center;gap:5px">
+              <span style="width:11px;height:11px;border-radius:2px;background:#f59e0b"></span>
+              <strong style="color:#d97706" id="legend-basic">Basic (14%)</strong>
             </span>
           </div>
-        </div>
-
-        <!-- Tooltip Banner (Clean Minimalist) -->
-        <div id="bar-chart-tooltip" style="background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #089490;border-radius:8px;padding:8px 14px;font-size:12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;transition:all 0.15s ease">
-          <div>
-            <span style="color:#089490;font-size:11px;font-weight:800;letter-spacing:0.3px" id="btip-title">THÁNG 09/2026 (HIỆN TẠI)</span>:
-            <strong style="color:#0f172a;font-size:14px;margin-left:6px" id="btip-val">¥340,000 MRR</strong>
-          </div>
-          <span style="color:#64748b;font-size:11.5px" id="btip-sub">Doanh nghiệp: <strong style="color:#089490">¥248,000</strong> (73%) • Cá nhân: <strong style="color:#009BCC">¥92,000</strong> (27%)</span>
         </div>
 
         <!-- SVG Stacked Bar Chart -->
-        <div style="position:relative;width:100%;height:220px">
+        <div style="position:relative;width:100%;height:230px;margin-top:14px">
           <svg viewBox="0 0 660 205" style="width:100%;height:100%;overflow:visible">
             <defs>
-              <linearGradient id="stkB2B" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0abab5"/><stop offset="100%" stop-color="#089490"/></linearGradient>
-              <linearGradient id="stkB2C" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#009BCC"/></linearGradient>
+              <linearGradient id="stkEnt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0abab5"/><stop offset="100%" stop-color="#089490"/></linearGradient>
+              <linearGradient id="stkPro" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#009BCC"/></linearGradient>
+              <linearGradient id="stkBasic" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
             </defs>
-            <rect x="492" y="25" width="158" height="135" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-dasharray="4 4"/>
-            <line x1="50" y1="55" x2="650" y2="55" stroke="#f1f5f9" stroke-dasharray="3 3"/>
-            <line x1="50" y1="90" x2="650" y2="90" stroke="#f1f5f9" stroke-dasharray="3 3"/>
-            <line x1="50" y1="125" x2="650" y2="125" stroke="#f1f5f9" stroke-dasharray="3 3"/>
+
+            <!-- Background grid lines & Axis -->
+            <line x1="50" y1="40" x2="650" y2="40" stroke="#f1f5f9" stroke-dasharray="3 3"/>
+            <line x1="50" y1="85" x2="650" y2="85" stroke="#f1f5f9" stroke-dasharray="3 3"/>
+            <line x1="50" y1="130" x2="650" y2="130" stroke="#f1f5f9" stroke-dasharray="3 3"/>
             <line x1="50" y1="25" x2="50" y2="160" stroke="#cbd5e1" stroke-width="1.5"/>
             <line x1="50" y1="160" x2="650" y2="160" stroke="#cbd5e1" stroke-width="1.5"/>
-            <text x="44" y="59" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end" id="y-lbl-300">400k</text>
-            <text x="44" y="94" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end" id="y-lbl-200">250k</text>
-            <text x="44" y="129" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end" id="y-lbl-100">100k</text>
+            <text x="44" y="44" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end" id="y-lbl-300">400k</text>
+            <text x="44" y="89" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end" id="y-lbl-200">250k</text>
+            <text x="44" y="134" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end" id="y-lbl-100">100k</text>
             <text x="44" y="163" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end">0</text>
 
-            <line x1="492" y1="20" x2="492" y2="160" stroke="#009BCC" stroke-width="2" stroke-dasharray="4 3"/>
-            <text x="492" y="14" font-size="8.5" font-weight="800" fill="#009BCC" text-anchor="middle">Hôm nay (16/09)</text>
+            <!-- Khung vùng dự báo Q4 -->
+            <rect x="492" y="25" width="158" height="135" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+            <line x1="492" y1="20" x2="492" y2="160" stroke="#089490" stroke-width="1.8" stroke-dasharray="4 3"/>
+            <text x="492" y="14" font-size="8.5" font-weight="800" fill="#089490" text-anchor="middle">Hôm nay (16/09)</text>
 
-            <!-- T1: B2B=185k (h=55,y=105), B2C=52k (h=20,y=85) -> Total=237k -->
-            <rect class="chart-bar" x="60" y="105" width="32" height="55" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 01/2026', '¥237,000', '$1,576', '¥185,000', '¥52,000', false)"/>
-            <rect class="chart-bar" x="60" y="85" width="32" height="20" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 01/2026', '¥237,000', '$1,576', '¥185,000', '¥52,000', false)"/>
+            <!-- T1: ¥278k (Ent: ¥144k • Pro: ¥96k • Basic: ¥38k) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="60" y="117" width="32" height="43" rx="2" fill="url(#stkEnt)" title="Tháng 01/2026: ¥278,000 (Enterprise: ¥144k • Professional: ¥96k • Basic: ¥38k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="60" y="88" width="32" height="29" rx="2" fill="url(#stkPro)" title="Tháng 01/2026: ¥278,000 (Enterprise: ¥144k • Professional: ¥96k • Basic: ¥38k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="60" y="77" width="32" height="11" rx="2" fill="url(#stkBasic)" title="Tháng 01/2026: ¥278,000 (Enterprise: ¥144k • Professional: ¥96k • Basic: ¥38k)"/>
             <text x="76" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T1</text>
 
-            <!-- T2: Total 253k -->
-            <rect class="chart-bar" x="108" y="102" width="32" height="58" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 02/2026', '¥253,000', '$1,686', '¥195,000', '¥58,000', false)"/>
-            <rect class="chart-bar" x="108" y="80" width="32" height="22" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 02/2026', '¥253,000', '$1,686', '¥195,000', '¥58,000', false)"/>
+            <!-- T2: ¥245k (Tháng Tết / ít ngày - giảm nhẹ) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="108" y="124" width="32" height="36" rx="2" fill="url(#stkEnt)" title="Tháng 02/2026 (Tết/ngắn ngày): ¥245,000 (Enterprise: ¥120k • Professional: ¥88k • Basic: ¥37k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="108" y="97" width="32" height="27" rx="2" fill="url(#stkPro)" title="Tháng 02/2026 (Tết/ngắn ngày): ¥245,000 (Enterprise: ¥120k • Professional: ¥88k • Basic: ¥37k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="108" y="86" width="32" height="11" rx="2" fill="url(#stkBasic)" title="Tháng 02/2026 (Tết/ngắn ngày): ¥245,000 (Enterprise: ¥120k • Professional: ¥88k • Basic: ¥37k)"/>
             <text x="124" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T2</text>
 
-            <!-- T3: Total 272k -->
-            <rect class="chart-bar" x="156" y="97" width="32" height="63" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 03/2026', '¥272,000', '$1,811', '¥208,000', '¥64,000', false)"/>
-            <rect class="chart-bar" x="156" y="74" width="32" height="23" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 03/2026', '¥272,000', '$1,811', '¥208,000', '¥64,000', false)"/>
+            <!-- T3: ¥312k (Chốt Quý 1 - cao điểm chốt KPI & ngân sách đầu năm) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="156" y="113" width="32" height="47" rx="2" fill="url(#stkEnt)" title="Tháng 03/2026 (Chốt Q1): ¥312,000 (Enterprise: ¥156k • Professional: ¥115k • Basic: ¥41k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="156" y="78" width="32" height="35" rx="2" fill="url(#stkPro)" title="Tháng 03/2026 (Chốt Q1): ¥312,000 (Enterprise: ¥156k • Professional: ¥115k • Basic: ¥41k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="156" y="66" width="32" height="12" rx="2" fill="url(#stkBasic)" title="Tháng 03/2026 (Chốt Q1): ¥312,000 (Enterprise: ¥156k • Professional: ¥115k • Basic: ¥41k)"/>
             <text x="172" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T3</text>
 
-            <!-- T4: Total 288k -->
-            <rect class="chart-bar" x="204" y="94" width="32" height="66" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 04/2026', '¥288,000', '$1,916', '¥218,000', '¥70,000', false)"/>
-            <rect class="chart-bar" x="204" y="69" width="32" height="25" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 04/2026', '¥288,000', '$1,916', '¥218,000', '¥70,000', false)"/>
+            <!-- T4: ¥285k (Đầu Quý 2 - nhịp chững tự nhiên) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="204" y="119" width="32" height="41" rx="2" fill="url(#stkEnt)" title="Tháng 04/2026 (Đầu Q2): ¥285,000 (Enterprise: ¥135k • Professional: ¥108k • Basic: ¥42k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="204" y="87" width="32" height="32" rx="2" fill="url(#stkPro)" title="Tháng 04/2026 (Đầu Q2): ¥285,000 (Enterprise: ¥135k • Professional: ¥108k • Basic: ¥42k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="204" y="74" width="32" height="13" rx="2" fill="url(#stkBasic)" title="Tháng 04/2026 (Đầu Q2): ¥285,000 (Enterprise: ¥135k • Professional: ¥108k • Basic: ¥42k)"/>
             <text x="220" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T4</text>
 
-            <!-- T5: Total 304k -->
-            <rect class="chart-bar" x="252" y="90" width="32" height="70" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 05/2026', '¥304,000', '$2,026', '¥228,000', '¥76,000', false)"/>
-            <rect class="chart-bar" x="252" y="64" width="32" height="26" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 05/2026', '¥304,000', '$2,026', '¥228,000', '¥76,000', false)"/>
+            <!-- T5: ¥318k (Phục hồi giữa Quý 2) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="252" y="113" width="32" height="47" rx="2" fill="url(#stkEnt)" title="Tháng 05/2026: ¥318,000 (Enterprise: ¥155k • Professional: ¥120k • Basic: ¥43k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="252" y="77" width="32" height="36" rx="2" fill="url(#stkPro)" title="Tháng 05/2026: ¥318,000 (Enterprise: ¥155k • Professional: ¥120k • Basic: ¥43k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="252" y="64" width="32" height="13" rx="2" fill="url(#stkBasic)" title="Tháng 05/2026: ¥318,000 (Enterprise: ¥155k • Professional: ¥120k • Basic: ¥43k)"/>
             <text x="268" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T5</text>
 
-            <!-- T6: Total 316k -->
-            <rect class="chart-bar" x="300" y="88" width="32" height="72" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 06/2026', '¥316,000', '$2,105', '¥235,000', '¥81,000', false)"/>
-            <rect class="chart-bar" x="300" y="60" width="32" height="28" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 06/2026', '¥316,000', '$2,105', '¥235,000', '¥81,000', false)"/>
+            <!-- T6: ¥358k (Chốt nửa đầu năm H1 - đỉnh tăng trưởng) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="300" y="106" width="32" height="54" rx="2" fill="url(#stkEnt)" title="Tháng 06/2026 (Chốt H1): ¥358,000 (Enterprise: ¥180k • Professional: ¥132k • Basic: ¥46k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="300" y="66" width="32" height="40" rx="2" fill="url(#stkPro)" title="Tháng 06/2026 (Chốt H1): ¥358,000 (Enterprise: ¥180k • Professional: ¥132k • Basic: ¥46k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="300" y="52" width="32" height="14" rx="2" fill="url(#stkBasic)" title="Tháng 06/2026 (Chốt H1): ¥358,000 (Enterprise: ¥180k • Professional: ¥132k • Basic: ¥46k)"/>
             <text x="316" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T6</text>
 
-            <!-- T7: Total 325k -->
-            <rect class="chart-bar" x="348" y="86" width="32" height="74" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 07/2026', '¥325,000', '$2,166', '¥240,000', '¥85,000', false)"/>
-            <rect class="chart-bar" x="348" y="57" width="32" height="29" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 07/2026', '¥325,000', '$2,166', '¥240,000', '¥85,000', false)"/>
+            <!-- T7: ¥305k (Đầu Quý 3 / Mùa nghỉ hè Obon - giảm nhẹ) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="348" y="116" width="32" height="44" rx="2" fill="url(#stkEnt)" title="Tháng 07/2026 (Mùa hè): ¥305,000 (Enterprise: ¥145k • Professional: ¥115k • Basic: ¥45k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="348" y="81" width="32" height="35" rx="2" fill="url(#stkPro)" title="Tháng 07/2026 (Mùa hè): ¥305,000 (Enterprise: ¥145k • Professional: ¥115k • Basic: ¥45k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="348" y="67" width="32" height="14" rx="2" fill="url(#stkBasic)" title="Tháng 07/2026 (Mùa hè): ¥305,000 (Enterprise: ¥145k • Professional: ¥115k • Basic: ¥45k)"/>
             <text x="364" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T7</text>
 
-            <!-- T8: Total 332k -->
-            <rect class="chart-bar" x="396" y="85" width="32" height="75" rx="2" fill="url(#stkB2B)" onmouseover="hoverDual('Tháng 08/2026', '¥332,000', '$2,211', '¥244,000', '¥88,000', false)"/>
-            <rect class="chart-bar" x="396" y="55" width="32" height="30" rx="2" fill="url(#stkB2C)" onmouseover="hoverDual('Tháng 08/2026', '¥332,000', '$2,211', '¥244,000', '¥88,000', false)"/>
+            <!-- T8: ¥322k (Tăng trưởng trở lại sau hè) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="396" y="113" width="32" height="47" rx="2" fill="url(#stkEnt)" title="Tháng 08/2026: ¥322,000 (Enterprise: ¥155k • Professional: ¥122k • Basic: ¥45k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="396" y="76" width="32" height="37" rx="2" fill="url(#stkPro)" title="Tháng 08/2026: ¥322,000 (Enterprise: ¥155k • Professional: ¥122k • Basic: ¥45k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="396" y="62" width="32" height="14" rx="2" fill="url(#stkBasic)" title="Tháng 08/2026: ¥322,000 (Enterprise: ¥155k • Professional: ¥122k • Basic: ¥45k)"/>
             <text x="412" y="176" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">T8</text>
 
-            <!-- T9: Total 340k (LIVE) -->
-            <rect class="chart-bar" x="444" y="83" width="32" height="77" rx="2" fill="#089490" stroke="#0f172a" stroke-width="1.8" onmouseover="hoverDual('Tháng 09/2026 (Hiện tại)', '¥340,000', '$2,263', '¥248,000', '¥92,000', false)"/>
-            <rect class="chart-bar" x="444" y="52" width="32" height="31" rx="2" fill="#009BCC" stroke="#0f172a" stroke-width="1.8" onmouseover="hoverDual('Tháng 09/2026 (Hiện tại)', '¥340,000', '$2,263', '¥248,000', '¥92,000', false)"/>
-            <rect x="445" y="36" width="30" height="12" rx="3" fill="#089490"/>
-            <text x="460" y="45" font-size="7.5" font-weight="800" fill="#fff" text-anchor="middle">LIVE</text>
+            <!-- T9: ¥340k (LIVE - Hiện tại) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="444" y="111" width="32" height="49" rx="2" fill="#089490" stroke="#0f172a" stroke-width="1.5" title="Tháng 09/2026 (LIVE): ¥340,000 (Enterprise: ¥163.2k • Professional: ¥129.2k • Basic: ¥47.6k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="444" y="72" width="32" height="39" rx="2" fill="#009BCC" stroke="#0f172a" stroke-width="1.5" title="Tháng 09/2026 (LIVE): ¥340,000 (Enterprise: ¥163.2k • Professional: ¥129.2k • Basic: ¥47.6k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="444" y="58" width="32" height="14" rx="2" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5" title="Tháng 09/2026 (LIVE): ¥340,000 (Enterprise: ¥163.2k • Professional: ¥129.2k • Basic: ¥47.6k)"/>
+            <rect x="445" y="42" width="30" height="12" rx="3" fill="#089490"/>
+            <text x="460" y="51" font-size="7.5" font-weight="800" fill="#fff" text-anchor="middle">LIVE</text>
             <text x="460" y="176" font-size="10" font-weight="800" fill="#089490" text-anchor="middle">T9</text>
 
-            <!-- T10*: Total 367k (AI) -->
-            <rect class="chart-bar" x="504" y="79" width="32" height="81" rx="2" fill="#089490" opacity="0.8" stroke="#089490" stroke-dasharray="3 2" onmouseover="hoverDual('Tháng 10/2026 (Dự báo AI)', '¥367,000', '$2,445', '¥262,000', '¥105,000', true)"/>
-            <rect class="chart-bar" x="504" y="44" width="32" height="35" rx="2" fill="#009BCC" opacity="0.8" stroke="#009BCC" stroke-dasharray="3 2" onmouseover="hoverDual('Tháng 10/2026 (Dự báo AI)', '¥367,000', '$2,445', '¥262,000', '¥105,000', true)"/>
+            <!-- T10*: ¥328k (Dự báo T10 theo từng gói) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="504" y="115" width="32" height="45" rx="2" fill="#089490" opacity="0.85" stroke="#089490" stroke-dasharray="3 2" title="Tháng 10/2026 (Dự kiến theo gói): ¥328,000 (Enterprise: ¥150k • Professional: ¥130k • Basic: ¥48k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="504" y="76" width="32" height="39" rx="2" fill="#009BCC" opacity="0.85" stroke="#009BCC" stroke-dasharray="3 2" title="Tháng 10/2026 (Dự kiến theo gói): ¥328,000 (Enterprise: ¥150k • Professional: ¥130k • Basic: ¥48k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="504" y="62" width="32" height="14" rx="2" fill="#f59e0b" opacity="0.85" stroke="#f59e0b" stroke-dasharray="3 2" title="Tháng 10/2026 (Dự kiến theo gói): ¥328,000 (Enterprise: ¥150k • Professional: ¥130k • Basic: ¥48k)"/>
             <text x="520" y="176" font-size="10" font-weight="700" fill="#009BCC" text-anchor="middle">T10*</text>
 
-            <!-- T11*: Total 391k (AI) -->
-            <rect class="chart-bar" x="552" y="75" width="32" height="85" rx="2" fill="#089490" opacity="0.8" stroke="#089490" stroke-dasharray="3 2" onmouseover="hoverDual('Tháng 11/2026 (Dự báo AI)', '¥391,000', '$2,603', '¥275,000', '¥116,000', true)"/>
-            <rect class="chart-bar" x="552" y="36" width="32" height="39" rx="2" fill="#009BCC" opacity="0.8" stroke="#009BCC" stroke-dasharray="3 2" onmouseover="hoverDual('Tháng 11/2026 (Dự báo AI)', '¥391,000', '$2,603', '¥275,000', '¥116,000', true)"/>
+            <!-- T11*: ¥385k (Dự báo T11 - đợt chuẩn bị ngân sách năm mới) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="552" y="101" width="32" height="59" rx="2" fill="#089490" opacity="0.85" stroke="#089490" stroke-dasharray="3 2" title="Tháng 11/2026 (Dự kiến theo gói): ¥385,000 (Enterprise: ¥195k • Professional: ¥140k • Basic: ¥50k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="552" y="59" width="32" height="42" rx="2" fill="#009BCC" opacity="0.85" stroke="#009BCC" stroke-dasharray="3 2" title="Tháng 11/2026 (Dự kiến theo gói): ¥385,000 (Enterprise: ¥195k • Professional: ¥140k • Basic: ¥50k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="552" y="44" width="32" height="15" rx="2" fill="#f59e0b" opacity="0.85" stroke="#f59e0b" stroke-dasharray="3 2" title="Tháng 11/2026 (Dự kiến theo gói): ¥385,000 (Enterprise: ¥195k • Professional: ¥140k • Basic: ¥50k)"/>
             <text x="568" y="176" font-size="10" font-weight="700" fill="#009BCC" text-anchor="middle">T11*</text>
 
-            <!-- T12: Total 418k (Mục tiêu Q4) -->
-            <rect class="chart-bar" x="600" y="70" width="32" height="90" rx="2" fill="#089490" onmouseover="hoverDual('Tháng 12/2026 (Mục tiêu Q4)', '¥418,000', '$2,786', '¥290,000', '¥128,000', true)"/>
-            <rect class="chart-bar" x="600" y="28" width="32" height="42" rx="2" fill="#009BCC" onmouseover="hoverDual('Tháng 12/2026 (Mục tiêu Q4)', '¥418,000', '$2,786', '¥290,000', '¥128,000', true)"/>
+            <!-- T12: ¥425k (Dự báo T12 - Đỉnh chốt năm Q4) -->
+            <rect class="chart-bar bar-ent bar-b2b" x="600" y="94" width="32" height="66" rx="2" fill="#089490" opacity="0.85" stroke="#089490" stroke-dasharray="3 2" title="Tháng 12/2026 (Mục tiêu chốt năm theo gói): ¥425,000 (Enterprise: ¥220k • Professional: ¥152k • Basic: ¥53k)"/>
+            <rect class="chart-bar bar-pro bar-b2b" x="600" y="48" width="32" height="46" rx="2" fill="#009BCC" opacity="0.85" stroke="#009BCC" stroke-dasharray="3 2" title="Tháng 12/2026 (Mục tiêu chốt năm theo gói): ¥425,000 (Enterprise: ¥220k • Professional: ¥152k • Basic: ¥53k)"/>
+            <rect class="chart-bar bar-basic bar-b2c" x="600" y="32" width="32" height="16" rx="2" fill="#f59e0b" opacity="0.85" stroke="#f59e0b" stroke-dasharray="3 2" title="Tháng 12/2026 (Mục tiêu chốt năm theo gói): ¥425,000 (Enterprise: ¥220k • Professional: ¥152k • Basic: ¥53k)"/>
             <text x="616" y="176" font-size="10" font-weight="800" fill="#00779e" text-anchor="middle">T12 🎯</text>
-            <text x="616" y="22" font-size="8.5" font-weight="800" fill="#00779e" text-anchor="middle">Q4</text>
+            <text x="616" y="24" font-size="8.5" font-weight="800" fill="#00779e" text-anchor="middle">Q4</text>
           </svg>
         </div>
       </div>
 
-      <!-- Panel 2: Revenue Share Donut (73% B2B vs 27% B2C) + Paid Plans Breakdown -->
+      <!-- Panel 2: Revenue Share Donut + Paid Plans Breakdown -->
       <div class="vb-panel" style="display:flex;flex-direction:column;justify-content:space-between">
         <div>
           <div class="vb-panel-header">
             <div>
-              <h3 class="vb-panel-title">Tỷ Trọng Doanh Thu B2B vs B2C</h3>
-              <p class="vb-panel-desc">Cơ cấu nguồn thu theo phân khúc</p>
+              <h3 class="vb-panel-title">Cơ Cấu Doanh Thu Theo Gói</h3>
+              <p class="vb-panel-desc">Tỷ trọng đóng góp 3 gói sản phẩm (Enterprise • Professional • Basic)</p>
             </div>
-            <span style="font-size:11.5px;color:#089490;font-weight:700;cursor:pointer" onclick="filterDashTable('')">⊞ Xem tất cả</span>
           </div>
 
-          <div style="display:flex;align-items:center;gap:18px;margin:6px 0 12px">
-            <div style="position:relative;width:105px;height:105px;flex-shrink:0">
+          <div style="display:flex;align-items:center;gap:18px;margin:14px 0 16px">
+            <div style="position:relative;width:115px;height:115px;flex-shrink:0">
               <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg)">
                 <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="4.5" />
-                <!-- Doanh nghiệp 73% Deep Teal (#089490) -->
-                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#089490" stroke-width="4.5" stroke-dasharray="73 27" stroke-dashoffset="0" stroke-linecap="round"/>
-                <!-- Cá nhân 27% Cyan (#009BCC) -->
-                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#009BCC" stroke-width="4.5" stroke-dasharray="27 73" stroke-dashoffset="-73" stroke-linecap="round"/>
+                <!-- Enterprise 48% Deep Teal (#089490) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#089490" stroke-width="4.5" stroke-dasharray="48 52" stroke-dashoffset="0" stroke-linecap="round"/>
+                <!-- Professional 38% Cyan (#009BCC) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#009BCC" stroke-width="4.5" stroke-dasharray="38 62" stroke-dashoffset="-48" stroke-linecap="round"/>
+                <!-- Basic 14% Amber (#f59e0b) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b" stroke-width="4.5" stroke-dasharray="14 86" stroke-dashoffset="-86" stroke-linecap="round"/>
               </svg>
               <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
                 <span style="font-size:18px;font-weight:800;color:#089490;line-height:1" id="donut-center-val">¥340K</span>
-                <span style="font-size:9.5px;color:#64748b;margin-top:2px">Tổng MRR</span>
+                <span style="font-size:9.5px;color:#64748b;margin-top:2px">Doanh thu T9</span>
               </div>
             </div>
 
-            <div style="flex:1;display:flex;flex-direction:column;gap:6px">
-              <div class="donut-legend-item" onclick="filterDashTable('Doanh Nghiệp')" title="Nhấp để lọc danh sách khách hàng doanh nghiệp" style="padding:6px 10px;border-radius:6px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+              <div class="donut-legend-item" style="padding:7px 12px;border-radius:8px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center">
                 <span style="display:flex;align-items:center;gap:7px;font-size:12px">
-                  <span style="width:10px;height:10px;border-radius:2px;background:#089490"></span>
-                  <span><strong>Doanh Nghiệp (B2B)</strong></span>
+                  <span style="width:11px;height:11px;border-radius:2px;background:#089490"></span>
+                  <span><strong>Enterprise</strong> <span style="font-size:10.5px;color:#64748b">(¥2.4k~3k)</span></span>
                 </span>
-                <strong style="color:#089490;font-size:12px">73% (¥248,000)</strong>
+                <strong style="color:#089490;font-size:12px" id="lbl-ent-val">48% (¥163.2k)</strong>
               </div>
 
-              <div class="donut-legend-item" onclick="filterDashTable('Cá Nhân')" title="Nhấp để lọc danh sách người dùng cá nhân" style="padding:6px 10px;border-radius:6px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+              <div class="donut-legend-item" style="padding:7px 12px;border-radius:8px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center">
                 <span style="display:flex;align-items:center;gap:7px;font-size:12px">
-                  <span style="width:10px;height:10px;border-radius:2px;background:#009BCC"></span>
-                  <span><strong>Cá Nhân (B2C)</strong></span>
+                  <span style="width:11px;height:11px;border-radius:2px;background:#009BCC"></span>
+                  <span><strong>Professional</strong> <span style="font-size:10.5px;color:#64748b">(¥1.2k~1.5k)</span></span>
                 </span>
-                <strong style="color:#009BCC;font-size:12px">27% (¥92,000)</strong>
+                <strong style="color:#009BCC;font-size:12px" id="lbl-pro-val">38% (¥129.2k)</strong>
+              </div>
+
+              <div class="donut-legend-item" style="padding:7px 12px;border-radius:8px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center">
+                <span style="display:flex;align-items:center;gap:7px;font-size:12px">
+                  <span style="width:11px;height:11px;border-radius:2px;background:#f59e0b"></span>
+                  <span><strong>Basic</strong> <span style="font-size:10.5px;color:#64748b">(¥640~800)</span></span>
+                </span>
+                <strong style="color:#d97706;font-size:12px" id="lbl-basic-val">14% (¥47.6k)</strong>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Các Gói Trả Phí & Chu Kỳ (Sếp yêu cầu) -->
+        <!-- Các Kỳ Thanh Toán Theo Gói Chuẩn -->
         <div style="border-top:1px dashed #e2e8f0;padding-top:10px;margin-top:2px">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.4px">Cơ Cấu Gói Trả Phí (Chu Kỳ)</span>
+            <span style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.4px">3 Kỳ Thanh Toán Theo Gói</span>
             <span style="font-size:10.5px;color:#089490;font-weight:600">104 hợp đồng trả phí</span>
           </div>
 
           <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
-            <!-- Gói 1 Năm -->
-            <div onclick="filterDashTable('Năm')" style="background:#f0fdfa;border:1px solid #ccfbf1;border-radius:8px;padding:8px 9px;cursor:pointer;transition:all 0.15s ease" title="Bấm để lọc các hợp đồng Gói 1 Năm (-15%)">
+            <!-- Theo Năm -->
+            <div style="background:#f0fdfa;border:1px solid #ccfbf1;border-radius:8px;padding:8px 9px" title="Đã thu trước 1 lần - Sang năm 2027 mới thu tiền lại khi đáo hạn">
               <div style="display:flex;justify-content:space-between;align-items:center">
-                <span style="font-size:11px;font-weight:700;color:#089490">Gói 1 Năm</span>
-                <span style="font-size:9px;background:#089490;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700">-15%</span>
+                <span style="font-size:11px;font-weight:700;color:#089490">Theo Năm</span>
+                <span style="font-size:8.5px;background:#089490;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700">-20% TỐT NHẤT</span>
               </div>
               <div style="font-size:14.5px;font-weight:800;color:#0f172a;margin:3px 0 1px" id="plan-val-annual">¥218,000</div>
-              <div style="font-size:10.5px;color:#64748b"><strong>26</strong> hợp đồng (64%)</div>
+              <div style="font-size:10px;color:#089490;font-weight:700">26 HĐ (Đã trả trước)</div>
+              <div style="font-size:9px;color:#64748b;margin-top:2px">Sang năm 2027 thu lại</div>
             </div>
 
-            <!-- Gói 1 Tháng -->
-            <div onclick="filterDashTable('Tháng')" style="background:#f0f9ff;border:1px solid #e0f2fe;border-radius:8px;padding:8px 9px;cursor:pointer;transition:all 0.15s ease" title="Bấm để lọc các hợp đồng Gói 1 Tháng">
+            <!-- Theo Quý -->
+            <div style="background:#f0f9ff;border:1px solid #e0f2fe;border-radius:8px;padding:8px 9px" title="Chu kỳ 3 tháng - Giảm 10%">
               <div style="display:flex;justify-content:space-between;align-items:center">
-                <span style="font-size:11px;font-weight:700;color:#009BCC">Gói 1 Tháng</span>
-                <span style="font-size:9px;background:#e0f2fe;color:#009BCC;padding:1px 4px;border-radius:3px;font-weight:700">Định kỳ</span>
+                <span style="font-size:11px;font-weight:700;color:#009BCC">Theo Quý</span>
+                <span style="font-size:9px;background:#e0f2fe;color:#009BCC;padding:1px 4px;border-radius:3px;font-weight:700">-10%</span>
+              </div>
+              <div style="font-size:14.5px;font-weight:800;color:#0f172a;margin:3px 0 1px" id="plan-val-quarterly">¥48,000</div>
+              <div style="font-size:10px;color:#009BCC;font-weight:700">14 HĐ (Kỳ 3 Tháng)</div>
+              <div style="font-size:9px;color:#64748b;margin-top:2px">Thu 4 đợt / năm</div>
+            </div>
+
+            <!-- Theo Tháng -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 9px" title="Thu tiền định kỳ đều đặn mỗi tháng">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:11px;font-weight:700;color:#475569">Theo Tháng</span>
+                <span style="font-size:9px;background:#f1f5f9;color:#475569;padding:1px 4px;border-radius:3px;font-weight:700">Định kỳ</span>
               </div>
               <div style="font-size:14.5px;font-weight:800;color:#0f172a;margin:3px 0 1px" id="plan-val-monthly">¥74,000</div>
-              <div style="font-size:10.5px;color:#64748b"><strong>66</strong> tài khoản (22%)</div>
-            </div>
-
-            <!-- Gói 6 Tháng -->
-            <div onclick="filterDashTable('6 Tháng')" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 9px;cursor:pointer;transition:all 0.15s ease" title="Bấm để lọc các hợp đồng Gói 6 Tháng (-6%)">
-              <div style="display:flex;justify-content:space-between;align-items:center">
-                <span style="font-size:11px;font-weight:700;color:#475569">Gói 6 Tháng</span>
-                <span style="font-size:9px;background:#f1f5f9;color:#475569;padding:1px 4px;border-radius:3px;font-weight:700">-6%</span>
-              </div>
-              <div style="font-size:14.5px;font-weight:800;color:#0f172a;margin:3px 0 1px" id="plan-val-semiannual">¥48,000</div>
-              <div style="font-size:10.5px;color:#64748b"><strong>12</strong> hợp đồng (14%)</div>
+              <div style="font-size:10px;color:#475569;font-weight:700">64 TK (Thu đều)</div>
+              <div style="font-size:9px;color:#64748b;margin-top:2px">Thu tiền mỗi tháng</div>
             </div>
           </div>
         </div>
       </div>
 
-    </div>
-
-    <!-- Table Panel: Unified List with Segment Filters -->
-    <div class="vb-table-panel">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-        <div>
-          <div style="font-size:16px;font-weight:800;color:#0f172a">
-            Danh Sách Khách Hàng (116)
-          </div>
-          <div style="font-size:11.5px;color:#64748b;margin-top:2px" id="table-filter-status">
-            Tất cả khách hàng (32 Doanh nghiệp • 84 Cá nhân)
-          </div>
-        </div>
-
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <input type="text" class="vb-search-input" id="dash-search-input" placeholder="🔍 Tìm tên công ty, cá nhân, email..." onkeyup="filterDashTable(this.value)">
-          <button class="vb-btn-sm active-filter" id="f-all" onclick="filterDashTable('')">Tất cả (116)</button>
-          <button class="vb-btn-sm" id="f-b2b" onclick="filterDashTable('Doanh Nghiệp')">Doanh Nghiệp (32)</button>
-          <button class="vb-btn-sm" id="f-b2c" onclick="filterDashTable('Cá Nhân')">Cá Nhân (84)</button>
-          <button class="vb-btn-sm" id="f-annual" onclick="filterDashTable('Năm')">Gói Năm (26)</button>
-          <button class="vb-btn-sm" id="f-monthly" onclick="filterDashTable('Tháng')">Gói Tháng (66)</button>
-          <button class="vb-btn-sm" id="f-act" onclick="filterDashTable('Active')">Active (89)</button>
-          <button class="vb-btn-sm" id="f-tri" onclick="filterDashTable('Trial')">Trial (15)</button>
-        </div>
-      </div>
-
-      <table class="vb-data-table" id="main-data-table" style="margin-top:14px">
-        <thead>
-          <tr>
-            <th>Khách Hàng</th>
-            <th>Phân Khúc</th>
-            <th>Gói Cước</th>
-            <th>Quy Mô / Ghế</th>
-            <th>MRR</th>
-            <th>Hạn Hợp Đồng</th>
-            <th>Trạng Thái</th>
-            <th style="text-align:center">Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody id="main-tbody">
-          <!-- B2B Enterprise Rows -->
-          <tr class="data-row" data-type="Doanh Nghiệp" data-status="Active" data-mrr-jpy="48000" data-mrr-usd="320">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-b2b">AG</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">Apex Global Logistics</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">CMP-001 • Vận tải & Chuỗi cung ứng</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-teal">Doanh nghiệp</span></td>
-            <td><strong style="color:#089490;font-size:12.5px">PRO (1 Năm)</strong></td>
-            <td>
-              <div style="width:115px">
-                <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">
-                  <strong style="color:#0f172a">78</strong>
-                  <span style="color:#94a3b8">/ 80 ghế (97%)</span>
-                </div>
-                <div style="height:5px;background:#f1f5f9;border-radius:99px;overflow:hidden">
-                  <div style="height:100%;background:linear-gradient(90deg,#089490,#0abab5);width:97%;border-radius:99px"></div>
-                </div>
-              </div>
-            </td>
-            <td><strong style="color:#089490;font-size:13.5px" class="row-mrr">¥48,000</strong></td>
-            <td><span style="color:#475569;font-size:12px">2026-06-30</span></td>
-            <td><span style="color:#089490;font-weight:700;font-size:12px">● Active</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết Apex')">Chi tiết ↗</button></td>
-          </tr>
-
-          <tr class="data-row" data-type="Doanh Nghiệp" data-status="Active" data-mrr-jpy="42000" data-mrr-usd="280">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-b2b">YS</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">Yamato Smart Tech</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">CMP-003 • Điện toán đám mây</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-teal">Doanh nghiệp</span></td>
-            <td><strong style="color:#089490;font-size:12.5px">PRO (1 Năm)</strong></td>
-            <td>
-              <div style="width:115px">
-                <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">
-                  <strong style="color:#0f172a">62</strong>
-                  <span style="color:#94a3b8">/ 65 ghế (95%)</span>
-                </div>
-                <div style="height:5px;background:#f1f5f9;border-radius:99px;overflow:hidden">
-                  <div style="height:100%;background:linear-gradient(90deg,#089490,#0abab5);width:95%;border-radius:99px"></div>
-                </div>
-              </div>
-            </td>
-            <td><strong style="color:#089490;font-size:13.5px" class="row-mrr">¥42,000</strong></td>
-            <td><span style="color:#475569;font-size:12px">2026-09-30</span></td>
-            <td><span style="color:#089490;font-weight:700;font-size:12px">● Active</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết Yamato')">Chi tiết ↗</button></td>
-          </tr>
-
-          <tr class="data-row" data-type="Doanh Nghiệp" data-status="Active" data-mrr-jpy="36000" data-mrr-usd="240">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-b2b">MF</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">Mirai FinTech Corp</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">CMP-004 • Tài chính & AI</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-teal">Doanh nghiệp</span></td>
-            <td><strong style="color:#089490;font-size:12.5px">PRO (6 Tháng)</strong></td>
-            <td>
-              <div style="width:115px">
-                <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">
-                  <strong style="color:#0f172a">53</strong>
-                  <span style="color:#94a3b8">/ 55 ghế (96%)</span>
-                </div>
-                <div style="height:5px;background:#f1f5f9;border-radius:99px;overflow:hidden">
-                  <div style="height:100%;background:linear-gradient(90deg,#089490,#0abab5);width:96%;border-radius:99px"></div>
-                </div>
-              </div>
-            </td>
-            <td><strong style="color:#089490;font-size:13.5px" class="row-mrr">¥36,000</strong></td>
-            <td><span style="color:#475569;font-size:12px">2026-08-15</span></td>
-            <td><span style="color:#089490;font-weight:700;font-size:12px">● Active</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết Mirai')">Chi tiết ↗</button></td>
-          </tr>
-
-          <!-- B2C Individual User Rows -->
-          <tr class="data-row" data-type="Cá Nhân" data-status="Active" data-mrr-jpy="2980" data-mrr-usd="20">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-b2c">TK</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">Tanaka Kenji</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">tanaka.k@gmail.com • Kỹ sư AI</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-cyan">Cá nhân</span></td>
-            <td><strong style="color:#009BCC;font-size:12.5px">Professional</strong></td>
-            <td>
-              <span style="display:inline-flex;align-items:center;gap:5px;color:#475569;font-size:11.5px;font-weight:600">
-                <span style="width:6px;height:6px;border-radius:50%;background:#009BCC"></span> 1 Ghế độc lập
-              </span>
-            </td>
-            <td><strong style="color:#009BCC;font-size:13.5px" class="row-mrr">¥2,980</strong></td>
-            <td><span style="color:#475569;font-size:12px">2026-10-12</span></td>
-            <td><span style="color:#089490;font-weight:700;font-size:12px">● Active</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết Tanaka')">Chi tiết ↗</button></td>
-          </tr>
-
-          <tr class="data-row" data-type="Cá Nhân" data-status="Active" data-mrr-jpy="2530" data-mrr-usd="17">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-b2c">SM</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">Sato Mayumi</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">sato_m@yahoo.co.jp • Dịch thuật viên</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-cyan">Cá nhân</span></td>
-            <td><strong style="color:#009BCC;font-size:12.5px">Professional (1 Năm)</strong></td>
-            <td>
-              <span style="display:inline-flex;align-items:center;gap:5px;color:#475569;font-size:11.5px;font-weight:600">
-                <span style="width:6px;height:6px;border-radius:50%;background:#009BCC"></span> 1 Ghế độc lập
-              </span>
-            </td>
-            <td><strong style="color:#009BCC;font-size:13.5px" class="row-mrr">¥2,530</strong></td>
-            <td><span style="color:#475569;font-size:12px">2027-02-01</span></td>
-            <td><span style="color:#089490;font-weight:700;font-size:12px">● Active</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết Sato')">Chi tiết ↗</button></td>
-          </tr>
-
-          <tr class="data-row" data-type="Cá Nhân" data-status="Active" data-mrr-jpy="1480" data-mrr-usd="10">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-b2c">NB</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">Nguyen Van Binh</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">binh.nguyen@tech.vn • Lập trình viên</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-cyan">Cá nhân</span></td>
-            <td><strong style="color:#009BCC;font-size:12.5px">Standard</strong></td>
-            <td>
-              <span style="display:inline-flex;align-items:center;gap:5px;color:#475569;font-size:11.5px;font-weight:600">
-                <span style="width:6px;height:6px;border-radius:50%;background:#009BCC"></span> 1 Ghế độc lập
-              </span>
-            </td>
-            <td><strong style="color:#009BCC;font-size:13.5px" class="row-mrr">¥1,480</strong></td>
-            <td><span style="color:#475569;font-size:12px">2026-10-18</span></td>
-            <td><span style="color:#089490;font-weight:700;font-size:12px">● Active</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết Binh')">Chi tiết ↗</button></td>
-          </tr>
-
-          <!-- Trial Rows -->
-          <tr class="data-row" data-type="Doanh Nghiệp" data-status="Trial" data-mrr-jpy="0" data-mrr-usd="0">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-trial">XYZ</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">XYZ合同会社</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">CMP-002 • Công nghệ phần mềm</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-teal">Doanh nghiệp</span></td>
-            <td><strong style="color:#d97706;font-size:12.5px">Trial (6 ngày)</strong></td>
-            <td>
-              <div style="width:115px">
-                <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">
-                  <strong style="color:#d97706">9</strong>
-                  <span style="color:#94a3b8">/ 10 ghế (90%)</span>
-                </div>
-                <div style="height:5px;background:#fef3c7;border-radius:99px;overflow:hidden">
-                  <div style="height:100%;background:#d97706;width:90%;border-radius:99px"></div>
-                </div>
-              </div>
-            </td>
-            <td><span style="color:#009BCC;font-weight:700" class="row-mrr">¥0 <small style="display:block;font-size:10px;color:#0284c7">Dự kiến ¥15k</small></span></td>
-            <td><span style="color:#475569;font-size:12px">2026-05-28</span></td>
-            <td><span style="color:#d97706;font-weight:700;font-size:12px">⏳ Trialing</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết XYZ')">Chi tiết ↗</button></td>
-          </tr>
-
-          <tr class="data-row" data-type="Cá Nhân" data-status="Trial" data-mrr-jpy="0" data-mrr-usd="0">
-            <td>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div class="client-avatar client-avatar-trial" style="border-radius:50%">YR</div>
-                <div>
-                  <div style="font-weight:700;color:#0f172a;font-size:13px;letter-spacing:-0.1px">Yamamoto Ryo</div>
-                  <div style="font-size:11px;color:#94a3b8;margin-top:1px">ryo_y@icloud.com • Thử nghiệm</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="badge-pill-cyan">Cá nhân</span></td>
-            <td><strong style="color:#0284c7;font-size:12.5px">Trial (3 ngày)</strong></td>
-            <td>
-              <span style="display:inline-flex;align-items:center;gap:5px;color:#475569;font-size:11.5px;font-weight:600">
-                <span style="width:6px;height:6px;border-radius:50%;background:#d97706"></span> 1 Ghế dùng thử
-              </span>
-            </td>
-            <td><span style="color:#009BCC;font-weight:700" class="row-mrr">¥0 <small style="display:block;font-size:10px;color:#0284c7">Dự kiến ¥1,480</small></span></td>
-            <td><span style="color:#475569;font-size:12px">2026-09-19</span></td>
-            <td><span style="color:#0284c7;font-weight:700;font-size:12px">⏳ Trialing</span></td>
-            <td style="text-align:center"><button class="client-action-btn" onclick="alert('Xem chi tiết Ryo')">Chi tiết ↗</button></td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
   
@@ -3818,89 +3666,181 @@
       </div>
     </div>
 
-    <!-- ===== マイプラン (会社Admin) ===== -->
+    <!-- ===== Quản lý gói công ty (Company Plan Management) ===== -->
     <div class="page" id="page-my-plan">
-      <div class="section-header">
-        <div class="section-title">📦 プラン管理（会社）</div>
+      <div class="section-header" style="margin-bottom: 20px;">
+        <div class="section-title" style="font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+          <span>📦</span> Quản lý gói công ty
+        </div>
       </div>
 
-      <div class="plan-tabs">
-        <div class="plan-tab active" onclick="switchPlanTab('my-plan','tab-mp-current',this)">現在のプラン</div>
-        <div class="plan-tab" onclick="switchPlanTab('my-plan','tab-mp-change',this)">プラン変更</div>
-        <div class="plan-tab" onclick="switchPlanTab('my-plan','tab-mp-billing',this)">請求履歴</div>
-        <div class="plan-tab" onclick="switchPlanTab('my-plan','tab-mp-payment',this)">支払い方法</div>
+      <div class="modern-pill-tabs">
+        <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-current',this)">Gói hiện tại</div>
+        <div class="modern-pill-tab active" onclick="switchPlanTab('my-plan','tab-mp-change',this)">Thay đổi gói</div>
+        <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-members',this)">Danh sách thành viên</div>
+        <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-billing',this)">Lịch sử thanh toán</div>
+        <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-payment',this)">Phương thức thanh toán</div>
       </div>
 
-      <!-- Tab: 現在のプラン -->
-      <div class="plan-tab-panel active" id="tab-mp-current">
+      <!-- Tab: Thay đổi gói (Active matching Screenshot 2) -->
+      <div class="plan-tab-panel active" id="tab-mp-change">
+        <div class="plan-overview-bar" id="company-overview-bar">
+          <span>Gói hiện tại:</span>
+          <span class="plan-overview-badge badge-pro-purple" id="company-current-badge">Professional</span>
+          <span class="plan-overview-price" id="company-current-price-label">¥1.500 / người / tháng</span>
+        </div>
+
+        <div class="plan-grid-3" id="company-plan-cards">
+          <!-- Starter -->
+          <div class="plan-box-card" id="card-company-Starter">
+            <div class="plan-box-tag tag-empty">&nbsp;</div>
+            <div class="plan-box-title">Starter</div>
+            <div class="plan-box-price-wrap">
+              <span class="plan-box-price">¥500</span>
+              <span class="plan-box-period">/ người / tháng</span>
+            </div>
+            <div class="plan-box-features">
+              <div class="plan-box-feat-row">Dự án: 3 dự án</div>
+              <div class="plan-box-feat-row">Lưu trữ: 5 GB</div>
+            </div>
+            <button class="btn-plan-action btn-select" onclick="chooseCompanyPlan('Starter')">Chọn</button>
+          </div>
+
+          <!-- Standard -->
+          <div class="plan-box-card" id="card-company-Standard">
+            <div class="plan-box-tag tag-empty">&nbsp;</div>
+            <div class="plan-box-title">Standard</div>
+            <div class="plan-box-price-wrap">
+              <span class="plan-box-price">¥1.000</span>
+              <span class="plan-box-period">/ người / tháng</span>
+            </div>
+            <div class="plan-box-features">
+              <div class="plan-box-feat-row">Dự án: 10 dự án</div>
+              <div class="plan-box-feat-row">Lưu trữ: 20 GB</div>
+            </div>
+            <button class="btn-plan-action btn-select" onclick="chooseCompanyPlan('Standard')">Chọn</button>
+          </div>
+
+          <!-- Professional -->
+          <div class="plan-box-card card-current" id="card-company-Professional">
+            <div class="plan-box-tag tag-current">Gói hiện tại</div>
+            <div class="plan-box-title">Professional</div>
+            <div class="plan-box-price-wrap">
+              <span class="plan-box-price">¥1.500</span>
+              <span class="plan-box-period">/ người / tháng</span>
+            </div>
+            <div class="plan-box-features">
+              <div class="plan-box-feat-row">Dự án: 50 dự án</div>
+              <div class="plan-box-feat-row">Lưu trữ: 100 GB</div>
+            </div>
+            <button class="btn-plan-action btn-current-disabled" disabled>Gói hiện tại</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Gói hiện tại -->
+      <div class="plan-tab-panel" id="tab-mp-current">
         <div class="plan-info-grid">
           <div class="plan-info-card">
-            <div class="plan-info-label">契約情報</div>
-            <div class="plan-info-row"><span class="lbl">現在のプラン</span><span><span class="badge-pro">Professional</span></span></div>
-            <div class="plan-info-row"><span class="lbl">単価</span><span class="val">¥1,500 / 人 / 月</span></div>
-            <div class="plan-info-row"><span class="lbl">メンバー数</span><span class="val">10名</span></div>
-            <div class="plan-info-row"><span class="lbl">請求サイクル</span><span class="val">月払い</span></div>
+            <div class="plan-info-label">Thông tin hợp đồng</div>
+            <div class="plan-info-row"><span class="lbl">Gói dịch vụ</span><span><span class="badge-pro" id="mp-info-badge">Professional</span></span></div>
+            <div class="plan-info-row"><span class="lbl">Đơn giá</span><span class="val" id="mp-info-unit">¥1.500 / người / tháng</span></div>
+            <div class="plan-info-row"><span class="lbl">Số thành viên đang dùng</span><span class="val">10 người</span></div>
+            <div class="plan-info-row"><span class="lbl">Chu kỳ thanh toán</span><span class="val">Theo tháng</span></div>
           </div>
           <div class="plan-info-card">
-            <div class="plan-info-label">今月の請求予定</div>
-            <div class="plan-info-row"><span class="lbl">集計期間</span><span class="val">2026-06-01〜06-30</span></div>
-            <div class="plan-info-row"><span class="lbl">現時点の予定額</span><span class="val green">¥11,516</span></div>
-            <div class="plan-info-row"><span class="lbl">請求確定日</span><span class="val">2026-06-30</span></div>
-            <div class="plan-info-row"><span class="lbl">状態</span><span><span class="billing-table"><span class="badge-pending">未確定</span></span></span></div>
+            <div class="plan-info-label">Dự toán cước tháng này</div>
+            <div class="plan-info-row"><span class="lbl">Kỳ tính cước</span><span class="val">2026-06-01 〜 2026-06-30</span></div>
+            <div class="plan-info-row"><span class="lbl">Số tiền dự tính</span><span class="val green" id="mp-info-total">¥15.000</span></div>
+            <div class="plan-info-row"><span class="lbl">Ngày chốt cước</span><span class="val">2026-06-30</span></div>
+            <div class="plan-info-row"><span class="lbl">Trạng thái</span><span><span class="badge-pending">Chờ quyết toán</span></span></div>
           </div>
         </div>
         <div class="plan-card">
-          <div class="plan-section-title">プランの機能</div>
+          <div class="plan-section-title">Quyền lợi & Tài nguyên theo gói</div>
           <div class="plan-feature-list">
-            <div class="plan-feature-item">メンバー数: 上限なし</div>
-            <div class="plan-feature-item">プロジェクト: 上限なし</div>
-            <div class="plan-feature-item">AI利用: 500回 / 月 / 人</div>
-            <div class="plan-feature-item">ストレージ: 100 GB</div>
-            <div class="plan-feature-item">サポート: メール対応</div>
+            <div class="plan-feature-item">Số dự án: 50 dự án (đang dùng: 8 dự án)</div>
+            <div class="plan-feature-item">Dung lượng lưu trữ: 100 GB (đang dùng: 14.8 GB)</div>
+            <div class="plan-feature-item">Thành viên: Tối đa 50 người dùng trong công ty</div>
+            <div class="plan-feature-item">AI Platform: Tự động phân bổ tài nguyên & telemetry</div>
+            <div class="plan-feature-item">Hỗ trợ: Ưu tiên email & kỹ thuật viên chuyên trách 24/7</div>
           </div>
         </div>
-        <div class="plan-notice">ℹ️ 今月の予定額は2026-06-30に確定されます。月途中の変更は日割りで計算されます。</div>
-        <div style="margin-top:14px;text-align:right">
-          <button class="btn btn-primary btn-sm" onclick="switchPlanTab('my-plan','tab-mp-change',null)">プランを変更する →</button>
+        <div class="plan-notice">ℹ️ Cước phí tháng này sẽ được tự động chốt và thanh toán vào ngày 30 hàng tháng. Thay đổi gói trong tháng sẽ được tính bù trừ theo tỷ lệ ngày thực tế.</div>
+        <div style="margin-top:16px;text-align:right">
+          <button class="btn btn-primary btn-sm" onclick="switchPlanTab('my-plan','tab-mp-change',null)">Nâng cấp / Thay đổi gói dịch vụ →</button>
         </div>
       </div>
 
-      <!-- Tab: プラン変更 -->
-      <div class="plan-tab-panel" id="tab-mp-change">
-        <p style="font-size:13px;color:#6b7280;margin-bottom:14px">支払いサイクルとプランを選ぶと、<strong>期間割引</strong>を反映した金額が表示されます。単価はプランマスタと連動します。</p>
-        <div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:8px">支払いサイクル</div>
-        <div class="cycle-toggle" id="mpc-cycle"></div>
-        <div style="font-size:12px;font-weight:600;color:#374151;margin:18px 0 8px">プラン</div>
-        <div class="plan-select-cards" id="mpc-cards"></div>
-        <div class="plan-card">
-          <div class="plan-section-title">お支払いシミュレーション</div>
-          <div class="sim-box" id="mpc-sim"></div>
-          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px">
-            <button class="btn btn-primary btn-sm" onclick="pcConfirm('company')">この内容で変更する</button>
+      <!-- Tab: Danh sách thành viên -->
+      <div class="plan-tab-panel" id="tab-mp-members">
+        <div class="card" style="padding:0">
+          <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e7eb">
+            <div style="font-size:14px;font-weight:700;color:#111827">Thành viên áp dụng gói cước (10 người)</div>
+            <button class="btn btn-primary btn-sm" onclick="openAddUser()">+ Thêm thành viên</button>
           </div>
-        </div>
-
-        <!-- 解約セクション -->
-        <div style="margin-top:32px;padding-top:20px;border-top:1px solid #e5e7eb">
-          <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:6px">プランの解約</div>
-          <p style="font-size:13px;color:#6b7280;margin-bottom:12px">解約すると<strong>支払い済み期間の満了まで</strong>ご利用いただけます（前払いは満了まで有効）。その後 Free プランに移行します。</p>
-          <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5" onclick="openCancelPlanModal('company')">プランを解約する</button>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Họ và tên</th>
+                <th>Email</th>
+                <th>Phân quyền</th>
+                <th>Dự án tham gia</th>
+                <th>Ngày kích hoạt</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px">NH</div><strong>Nguyễn Hoàng</strong></div></td>
+                <td>nguyen.hoang@emind.ltd</td>
+                <td><span class="badge" style="background:#ede9fe;color:#6366f1;font-weight:600">Quản trị viên công ty</span></td>
+                <td>12 dự án</td>
+                <td>2025/01/01</td>
+                <td><span class="badge-active">● Hoạt động</span></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px">TT</div><strong>Trần Tuấn</strong></div></td>
+                <td>tran.tuan@emind.ltd</td>
+                <td><span class="badge" style="background:#e0f2fe;color:#0369a1;font-weight:600">Kỹ sư trưởng</span></td>
+                <td>8 dự án</td>
+                <td>2025/01/15</td>
+                <td><span class="badge-active">● Hoạt động</span></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px">LM</div><strong>Lê Minh</strong></div></td>
+                <td>le.minh@emind.ltd</td>
+                <td><span class="badge" style="background:#e0f2fe;color:#0369a1;font-weight:600">Nhà phát triển AI</span></td>
+                <td>5 dự án</td>
+                <td>2025/02/01</td>
+                <td><span class="badge-active">● Hoạt động</span></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:11px">PH</div><strong>Phạm Hương</strong></div></td>
+                <td>pham.huong@emind.ltd</td>
+                <td><span class="badge" style="background:#fef3c7;color:#92400e;font-weight:600">Quản lý dự án</span></td>
+                <td>6 dự án</td>
+                <td>2025/03/10</td>
+                <td><span class="badge-active">● Hoạt động</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- Tab: 請求履歴 -->
+      <!-- Tab: Lịch sử thanh toán -->
       <div class="plan-tab-panel" id="tab-mp-billing">
         <div class="plan-card">
           <table class="data-table billing-table">
-            <thead><tr><th>請求月</th><th>プラン</th><th>メンバー数</th><th>金額</th><th>状態</th><th>詳細</th><th>出力</th></tr></thead>
+            <thead><tr><th>Kỳ thanh toán</th><th>Gói dịch vụ</th><th>Số lượng</th><th>Tổng cước</th><th>Trạng thái</th><th>Chi tiết</th><th>Chứng từ</th></tr></thead>
             <tbody>
               <tr>
                 <td>2026-06</td>
                 <td><span class="badge-pro">Professional</span></td>
-                <td>10名</td>
-                <td style="font-weight:600">¥11,516</td>
-                <td><span class="badge-pending">未確定</span></td>
-                <td><button class="billing-dl" onclick="toggleBillingDetail('mp-detail-jun')">▼ 詳細</button></td>
+                <td>10 người</td>
+                <td style="font-weight:700;color:#059669">¥15.000</td>
+                <td><span class="badge-pending">Chờ thanh toán</span></td>
+                <td><button class="billing-dl" onclick="toggleBillingDetail('mp-detail-jun')">▼ Chi tiết</button></td>
                 <td>
                   <div style="display:flex;gap:4px">
                     <button class="btn btn-sm" style="font-size:11px;padding:3px 7px;color:#dc2626;border-color:#fca5a5">PDF</button>
@@ -3911,36 +3851,19 @@
               <tr id="mp-detail-jun" style="display:none">
                 <td colspan="7" style="padding:0">
                   <table style="width:100%;font-size:12px;background:#f9fafb">
-                    <tr style="color:#6b7280"><th style="padding:8px 14px">期間</th><th>プラン</th><th>人数</th><th>単価</th><th>小計</th></tr>
-                    <tr><td style="padding:6px 14px">6/01〜6/09</td><td><span class="badge-std">Standard</span></td><td>8名</td><td>¥1,000</td><td>¥2,400</td></tr>
-                    <tr><td style="padding:6px 14px">6/10〜6/14</td><td><span class="badge-std">Standard</span></td><td>10名</td><td>¥1,000</td><td>¥1,666</td></tr>
-                    <tr><td style="padding:6px 14px">6/15〜6/19</td><td><span class="badge-pro">Professional</span></td><td>10名</td><td>¥1,500</td><td>¥2,500</td></tr>
-                    <tr><td style="padding:6px 14px">6/20〜6/30</td><td><span class="badge-pro">Professional</span></td><td>9名</td><td>¥1,500</td><td>¥4,950</td></tr>
-                    <tr><td colspan="4" style="padding:8px 14px;font-weight:600;text-align:right">合計</td><td style="padding:8px 14px;font-weight:700;color:#059669">¥11,516</td></tr>
+                    <tr style="color:#6b7280"><th style="padding:8px 14px">Khoảng thời gian</th><th>Gói cước</th><th>Số người</th><th>Đơn giá</th><th>Thành tiền</th></tr>
+                    <tr><td style="padding:6px 14px">01/06 〜 30/06</td><td><span class="badge-pro">Professional</span></td><td>10 người</td><td>¥1.500</td><td>¥15.000</td></tr>
+                    <tr><td colspan="4" style="padding:8px 14px;font-weight:600;text-align:right">Tổng cộng:</td><td style="padding:8px 14px;font-weight:700;color:#059669">¥15.000</td></tr>
                   </table>
                 </td>
               </tr>
               <tr>
                 <td>2026-05</td>
                 <td><span class="badge-std">Standard</span></td>
-                <td>8名</td>
-                <td style="font-weight:600">¥8,000</td>
-                <td><span class="badge-confirmed">確定済み</span></td>
-                <td><button class="billing-dl">▼ 詳細</button></td>
-                <td>
-                  <div style="display:flex;gap:4px">
-                    <button class="btn btn-sm" style="font-size:11px;padding:3px 7px;color:#dc2626;border-color:#fca5a5">PDF</button>
-                    <button class="btn btn-sm" style="font-size:11px;padding:3px 7px;color:#059669;border-color:#6ee7b7">Excel</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2026-04</td>
-                <td><span class="badge-std">Standard</span></td>
-                <td>6名</td>
-                <td style="font-weight:600">¥6,000</td>
-                <td><span class="badge-confirmed">確定済み</span></td>
-                <td><button class="billing-dl">▼ 詳細</button></td>
+                <td>8 người</td>
+                <td style="font-weight:600">¥8.000</td>
+                <td><span class="badge-confirmed">Đã thanh toán</span></td>
+                <td><button class="billing-dl">▼ Chi tiết</button></td>
                 <td>
                   <div style="display:flex;gap:4px">
                     <button class="btn btn-sm" style="font-size:11px;padding:3px 7px;color:#dc2626;border-color:#fca5a5">PDF</button>
@@ -3953,170 +3876,177 @@
         </div>
       </div>
 
-      <!-- Tab: 支払い方法 -->
+      <!-- Tab: Phương thức thanh toán -->
       <div class="plan-tab-panel" id="tab-mp-payment">
         <div class="plan-card">
-          <div class="plan-section-title">登録済みカード</div>
+          <div class="plan-section-title">Thẻ thanh toán mặc định</div>
           <div class="card-display-box">
             <span style="font-size:28px">💳</span>
             <div style="flex:1">
               <div style="font-weight:600;font-size:14px">VISA **** **** **** 4242</div>
-              <div style="font-size:12px;color:#6b7280;margin-top:2px">有効期限: 2028/09 ／ 名義: TARO TANAKA</div>
+              <div style="font-size:12px;color:#6b7280;margin-top:2px">Hạn sử dụng: 2028/09 ／ Chủ thẻ: NGUYEN HOANG</div>
             </div>
             <div style="display:flex;gap:8px">
-              <button class="btn btn-sm">変更</button>
-              <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5">削除</button>
+              <button class="btn btn-sm">Thay đổi</button>
+              <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5">Xóa</button>
             </div>
           </div>
-          <div class="plan-section-title" style="margin-top:18px">カード変更</div>
-          <div class="card-form-group"><label class="card-form-label">カード番号</label><input class="card-form-input" placeholder="1234 5678 9012 3456" /></div>
+          <div class="plan-section-title" style="margin-top:18px">Cập nhật thẻ thanh toán</div>
+          <div class="card-form-group"><label class="card-form-label">Số thẻ tín dụng / ghi nợ</label><input class="card-form-input" placeholder="1234 5678 9012 3456" /></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div class="card-form-group"><label class="card-form-label">有効期限</label><input class="card-form-input" placeholder="MM / YY" /></div>
-            <div class="card-form-group"><label class="card-form-label">セキュリティコード</label><input class="card-form-input" placeholder="CVV" /></div>
+            <div class="card-form-group"><label class="card-form-label">Ngày hết hạn (MM / YY)</label><input class="card-form-input" placeholder="MM / YY" /></div>
+            <div class="card-form-group"><label class="card-form-label">Mã bảo mật CVV/CVC</label><input class="card-form-input" placeholder="CVV" /></div>
           </div>
-          <div class="card-form-group"><label class="card-form-label">カード名義</label><input class="card-form-input" placeholder="TARO TANAKA" /></div>
+          <div class="card-form-group"><label class="card-form-label">Tên in trên thẻ (không dấu)</label><input class="card-form-input" placeholder="NGUYEN HOANG" /></div>
           <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
-            <button class="btn btn-sm">キャンセル</button>
-            <button class="btn btn-primary btn-sm">保存</button>
+            <button class="btn btn-sm">Hủy</button>
+            <button class="btn btn-primary btn-sm">Lưu thông tin thẻ</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ===== 個人プラン ===== -->
+    <!-- ===== Quản lý gói cá nhân (Personal Plan Management) ===== -->
     <div class="page" id="page-personal-plan">
-      <div class="section-header">
-        <div class="section-title">👤 プラン管理（個人）</div>
+      <div class="section-header" style="margin-bottom: 20px;">
+        <div class="section-title" style="font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+          <span>👤</span> Quản lý gói cá nhân
+        </div>
       </div>
 
-      <div class="plan-tabs">
-        <div class="plan-tab active" onclick="switchPlanTab('personal-plan','tab-pp-current',this)">マイプラン</div>
-        <div class="plan-tab" onclick="switchPlanTab('personal-plan','tab-pp-change',this)">プラン変更</div>
-        <div class="plan-tab" onclick="switchPlanTab('personal-plan','tab-pp-billing',this)">請求履歴</div>
-        <div class="plan-tab" onclick="switchPlanTab('personal-plan','tab-pp-payment',this)">支払い方法</div>
+      <div class="modern-pill-tabs">
+        <div class="modern-pill-tab active" onclick="switchPlanTab('personal-plan','tab-pp-change',this)">Thay đổi gói</div>
+        <div class="modern-pill-tab" onclick="switchPlanTab('personal-plan','tab-pp-current',this)">Gói hiện tại</div>
+        <div class="modern-pill-tab" onclick="switchPlanTab('personal-plan','tab-pp-billing',this)">Lịch sử thanh toán</div>
+        <div class="modern-pill-tab" onclick="switchPlanTab('personal-plan','tab-pp-payment',this)">Phương thức thanh toán</div>
       </div>
 
-      <!-- Tab: マイプラン -->
-      <div class="plan-tab-panel active" id="tab-pp-current">
+      <!-- Tab: Thay đổi gói (Active matching Screenshot 1) -->
+      <div class="plan-tab-panel active" id="tab-pp-change">
+        <div class="plan-overview-bar" id="personal-overview-bar">
+          <span>Gói hiện tại:</span>
+          <span class="plan-overview-badge badge-std-mint" id="personal-current-badge">Standard</span>
+          <span class="plan-overview-price" id="personal-current-price-label">¥1.000 / tháng</span>
+        </div>
+
+        <div class="plan-grid-3" id="personal-plan-cards">
+          <!-- Starter -->
+          <div class="plan-box-card" id="card-personal-Starter">
+            <div class="plan-box-tag tag-empty">&nbsp;</div>
+            <div class="plan-box-title">Starter</div>
+            <div class="plan-box-price-wrap">
+              <span class="plan-box-price">¥500</span>
+              <span class="plan-box-period">/ tháng</span>
+            </div>
+            <div class="plan-box-features">
+              <div class="plan-box-feat-row">Dự án: 3 dự án</div>
+              <div class="plan-box-feat-row">Lưu trữ: 5 GB</div>
+            </div>
+            <button class="btn-plan-action btn-select" onclick="choosePersonalPlan('Starter')">Chọn</button>
+          </div>
+
+          <!-- Standard -->
+          <div class="plan-box-card card-current" id="card-personal-Standard">
+            <div class="plan-box-tag tag-current">Gói hiện tại</div>
+            <div class="plan-box-title">Standard</div>
+            <div class="plan-box-price-wrap">
+              <span class="plan-box-price">¥1.000</span>
+              <span class="plan-box-period">/ tháng</span>
+            </div>
+            <div class="plan-box-features">
+              <div class="plan-box-feat-row">Dự án: 10 dự án</div>
+              <div class="plan-box-feat-row">Lưu trữ: 20 GB</div>
+            </div>
+            <button class="btn-plan-action btn-current-disabled" disabled>Gói hiện tại</button>
+          </div>
+
+          <!-- Professional -->
+          <div class="plan-box-card card-recommended" id="card-personal-Professional">
+            <div class="plan-box-tag tag-recommended">Đề xuất</div>
+            <div class="plan-box-title">Professional</div>
+            <div class="plan-box-price-wrap">
+              <span class="plan-box-price">¥1.500</span>
+              <span class="plan-box-period">/ tháng</span>
+            </div>
+            <div class="plan-box-features">
+              <div class="plan-box-feat-row">Dự án: 50 dự án</div>
+              <div class="plan-box-feat-row">Lưu trữ: 100 GB</div>
+            </div>
+            <button class="btn-plan-action btn-select" onclick="choosePersonalPlan('Professional')">Chọn</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Gói hiện tại -->
+      <div class="plan-tab-panel" id="tab-pp-current">
         <div class="plan-info-grid">
           <div class="plan-info-card">
-            <div class="plan-info-label">契約情報</div>
-            <div class="plan-info-row"><span class="lbl">現在のプラン</span><span><span class="badge-std">Standard</span></span></div>
-            <div class="plan-info-row"><span class="lbl">単価</span><span class="val">¥1,000 / 月</span></div>
-            <div class="plan-info-row"><span class="lbl">請求サイクル</span><span class="val">月払い</span></div>
+            <div class="plan-info-label">Thông tin hợp đồng</div>
+            <div class="plan-info-row"><span class="lbl">Gói dịch vụ</span><span><span class="badge-std" id="pp-info-badge">Standard</span></span></div>
+            <div class="plan-info-row"><span class="lbl">Đơn giá</span><span class="val" id="pp-info-unit">¥1.000 / tháng</span></div>
+            <div class="plan-info-row"><span class="lbl">Chu kỳ thanh toán</span><span class="val">Hàng tháng</span></div>
           </div>
           <div class="plan-info-card">
-            <div class="plan-info-label">今月の請求予定</div>
-            <div class="plan-info-row"><span class="lbl">集計期間</span><span class="val">2026-06-01〜06-30</span></div>
-            <div class="plan-info-row"><span class="lbl">予定額</span><span class="val green">¥700</span></div>
-            <div class="plan-info-row"><span class="lbl">請求確定日</span><span class="val">2026-06-30</span></div>
-            <div class="plan-info-row"><span class="lbl">状態</span><span><span class="badge-pending">未確定</span></span></div>
+            <div class="plan-info-label">Dự toán cước tháng này</div>
+            <div class="plan-info-row"><span class="lbl">Kỳ tính cước</span><span class="val">2026-06-01 〜 2026-06-30</span></div>
+            <div class="plan-info-row"><span class="lbl">Số tiền dự tính</span><span class="val green">¥1.000</span></div>
+            <div class="plan-info-row"><span class="lbl">Ngày chốt cước</span><span class="val">2026-06-30</span></div>
+            <div class="plan-info-row"><span class="lbl">Trạng thái</span><span><span class="badge-confirmed">Đã thanh toán</span></span></div>
           </div>
         </div>
         <div class="plan-card">
-          <div class="plan-section-title">プランの機能</div>
+          <div class="plan-section-title">Quyền lợi & Tài nguyên tài khoản cá nhân</div>
           <div class="plan-feature-list">
-            <div class="plan-feature-item">プロジェクト: 上限なし</div>
-            <div class="plan-feature-item">AI利用: 300回 / 月</div>
-            <div class="plan-feature-item">ストレージ: 50 GB</div>
-            <div class="plan-feature-item">サポート: メール対応</div>
+            <div class="plan-feature-item">Số dự án: 10 dự án (đang dùng: 3 dự án)</div>
+            <div class="plan-feature-item">Dung lượng lưu trữ: 20 GB (đang dùng: 2.4 GB)</div>
+            <div class="plan-feature-item">AI Platform: Không giới hạn phân tích cơ bản</div>
+            <div class="plan-feature-item">Hỗ trợ: Email phản hồi trong vòng 24 giờ</div>
           </div>
         </div>
-        <div class="plan-notice">ℹ️ 今月の予定額は2026-06-30に確定されます。</div>
-        <div style="margin-top:14px;text-align:right">
-          <button class="btn btn-primary btn-sm" onclick="switchPlanTab('personal-plan','tab-pp-change',null)">プランを変更する →</button>
+        <div style="margin-top:16px;text-align:right">
+          <button class="btn btn-primary btn-sm" onclick="switchPlanTab('personal-plan','tab-pp-change',null)">Nâng cấp gói dịch vụ →</button>
         </div>
       </div>
 
-      <!-- Tab: プラン変更 -->
-      <div class="plan-tab-panel" id="tab-pp-change">
-        <p style="font-size:13px;color:#6b7280;margin-bottom:14px">支払いサイクルとプランを選ぶと、<strong>期間割引</strong>を反映した金額が表示されます。単価はプランマスタと連動します。</p>
-        <div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:8px">支払いサイクル</div>
-        <div class="cycle-toggle" id="ppc-cycle"></div>
-        <div style="font-size:12px;font-weight:600;color:#374151;margin:18px 0 8px">プラン</div>
-        <div class="plan-select-cards" id="ppc-cards"></div>
-        <div class="plan-card">
-          <div class="plan-section-title">お支払いシミュレーション</div>
-          <div class="sim-box" id="ppc-sim"></div>
-          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px">
-            <button class="btn btn-primary btn-sm" onclick="pcConfirm('personal')">この内容で変更する</button>
-          </div>
-        </div>
-
-        <!-- 解約セクション -->
-        <div style="margin-top:32px;padding-top:20px;border-top:1px solid #e5e7eb">
-          <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:6px">プランの解約</div>
-          <p style="font-size:13px;color:#6b7280;margin-bottom:12px">解約すると<strong>支払い済み期間の満了まで</strong>ご利用いただけます（前払いは満了まで有効）。その後 Free プランに移行します。</p>
-          <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5" onclick="openCancelPlanModal('personal')">プランを解約する</button>
-        </div>
-      </div>
-
-      <!-- Tab: 請求履歴 -->
+      <!-- Tab: Lịch sử thanh toán -->
       <div class="plan-tab-panel" id="tab-pp-billing">
         <div class="plan-card">
           <table class="data-table billing-table">
-            <thead><tr><th>請求月</th><th>プラン</th><th>金額</th><th>状態</th><th>詳細</th></tr></thead>
+            <thead><tr><th>Kỳ thanh toán</th><th>Gói cước</th><th>Số tiền</th><th>Trạng thái</th><th>Hóa đơn</th></tr></thead>
             <tbody>
               <tr>
                 <td>2026-06</td>
                 <td><span class="badge-std">Standard</span></td>
-                <td style="font-weight:600">¥700</td>
-                <td><span class="badge-pending">未確定</span></td>
-                <td><button class="billing-dl" onclick="toggleBillingDetail('pp-detail-jun')">▼ 詳細</button></td>
-              </tr>
-              <tr id="pp-detail-jun" style="display:none">
-                <td colspan="5" style="padding:0">
-                  <table style="width:100%;font-size:12px;background:#f9fafb">
-                    <tr style="color:#6b7280"><th style="padding:8px 14px">期間</th><th>プラン</th><th>単価</th><th>日数</th><th>小計</th></tr>
-                    <tr><td style="padding:6px 14px">6/10〜6/30</td><td><span class="badge-std">Standard</span></td><td>¥1,000</td><td>21日</td><td>¥700</td></tr>
-                    <tr><td colspan="4" style="padding:8px 14px;font-weight:600;text-align:right">合計</td><td style="padding:8px 14px;font-weight:700;color:#059669">¥700</td></tr>
-                  </table>
-                </td>
+                <td style="font-weight:700">¥1.000</td>
+                <td><span class="badge-confirmed">Đã thanh toán</span></td>
+                <td><button class="billing-dl" onclick="alert('Đang tải hóa đơn PDF...')">⬇ Tải PDF</button></td>
               </tr>
               <tr>
                 <td>2026-05</td>
                 <td><span class="badge-std">Standard</span></td>
-                <td style="font-weight:600">¥1,000</td>
-                <td><span class="badge-confirmed">確定済み</span></td>
-                <td><button class="billing-dl">▼ 詳細</button></td>
-              </tr>
-              <tr>
-                <td>2026-04</td>
-                <td><span class="badge-std">Standard</span></td>
-                <td style="font-weight:600">¥1,000</td>
-                <td><span class="badge-confirmed">確定済み</span></td>
-                <td><button class="billing-dl">▼ 詳細</button></td>
+                <td style="font-weight:700">¥1.000</td>
+                <td><span class="badge-confirmed">Đã thanh toán</span></td>
+                <td><button class="billing-dl" onclick="alert('Đang tải hóa đơn PDF...')">⬇ Tải PDF</button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Tab: 支払い方法 -->
+      <!-- Tab: Phương thức thanh toán -->
       <div class="plan-tab-panel" id="tab-pp-payment">
         <div class="plan-card">
-          <div class="plan-section-title">登録済みカード</div>
+          <div class="plan-section-title">Thẻ thanh toán liên kết</div>
           <div class="card-display-box">
             <span style="font-size:28px">💳</span>
             <div style="flex:1">
               <div style="font-weight:600;font-size:14px">VISA **** **** **** 4242</div>
-              <div style="font-size:12px;color:#6b7280;margin-top:2px">有効期限: 2028/09</div>
+              <div style="font-size:12px;color:#6b7280;margin-top:2px">Hạn sử dụng: 2028/09</div>
             </div>
             <div style="display:flex;gap:8px">
-              <button class="btn btn-sm">変更</button>
-              <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5">削除</button>
+              <button class="btn btn-sm">Thay đổi</button>
+              <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5">Xóa</button>
             </div>
-          </div>
-          <div class="plan-section-title" style="margin-top:18px">カード変更</div>
-          <div class="card-form-group"><label class="card-form-label">カード番号</label><input class="card-form-input" placeholder="1234 5678 9012 3456" /></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div class="card-form-group"><label class="card-form-label">有効期限</label><input class="card-form-input" placeholder="MM / YY" /></div>
-            <div class="card-form-group"><label class="card-form-label">セキュリティコード</label><input class="card-form-input" placeholder="CVV" /></div>
-          </div>
-          <div class="card-form-group"><label class="card-form-label">カード名義</label><input class="card-form-input" placeholder="TARO TANAKA" /></div>
-          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
-            <button class="btn btn-sm">キャンセル</button>
-            <button class="btn btn-primary btn-sm">保存</button>
           </div>
         </div>
       </div>
@@ -6563,12 +6493,14 @@ function navigateAdminPlan(tabId, navEl) {
 // ===== PLAN TABS =====
 function switchPlanTab(pageId, tabId, clickedEl) {
   const page = document.getElementById('page-' + pageId);
+  if (!page) return;
   page.querySelectorAll('.plan-tab-panel').forEach(p => p.classList.remove('active'));
-  page.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
+  page.querySelectorAll('.plan-tab, .modern-pill-tab').forEach(t => t.classList.remove('active'));
+  const targetPanel = document.getElementById(tabId);
+  if (targetPanel) targetPanel.classList.add('active');
   if (clickedEl) clickedEl.classList.add('active');
   else {
-    page.querySelectorAll('.plan-tab').forEach(t => {
+    page.querySelectorAll('.plan-tab, .modern-pill-tab').forEach(t => {
       if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(tabId)) t.classList.add('active');
     });
   }
@@ -6593,10 +6525,10 @@ const pages = {
   users:        { id: 'page-users',         title: '会社メンバー一覧' },
   companyinfo:  { id: 'page-company-info',  title: '会社管理' },
   chat:     { id: 'page-chat',      title: 'チャット' },
-  'my-plan':       { id: 'page-my-plan',       title: 'プラン管理（会社）' },
-  'personal-plan': { id: 'page-personal-plan', title: 'プラン管理（個人）' },
+  'my-plan':       { id: 'page-my-plan',       title: 'Quản lý gói công ty' },
+  'personal-plan': { id: 'page-personal-plan', title: 'Quản lý gói cá nhân' },
   'admin-plan':      { id: 'page-admin-plan',      title: 'プラン管理（システム管理者）' },
-  'admin-master':    { id: 'page-admin-master',    title: 'プランマスタ管理' },
+  'admin-master':    { id: 'page-admin-master',    title: 'Cấu hình gói dịch vụ' },
   'company-detail':  { id: 'page-company-detail',  title: '会社詳細' },
   'admin-personal':  { id: 'page-admin-personal',  title: '個人ユーザー管理' },
   'personal-detail': { id: 'page-personal-detail', title: 'ユーザー詳細' },
@@ -10150,17 +10082,153 @@ let planFlowContext = 'company'; // 'company' | 'personal'
 let planFlowSelected = null;
 
 const companyPlans = [
-  { name: 'Free',       price: 0,      label: '¥0',      cycle: '/月', maxUsers: 1,  maxProjects: 3,  features: ['1名まで', '案件3件', '基本機能'] },
-  { name: 'Starter',    price: 9800,   label: '¥9,800',  cycle: '/月', maxUsers: 5,  maxProjects: 10, features: ['5名まで', '案件10件', 'レポート'] },
-  { name: 'Business',   price: 29800,  label: '¥29,800', cycle: '/月', maxUsers: 10, maxProjects: 30, features: ['10名まで', '案件30件', '全機能'] },
-  { name: 'Enterprise', price: null,   label: '要相談',  cycle: '',    maxUsers: 0,  maxProjects: 0,  features: ['無制限', '専任サポート', 'SLA保証'] },
+  { name: 'Starter',      price: 500,  label: '¥500',   cycle: '/ người / tháng', maxUsers: 10,  maxProjects: 3,  storage: '5 GB',   features: ['Dự án: 3 dự án', 'Lưu trữ: 5 GB'] },
+  { name: 'Standard',     price: 1000, label: '¥1.000', cycle: '/ người / tháng', maxUsers: 25,  maxProjects: 10, storage: '20 GB',  features: ['Dự án: 10 dự án', 'Lưu trữ: 20 GB'] },
+  { name: 'Professional', price: 1500, label: '¥1.500', cycle: '/ người / tháng', maxUsers: 50,  maxProjects: 50, storage: '100 GB', features: ['Dự án: 50 dự án', 'Lưu trữ: 100 GB'] },
 ];
 
 const personalPlans = [
-  { name: 'Free',  price: 0,    label: '¥0',     cycle: '/月', features: ['プロジェクト1件', '基本機能のみ'] },
-  { name: 'Basic', price: 1980, label: '¥1,980', cycle: '/月', features: ['プロジェクト5件', 'レポート機能'] },
-  { name: 'Pro',   price: 4800, label: '¥4,800', cycle: '/月', features: ['無制限', '全機能', '優先サポート'] },
+  { name: 'Starter',      price: 500,  label: '¥500',   cycle: '/ tháng', maxProjects: 3,  storage: '5 GB',   features: ['Dự án: 3 dự án', 'Lưu trữ: 5 GB'] },
+  { name: 'Standard',     price: 1000, label: '¥1.000', cycle: '/ tháng', maxProjects: 10, storage: '20 GB',  features: ['Dự án: 10 dự án', 'Lưu trữ: 20 GB'] },
+  { name: 'Professional', price: 1500, label: '¥1.500', cycle: '/ tháng', maxProjects: 50, storage: '100 GB', features: ['Dự án: 50 dự án', 'Lưu trữ: 100 GB'] },
 ];
+
+window.chooseCompanyPlan = function(planName) {
+  const planMap = {
+    'Starter':      { price: '¥500 / người / tháng', badgeClass: 'badge-str' },
+    'Standard':     { price: '¥1.000 / người / tháng', badgeClass: 'badge-std' },
+    'Professional': { price: '¥1.500 / người / tháng', badgeClass: 'badge-pro-purple' },
+  };
+  const target = planMap[planName];
+  if (!target) return;
+
+  // Update header bar
+  const badgeEl = document.getElementById('company-current-badge');
+  const priceEl = document.getElementById('company-current-price-label');
+  if (badgeEl) {
+    badgeEl.textContent = planName;
+    badgeEl.className = 'plan-overview-badge ' + target.badgeClass;
+  }
+  if (priceEl) priceEl.textContent = target.price;
+
+  // Update cards
+  ['Starter', 'Standard', 'Professional'].forEach(p => {
+    const card = document.getElementById('card-company-' + p);
+    if (!card) return;
+    const tag = card.querySelector('.plan-box-tag');
+    const btn = card.querySelector('.btn-plan-action');
+    if (p === planName) {
+      card.className = 'plan-box-card card-current';
+      if (tag) {
+        tag.className = 'plan-box-tag tag-current';
+        tag.textContent = 'Gói hiện tại';
+      }
+      if (btn) {
+        btn.className = 'btn-plan-action btn-current-disabled';
+        btn.disabled = true;
+        btn.textContent = 'Gói hiện tại';
+        btn.onclick = null;
+      }
+    } else {
+      card.className = 'plan-box-card';
+      if (tag) {
+        tag.className = 'plan-box-tag tag-empty';
+        tag.innerHTML = '&nbsp;';
+      }
+      if (btn) {
+        btn.className = 'btn-plan-action btn-select';
+        btn.disabled = false;
+        btn.textContent = 'Chọn';
+        btn.setAttribute('onclick', `chooseCompanyPlan('${p}')`);
+      }
+    }
+  });
+
+  // Update info in current tab
+  const infoBadge = document.getElementById('mp-info-badge');
+  const infoUnit = document.getElementById('mp-info-unit');
+  const infoTotal = document.getElementById('mp-info-total');
+  if (infoBadge) infoBadge.textContent = planName;
+  if (infoUnit) infoUnit.textContent = target.price;
+  if (infoTotal) {
+    const num = planName === 'Starter' ? '¥5.000' : planName === 'Standard' ? '¥10.000' : '¥15.000';
+    infoTotal.textContent = num;
+  }
+
+  alert(`✅ Đã chọn và cập nhật gói doanh nghiệp: ${planName} (${target.price})`);
+};
+
+window.choosePersonalPlan = function(planName) {
+  const planMap = {
+    'Starter':      { price: '¥500 / tháng', badgeClass: 'badge-str' },
+    'Standard':     { price: '¥1.000 / tháng', badgeClass: 'badge-std-mint' },
+    'Professional': { price: '¥1.500 / tháng', badgeClass: 'badge-pro-purple' },
+  };
+  const target = planMap[planName];
+  if (!target) return;
+
+  // Update header bar
+  const badgeEl = document.getElementById('personal-current-badge');
+  const priceEl = document.getElementById('personal-current-price-label');
+  if (badgeEl) {
+    badgeEl.textContent = planName;
+    badgeEl.className = 'plan-overview-badge ' + target.badgeClass;
+  }
+  if (priceEl) priceEl.textContent = target.price;
+
+  // Update cards
+  ['Starter', 'Standard', 'Professional'].forEach(p => {
+    const card = document.getElementById('card-personal-' + p);
+    if (!card) return;
+    const tag = card.querySelector('.plan-box-tag');
+    const btn = card.querySelector('.btn-plan-action');
+    if (p === planName) {
+      card.className = 'plan-box-card card-current';
+      if (tag) {
+        tag.className = 'plan-box-tag tag-current';
+        tag.textContent = 'Gói hiện tại';
+      }
+      if (btn) {
+        btn.className = 'btn-plan-action btn-current-disabled';
+        btn.disabled = true;
+        btn.textContent = 'Gói hiện tại';
+        btn.onclick = null;
+      }
+    } else if (p === 'Professional') {
+      card.className = 'plan-box-card card-recommended';
+      if (tag) {
+        tag.className = 'plan-box-tag tag-recommended';
+        tag.textContent = 'Đề xuất';
+      }
+      if (btn) {
+        btn.className = 'btn-plan-action btn-select';
+        btn.disabled = false;
+        btn.textContent = 'Chọn';
+        btn.setAttribute('onclick', `choosePersonalPlan('${p}')`);
+      }
+    } else {
+      card.className = 'plan-box-card';
+      if (tag) {
+        tag.className = 'plan-box-tag tag-empty';
+        tag.innerHTML = '&nbsp;';
+      }
+      if (btn) {
+        btn.className = 'btn-plan-action btn-select';
+        btn.disabled = false;
+        btn.textContent = 'Chọn';
+        btn.setAttribute('onclick', `choosePersonalPlan('${p}')`);
+      }
+    }
+  });
+
+  // Update info in current tab
+  const ppInfoBadge = document.getElementById('pp-info-badge');
+  const ppInfoUnit = document.getElementById('pp-info-unit');
+  if (ppInfoBadge) ppInfoBadge.textContent = planName;
+  if (ppInfoUnit) ppInfoUnit.textContent = target.price;
+
+  alert(`✅ Đã chọn và cập nhật gói cá nhân: ${planName} (${target.price})`);
+};
 
 function openPlanSelect(context) {
   planFlowContext = context;
@@ -10973,13 +11041,121 @@ function pcConfirm(ctx) {
   });
 
 
-  // ===== C-LEVEL EXECUTIVE DASHBOARD CONTROLS & LOGIC ENGINE (ALL-IN-ONE B2B + B2C) =====
+  // ===== C-LEVEL EXECUTIVE DASHBOARD CONTROLS & LOGIC ENGINE =====
   window.currentCurrency = 'JPY';
+  window.currentPeriod = '2026-09';
+  window.currentSegment = 'ALL';
+
   window.toggleCurr = function(c) { window.toggleCurrency(c); };
   window.changePeriod = function(p) { window.changeDashboardPeriod(p); };
-  window.filterTable = function(q) { window.filterDashTable(q); };
 
-  window.currentPeriod = '2026-09';
+  window.filterSegment = function(seg) {
+    window.currentSegment = seg;
+    var bAll = document.getElementById('btn-seg-all');
+    var bB2b = document.getElementById('btn-seg-b2b');
+    var bB2c = document.getElementById('btn-seg-b2c');
+    if (bAll) bAll.classList.toggle('active', seg === 'ALL');
+    if (bB2b) bB2b.classList.toggle('active', seg === 'B2B');
+    if (bB2c) bB2c.classList.toggle('active', seg === 'B2C');
+
+    applyDashboardMetrics();
+
+    // Dim or highlight SVG bars
+    document.querySelectorAll('.bar-b2b').forEach(function(el) {
+      el.style.opacity = (seg === 'B2C') ? '0.15' : '1';
+    });
+    document.querySelectorAll('.bar-b2c').forEach(function(el) {
+      el.style.opacity = (seg === 'B2B') ? '0.15' : '1';
+    });
+  };
+
+  function applyDashboardMetrics() {
+    var isUsd = (window.currentCurrency === 'USD');
+    var seg = window.currentSegment || 'ALL';
+
+    var cCust = document.getElementById('val-cust');
+    var subCust = document.getElementById('sub-cust');
+    var cMrr = document.getElementById('val-mrr');
+    var arrEl = document.getElementById('lbl-arr-val');
+    var cCash = document.getElementById('val-cash-in');
+    var subCash = document.getElementById('sub-cash');
+    var cDef = document.getElementById('val-deferred');
+    var subDef = document.getElementById('sub-def');
+
+    // Values by segment for current period
+    if (seg === 'B2B') {
+      if (cCust) cCust.textContent = '62';
+      if (subCust) subCust.textContent = 'doanh nghiệp (14 Ent • 48 Pro)';
+      if (cMrr) cMrr.textContent = isUsd ? '$1,946' : '¥292,400';
+      if (arrEl) arrEl.textContent = isUsd ? '/tháng (ARR: $23.4k)' : '/tháng (ARR: ¥3.51M)';
+      if (cCash) cCash.textContent = isUsd ? '$627' : '¥94,000';
+      if (subCash) subCash.textContent = 'gói tháng DN + ký mới T9';
+      if (cDef) cDef.textContent = isUsd ? '$10,133' : '¥1,520,000';
+      if (subDef) subDef.textContent = '20 HĐ doanh nghiệp';
+    } else if (seg === 'B2C') {
+      if (cCust) cCust.textContent = '54';
+      if (subCust) subCust.textContent = 'cá nhân (42 Basic • 12 Free)';
+      if (cMrr) cMrr.textContent = isUsd ? '$317' : '¥47,600';
+      if (arrEl) arrEl.textContent = isUsd ? '/tháng (ARR: $3.8k)' : '/tháng (ARR: ¥571k)';
+      if (cCash) cCash.textContent = isUsd ? '$119' : '¥18,000';
+      if (subCash) subCash.textContent = 'gói tháng người dùng';
+      if (cDef) cDef.textContent = isUsd ? '$1,493' : '¥224,000';
+      if (subDef) subDef.textContent = '6 HĐ cá nhân năm';
+    } else {
+      if (cCust) cCust.textContent = '116';
+      if (subCust) subCust.textContent = 'đối tác & cá nhân';
+      if (cMrr) cMrr.textContent = isUsd ? '$2,263' : '¥340,000';
+      if (arrEl) arrEl.textContent = isUsd ? '/tháng (ARR: $27.2k)' : '/tháng (ARR: ¥4.08M)';
+      if (cCash) cCash.textContent = isUsd ? '$746' : '¥112,000';
+      if (subCash) subCash.textContent = 'tiền về két';
+      if (cDef) cDef.textContent = isUsd ? '$11,626' : '¥1,744,000';
+      if (subDef) subDef.textContent = '26 HĐ';
+    }
+
+    // Sub-split footers in KPI cards
+    var mrrB2b = document.getElementById('lbl-mrr-b2b');
+    var mrrB2c = document.getElementById('lbl-mrr-b2c');
+    if (mrrB2b) mrrB2b.textContent = isUsd ? '🏢 DN: $1,946 (86%)' : '🏢 DN: ¥292.4k (86%)';
+    if (mrrB2c) mrrB2c.textContent = isUsd ? '👤 Cá nhân: $317 (14%)' : '👤 Cá nhân: ¥47.6k (14%)';
+
+    var cashB2b = document.getElementById('lbl-cash-b2b');
+    var cashB2c = document.getElementById('lbl-cash-b2c');
+    if (cashB2b) cashB2b.textContent = isUsd ? '🏢 DN: $627' : '🏢 DN: ¥94,000';
+    if (cashB2c) cashB2c.textContent = isUsd ? '👤 Cá nhân: $119' : '👤 Cá nhân: ¥18,000';
+
+    var defB2b = document.getElementById('lbl-def-b2b');
+    var defB2c = document.getElementById('lbl-def-b2c');
+    if (defB2b) defB2b.textContent = isUsd ? '🏢 DN: $10.1k (20 HĐ)' : '🏢 DN: ¥1.52M (20 HĐ)';
+    if (defB2c) defB2c.textContent = isUsd ? '👤 Cá nhân: $1.49k (6 HĐ)' : '👤 Cá nhân: ¥224k (6 HĐ)';
+
+    // Donut Center
+    var dCenter = document.getElementById('donut-center-val');
+    if (dCenter) dCenter.textContent = isUsd ? '$2.26K' : '¥340K';
+
+    // Donut Legend Tiers
+    var entEl = document.getElementById('lbl-ent-val');
+    if (entEl) entEl.textContent = isUsd ? '48% ($1,088)' : '48% (¥163.2k)';
+    var proEl = document.getElementById('lbl-pro-val');
+    if (proEl) proEl.textContent = isUsd ? '38% ($861)' : '38% (¥129.2k)';
+    var basEl = document.getElementById('lbl-basic-val');
+    if (basEl) basEl.textContent = isUsd ? '14% ($317)' : '14% (¥47.6k)';
+
+    // Plan breakdown in Panel 2
+    var pAnnual = document.getElementById('plan-val-annual');
+    var pQuarterly = document.getElementById('plan-val-quarterly');
+    var pMonthly = document.getElementById('plan-val-monthly');
+    if (pAnnual) pAnnual.textContent = isUsd ? '$1,453' : '¥218,000';
+    if (pQuarterly) pQuarterly.textContent = isUsd ? '$320' : '¥48,000';
+    if (pMonthly) pMonthly.textContent = isUsd ? '$493' : '¥74,000';
+
+    // Y-Axis labels
+    var y300 = document.getElementById('y-lbl-300');
+    var y200 = document.getElementById('y-lbl-200');
+    var y100 = document.getElementById('y-lbl-100');
+    if (y300) y300.textContent = isUsd ? '$2.7k' : '400k';
+    if (y200) y200.textContent = isUsd ? '$1.7k' : '250k';
+    if (y100) y100.textContent = isUsd ? '$670' : '100k';
+  }
 
   window.toggleCurrency = function(curr) {
     window.currentCurrency = curr;
@@ -10988,164 +11164,35 @@ function pcConfirm(ctx) {
     if (btnJpy) btnJpy.classList.toggle('active', curr === 'JPY');
     if (btnUsd) btnUsd.classList.toggle('active', curr === 'USD');
 
-    var isUsd = (curr === 'USD');
-
-    // KPI Cards
-    var mrrEl = document.getElementById('val-mrr');
-    if (mrrEl) mrrEl.textContent = isUsd ? '$2,263' : '¥340,000';
-
-    var splitEl = document.getElementById('lbl-mrr-split');
-    if (splitEl) splitEl.textContent = isUsd ? 'DN: $1.65k (73%) • B2C: $613 (27%)' : 'DN: ¥248k (73%) • B2C: ¥92k (27%)';
-
-    var aiEl = document.getElementById('val-ai');
-    if (aiEl) aiEl.textContent = isUsd ? '$2,445' : '¥367,000';
-
-    var growthEl = document.getElementById('lbl-ai-growth');
-    if (growthEl) growthEl.textContent = isUsd ? '+7.9% (+$182 toàn sàn)' : '+7.9% (+¥27k toàn sàn)';
-
-    var dCenter = document.getElementById('donut-center-val');
-    if (dCenter) dCenter.textContent = isUsd ? '$2.26K' : '¥340K';
-
-    var pAnnual = document.getElementById('plan-val-annual');
-    var pMonthly = document.getElementById('plan-val-monthly');
-    var pSemi = document.getElementById('plan-val-semiannual');
-    if (pAnnual) pAnnual.textContent = isUsd ? '$1,453' : '¥218,000';
-    if (pMonthly) pMonthly.textContent = isUsd ? '$493' : '¥74,000';
-    if (pSemi) pSemi.textContent = isUsd ? '$320' : '¥48,000';
-
-    // SVG Y-Axis Labels
-    var y300 = document.getElementById('y-lbl-300');
-    var y200 = document.getElementById('y-lbl-200');
-    var y100 = document.getElementById('y-lbl-100');
-    if (y300) y300.textContent = isUsd ? '$2.7k' : '400k';
-    if (y200) y200.textContent = isUsd ? '$1.7k' : '250k';
-    if (y100) y100.textContent = isUsd ? '$670' : '100k';
-
-    // Table rows
-    document.querySelectorAll('#main-tbody tr.data-row').forEach(function(r) {
-      var cell = r.querySelector('.row-mrr');
-      if (!cell) return;
-      var jpy = parseInt(r.getAttribute('data-mrr-jpy') || '0', 10);
-      var usd = parseInt(r.getAttribute('data-mrr-usd') || '0', 10);
-      if (jpy === 0) {
-        cell.innerHTML = isUsd ? '$0 <small style="display:block;font-size:10px;color:#0284c7">Dự kiến</small>' : '¥0 <small style="display:block;font-size:10px;color:#0284c7">Dự kiến</small>';
-      } else {
-        cell.textContent = isUsd ? ('$' + usd.toLocaleString()) : ('¥' + jpy.toLocaleString());
-      }
-    });
-
-    hoverDual('Tháng 09/2026 (Hiện tại)', isUsd ? '$2,263' : '¥340,000', '$2,263', isUsd ? '$1,650' : '¥248,000', isUsd ? '$613' : '¥92,000', false);
+    applyDashboardMetrics();
   };
 
   window.changeDashboardPeriod = function(period) {
     window.currentPeriod = period;
-    var isUsd = (window.currentCurrency === 'USD');
-    if (period === '2026-08') {
-      document.getElementById('val-cust').textContent = '108';
-      document.getElementById('val-users').textContent = '476';
-      document.getElementById('val-mrr').textContent = isUsd ? '$2,211' : '¥332,000';
-      document.getElementById('val-ai').textContent = isUsd ? '$2,263' : '¥340,000';
-      hoverDual('Tháng 08/2026 (Số liệu đã đóng sổ)', isUsd ? '$2,211' : '¥332,000', '$2,211', isUsd ? '$1,625' : '¥244,000', isUsd ? '$586' : '¥88,000', false);
-    } else if (period === '2026-07') {
-      document.getElementById('val-cust').textContent = '102';
-      document.getElementById('val-users').textContent = '442';
-      document.getElementById('val-mrr').textContent = isUsd ? '$2,166' : '¥325,000';
-      document.getElementById('val-ai').textContent = isUsd ? '$2,211' : '¥332,000';
-      hoverDual('Tháng 07/2026 (Số liệu đã đóng sổ)', isUsd ? '$2,166' : '¥325,000', '$2,166', isUsd ? '$1,600' : '¥240,000', isUsd ? '$566' : '¥85,000', false);
-    } else {
-      document.getElementById('val-cust').textContent = '116';
-      document.getElementById('val-users').textContent = '512';
-      document.getElementById('val-mrr').textContent = isUsd ? '$2,263' : '¥340,000';
-      document.getElementById('val-ai').textContent = isUsd ? '$2,445' : '¥367,000';
-      hoverDual('Tháng 09/2026 (Hiện tại)', isUsd ? '$2,263' : '¥340,000', '$2,263', isUsd ? '$1,650' : '¥248,000', isUsd ? '$613' : '¥92,000', false);
-    }
-  };
-
-  window.hoverDual = function(m, totalStr, usdStr, b2bStr, b2cStr, isAI) {
-    var tip = document.getElementById('bar-chart-tooltip');
-    var title = document.getElementById('btip-title');
-    var val = document.getElementById('btip-val');
-    var sub = document.getElementById('btip-sub');
-
-    if (!tip) return;
-    if (isAI) {
-      tip.style.background = '#f0f9ff';
-      tip.style.borderColor = '#bae6fd';
-      tip.style.borderLeft = '4px solid #009BCC';
-      if (title) { title.style.color = '#0284c7'; title.textContent = '✨ ' + m.toUpperCase() + ' [DỰ BÁO AI HỢP NHẤT]'; }
-      if (val) { val.style.color = '#0369a1'; val.textContent = totalStr + ' MRR'; }
-      if (sub) { sub.innerHTML = 'Doanh nghiệp kỳ vọng: <strong>' + b2bStr + '</strong> • Cá nhân kỳ vọng: <strong>' + b2cStr + '</strong>'; }
-    } else {
-      tip.style.background = '#f8fafc';
-      tip.style.borderColor = '#e2e8f0';
-      tip.style.borderLeft = '4px solid #089490';
-      if (title) { title.style.color = '#089490'; title.textContent = '📊 ' + m.toUpperCase(); }
-      if (val) { val.style.color = '#0f172a'; val.textContent = totalStr + ' MRR'; }
-      if (sub) { sub.innerHTML = 'Doanh nghiệp: <strong style="color:#089490">' + b2bStr + '</strong> (73%) • Cá nhân: <strong style="color:#009BCC">' + b2cStr + '</strong> (27%)'; }
-    }
-  };
-
-  window.resetBarTooltip = function() {
-    var isUsd = (window.currentCurrency === 'USD');
-    hoverDual('Tháng 09/2026 (Kỳ hiện tại - Toàn nền tảng)', isUsd ? '$2,263' : '¥340,000', '$2,263', isUsd ? '$1,650' : '¥248,000', isUsd ? '$613' : '¥92,000', false);
-  };
-
-  window.filterDashTable = function(q) {
-    var searchInput = document.getElementById('dash-search-input');
-    if (searchInput && q !== undefined && searchInput.value !== q && q !== 'Doanh Nghiệp' && q !== 'Cá Nhân' && q !== 'Active' && q !== 'Trial') {
-      searchInput.value = q;
-    }
-    var filter = (q || '').toLowerCase();
-    var rows = document.querySelectorAll('#main-tbody tr.data-row');
-    rows.forEach(function(r) {
-      var text = (r.innerText || '').toLowerCase();
-      var type = (r.getAttribute('data-type') || '').toLowerCase();
-      var status = (r.getAttribute('data-status') || '').toLowerCase();
-      var match = false;
-      if (!filter) match = true;
-      else if (filter === 'doanh nghiệp' || filter === 'cá nhân') match = (type.indexOf(filter) > -1);
-      else if (filter === 'active' || filter === 'trial') match = (status.indexOf(filter) > -1);
-      else match = (text.indexOf(filter) > -1);
-
-      r.style.display = match ? '' : 'none';
-    });
-
-    document.querySelectorAll('.vb-btn-sm').forEach(function(b) { b.classList.remove('active-filter'); });
-    if (q === '') document.getElementById('f-all')?.classList.add('active-filter');
-    if (q === 'Doanh Nghiệp') document.getElementById('f-b2b')?.classList.add('active-filter');
-    if (q === 'Cá Nhân') document.getElementById('f-b2c')?.classList.add('active-filter');
-    if (q === 'Năm') document.getElementById('f-annual')?.classList.add('active-filter');
-    if (q === 'Tháng') document.getElementById('f-monthly')?.classList.add('active-filter');
-    if (q === 'Active') document.getElementById('f-act')?.classList.add('active-filter');
-    if (q === 'Trial') document.getElementById('f-tri')?.classList.add('active-filter');
-
-    var statusEl = document.getElementById('table-filter-status');
-    if (statusEl) {
-      statusEl.textContent = filter ? ('Đang lọc: "' + q + '"') : 'Tất cả khách hàng (32 Doanh nghiệp • 84 Cá nhân)';
-    }
+    applyDashboardMetrics();
   };
 
   window.exportDashboardSummary = function() {
     var isUsd = (window.currentCurrency === 'USD');
     var currSymbol = isUsd ? 'USD' : 'JPY';
-    var csvContent = "data:text/csv;charset=utf-8,Khach Hang,Phan Khuc,Goi,So Ghe,MRR (" + currSymbol + "),Han Hop Dong,Trang Thai\n";
-
-    var rows = document.querySelectorAll('#main-tbody tr.data-row');
-    rows.forEach(function(r) {
-      if (r.style.display === 'none') return;
-      var name = r.querySelector('td:nth-child(1) strong')?.textContent || '';
-      var type = r.getAttribute('data-type') || '';
-      var plan = r.querySelector('td:nth-child(3)')?.textContent.trim() || '';
-      var mrr = isUsd ? (r.getAttribute('data-mrr-usd') || '0') : (r.getAttribute('data-mrr-jpy') || '0');
-      var exp = r.querySelector('td:nth-child(6)')?.textContent.trim() || '';
-      var st = r.getAttribute('data-status') || '';
-      csvContent += '"' + name + '",' + type + ',"' + plan + '",,' + mrr + ',' + exp + ',' + st + "\n";
-    });
+    var csvContent = "data:text/csv;charset=utf-8,Phan Khuc,Chi So,Gia Tri (" + currSymbol + "),Ghi Chu\n";
+    csvContent += '"Tong The","Tong Khach Hang","116","62 Doanh nghiep • 54 Nguoi dung ca nhan"\n';
+    csvContent += '"Tong The","Doanh Thu Thang (MRR)",' + (isUsd ? '"$2,263"' : '"¥340,000"') + ',"ARR: ' + (isUsd ? '$27.2k' : '¥4.08M') + '"\n';
+    csvContent += '"Tong The","Thuc Thu Thang 09",' + (isUsd ? '"$746"' : '"¥112,000"') + ',"DN: ' + (isUsd ? '$627' : '¥94,000') + ' • Ca nhan: ' + (isUsd ? '$119' : '¥18,000') + '"\n';
+    csvContent += '"Tong The","Thu Lai 2027 (Goi Nam)",' + (isUsd ? '"$11,626"' : '"¥1,744,000"') + ',"26 Hop dong da tra truoc sang nam thu lai"\n';
+    csvContent += '"Doanh Nghiep (B2B)","So Luong Khach Hang","62 Doi tac","14 Enterprise + 48 Professional"\n';
+    csvContent += '"Doanh Nghiep (B2B)","Doanh Thu MRR (86%)",' + (isUsd ? '"$1,946"' : '"¥292,400"') + ',"Enterprise ¥163.2k + Professional ¥129.2k"\n';
+    csvContent += '"Doanh Nghiep (B2B)","Thuc Thu Thang 09",' + (isUsd ? '"$627"' : '"¥94,000"') + ',"Tien mat ve ket tu hop dong DN"\n';
+    csvContent += '"Doanh Nghiep (B2B)","Thu Lai 2027",' + (isUsd ? '"$10,133"' : '"¥1,520,000"') + ',"20 Hop dong 1 nam doanh nghiep"\n';
+    csvContent += '"Nguoi Dung (B2C)","So Luong Nguoi Dung","54 Ca nhan","42 Basic tra phi + 12 Free/Trial"\n';
+    csvContent += '"Nguoi Dung (B2C)","Doanh Thu MRR (14%)",' + (isUsd ? '"$317"' : '"¥47,600"') + ',"Goi Basic ca nhan"\n';
+    csvContent += '"Nguoi Dung (B2C)","Thuc Thu Thang 09",' + (isUsd ? '"$119"' : '"¥18,000"') + ',"Tien mat nop dinh ky thang"\n';
+    csvContent += '"Nguoi Dung (B2C)","Thu Lai 2027",' + (isUsd ? '"$1,493"' : '"¥224,000"') + ',"6 Hop dong ca nhan nam"\n';
 
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Emind_Executive_Dashboard_HopNhat_Thang09_2026.csv");
+    link.setAttribute("download", "Emind_Bao_Cao_Doanh_Nghiep_vs_Ca_Nhan.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
