@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Mind Platform — ログイン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', 'Segoe UI', -apple-system, sans-serif;
+  background: #f3f4f5;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ── Layout ─────────────────────────────── */
+.auth-wrap {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ── Left branding panel ─────────────────── */
+.brand-panel {
+  width: 42%;
+  background: linear-gradient(160deg, #089490 0%, #056561 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.brand-panel::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+.brand-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.brand-logo {
+  margin-bottom: 8px;
+}
+.brand-logo-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-logo-inner div {
+  font-size: 26px;
+  font-weight: 700;
+  color: #7dd9d6;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.brand-logo span {
+  font-size: 11px;
+  display: block;
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+.brand-tagline {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.5;
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+.brand-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.8;
+  max-width: 320px;
+}
+.brand-features {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.brand-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+}
+.brand-feature-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #7dd9d6;
+  flex-shrink: 0;
+}
+
+/* ── Right form panel ────────────────────── */
+.form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  background: #fff;
+  overflow-y: auto;
+}
+.form-box {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ── Form logo ───────────────────────────── */
+.form-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.form-logo-mark { flex-shrink: 0; }
+.form-logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #089490;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+.form-logo-text span {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: #aaa;
+  margin-top: 3px;
+  letter-spacing: 0.3px;
+}
+
+/* ── View switching ──────────────────────── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Form common ─────────────────────────── */
+.form-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+.form-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.field {
+  margin-bottom: 18px;
+}
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e5e9;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #333;
+  background: #fafafa;
+  transition: border-color 0.15s, background 0.15s;
+  outline: none;
+}
+.field input:focus,
+.field select:focus {
+  border-color: #0ABAB5;
+  background: #fff;
+}
+.field input.error { border-color: #ef4444; }
+.field-error {
+  font-size: 11px;
+  color: #ef4444;
+  margin-top: 4px;
+  display: none;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.btn {
+  width: 100%;
+  padding: 11px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.3px;
+}
+.btn-primary {
+  background: #0ABAB5;
+  color: #fff;
+}
+.btn-primary:hover { background: #089490; }
+.btn-outline {
+  background: #fff;
+  color: #444;
+  border: 1.5px solid #d1d5db;
+}
+.btn-outline:hover { background: #f9fafb; }
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  color: #bbb;
+  font-size: 12px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e8eaed;
+}
+
+.link-row {
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  margin-top: 20px;
+}
+.link-row a {
+  color: #0ABAB5;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+.link-row a:hover { text-decoration: underline; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: #0ABAB5; }
+.back-link::before { content: '←'; }
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #555;
+}
+.checkbox-row input[type="checkbox"] {
+  width: 15px; height: 15px;
+  accent-color: #0ABAB5;
+  cursor: pointer;
+}
+.checkbox-row a {
+  color: #0ABAB5;
+  text-decoration: none;
+}
+
+/* ── Success message ─────────────────────── */
+.success-box {
+  text-align: center;
+  padding: 32px 0;
+}
+.success-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: #e6f7f7;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 20px;
+}
+.success-box h3 { font-size: 18px; margin-bottom: 8px; }
+.success-box p { font-size: 13px; color: #888; line-height: 1.7; }
+
+/* ── Step indicator ──────────────────────── */
+.steps {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  position: relative;
+}
+.step-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 55%;
+  width: 90%;
+  height: 2px;
+  background: #e2e5e9;
+  z-index: 0;
+}
+.step-item.done:not(:last-child)::after { background: #0ABAB5; }
+.step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid #e2e5e9;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #bbb;
+  z-index: 1;
+  position: relative;
+  transition: all 0.2s;
+}
+.step-item.active .step-dot {
+  border-color: #0ABAB5;
+  background: #0ABAB5;
+  color: #fff;
+}
+.step-item.done .step-dot {
+  border-color: #0ABAB5;
+  background: #0ABAB5;
+  color: #fff;
+}
+.step-label {
+  font-size: 10px;
+  color: #bbb;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.step-item.active .step-label { color: #0ABAB5; }
+.step-item.done .step-label { color: #089490; }
+
+/* ── Plan cards ──────────────────────────── */
+.plan-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.plan-card {
+  border: 1.5px solid #e2e5e9;
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.plan-card:hover { border-color: #0ABAB5; background: #f0fafa; }
+.plan-card.selected { border-color: #0ABAB5; background: #e8f7f7; }
+.plan-card input[type="radio"] { accent-color: #0ABAB5; flex-shrink: 0; }
+.plan-info { flex: 1; }
+.plan-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.plan-price { font-size: 12px; color: #888; margin-top: 2px; }
+.plan-badge {
+  font-size: 10px;
+  background: #0ABAB5;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ── Stripe mock ─────────────────────────── */
+.stripe-field {
+  border: 1.5px solid #e2e5e9;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: #fafafa;
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stripe-logo {
+  font-size: 11px;
+  font-weight: 700;
+  color: #635BFF;
+  border: 1.5px solid #635BFF;
+  padding: 1px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.stripe-note {
+  font-size: 11px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.stripe-note::before { content: '🔒'; font-size: 12px; }
+
+/* ── Signup type selector ────────────────── */
+.type-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.type-card {
+  border: 2px solid #e2e5e9;
+  border-radius: 10px;
+  padding: 22px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  background: #fafafa;
+}
+.type-card:hover { border-color: #0ABAB5; background: #f0fafa; }
+.type-card .tc-icon { font-size: 32px; margin-bottom: 10px; }
+.type-card .tc-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.type-card .tc-desc { font-size: 11px; color: #999; margin-top: 4px; line-height: 1.5; }
+
+@media (max-width: 768px) {
+  .brand-panel { display: none; }
+  .form-panel { padding: 32px 20px; }
+}
+
+/* ── Billing cycle selector ──────────────── */
+.cycle-cards { display: flex; gap: 10px; margin-bottom: 18px; }
+.cycle-card {
+  flex: 1; border: 1.5px solid #e2e5e9; border-radius: 8px; padding: 10px 8px;
+  text-align: center; cursor: pointer; font-size: 13px; font-weight: 600;
+  color: #444; background: #fafafa; transition: all 0.15s;
+}
+.cycle-card span { display: block; font-size: 11px; font-weight: 600; color: #d97706; margin-top: 3px; }
+.cycle-card:hover { border-color: #0ABAB5; }
+.cycle-card.active { border-color: #0ABAB5; background: #e8f7f7; color: #089490; }
+</style>
+</head>
+<body>
+
+<div class="auth-wrap">
+
+  <!-- ── Left brand panel ─────────────────── -->
+  <div class="brand-panel">
+    <div class="brand-logo">
+      <img src="https://e-mind.ltd/wp-content/uploads/2022/08/500_120_emaind_logo_horizontal_simple.png" alt="E-Mind" style="width:160px;height:auto;display:block">
+    </div>
+    <div class="brand-tagline">
+      AIで、技術をつなぎ、<br>現場を進化させる。
+    </div>
+    <div class="brand-desc">
+      日本・海外を含む世界中の技術が集まるプラットフォーム。<br>
+      AI技術を活用し、言語・機械・用途・要素を統合し、現場に最適なデータを自動生成します。
+    </div>
+    <div class="brand-desc" style="margin-top:20px;">
+      AIとの対話を通じて技術の理解と活用を促進し、若年層から熟練者まで誰もが使いこなせる環境を提供します。
+    </div>
+  </div>
+
+  <!-- ── Right form panel ─────────────────── -->
+  <div class="form-panel">
+    <div class="form-box">
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: LOGIN                          -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-login" class="view active">
+        <div class="form-title">ログイン</div>
+        <div class="form-subtitle">E-Mind AI Platform へようこそ</div>
+
+        <div class="field">
+          <label>メールアドレス</label>
+          <input type="text" id="login-id" placeholder="メールアドレスを入力"
+            onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
+        </div>
+        <div class="field">
+          <label>パスワード</label>
+          <input type="password" id="login-pass" placeholder="パスワードを入力"
+            onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+
+        <div id="login-error" style="display:none;color:#ef4444;font-size:12px;margin-bottom:14px;">
+          IDまたはパスワードが正しくありません。
+        </div>
+
+        <div class="checkbox-row" style="margin-bottom:24px;">
+          <input type="checkbox" id="remember">
+          <label for="remember">ログイン状態を保持する</label>
+        </div>
+
+        <button class="btn btn-primary" onclick="doLogin()">ログイン</button>
+
+        <div style="margin-top:16px;background:#f8fffe;border:1px solid #d0f0ee;border-radius:6px;padding:12px 14px;font-size:12px;color:#555;line-height:1.8;">
+          <strong style="color:#089490;">テスト用アカウント（パスワード共通: 1234）</strong><br>
+          🔑 <code>admin</code> → システム管理者<br>
+          🏢 <code>company</code> → 会社ユーザー<br>
+          ⭐ <code>emind</code> → Admin + Project<br>
+          🔀 <code>company2</code> → 複数ワークスペース（メール送信）
+        </div>
+
+        <div class="link-row" style="margin-top:16px;">
+          <a onclick="goto('view-reset')">パスワードをお忘れですか？</a>
+        </div>
+
+        <div class="divider">アカウントをお持ちでない方</div>
+
+        <div class="type-cards">
+          <div class="type-card" onclick="goto('view-personal-signup')">
+            <div class="tc-icon">👤</div>
+            <div class="tc-name">個人登録</div>
+            <div class="tc-desc">個人でお試し<br>14日間無料トライアル</div>
+          </div>
+          <div class="type-card" onclick="goto('view-company-step1')">
+            <div class="tc-icon">🏢</div>
+            <div class="tc-name">企業登録</div>
+            <div class="tc-desc">企業アカウントを<br>作成する</div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: WORKSPACE SENT (company2)      -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-workspace-sent" class="view">
+        <div class="success-box">
+          <div class="success-icon">✉️</div>
+          <h3>メールを送信しました</h3>
+          <p style="margin-top:12px;">
+            ご登録のメールアドレスに<br>
+            ワークスペース一覧のリンクをお送りしました。<br>
+            メールをご確認の上、該当のワークスペースへ<br>
+            アクセスしてください。
+          </p>
+          <div style="margin-top:24px;">
+            <button class="btn btn-outline" onclick="goto('view-login')">ログインへ戻る</button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: RESET PASSWORD                 -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-reset" class="view">
+        <div class="back-link" onclick="goto('view-login')">ログインへ戻る</div>
+        <div class="form-title">パスワードリセット</div>
+        <div class="form-subtitle">
+          登録済みのメールアドレスを入力してください。<br>
+          パスワード再設定用のリンクをお送りします。
+        </div>
+
+        <div id="reset-form">
+          <div class="field">
+            <label>メールアドレス</label>
+            <input type="email" placeholder="example@company.co.jp">
+          </div>
+          <button class="btn btn-primary" onclick="showResetSuccess()">リセットリンクを送信</button>
+        </div>
+
+        <div id="reset-success" style="display:none;">
+          <div class="success-box">
+            <div class="success-icon">✉️</div>
+            <h3>メールを送信しました</h3>
+            <p>ご入力のメールアドレスに<br>パスワード再設定用のリンクをお送りしました。<br>メールをご確認ください。</p>
+            <div style="margin-top:24px;">
+              <button class="btn btn-outline" onclick="goto('view-login')">ログインへ戻る</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: PERSONAL SIGNUP — STEP 1      -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-personal-signup" class="view">
+        <div class="back-link" onclick="goto('view-login')">戻る</div>
+        <div class="form-title">個人アカウント登録</div>
+        <div class="form-subtitle">ステップ 1 / 2 — アカウント情報</div>
+
+        <div class="steps">
+          <div class="step-item active">
+            <div class="step-dot">1</div>
+            <div class="step-label">アカウント情報</div>
+          </div>
+          <div class="step-item">
+            <div class="step-dot">2</div>
+            <div class="step-label">支払い方法</div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>姓</label>
+            <input type="text" placeholder="山田">
+          </div>
+          <div class="field">
+            <label>名</label>
+            <input type="text" placeholder="太郎">
+          </div>
+        </div>
+        <div class="field">
+          <label>メールアドレス</label>
+          <input type="email" placeholder="example@email.com">
+        </div>
+        <div class="field">
+          <label>パスワード</label>
+          <input type="password" placeholder="8文字以上で入力">
+        </div>
+        <div class="field">
+          <label>パスワード（確認）</label>
+          <input type="password" placeholder="パスワードを再入力">
+        </div>
+
+        <button class="btn btn-primary" onclick="goto('view-personal-step2')">次へ →</button>
+        <div class="link-row">
+          すでにアカウントをお持ちですか？
+          <a onclick="goto('view-login')">ログイン</a>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: PERSONAL SIGNUP — STEP 2      -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-personal-step2" class="view">
+        <div class="back-link" onclick="goto('view-personal-signup')">戻る</div>
+        <div class="form-title">個人アカウント登録</div>
+        <div class="form-subtitle">ステップ 2 / 2 — 支払い方法</div>
+
+        <div class="steps">
+          <div class="step-item done">
+            <div class="step-dot">✓</div>
+            <div class="step-label">アカウント情報</div>
+          </div>
+          <div class="step-item active">
+            <div class="step-dot">2</div>
+            <div class="step-label">支払い方法</div>
+          </div>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;color:#555;margin-bottom:10px;">支払いサイクル</div>
+        <div class="cycle-cards" data-scope="personal">
+          <div class="cycle-card active" data-months="1"  onclick="loginSetCycle('personal',1,this)">月払い<span>割引なし</span></div>
+          <div class="cycle-card"        data-months="6"  onclick="loginSetCycle('personal',6,this)">6ヶ月<span>6% OFF</span></div>
+          <div class="cycle-card"        data-months="12" onclick="loginSetCycle('personal',12,this)">年払い<span>15% OFF</span></div>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;color:#555;margin-bottom:12px;">プランを選択</div>
+        <div class="plan-cards" data-scope="personal">
+          <div class="plan-card" data-monthly="1000" onclick="selectPlan(this)">
+            <input type="radio" name="plan-personal" value="standard">
+            <div class="plan-info">
+              <div class="plan-name">スタンダードプラン</div>
+              <div class="plan-price"></div>
+            </div>
+          </div>
+          <div class="plan-card selected" data-monthly="1500" onclick="selectPlan(this)">
+            <input type="radio" name="plan-personal" value="pro" checked>
+            <div class="plan-info">
+              <div class="plan-name">プロプラン</div>
+              <div class="plan-price"></div>
+            </div>
+            <div class="plan-badge">おすすめ</div>
+          </div>
+          <div class="plan-card" onclick="selectPlan(this)">
+            <input type="radio" name="plan-personal" value="trial">
+            <div class="plan-info">
+              <div class="plan-name">無料トライアル</div>
+              <div class="plan-price">14日間無料</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;font-size:12px;font-weight:600;color:#555;margin-bottom:12px;">クレジットカード情報</div>
+
+        <div class="field">
+          <label>カード番号</label>
+          <div class="stripe-field">
+            <div class="stripe-logo">stripe</div>
+            1234  5678  9012  3456
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>有効期限</label>
+            <input type="text" placeholder="MM / YY">
+          </div>
+          <div class="field">
+            <label>セキュリティコード</label>
+            <input type="text" placeholder="CVV">
+          </div>
+        </div>
+        <div class="field">
+          <label>カード名義人</label>
+          <input type="text" placeholder="TARO YAMADA">
+        </div>
+
+        <button class="btn btn-primary" style="margin-top:8px;">無料トライアルを開始する ✓</button>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: COMPANY SIGNUP — STEP 1        -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-company-step1" class="view">
+        <div class="back-link" onclick="goto('view-login')">戻る</div>
+        <div class="form-title">企業アカウント登録</div>
+        <div class="form-subtitle">ステップ 1 / 3 — 会社情報</div>
+
+        <div class="steps">
+          <div class="step-item active">
+            <div class="step-dot">1</div>
+            <div class="step-label">会社情報</div>
+          </div>
+          <div class="step-item">
+            <div class="step-dot">2</div>
+            <div class="step-label">担当者情報</div>
+          </div>
+          <div class="step-item">
+            <div class="step-dot">3</div>
+            <div class="step-label">お支払い情報</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>会社名 <span style="color:#ef4444">*</span></label>
+          <input type="text" placeholder="株式会社〇〇">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>従業員数</label>
+            <select>
+              <option value="" disabled selected>選択</option>
+              <option>1〜10名</option>
+              <option>11〜50名</option>
+              <option>51〜200名</option>
+              <option>201〜1000名</option>
+              <option>1001名以上</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>国 <span style="color:#ef4444">*</span></label>
+            <select>
+              <option value="" disabled selected>国を選択</option>
+              <option>日本</option>
+              <option>ベトナム</option>
+              <option>タイ</option>
+              <option>中国</option>
+              <option>韓国</option>
+              <option>アメリカ</option>
+              <option>その他</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>住所</label>
+          <input type="text" placeholder="例：東京都千代田区丸の内1-1-1">
+        </div>
+
+        <button class="btn btn-primary" onclick="goto('view-company-step2')">次へ →</button>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: COMPANY SIGNUP — STEP 2        -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-company-step2" class="view">
+        <div class="back-link" onclick="goto('view-company-step1')">戻る</div>
+        <div class="form-title">企業アカウント登録</div>
+        <div class="form-subtitle">ステップ 2 / 3 — 担当者情報</div>
+
+        <div class="steps">
+          <div class="step-item done">
+            <div class="step-dot">✓</div>
+            <div class="step-label">会社情報</div>
+          </div>
+          <div class="step-item active">
+            <div class="step-dot">2</div>
+            <div class="step-label">担当者情報</div>
+          </div>
+          <div class="step-item">
+            <div class="step-dot">3</div>
+            <div class="step-label">お支払い情報</div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>姓 <span style="color:#ef4444">*</span></label>
+            <input type="text" placeholder="山田">
+          </div>
+          <div class="field">
+            <label>名 <span style="color:#ef4444">*</span></label>
+            <input type="text" placeholder="花子">
+          </div>
+        </div>
+        <div class="field">
+          <label>役職</label>
+          <input type="text" placeholder="例：システム部 部長">
+        </div>
+        <div class="field">
+          <label>部署</label>
+          <input type="text" placeholder="例：情報システム部">
+        </div>
+        <div class="field">
+          <label>メールアドレス <span style="color:#ef4444">*</span></label>
+          <input type="email" placeholder="hanako@company.co.jp">
+        </div>
+        <div class="field">
+          <label>電話番号</label>
+          <input type="tel" placeholder="03-XXXX-XXXX">
+        </div>
+
+        <div class="field">
+          <label>パスワード <span style="color:#ef4444">*</span></label>
+          <input type="password" placeholder="8文字以上で入力">
+        </div>
+        <div class="field">
+          <label>パスワード（確認） <span style="color:#ef4444">*</span></label>
+          <input type="password" placeholder="パスワードを再入力">
+        </div>
+
+        <button class="btn btn-primary" onclick="goto('view-company-step3')">次へ →</button>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: COMPANY SIGNUP — STEP 3        -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-company-step3" class="view">
+        <div class="back-link" onclick="goto('view-company-step2')">戻る</div>
+        <div class="form-title">企業アカウント登録</div>
+        <div class="form-subtitle">ステップ 3 / 3 — お支払い情報</div>
+
+        <div class="steps">
+          <div class="step-item done">
+            <div class="step-dot">✓</div>
+            <div class="step-label">会社情報</div>
+          </div>
+          <div class="step-item done">
+            <div class="step-dot">✓</div>
+            <div class="step-label">担当者情報</div>
+          </div>
+          <div class="step-item active">
+            <div class="step-dot">3</div>
+            <div class="step-label">お支払い情報</div>
+          </div>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;color:#555;margin-bottom:10px;">支払いサイクル</div>
+        <div class="cycle-cards" data-scope="company">
+          <div class="cycle-card active" data-months="1"  onclick="loginSetCycle('company',1,this)">月払い<span>割引なし</span></div>
+          <div class="cycle-card"        data-months="6"  onclick="loginSetCycle('company',6,this)">6ヶ月<span>6% OFF</span></div>
+          <div class="cycle-card"        data-months="12" onclick="loginSetCycle('company',12,this)">年払い<span>15% OFF</span></div>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;color:#555;margin-bottom:12px;">プランを選択</div>
+        <div class="plan-cards" data-scope="company">
+          <div class="plan-card" data-monthly="1000" onclick="selectPlan(this)">
+            <input type="radio" name="plan" value="starter">
+            <div class="plan-info">
+              <div class="plan-name">スタンダードプラン</div>
+              <div class="plan-price"></div>
+            </div>
+          </div>
+          <div class="plan-card selected" data-monthly="1500" onclick="selectPlan(this)">
+            <input type="radio" name="plan" value="business" checked>
+            <div class="plan-info">
+              <div class="plan-name">プロプラン</div>
+              <div class="plan-price"></div>
+            </div>
+            <div class="plan-badge">おすすめ</div>
+          </div>
+          <div class="plan-card" onclick="selectPlan(this)">
+            <input type="radio" name="plan" value="enterprise">
+            <div class="plan-info">
+              <div class="plan-name">無料トライアル</div>
+              <div class="plan-price">14日間無料</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;font-size:12px;font-weight:600;color:#555;margin-bottom:12px;">クレジットカード情報</div>
+
+
+        <div class="field">
+          <label>カード番号</label>
+          <div class="stripe-field">
+            <div class="stripe-logo">stripe</div>
+            1234  5678  9012  3456
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>有効期限</label>
+            <input type="text" placeholder="MM / YY">
+          </div>
+          <div class="field">
+            <label>セキュリティコード</label>
+            <input type="text" placeholder="CVV">
+          </div>
+        </div>
+        <div class="field">
+          <label>カード名義人</label>
+          <input type="text" placeholder="HANAKO YAMADA">
+        </div>
+
+        <button class="btn btn-primary" onclick="goto('view-company-done')">登録を完了する ✓</button>
+      </div>
+
+
+      <!-- ════════════════════════════════════ -->
+      <!-- VIEW: COMPANY SIGNUP — DONE          -->
+      <!-- ════════════════════════════════════ -->
+      <div id="view-company-done" class="view">
+        <div class="success-box">
+          <div class="success-icon">🎉</div>
+          <h3>登録が完了しました！</h3>
+          <p style="margin-top:12px;">
+            ご登録いただきありがとうございます。<br>
+            確認メールをお送りしましたのでご確認ください。<br><br>
+            E-Mind Platform をご活用ください。
+          </p>
+          <div style="margin-top:28px;">
+            <button class="btn btn-primary" onclick="goto('view-login')">ログイン画面へ</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /form-box -->
+  </div><!-- /form-panel -->
+
+</div><!-- /auth-wrap -->
+
+<script>
+const COMMON_PASSWORD = '1234';
+const users = {
+  'admin':    { name: 'Admin',    role: 'admin',         avatar: 'AD', password: COMMON_PASSWORD, workspaces: 1 },
+  'company':  { name: 'Company',  role: 'company',       avatar: '会社', companyName: 'E-Mind株式会社', password: COMMON_PASSWORD, workspaces: 1 },
+  'emind':    { name: 'E-Mind',   role: 'both',          avatar: 'EM',  companyName: 'E-Mind株式会社', roles: ['システム管理者','会社管理者','案件管理者'], password: COMMON_PASSWORD, workspaces: 1 },
+  'company2': { name: 'Company2', role: 'multi-company', avatar: 'C2',  password: COMMON_PASSWORD, workspaces: 3,
+    companies: [
+      { code: 'abc',     name: 'ABC Manufacturing Vietnam', flag: '🇻🇳', projects: ['PRJ-001','PRJ-003'], logo: { initials: 'ABC', color: '#e67e22', textColor: '#fff', shape: 'rounded' } },
+      { code: 'techno',  name: 'Techno Solutions',          flag: '🇯🇵', projects: ['PRJ-002'],           logo: { initials: 'TS',  color: '#2563eb', textColor: '#fff', shape: 'circle'  } },
+      { code: 'devstar', name: 'DevStar Co., Ltd.',         flag: '🇻🇳', projects: ['PRJ-004','PRJ-005'], logo: { initials: 'DS',  color: '#7c3aed', textColor: '#fff', shape: 'rounded' } },
+    ]
+  },
+};
+
+function doLogin() {
+  const id   = document.getElementById('login-id').value.trim().toLowerCase();
+  const pass = document.getElementById('login-pass').value;
+  const user = users[id];
+  if (!user || pass !== user.password) {
+    document.getElementById('login-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('login-error').style.display = 'none';
+
+  if (user.workspaces > 1) {
+    // 複数ワークスペース → メール送信画面へ
+    goto('view-workspace-sent');
+    return;
+  }
+
+  // 1ワークスペース → そのままindex.htmlへ
+  sessionStorage.setItem('emind_user_id', id);
+  sessionStorage.setItem('emind_user', JSON.stringify(user));
+  window.location.href = 'index.html';
+}
+
+function goto(viewId) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  if (viewId === 'view-reset') {
+    document.getElementById('reset-form').style.display = 'block';
+    document.getElementById('reset-success').style.display = 'none';
+  }
+}
+
+function showResetSuccess() {
+  document.getElementById('reset-form').style.display = 'none';
+  document.getElementById('reset-success').style.display = 'block';
+}
+
+function selectPlan(card) {
+  const scopeWrap = card.closest('.plan-cards');
+  (scopeWrap ? scopeWrap.querySelectorAll('.plan-card') : document.querySelectorAll('.plan-card'))
+    .forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  card.querySelector('input[type="radio"]').checked = true;
+}
+
+// ── Billing cycle → giá theo kỳ (期間割引) ──
+// ※ 割引率(6%/15%)は本番ではプランマスタと連動
+const LOGIN_CYCLE_DISC  = { 1: 0, 6: 6, 12: 15 };
+const LOGIN_CYCLE_LABEL = { 1: '月払い', 6: '6ヶ月一括', 12: '年一括' };
+
+function loginRenderPrices(scope, months) {
+  const suffix = scope === 'company' ? '/席・月' : '/月';
+  const d = LOGIN_CYCLE_DISC[months] || 0;
+  document.querySelectorAll('.plan-cards[data-scope="' + scope + '"] .plan-card').forEach(card => {
+    const monthly = parseInt(card.getAttribute('data-monthly'));
+    const priceEl = card.querySelector('.plan-price');
+    if (!monthly || !priceEl) return; // 無料トライアル等
+    const unit = Math.floor(monthly * (1 - d / 100));
+    if (months === 1) {
+      priceEl.innerHTML = '¥' + unit.toLocaleString() + ' ' + suffix + '（税抜）';
+    } else {
+      const total = unit * months;
+      priceEl.innerHTML = '¥' + unit.toLocaleString() + ' ' + suffix
+        + ' <span style="color:#d97706;font-weight:700">' + d + '% OFF</span>'
+        + '<br><span style="font-size:11px;color:#888">' + LOGIN_CYCLE_LABEL[months] + ' ¥' + total.toLocaleString()
+        + (scope === 'company' ? ' ×席数を前払い' : ' を前払い') + '</span>';
+    }
+  });
+}
+
+function loginSetCycle(scope, months, el) {
+  document.querySelectorAll('.cycle-cards[data-scope="' + scope + '"] .cycle-card').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  loginRenderPrices(scope, months);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loginRenderPrices('personal', 1);
+  loginRenderPrices('company', 1);
+});
+</script>
+</body>
+</html>

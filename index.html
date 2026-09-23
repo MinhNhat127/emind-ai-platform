@@ -4486,6 +4486,22 @@
           <span class="nav-text">Bàn điều hành</span>
         </div>
 
+        <!-- Dummy Data Tab for System Admin -->
+        <div class="nav-item" onclick="navigate('admin-dummy-data', this)" title="Dữ liệu hợp đồng mẫu">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </span>
+          <span class="nav-text">Dữ liệu Hợp đồng Mẫu</span>
+          <span class="notif" style="background:#089490;color:#fff;margin-left:auto;font-size:10px;padding:1px 6px">28</span>
+        </div>
+
         <!-- 1. Thành viên công ty (People / Users Icon) -->
         <div class="nav-item" onclick="navigate('adminusers', this)" title="Thành viên công ty">
           <span class="nav-icon">
@@ -4655,6 +4671,10 @@
           <div class="nav-label" style="color:rgba(255,220,100,0.8)">MENU QUẢN TRỊ VIÊN</div>
           <div class="nav-item" onclick="navigate('admin-dashboard', this)">
             <span class="nav-icon">📊</span> Bàn Điều Hành (Dashboard)
+          </div>
+          <div class="nav-item" onclick="navigate('admin-dummy-data', this)">
+            <span class="nav-icon">📑</span> Dữ liệu Hợp đồng Mẫu (Dummy Data)
+            <span class="notif" style="background:#089490;color:#fff;margin-left:auto;font-size:10px">28</span>
           </div>
           <div class="nav-item" onclick="navigateAdminPlan('tab-ap-companies',this)">
             <span class="nav-icon">🏢</span> Danh sách Doanh nghiệp
@@ -5779,10 +5799,36 @@
                   <button class="vb-pill-btn" id="btn-seg-b2c" onclick="filterSegment('B2C')">👤 Cá nhân</button>
                 </div>
 
+                                <!-- Timeline Quick-Switch: T08 (Đã chốt) • T09 (LIVE 23/09) • T10 (Dự báo Q4) -->
+                <div class="vb-pill-group" id="vb-timeline-group" style="background:#f1f5f9;border:1px solid #cbd5e1;padding:2px;border-radius:10px;display:flex;align-items:center;gap:3px">
+                  <button type="button" class="vb-pill-btn" id="tl-btn-2026-08" onclick="quickJumpPeriod('2026-08')"
+                    style="font-size:11.5px;padding:5px 10px;border-radius:7px;transition:all 0.15s" title="Xem số liệu Tháng 08/2026 đã chốt sổ">
+                    <span>◀ T08</span> <span style="font-size:10px;opacity:0.75">(¥74k)</span>
+                  </button>
+                  <button type="button" class="vb-pill-btn active" id="tl-btn-2026-09" onclick="quickJumpPeriod('2026-09')"
+                    style="font-size:11.5px;padding:5px 12px;border-radius:7px;font-weight:800;background:#ffffff;color:#089490;box-shadow:0 1px 2px rgba(0,0,0,0.06);transition:all 0.15s" title="Xem số liệu Tháng 09/2026 (Đang chạy LIVE)">
+                    <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:3px"></span>
+                    <span>T09 LIVE (23/09)</span> <span style="font-size:10px;color:#089490;font-weight:800">(¥112k)</span>
+                  </button>
+                  <button type="button" class="vb-pill-btn" id="tl-btn-2026-10" onclick="quickJumpPeriod('2026-10')"
+                    style="font-size:11.5px;padding:5px 10px;border-radius:7px;transition:all 0.15s" title="Xem dự báo dòng tiền & khách hàng Tháng 10/2026">
+                    <span>T10 (Tháng sau) ▶</span> <span style="font-size:10px;color:#a21caf;font-weight:800">(¥172.4k)</span>
+                  </button>
+                </div>
+
                 <select id="vb-period-select" onchange="changeDashboardPeriod(this.value)"
-                  style="padding:6px 12px;border-radius:8px;border:1px solid #cbd5e1;font-size:12px;font-weight:600;color:#0f172a;background:#fff;cursor:pointer">
-                  <option value="2026-09" selected>📅 Tháng 09/2026 (Kỳ hiện tại)</option>
-                  <option value="2026-08">Tháng 08/2026</option>
+                  style="padding:6px 12px;border-radius:8px;border:1px solid #cbd5e1;font-size:12px;font-weight:700;color:#0f172a;background:#fff;cursor:pointer">
+                  <option value="2026-08">Tháng 08/2026 (Tháng trước)</option>
+                  <option value="2026-09" selected>📅 Tháng 09/2026 (Tháng này - LIVE)</option>
+                  <option value="2026-10">Tháng 10/2026 (Tháng sau - Dự báo)</option>
+                  <option value="2026-11">Tháng 11/2026 (Dự báo Q4)</option>
+                  <option value="2026-12">Tháng 12/2026 (Dự báo cuối năm)</option>
+                  <option value="2026-01">Tháng 01/2026</option>
+                  <option value="2026-02">Tháng 02/2026</option>
+                  <option value="2026-03">Tháng 03/2026</option>
+                  <option value="2026-04">Tháng 04/2026</option>
+                  <option value="2026-05">Tháng 05/2026</option>
+                  <option value="2026-06">Tháng 06/2026</option>
                   <option value="2026-07">Tháng 07/2026</option>
                 </select>
 
@@ -5791,9 +5837,36 @@
                   <button class="vb-pill-btn" id="btn-curr-usd" onclick="toggleCurrency('USD')">$ USD</button>
                 </div>
 
+                <button class="vb-btn-sm" onclick="openDailyCashModal()"
+                  title="Xem bảng kê tiền kiếm được đến ngày cụ thể trong Tháng 9"
+                  style="padding:6px 12px;display:inline-flex;align-items:center;gap:6px;background:#f0fdfa;border:1px solid #99f6e4;color:#089490;font-weight:700">
+                  📅 Bảng Thu Tiền Theo Ngày
+                </button>
+                <button class="vb-btn-sm" onclick="navigate('admin-dummy-data', null)"
+                  title="Xem danh sách 28 hợp đồng khách hàng chi tiết"
+                  style="padding:6px 12px;display:inline-flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #cbd5e1;color:#334155;font-weight:600">
+                  📑 Dữ liệu Hợp đồng Mẫu
+                </button>
+
                 <button class="vb-btn-sm" onclick="exportDashboardSummary()"
                   style="padding:6px 14px;display:inline-flex;align-items:center;gap:6px">
-                  📥 Xuất dữ liệu Excel
+                  📥 Xuất Excel
+                </button>
+              </div>
+            </div>
+
+            <!-- Khung Thông Điệp Điều Hành Cho Sếp (Executive Insight Banner) -->
+            <div id="executive-insight-banner" style="margin-bottom:14px;padding:12px 18px;border-radius:12px;background:#f0fdfa;border:1px solid #99f6e4;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,0.02);transition:all 0.2s">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span id="eib-icon" style="font-size:22px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#ccfbf1;color:#0f766e;flex-shrink:0">💡</span>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:#0f172a" id="eib-title">Tình Trạng Tháng 09/2026 (LIVE - Chốt đến 23/09)</div>
+                  <div style="font-size:12px;color:#475569;margin-top:2px" id="eib-desc">Đã thu đủ <strong>100% kế hoạch (¥112,000)</strong> từ 8 khách hàng trước hạn vào 15/09. Tỷ lệ lấp đầy ghế 91.5% (348/380 ghế). Toàn bộ hệ thống ổn định.</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;flex-shrink:0" id="eib-action-container">
+                <button class="btn btn-sm" onclick="openDailyCashModal()" id="eib-action-btn" style="background:#089490;color:#ffffff;border:none;font-weight:700;font-size:11.5px;padding:6px 14px;border-radius:6px;cursor:pointer">
+                  📅 Bảng Kê Thu Tiền T09 ➔
                 </button>
               </div>
             </div>
@@ -5805,20 +5878,20 @@
               <div class="vb-kpi-card">
                 <div>
                   <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" id="lbl-cust-title">TỔNG KHÁCH HÀNG</span>
+                    <span class="vb-kpi-label" id="lbl-cust-title">TỔNG HỢP ĐỒNG KHÁCH HÀNG</span>
                     <span class="vb-kpi-icon">🌐</span>
                   </div>
                   <div style="margin-top:2px">
-                    <span class="vb-kpi-val" id="val-cust">116</span>
-                    <span class="vb-kpi-sub" id="sub-cust">đối tác & cá nhân</span>
+                    <span class="vb-kpi-val" id="val-cust">28</span>
+                    <span class="vb-kpi-sub" id="sub-cust">22 HĐ đang active</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
                   style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
                   <span style="color:#089490;font-weight:700" id="lbl-cust-b2b"
-                    title="14 Enterprise + 48 Professional">🏢 62 Doanh nghiệp</span>
+                    title="18 HĐ Doanh nghiệp (14 Active T9)">🏢 18 DN (14 Active)</span>
                   <span style="color:#009BCC;font-weight:700" id="lbl-cust-b2c"
-                    title="42 Basic trả phí + 12 Dùng thử">👤 54 Cá nhân</span>
+                    title="10 HĐ Cá nhân (8 Active T9)">👤 10 Cá nhân (8 Active)</span>
                 </div>
               </div>
 
@@ -5841,16 +5914,18 @@
                 </div>
               </div>
 
-              <!-- Card 3: Thực Thu Tháng 09 -->
-              <div class="vb-kpi-card" style="border-top:3px solid #089490">
+              <!-- Card 3: Thực Thu Đến Ngày Cụ Thể (Cash-In) -->
+              <div class="vb-kpi-card" style="border-top:3px solid #089490;cursor:pointer;transition:all 0.2s ease"
+                onclick="openDailyCashModal()"
+                title="Nhấn để xem bảng kê tiền kiếm được đến ngày cụ thể trong Tháng 9">
                 <div>
                   <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#089490" id="lbl-cash-title">THỰC THU THÁNG 09</span>
+                    <span class="vb-kpi-label" style="color:#089490" id="lbl-cash-title">THỰC THU ĐẾN 23/09/2026</span>
                     <span class="vb-kpi-icon" style="background:#e6f7f6;color:#089490">💵</span>
                   </div>
                   <div style="margin-top:2px">
                     <span class="vb-kpi-val" id="val-cash-in" style="color:#089490">¥112,000</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#64748b" id="sub-cash">tiền về két</span>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#089490;font-weight:700" id="sub-cash">8 giao dịch • Bấm xem bảng ngày ➔</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
@@ -5860,22 +5935,22 @@
                 </div>
               </div>
 
-              <!-- Card 4: Thu Lại Năm 2027 (Gói 1 Năm) -->
+              <!-- Card 4: Ghế Đang Sử Dụng (Seats) -->
               <div class="vb-kpi-card" style="border-top:3px solid #009BCC">
                 <div>
                   <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#009BCC" id="lbl-def-title">THU LẠI NĂM 2027 (GÓI NĂM)</span>
-                    <span class="vb-kpi-icon" style="background:#e0f4fc;color:#009BCC">🎯</span>
+                    <span class="vb-kpi-label" style="color:#009BCC" id="lbl-def-title">GHẾ ĐANG SỬ DỤNG (SEATS)</span>
+                    <span class="vb-kpi-icon" style="background:#e0f4fc;color:#009BCC">👥</span>
                   </div>
                   <div style="margin-top:2px">
-                    <span class="vb-kpi-val" id="val-deferred" style="color:#009BCC">¥1,744,000</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#009BCC" id="sub-def">26 HĐ</span>
+                    <span class="vb-kpi-val" id="val-deferred" style="color:#009BCC">348 / 380</span>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#009BCC" id="sub-def">Tỷ lệ 91.5% (Trống 32)</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
                   style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
-                  <span style="color:#089490;font-weight:700" id="lbl-def-b2b" title="20 HĐ doanh nghiệp tái ký">🏢 DN: ¥1.52M (20 HĐ)</span>
-                  <span style="color:#009BCC;font-weight:700" id="lbl-def-b2c" title="6 HĐ cá nhân tái ký">👤 Cá nhân: ¥224k (6 HĐ)</span>
+                  <span style="color:#089490;font-weight:700" id="lbl-def-b2b" title="331 ghế doanh nghiệp active">🏢 DN: 331 / 350 ghế</span>
+                  <span style="color:#009BCC;font-weight:700" id="lbl-def-b2c" title="17 ghế cá nhân active">👤 Cá nhân: 17 / 30 ghế</span>
                 </div>
               </div>
 
@@ -5960,13 +6035,13 @@
                     <line x1="50" y1="160" x2="650" y2="160" stroke="#cbd5e1" stroke-width="1.5" />
 
                     <text x="44" y="43" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end"
-                      id="y-lbl-400">400k</text>
+                      id="y-lbl-400">1.2M</text>
                     <text x="44" y="73" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end"
-                      id="y-lbl-300">300k</text>
+                      id="y-lbl-300">900k</text>
                     <text x="44" y="103" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end"
-                      id="y-lbl-200">200k</text>
+                      id="y-lbl-200">600k</text>
                     <text x="44" y="133" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end"
-                      id="y-lbl-100">100k</text>
+                      id="y-lbl-100">300k</text>
                     <text x="44" y="163" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="end">0</text>
 
                     <!-- Khung vùng dự báo Q4 -->
@@ -5996,15 +6071,15 @@
                     <div style="position:relative;width:115px;height:115px;flex-shrink:0">
                       <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg)">
                         <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="4.5" />
-                        <!-- Enterprise 48% Deep Teal (#089490) -->
+                        <!-- Enterprise 56% Deep Teal (#089490) -->
                         <circle id="donut-circle-ent" cx="18" cy="18" r="15.915" fill="none" stroke="#089490"
-                          stroke-width="4.5" stroke-dasharray="48 52" stroke-dashoffset="0" stroke-linecap="round" />
-                        <!-- Professional 38% Cyan (#009BCC) -->
+                          stroke-width="4.5" stroke-dasharray="56 44" stroke-dashoffset="0" stroke-linecap="round" />
+                        <!-- Professional 22% Cyan (#009BCC) -->
                         <circle id="donut-circle-pro" cx="18" cy="18" r="15.915" fill="none" stroke="#009BCC"
-                          stroke-width="4.5" stroke-dasharray="38 62" stroke-dashoffset="-48" stroke-linecap="round" />
-                        <!-- Basic 14% Amber (#f59e0b) -->
+                          stroke-width="4.5" stroke-dasharray="22 78" stroke-dashoffset="-56" stroke-linecap="round" />
+                        <!-- Basic 22% Amber (#f59e0b) -->
                         <circle id="donut-circle-basic" cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b"
-                          stroke-width="4.5" stroke-dasharray="14 86" stroke-dashoffset="-86" stroke-linecap="round" />
+                          stroke-width="4.5" stroke-dasharray="22 78" stroke-dashoffset="-78" stroke-linecap="round" />
                       </svg>
                       <div
                         style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
@@ -6020,9 +6095,9 @@
                         <span style="display:flex;align-items:center;gap:7px;font-size:12px">
                           <span style="width:11px;height:11px;border-radius:2px;background:#089490"></span>
                           <span id="lbl-ent-name"><strong>Enterprise</strong> <span
-                              style="font-size:10.5px;color:#64748b">(¥2.4k~3k)</span></span>
+                              style="font-size:10.5px;color:#64748b">(3 HĐ active)</span></span>
                         </span>
-                        <strong style="color:#089490;font-size:12px" id="lbl-ent-val">48% (¥163.2k)</strong>
+                        <strong style="color:#089490;font-size:12px" id="lbl-ent-val">56% (¥192.0k)</strong>
                       </div>
 
                       <div class="donut-legend-item" id="donut-item-pro"
@@ -6030,9 +6105,9 @@
                         <span style="display:flex;align-items:center;gap:7px;font-size:12px">
                           <span style="width:11px;height:11px;border-radius:2px;background:#009BCC"></span>
                           <span id="lbl-pro-name"><strong>Professional</strong> <span
-                              style="font-size:10.5px;color:#64748b">(¥1.2k~1.5k)</span></span>
+                              style="font-size:10.5px;color:#64748b">(10 HĐ active)</span></span>
                         </span>
-                        <strong style="color:#009BCC;font-size:12px" id="lbl-pro-val">38% (¥129.2k)</strong>
+                        <strong style="color:#009BCC;font-size:12px" id="lbl-pro-val">22% (¥74.0k)</strong>
                       </div>
 
                       <div class="donut-legend-item" id="donut-item-basic"
@@ -6040,9 +6115,9 @@
                         <span style="display:flex;align-items:center;gap:7px;font-size:12px">
                           <span style="width:11px;height:11px;border-radius:2px;background:#f59e0b"></span>
                           <span id="lbl-basic-name"><strong>Basic</strong> <span
-                              style="font-size:10.5px;color:#64748b">(¥640~800)</span></span>
+                              style="font-size:10.5px;color:#64748b">(9 HĐ active)</span></span>
                         </span>
-                        <strong style="color:#d97706;font-size:12px" id="lbl-basic-val">14% (¥47.6k)</strong>
+                        <strong style="color:#d97706;font-size:12px" id="lbl-basic-val">22% (¥74.0k)</strong>
                       </div>
                     </div>
                   </div>
@@ -6054,7 +6129,7 @@
                     <span
                       style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.4px" id="plan-header-title">3
                       Kỳ Thanh Toán Theo Gói</span>
-                    <span style="font-size:10.5px;color:#089490;font-weight:600" id="plan-header-sub">104 hợp đồng trả phí</span>
+                    <span style="font-size:10.5px;color:#089490;font-weight:600" id="plan-header-sub">22 hợp đồng active (28 HĐ quản lý)</span>
                   </div>
 
                   <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
@@ -6069,7 +6144,7 @@
                       </div>
                       <div style="font-size:14.5px;font-weight:800;color:#0f172a;margin:3px 0 1px" id="plan-val-annual">
                         ¥218,000</div>
-                      <div style="font-size:10px;color:#089490;font-weight:700" id="plan-sub-annual">26 HĐ (Đã trả trước)</div>
+                      <div style="font-size:10px;color:#089490;font-weight:700" id="plan-sub-annual">6 HĐ Active (Đã trả trước)</div>
                       <div style="font-size:9px;color:#64748b;margin-top:2px" id="plan-note-annual">Sang năm 2027 thu lại</div>
                     </div>
 
@@ -6083,7 +6158,7 @@
                       </div>
                       <div style="font-size:14.5px;font-weight:800;color:#0f172a;margin:3px 0 1px"
                         id="plan-val-quarterly">¥48,000</div>
-                      <div style="font-size:10px;color:#009BCC;font-weight:700" id="plan-sub-quarterly">14 HĐ (Kỳ 3 Tháng)</div>
+                      <div style="font-size:10px;color:#009BCC;font-weight:700" id="plan-sub-quarterly">9 HĐ Active (Kỳ 3 Tháng)</div>
                       <div style="font-size:9px;color:#64748b;margin-top:2px" id="plan-note-quarterly">Thu 4 đợt / năm</div>
                     </div>
 
@@ -6098,7 +6173,7 @@
                       </div>
                       <div style="font-size:14.5px;font-weight:800;color:#0f172a;margin:3px 0 1px"
                         id="plan-val-monthly">¥74,000</div>
-                      <div style="font-size:10px;color:#475569;font-weight:700" id="plan-sub-monthly">64 TK (Thu đều)</div>
+                      <div style="font-size:10px;color:#475569;font-weight:700" id="plan-sub-monthly">7 HĐ Active (Thu đều/tháng)</div>
                       <div style="font-size:9px;color:#64748b;margin-top:2px" id="plan-note-monthly">Thu tiền mỗi tháng</div>
                     </div>
                   </div>
@@ -6108,6 +6183,214 @@
             </div>
 
 
+            <!-- Modal: Bảng Dòng Tiền Thực Thu Đến Ngày Cụ Thể (Tháng 09/2026) -->
+            <div id="daily-cash-modal" class="modal-backdrop" onclick="if(event.target===this) closeDailyCashModal()" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.65);backdrop-filter:blur(5px);z-index:99999;align-items:center;justify-content:center;padding:20px;overflow-y:auto">
+              <div class="modal-card" style="background:#ffffff;border-radius:18px;width:100%;max-width:980px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);border:1px solid #e2e8f0;overflow:hidden;display:flex;flex-direction:column;max-height:90vh">
+                
+                <!-- Modal Header -->
+                <div style="padding:18px 24px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:flex-start;background:#f8fafc">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div style="width:40px;height:40px;border-radius:10px;background:#e6f7f6;color:#089490;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">
+                      💵
+                    </div>
+                    <div>
+                      <h3 style="font-size:17px;font-weight:800;color:#0f172a;margin:0" id="dcm-modal-title">Bảng Dòng Tiền Thực Thu Đến Ngày 23/09/2026</h3>
+                      <p style="font-size:12px;color:#64748b;margin:3px 0 0" id="dcm-modal-subtitle">Chi tiết lịch nạp tiền thực tế của từng khách hàng theo từng mốc ngày cụ thể trong Tháng 09/2026</p>
+                    </div>
+                  </div>
+                  <button onclick="closeDailyCashModal()" style="border:none;background:#f1f5f9;cursor:pointer;color:#64748b;font-size:18px;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all 0.15s" title="Đóng (Esc)">✕</button>
+                </div>
+
+                <!-- 4 Thẻ Thống Kê Tổng Quan Trong Modal -->
+                <div style="padding:14px 24px;background:#ffffff;border-bottom:1px solid #f1f5f9;display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px">
+                  <div style="background:#f0fdfa;border:1px solid #ccfbf1;padding:10px 14px;border-radius:10px">
+                    <span style="font-size:11px;color:#0f766e;font-weight:700;display:block">TỔNG TIỀN KIẾM ĐƯỢC ĐẾN 23/09</span>
+                    <strong style="font-size:19px;color:#089490" id="dcm-stat-total">¥112,000</strong>
+                    <span style="font-size:11px;color:#0f766e;display:block;margin-top:2px">✓ 100% KPI Tháng 9 (8 giao dịch)</span>
+                  </div>
+                  <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:10px 14px;border-radius:10px">
+                    <span style="font-size:11px;color:#64748b;font-weight:700;display:block">KHỐI DOANH NGHIỆP (B2B)</span>
+                    <strong style="font-size:19px;color:#0f172a" id="dcm-stat-b2b">¥94,000</strong>
+                    <span style="font-size:11px;color:#64748b;display:block;margin-top:2px">6 hợp đồng nạp tiền</span>
+                  </div>
+                  <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:10px 14px;border-radius:10px">
+                    <span style="font-size:11px;color:#64748b;font-weight:700;display:block">KHỐI CÁ NHÂN (B2C)</span>
+                    <strong style="font-size:19px;color:#0f172a" id="dcm-stat-b2c">¥18,000</strong>
+                    <span style="font-size:11px;color:#64748b;display:block;margin-top:2px">2 nhóm cá nhân nạp tiền</span>
+                  </div>
+                  <div style="background:#fdf4ff;border:1px solid #f5d0fe;padding:10px 14px;border-radius:10px">
+                    <span style="font-size:11px;color:#86198f;font-weight:700;display:block">TIẾN ĐỘ THU TIỀN THÁNG</span>
+                    <strong style="font-size:17px;color:#a21caf">23 / 30 Ngày</strong>
+                    <span style="font-size:11px;color:#86198f;display:block;margin-top:2px">Đã thu xong trước hạn vào 15/09</span>
+                  </div>
+                </div>
+
+                <!-- Thanh Lọc Phân Khúc Trong Modal -->
+                <div style="padding:10px 24px;border-bottom:1px solid #f1f5f9;background:#fafafa;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+                  <div style="display:flex;gap:8px;align-items:center" id="dcm-filter-tabs">
+                    <button type="button" id="dcm-tab-all" onclick="filterDailyCashModal('ALL')" class="btn btn-sm" style="background:#089490;color:#ffffff;font-weight:700;border:none;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all 0.15s">Toàn bộ (¥112,000)</button>
+                    <button type="button" id="dcm-tab-b2b" onclick="filterDailyCashModal('B2B')" class="btn btn-sm" style="background:#f1f5f9;color:#334155;font-weight:600;border:1px solid #cbd5e1;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all 0.15s">🏢 Doanh nghiệp (¥94,000)</button>
+                    <button type="button" id="dcm-tab-b2c" onclick="filterDailyCashModal('B2C')" class="btn btn-sm" style="background:#f1f5f9;color:#334155;font-weight:600;border:1px solid #cbd5e1;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all 0.15s">👤 Cá nhân (¥18,000)</button>
+                  </div>
+                  <span style="font-size:12px;color:#64748b" id="dcm-filter-note">Hiển thị 8/8 giao dịch tiền về két</span>
+                </div>
+
+                <!-- Bảng Kê Chi Tiết Từng Ngày -->
+                <div style="padding:14px 24px;overflow-y:auto;flex:1">
+                  <table style="width:100%;border-collapse:collapse;font-size:12.5px" id="dcm-table">
+                    <thead>
+                      <tr style="background:#f8fafc;border-bottom:2px solid #e2e8f0;color:#475569">
+                        <th style="padding:10px 12px;text-align:left;font-weight:700;width:115px">Ngày Thu</th>
+                        <th style="padding:10px 12px;text-align:left;font-weight:700;width:110px">Mã HĐ</th>
+                        <th style="padding:10px 12px;text-align:left;font-weight:700">Khách Hàng & Người Liên Hệ</th>
+                        <th style="padding:10px 12px;text-align:center;font-weight:700;width:95px">Phân Khúc</th>
+                        <th style="padding:10px 12px;text-align:left;font-weight:700;width:145px">Gói & Chu Kỳ</th>
+                        <th style="padding:10px 12px;text-align:right;font-weight:700;width:115px">Số Tiền Thu</th>
+                        <th style="padding:10px 12px;text-align:right;font-weight:700;width:130px;background:#f0fdfa;color:#0f766e">Lũy Kế Đến Ngày</th>
+                        <th style="padding:10px 12px;text-align:center;font-weight:700;width:110px">Trạng Thái</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dcm-tbody">
+                      <!-- Rendered dynamically by renderDailyCashTable() -->
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Modal Footer -->
+                <div style="padding:12px 24px;border-top:1px solid #e2e8f0;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+                  <span style="font-size:12px;color:#64748b">
+                    💡 Khớp 100% từng yên với <a href="javascript:void(0)" onclick="closeDailyCashModal();navigate('admin-dummy-data',null)" style="color:#089490;font-weight:700;text-decoration:none">Bảng 28 Hợp Đồng Mẫu</a>
+                  </span>
+                  <div style="display:flex;gap:10px;align-items:center">
+                    <button class="btn btn-outline btn-sm" onclick="exportDailyCashCSV()" style="display:inline-flex;align-items:center;gap:6px">
+                      📥 Xuất Excel Bảng Kê
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="closeDailyCashModal()">
+                      Đóng
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===== TRANG DỮ LIỆU HỢP ĐỒNG KHÁCH HÀNG (DUMMY DATA) ===== -->
+        <div class="page" id="page-admin-dummy-data">
+          <div class="section-header" style="margin-bottom:14px;align-items:center">
+            <div>
+              <div class="section-title" style="display:flex;align-items:center;gap:8px">
+                📑 Dữ Liệu Hợp Đồng Khách Hàng Mẫu
+                <span style="font-size:12px;background:#e6f7f6;color:#089490;font-weight:700;padding:2px 8px;border-radius:12px">28 Hợp Đồng Thực Tế</span>
+              </div>
+              <div style="font-size:12.5px;color:#64748b;margin-top:4px">
+                Nguồn dữ liệu tính toán trực tiếp cho Bàn Điều Hành (Dashboard).
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn btn-primary btn-sm" onclick="navigate('admin-dashboard', null)" style="display:inline-flex;align-items:center;gap:6px">
+                📊 Quay lại Dashboard
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="exportDummyContractsCSV()">📥 Xuất CSV</button>
+            </div>
+          </div>
+
+          <!-- 5 Thẻ Thống Kê Tổng Quan -->
+          <div class="summary-stat-bar" style="margin-bottom:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+            <div class="stat-chip">
+              <span style="font-size:11px;color:#64748b;display:block">TỔNG HỢP ĐỒNG</span>
+              <strong style="font-size:18px;color:#0f172a" id="dd-stat-total">28</strong>
+              <span style="font-size:11px;color:#64748b">18 DN • 10 Cá nhân</span>
+            </div>
+            <div class="stat-chip">
+              <span style="font-size:11px;color:#64748b;display:block">KỲ ĐANG CHỌN</span>
+              <strong style="font-size:17px;color:#089490" id="dd-stat-period">T09/2026</strong>
+              <span style="font-size:11px;color:#16a34a" id="dd-stat-active-count">22 HĐ Active</span>
+            </div>
+            <div class="stat-chip" style="border-left:3px solid #16a34a">
+              <span style="font-size:11px;color:#64748b;display:block">DOANH THU MRR TÍCH LŨY</span>
+              <strong style="font-size:18px;color:#16a34a" id="dd-stat-mrr">¥340,000</strong>
+              <span style="font-size:11px;color:#64748b">/tháng</span>
+            </div>
+            <div class="stat-chip" style="background:#f0fdfa;border:1px solid #99f6e4;border-left:3px solid #089490">
+              <span style="font-size:11px;color:#0f766e;display:block">THỰC THU TIỀN MẶT KỲ NÀY</span>
+              <strong style="font-size:18px;color:#089490" id="dd-stat-cash">¥112,000</strong>
+              <span style="font-size:11px;color:#0f766e" id="dd-stat-cash-sub">Khớp 100% KPI</span>
+            </div>
+            <div class="stat-chip">
+              <span style="font-size:11px;color:#64748b;display:block">GHẾ ĐANG SỬ DỤNG</span>
+              <strong style="font-size:18px;color:#009BCC" id="dd-stat-seats">348 / 380</strong>
+              <span style="font-size:11px;color:#64748b">Tỷ lệ 91.5%</span>
+            </div>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="card" style="padding:14px 18px;margin-bottom:16px;background:#fff;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.03)">
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <div style="flex:1;min-width:240px">
+                <input type="text" id="dd-search-input" placeholder="🔍 Tìm theo tên khách hàng, người liên hệ, mã HĐ..."
+                  oninput="renderDummyContractsTable()"
+                  style="width:100%;padding:8px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+              </div>
+              <select id="dd-filter-segment" onchange="renderDummyContractsTable()"
+                style="padding:8px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:12.5px;font-weight:600;color:#0f172a">
+                <option value="ALL">🏢 Toàn bộ Phân khúc (B2B & B2C)</option>
+                <option value="B2B">🏢 Doanh nghiệp (B2B - 18 khách)</option>
+                <option value="B2C">👤 Cá nhân (B2C - 10 khách)</option>
+              </select>
+              <select id="dd-filter-cycle" onchange="renderDummyContractsTable()"
+                style="padding:8px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:12.5px;font-weight:600;color:#0f172a">
+                <option value="ALL">🔄 Toàn bộ Kỳ thanh toán</option>
+                <option value="12">Gói 1 Năm (Annual - Đóng 1 lần)</option>
+                <option value="3">Gói 3 Tháng (Quý - Nạp định kỳ)</option>
+                <option value="1">Gói 1 Tháng (Thu đều mỗi tháng)</option>
+              </select>
+              <select id="dd-filter-month" onchange="onDummyMonthFilterChange(this.value)"
+                style="padding:8px 12px;border:1px solid #089490;border-radius:8px;font-size:12.5px;font-weight:700;background:#f0fdfa;color:#0f766e">
+                <option value="2026-08">📅 Xét Mốc: Tháng 08/2026 (Tháng trước)</option>
+                <option value="2026-09" selected>📅 Xét Mốc: Tháng 09/2026 (Tháng này - LIVE)</option>
+                <option value="2026-10">📅 Xét Mốc: Tháng 10/2026 (Tháng sau - Dự báo)</option>
+                <option value="2026-11">📅 Xét Mốc: Tháng 11/2026 (Dự báo Q4)</option>
+                <option value="2026-12">📅 Xét Mốc: Tháng 12/2026 (Dự báo chốt năm)</option>
+              </select>
+              <button class="btn btn-outline btn-sm" onclick="resetDummyFilters()">↺ Đặt lại bộ lọc</button>
+            </div>
+            <div id="dd-filter-summary-bar" style="margin-top:10px;font-size:12px;color:#64748b;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+              <span id="dd-filter-text">Đang hiển thị 28/28 hợp đồng</span>
+              <span style="color:#089490;font-weight:600">💡 Mẹo: Nhấn nút "Xem Dashboard" ở mỗi dòng để xem số liệu tháng đó trên Dashboard!</span>
+            </div>
+          </div>
+
+          <!-- Bảng Danh Sách Hợp Đồng Chi Tiết -->
+          <div class="card" style="padding:0;overflow:hidden;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,0.02)">
+            <div style="overflow-x:auto">
+              <table class="data-table billing-table" style="min-width:1050px" id="dd-contracts-table">
+                <thead>
+                  <tr style="background:#f8fafc">
+                    <th style="width:115px">Mã HĐ</th>
+                    <th>Khách Hàng & Người Liên Hệ</th>
+                    <th style="width:95px">Phân Khúc</th>
+                    <th>Gói Cước & Ghế</th>
+                    <th>Kỳ Thanh Toán</th>
+                    <th style="width:105px">Ngày Bắt Đầu</th>
+                    <th style="text-align:right">Số Tiền Nạp/Kỳ</th>
+                    <th style="text-align:right">Đóng Góp MRR</th>
+                    <th style="text-align:center">Trạng Thái Kỳ Này</th>
+                    <th style="width:115px;text-align:center">Thao Tác</th>
+                  </tr>
+                </thead>
+                <tbody id="dd-contracts-tbody">
+                  <!-- Rendered dynamically by renderDummyContractsTable() -->
+                </tbody>
+              </table>
+            </div>
+            <div style="padding:12px 18px;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:#64748b">
+              <span id="dd-table-pagination-info">Tổng cộng 28 khách hàng đối tác & cá nhân</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="color:#089490;font-weight:600">✓ 100% dữ liệu đồng bộ hai chiều với Bàn Điều Hành</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -10084,6 +10367,7 @@
     const pages = {
       // Admin
       'admin-dashboard': { id: 'page-admin-dashboard', title: 'Bàn Điều Hành Quản Trị Doanh Nghiệp (Executive Dashboard)' },
+      'admin-dummy-data': { id: 'page-admin-dummy-data', title: 'Bảng Dữ Liệu Hợp Đồng Mẫu (Dummy Contracts Dataset)' },
       licenses: { id: 'page-licenses', title: '会社ライセンス一覧' },
       'personal-licenses': { id: 'page-personal-licenses', title: '個人ライセンス一覧' },
       adminusers: { id: 'page-adminusers', title: 'ユーザー一覧' },
@@ -10384,6 +10668,13 @@
       }
       if (key === 'admin-master') {
         renderPlanMaster();
+      }
+      if (key === 'admin-dummy-data') {
+        renderDummyContractsTable();
+      }
+      if (key === 'admin-dashboard') {
+        applyDashboardMetrics();
+        renderInteractiveRevenueChart();
       }
     }
 
@@ -14629,49 +14920,189 @@
     window.currentPeriod = '2026-09';
     window.currentSegment = 'ALL';
 
-    // Master 12-Month Real-World Cash Flow & Billing Collections Dataset
-    // Linear scale: 100k JPY = 30px => 0.0003px per JPY (Baseline y=160, Max 450k)
-    // ent: Gói 1 Năm (Annual, đóng 1 lần cả năm - các tháng không có hợp đồng = 0đ)
-    // pro: Gói 3 Tháng (Quý, 3 tháng nạp tiếp 1 lần - các tháng giữa quý = 0đ)
-    // basic: Gói 1 Tháng (Định kỳ thu đều mỗi tháng)
-    var REVENUE_DATA_2026 = [
-      { id: 'T1', period: '2026-01', name: 'Tháng 01/2026',
-        ent: { b2b: 155000, b2c: 25000 }, pro: { b2b: 38000, b2c: 7000 }, basic: { b2b: 55000, b2c: 10000 },
-        note: 'Khởi đầu năm mới: Hợp đồng năm + nạp quý + định kỳ (cả DN & cá nhân)', isForecast: false, isLive: false },
-      { id: 'T2', period: '2026-02', name: 'Tháng 02/2026',
-        ent: { b2b: 0, b2c: 0 }, pro: { b2b: 0, b2c: 0 }, basic: { b2b: 57000, b2c: 11000 },
-        note: 'Tháng không: Khách quý & năm chưa đến kỳ; 100% nạp định kỳ tháng', isForecast: false, isLive: false },
-      { id: 'T3', period: '2026-03', name: 'Tháng 03/2026',
-        ent: { b2b: 190000, b2c: 30000 }, pro: { b2b: 47000, b2c: 8000 }, basic: { b2b: 58000, b2c: 12000 },
-        note: 'Chốt Q1 & quyết toán năm tài chính: Hợp đồng năm lớn cả DN & cá nhân', isForecast: false, isLive: false },
-      { id: 'T4', period: '2026-04', name: 'Tháng 04/2026',
-        ent: { b2b: 0, b2c: 0 }, pro: { b2b: 41000, b2c: 7000 }, basic: { b2b: 60000, b2c: 12000 },
-        note: 'Đầu Q2: Khách quý T1 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
-      { id: 'T5', period: '2026-05', name: 'Tháng 05/2026',
-        ent: { b2b: 0, b2c: 0 }, pro: { b2b: 0, b2c: 0 }, basic: { b2b: 60000, b2c: 12000 },
-        note: 'Tháng không: Golden Week; chỉ có khách tháng nạp định kỳ', isForecast: false, isLive: false },
-      { id: 'T6', period: '2026-06', name: 'Tháng 06/2026',
-        ent: { b2b: 170000, b2c: 25000 }, pro: { b2b: 49000, b2c: 9000 }, basic: { b2b: 63000, b2c: 12000 },
-        note: 'Chốt bán niên H1: Hợp đồng năm + khách quý T3 nạp tiếp', isForecast: false, isLive: false },
-      { id: 'T7', period: '2026-07', name: 'Tháng 07/2026',
-        ent: { b2b: 0, b2c: 0 }, pro: { b2b: 42000, b2c: 8000 }, basic: { b2b: 62000, b2c: 12000 },
-        note: 'Đầu Q3: Khách quý T4 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
-      { id: 'T8', period: '2026-08', name: 'Tháng 08/2026',
-        ent: { b2b: 0, b2c: 0 }, pro: { b2b: 0, b2c: 0 }, basic: { b2b: 62000, b2c: 12000 },
-        note: 'Tháng không: Nghỉ hè Obon; chỉ có khách tháng nạp định kỳ', isForecast: false, isLive: false },
-      { id: 'T9', period: '2026-09', name: 'Tháng 09/2026',
-        ent: { b2b: 0, b2c: 0 }, pro: { b2b: 32000, b2c: 6000 }, basic: { b2b: 62000, b2c: 12000 },
-        note: 'KỲ HIỆN TẠI (LIVE) - Khớp 100% KPI Thực Thu (DN: ¥94k, Cá nhân: ¥18k)', isForecast: false, isLive: true },
-      { id: 'T10*', period: '2026-10', name: 'Tháng 10/2026',
-        ent: { b2b: 0, b2c: 0 }, pro: { b2b: 44000, b2c: 8000 }, basic: { b2b: 63000, b2c: 13000 },
-        note: 'Dự báo đầu Q4: Khách quý T7 nạp tiếp sau 3 tháng', isForecast: true, isLive: false },
-      { id: 'T11*', period: '2026-11', name: 'Tháng 11/2026',
-        ent: { b2b: 120000, b2c: 20000 }, pro: { b2b: 12000, b2c: 3000 }, basic: { b2b: 65000, b2c: 13000 },
-        note: 'Dự báo ngân sách 2027: Ký sớm hợp đồng năm cả DN & cá nhân', isForecast: true, isLive: false },
-      { id: 'T12', period: '2026-12', name: 'Tháng 12/2026',
-        ent: { b2b: 225000, b2c: 35000 }, pro: { b2b: 52000, b2c: 10000 }, basic: { b2b: 67000, b2c: 13000 },
-        note: 'Dự báo chốt năm 2026: Đại hội tái ký hợp đồng năm lớn cả 2 phân khúc', isForecast: true, isLive: false }
+    window.DUMMY_CONTRACTS_DATA = [
+      { id: 'CTR-2026-001', customerName: 'ABC Manufacturing Vietnam', customerType: 'B2B', contactPerson: 'Đặng Quốc Huy (Operations Dir)', planTier: 'Enterprise', planCategory: 'ent', seats: 70, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-01-10', billingAmount: 744000, mrrContribution: 62000, paymentMonths: ['2026-01'], status: 'active', notes: 'HĐ chiến lược 70 ghế Enterprise, đóng 1 lần đầu năm (chiết khấu 15%)' },
+      { id: 'CTR-2026-002', customerName: 'Vietnam Precision Machinery', customerType: 'B2B', contactPerson: 'Trịnh Đình Quang (Factory Head)', planTier: 'Enterprise', planCategory: 'ent', seats: 75, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-03-15', billingAmount: 840000, mrrContribution: 70000, paymentMonths: ['2026-03'], status: 'active', notes: 'Chốt hợp đồng Q1, quy mô 75 license xưởng cơ khí chính xác' },
+      { id: 'CTR-2026-003', customerName: 'Da Nang Steel & Parts Corp', customerType: 'B2B', contactPerson: 'Lê Vũ Khoa (IT Lead)', planTier: 'Enterprise', planCategory: 'ent', seats: 65, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-06-01', billingAmount: 720000, mrrContribution: 60000, paymentMonths: ['2026-06'], status: 'active', notes: 'Ký chốt bán niên H1, triển khai 65 ghế nhà máy Hòa Khánh' },
+      { id: 'CTR-2026-004', customerName: 'Hanoi Automation Solutions', customerType: 'B2B', contactPerson: 'Nguyễn Trọng Nghĩa (CEO)', planTier: 'Enterprise', planCategory: 'ent', seats: 45, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-11-01', billingAmount: 504000, mrrContribution: 42000, paymentMonths: ['2026-11'], status: 'upcoming', notes: 'Dự báo T11: Đã ký ghi nhớ triển khai gói năm cho kế hoạch 2027' },
+      { id: 'CTR-2026-005', customerName: 'Tokyo Precision Vietnam Corp', customerType: 'B2B', contactPerson: 'Sato Kenichi (General Dir)', planTier: 'Enterprise', planCategory: 'ent', seats: 80, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-12-05', billingAmount: 900000, mrrContribution: 75000, paymentMonths: ['2026-12'], status: 'upcoming', notes: 'Dự báo T12: Đại hội gia hạn hợp đồng năm tập đoàn FDI Nhật Bản' },
+      { id: 'CTR-2026-006', customerName: 'Tanaka Kenji', customerType: 'B2C', contactPerson: 'Tanaka Kenji (Lean Consultant)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-01-20', billingAmount: 96000, mrrContribution: 8000, paymentMonths: ['2026-01'], status: 'active', notes: 'Gói cá nhân 1 năm chuyên gia tư vấn quản trị sản xuất Lean' },
+      { id: 'CTR-2026-007', customerName: 'Nguyễn Hoàng Long', customerType: 'B2C', contactPerson: 'Nguyễn Hoàng Long (PMP Expert)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-03-20', billingAmount: 108000, mrrContribution: 9000, paymentMonths: ['2026-03'], status: 'active', notes: 'Gói cá nhân 1 năm chuyên gia quản lý dự án PMP cao cấp' },
+      { id: 'CTR-2026-008', customerName: 'Yamada Taro', customerType: 'B2C', contactPerson: 'Yamada Taro (Supply Chain Consultant)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-06-15', billingAmount: 108000, mrrContribution: 9000, paymentMonths: ['2026-06'], status: 'active', notes: 'Gói cá nhân 1 năm tư vấn chuỗi cung ứng logistics' },
+      { id: 'CTR-2026-009', customerName: 'Phạm Thị Mai Hương', customerType: 'B2C', contactPerson: 'Phạm Thị Mai Hương (QA Auditor)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-11-10', billingAmount: 102000, mrrContribution: 8500, paymentMonths: ['2026-11'], status: 'upcoming', notes: 'Đăng ký gói năm cá nhân chuyên gia kiểm định chất lượng' },
+      { id: 'CTR-2026-010', customerName: 'Suzuki Ichiro', customerType: 'B2C', contactPerson: 'Suzuki Ichiro (Kaizen Master)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-12-10', billingAmount: 114000, mrrContribution: 9500, paymentMonths: ['2026-12'], status: 'upcoming', notes: 'Gói cá nhân cao cấp Kaizen Master tích hợp AI Planner' },
+      { id: 'CTR-2026-011', customerName: 'Techno Solutions Vietnam', customerType: 'B2B', contactPerson: 'Vũ Mạnh Cường (CTO)', planTier: 'Professional', planCategory: 'pro', seats: 16, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-01-05', billingAmount: 18000, mrrContribution: 6000, paymentMonths: ['2026-01', '2026-04', '2026-07', '2026-10'], status: 'active', notes: 'Gói quý 16 ghế, chu kỳ tái nạp: T1, T4, T7, T10' },
+      { id: 'CTR-2026-012', customerName: 'DevStar Technology Co., Ltd.', customerType: 'B2B', contactPerson: 'Trần Văn Phúc (Project Manager)', planTier: 'Professional', planCategory: 'pro', seats: 14, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-03-10', billingAmount: 16200, mrrContribution: 5400, paymentMonths: ['2026-03', '2026-06', '2026-12'], status: 'active', notes: 'Khách hàng quý 14 ghế, đã thanh toán T3, T6; tái nạp cuối năm vào T12' },
+      { id: 'CTR-2026-013', customerName: 'Saigon Tech Electronics', customerType: 'B2B', contactPerson: 'Đỗ Hữu Thắng (Engineering Head)', planTier: 'Professional', planCategory: 'pro', seats: 15, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-04-12', billingAmount: 18000, mrrContribution: 6000, paymentMonths: ['2026-04', '2026-07', '2026-10'], status: 'active', notes: 'Bắt đầu từ Q2, đã thanh toán T4, T7; kỳ tiếp theo vào T10' },
+      { id: 'CTR-2026-014', customerName: 'Mekong Smart Factory JSC', customerType: 'B2B', contactPerson: 'Phan Thanh Hải (Plant Director)', planTier: 'Professional', planCategory: 'pro', seats: 13, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-06-20', billingAmount: 16500, mrrContribution: 5500, paymentMonths: ['2026-06', '2026-12'], status: 'active', notes: 'Doanh nghiệp chế tạo thiết bị, thanh toán kỳ tiếp vào T12' },
+      { id: 'CTR-2026-015', customerName: 'An Phat Plastics Tech', customerType: 'B2B', contactPerson: 'Bùi Quốc Tuấn (Operations)', planTier: 'Professional', planCategory: 'pro', seats: 12, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-07-08', billingAmount: 16500, mrrContribution: 5500, paymentMonths: ['2026-07', '2026-10'], status: 'active', notes: 'Khách hàng ký từ đầu Q3, kỳ tái nạp tiếp theo rơi vào T10/2026' },
+      { id: 'CTR-2026-016', customerName: 'Global Logistics & Supply Co.', customerType: 'B2B', contactPerson: 'Hoàng Minh Châu (VP Logistics)', planTier: 'Professional', planCategory: 'pro', seats: 14, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-09-02', billingAmount: 33000, mrrContribution: 11000, paymentMonths: ['2026-09', '2026-12'], status: 'active', notes: 'KHÁCH HÀNG MỚI T9: Đã nạp ¥33,000 thực thu vào tháng 09/2026' },
+      { id: 'CTR-2026-017', customerName: 'VinaRobotics Manufacturing', customerType: 'B2B', contactPerson: 'Lê Quang Thái (R&D Lead)', planTier: 'Professional', planCategory: 'pro', seats: 18, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-10-01', billingAmount: 36000, mrrContribution: 12000, paymentMonths: ['2026-10'], status: 'upcoming', notes: 'DỰ BÁO T10: Khách hàng mới ký, đóng tiền kỳ đầu ¥36,000 vào T10' },
+      { id: 'CTR-2026-018', customerName: 'E-Mind Tech Lab Partners', customerType: 'B2B', contactPerson: 'Tô Vĩnh Lộc (Managing Partner)', planTier: 'Professional', planCategory: 'pro', seats: 20, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-12-01', billingAmount: 45000, mrrContribution: 15000, paymentMonths: ['2026-12'], status: 'upcoming', notes: 'Dự báo T12: Đối tác R&D nạp gói quý cuối năm' },
+      { id: 'CTR-2026-019', customerName: 'Trần Văn Minh', customerType: 'B2C', contactPerson: 'Trần Văn Minh (Senior Auditor)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-01-15', billingAmount: 9900, mrrContribution: 3300, paymentMonths: ['2026-01', '2026-04', '2026-07', '2026-10'], status: 'active', notes: 'Cá nhân nạp theo quý đều đặn (Kỳ tiếp theo: T10)' },
+      { id: 'CTR-2026-020', customerName: 'Kobayashi Yuka', customerType: 'B2C', contactPerson: 'Kobayashi Yuka (Logistics Specialist)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-03-05', billingAmount: 9900, mrrContribution: 3300, paymentMonths: ['2026-03', '2026-06', '2026-12'], status: 'active', notes: 'Cá nhân nạp theo quý, tái nạp kỳ tiếp vào T12' },
+      { id: 'CTR-2026-021', customerName: 'Nakamura Sota', customerType: 'B2C', contactPerson: 'Nakamura Sota (Operations Director)', planTier: 'Pro Personal', planCategory: 'pro', seats: 1, billingCycle: '3 Tháng (Quý)', cycleMonths: 3, startDate: '2026-09-05', billingAmount: 6000, mrrContribution: 2000, paymentMonths: ['2026-09', '2026-12'], status: 'active', notes: 'KHÁCH CÁ NHÂN MỚI T9: Đã nạp ¥6,000 thực thu vào tháng 09' },
+      { id: 'CTR-2026-022', customerName: 'Khải Sáng Tooling Co.', customerType: 'B2B', contactPerson: 'Ngô Văn Khải (Giám đốc)', planTier: 'Standard', planCategory: 'basic', seats: 8, billingCycle: '1 Tháng (Định kỳ)', cycleMonths: 1, startDate: '2026-01-01', billingAmount: 16000, mrrContribution: 16000, paymentMonths: ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'], status: 'active', notes: 'Gói Standard 8 ghế xưởng cơ khí, tự động thu ¥16,000 mỗi tháng' },
+      { id: 'CTR-2026-023', customerName: 'Việt Thắng Textile Packaging', customerType: 'B2B', contactPerson: 'Bùi Việt Thắng (Quản lý phân xưởng)', planTier: 'Starter', planCategory: 'basic', seats: 7, billingCycle: '1 Tháng (Định kỳ)', cycleMonths: 1, startDate: '2026-02-01', billingAmount: 14000, mrrContribution: 14000, paymentMonths: ['2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'], status: 'active', notes: 'Gói Starter 7 ghế bao bì, thu đều đặn ¥14,000 hàng tháng' },
+      { id: 'CTR-2026-024', customerName: 'Hoàng Nam Mold Industrial', customerType: 'B2B', contactPerson: 'Phạm Hoàng Nam (Trưởng phòng kỹ thuật)', planTier: 'Standard', planCategory: 'basic', seats: 8, billingCycle: '1 Tháng (Định kỳ)', cycleMonths: 1, startDate: '2026-03-01', billingAmount: 16000, mrrContribution: 16000, paymentMonths: ['2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'], status: 'active', notes: 'Gói Standard 8 ghế khuôn mẫu chính xác, thu đều ¥16,000/tháng' },
+      { id: 'CTR-2026-025', customerName: 'Tân Phú Plastics Engineering', customerType: 'B2B', contactPerson: 'Lê Minh Quân (Quản đốc)', planTier: 'Starter', planCategory: 'basic', seats: 8, billingCycle: '1 Tháng (Định kỳ)', cycleMonths: 1, startDate: '2026-04-01', billingAmount: 8000, mrrContribution: 8000, paymentMonths: ['2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'], status: 'active', notes: 'Gói Starter 8 ghế ép nhựa, thu đều ¥8,000/tháng' },
+      { id: 'CTR-2026-026', customerName: 'Bình Dương Industrial Components', customerType: 'B2B', contactPerson: 'Vũ Hoài Nam (Trưởng xưởng)', planTier: 'Starter', planCategory: 'basic', seats: 6, billingCycle: '1 Tháng (Định kỳ)', cycleMonths: 1, startDate: '2026-05-01', billingAmount: 7000, mrrContribution: 7000, paymentMonths: ['2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'], status: 'active', notes: 'Gói Starter 7 ghế linh kiện công nghiệp, thu đều ¥7,000/tháng' },
+      { id: 'CTR-2026-027', customerName: 'Tập hợp Khách Hàng Cá Nhân Gói Tháng (15 thành viên)', customerType: 'B2C', contactPerson: 'Nhóm kỹ sư & tư vấn viên độc lập', planTier: 'Basic Personal', planCategory: 'basic', seats: 8, billingCycle: '1 Tháng (Định kỳ)', cycleMonths: 1, startDate: '2026-01-01', billingAmount: 12000, mrrContribution: 12000, paymentMonths: ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'], status: 'active', notes: 'Tài khoản cá nhân thanh toán thẻ tín dụng định kỳ hàng tháng' },
+      { id: 'CTR-2026-028', customerName: 'Lê Thu Hà (Đăng ký mới)', customerType: 'B2C', contactPerson: 'Lê Thu Hà (Industrial Engineer)', planTier: 'Basic Personal', planCategory: 'basic', seats: 3, billingCycle: '1 Tháng (Định kỳ)', cycleMonths: 1, startDate: '2026-08-01', billingAmount: 1000, mrrContribution: 1000, paymentMonths: ['2026-08', '2026-10', '2026-11', '2026-12'], status: 'active', notes: 'Tài khoản cá nhân kỹ sư công nghiệp đăng ký từ T8' }
     ];
+
+    // ===== HÀM TÍNH TOÁN DÒNG TIỀN VÀ MRR ĐỘNG TỪ BẢNG DUMMY CONTRACTS =====
+    window.getDynamicPeriodMetrics = function (periodStr, segment) {
+      var seg = segment || window.currentSegment || 'ALL';
+      var allContracts = window.DUMMY_CONTRACTS_DATA;
+      var filteredContracts = allContracts.filter(function (c) {
+        if (seg === 'ALL') return true;
+        return c.customerType === seg;
+      });
+
+      var activeContracts = [];
+      var payingContracts = [];
+      var totalMrr = 0;
+      var totalCashIn = 0;
+      var totalSeats = 0;
+
+      var tierCash = { ent: 0, pro: 0, basic: 0 };
+      var segCash = { b2b: 0, b2c: 0 };
+      var segMrr = { b2b: 0, b2c: 0 };
+      var segCustomers = { b2b: 0, b2c: 0 };
+      var tierMrr = { ent: 0, pro: 0, basic: 0 };
+      var cycleMrr = { annual: 0, quarterly: 0, monthly: 0 };
+      var cycleCount = { annual: 0, quarterly: 0, monthly: 0 };
+
+      // Platform-wide active metrics for context
+      allContracts.forEach(function (c) {
+        if (c.startDate <= periodStr + '-31') {
+          if (c.customerType === 'B2B') {
+            segMrr.b2b += c.mrrContribution;
+            segCustomers.b2b++;
+          } else {
+            segMrr.b2c += c.mrrContribution;
+            segCustomers.b2c++;
+          }
+        }
+        if (c.paymentMonths && c.paymentMonths.indexOf(periodStr) !== -1) {
+          if (c.customerType === 'B2B') segCash.b2b += c.billingAmount;
+          else segCash.b2c += c.billingAmount;
+        }
+      });
+
+      // Filtered metrics for current segment view
+      filteredContracts.forEach(function (c) {
+        if (c.startDate <= periodStr + '-31') {
+          activeContracts.push(c);
+          totalMrr += c.mrrContribution;
+          totalSeats += c.seats;
+          tierMrr[c.planCategory] = (tierMrr[c.planCategory] || 0) + c.mrrContribution;
+          if (c.cycleMonths === 12) { cycleMrr.annual += c.mrrContribution; cycleCount.annual++; }
+          else if (c.cycleMonths === 3) { cycleMrr.quarterly += c.mrrContribution; cycleCount.quarterly++; }
+          else { cycleMrr.monthly += c.mrrContribution; cycleCount.monthly++; }
+        }
+        if (c.paymentMonths && c.paymentMonths.indexOf(periodStr) !== -1) {
+          payingContracts.push(c);
+          totalCashIn += c.billingAmount;
+          tierCash[c.planCategory] = (tierCash[c.planCategory] || 0) + c.billingAmount;
+        }
+      });
+
+      var totalCust = activeContracts.length;
+      var totalManaged = (seg === 'B2B') ? 18 : (seg === 'B2C' ? 10 : 28);
+      var segManaged = { b2b: 18, b2c: 10 };
+      var segSeats = { b2b: 0, b2c: 0 };
+      var totalCapacity = (seg === 'B2B') ? 350 : (seg === 'B2C' ? 30 : 380);
+
+      allContracts.forEach(function (c) {
+        if (c.startDate <= periodStr + '-31') {
+          if (c.customerType === 'B2B') segSeats.b2b += c.seats;
+          else segSeats.b2c += c.seats;
+        }
+      });
+
+      // Annual contracts renewal total
+      var annualContracts = filteredContracts.filter(function (c) { return c.cycleMonths === 12; });
+      var annualRenewalTotal = annualContracts.reduce(function (sum, c) { return sum + c.billingAmount; }, 0);
+
+      return {
+        period: periodStr,
+        segment: seg,
+        activeContracts: activeContracts,
+        payingContracts: payingContracts,
+        activeCount: activeContracts.length,
+        payingCount: payingContracts.length,
+        totalCustomers: totalCust,
+        totalManaged: totalManaged,
+        segManaged: segManaged,
+        totalSeats: totalSeats,
+        totalCapacity: totalCapacity,
+        segSeats: segSeats,
+        totalMrr: totalMrr,
+        totalCashIn: totalCashIn,
+        tierCash: tierCash,
+        segCash: segCash,
+        segMrr: segMrr,
+        segCustomers: segCustomers,
+        tierMrr: tierMrr,
+        cycleMrr: cycleMrr,
+        cycleCount: cycleCount,
+        annualRenewalTotal: annualRenewalTotal,
+        annualRenewalCount: annualContracts.length
+      };
+    };
+
+
+    // Master 12-Month Real-World Cash Flow & Billing Collections Dataset
+    // Tự động tổng hợp chính xác từ 28 hợp đồng khách hàng
+    var MONTH_METADATA = [
+      { id: 'T1', period: '2026-01', name: 'Tháng 01/2026', note: 'Khởi đầu năm mới: Hợp đồng năm + nạp quý + định kỳ (cả DN & cá nhân)', isForecast: false, isLive: false },
+      { id: 'T2', period: '2026-02', name: 'Tháng 02/2026', note: 'Tháng không: Khách quý & năm chưa đến kỳ; 100% nạp định kỳ tháng', isForecast: false, isLive: false },
+      { id: 'T3', period: '2026-03', name: 'Tháng 03/2026', note: 'Chốt Q1 & quyết toán năm tài chính: Hợp đồng năm lớn cả DN & cá nhân', isForecast: false, isLive: false },
+      { id: 'T4', period: '2026-04', name: 'Tháng 04/2026', note: 'Đầu Q2: Khách quý T1 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
+      { id: 'T5', period: '2026-05', name: 'Tháng 05/2026', note: 'Tháng không: Golden Week; chỉ có khách tháng nạp định kỳ', isForecast: false, isLive: false },
+      { id: 'T6', period: '2026-06', name: 'Tháng 06/2026', note: 'Chốt bán niên H1: Hợp đồng năm + khách quý T3 nạp tiếp', isForecast: false, isLive: false },
+      { id: 'T7', period: '2026-07', name: 'Tháng 07/2026', note: 'Đầu Q3: Khách quý T4 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
+      { id: 'T8', period: '2026-08', name: 'Tháng 08/2026', note: 'Tháng không: Nghỉ hè Obon; chỉ có khách tháng nạp định kỳ', isForecast: false, isLive: false },
+      { id: 'T9', period: '2026-09', name: 'Tháng 09/2026', note: 'KỲ HIỆN TẠI (LIVE) - Khớp 100% KPI Thực Thu (DN: ¥94k, Cá nhân: ¥18k)', isForecast: false, isLive: true },
+      { id: 'T10*', period: '2026-10', name: 'Tháng 10/2026', note: 'Dự báo đầu Q4: Khách quý T7 nạp tiếp + 3 HĐ mới ký', isForecast: true, isLive: false },
+      { id: 'T11*', period: '2026-11', name: 'Tháng 11/2026', note: 'Dự báo ngân sách 2027: Ký sớm hợp đồng năm cả DN & cá nhân', isForecast: true, isLive: false },
+      { id: 'T12', period: '2026-12', name: 'Tháng 12/2026', note: 'Dự báo chốt năm 2026: Đại hội tái ký hợp đồng năm lớn cả 2 phân khúc', isForecast: true, isLive: false }
+    ];
+
+    var REVENUE_DATA_2026 = MONTH_METADATA.map(function(m) {
+      var entB2b = 0, entB2c = 0;
+      var proB2b = 0, proB2c = 0;
+      var basB2b = 0, basB2c = 0;
+
+      window.DUMMY_CONTRACTS_DATA.forEach(function(c) {
+        if (c.paymentMonths && c.paymentMonths.indexOf(m.period) !== -1) {
+          if (c.planCategory === 'ent') {
+            if (c.customerType === 'B2B') entB2b += c.billingAmount;
+            else entB2c += c.billingAmount;
+          } else if (c.planCategory === 'pro') {
+            if (c.customerType === 'B2B') proB2b += c.billingAmount;
+            else proB2c += c.billingAmount;
+          } else {
+            if (c.customerType === 'B2B') basB2b += c.billingAmount;
+            else basB2c += c.billingAmount;
+          }
+        }
+      });
+
+      return {
+        id: m.id,
+        period: m.period,
+        name: m.name,
+        ent: { b2b: entB2b, b2c: entB2c },
+        pro: { b2b: proB2b, b2c: proB2c },
+        basic: { b2b: basB2b, b2c: basB2c },
+        note: m.note,
+        isForecast: m.isForecast,
+        isLive: m.isLive
+      };
+    });
 
     function getMonthTierVal(d, tier, seg) {
       var data = d[tier];
@@ -14744,30 +15175,22 @@
         var x = xCoords[idx];
         var isSel = (window.selectedMonthIdx === idx);
 
-        // Determine active values based on segment & tier toggles
-        // Cả Doanh nghiệp và Cá nhân đều có thể có phần ở Gói 1 Năm, Gói 3 Tháng, và Gói 1 Tháng!
         var entVal = window.activeTiers.ent ? getMonthTierVal(d, 'ent', seg) : 0;
         var proVal = window.activeTiers.pro ? getMonthTierVal(d, 'pro', seg) : 0;
         var basicVal = window.activeTiers.basic ? getMonthTierVal(d, 'basic', seg) : 0;
         var totalVal = entVal + proVal + basicVal;
 
-        // Scale: 100k JPY = 30px => 0.0003px per JPY
-        var entH = Math.round(entVal * 0.0003);
-        var proH = Math.round(proVal * 0.0003);
-        var basicH = Math.round(basicVal * 0.0003);
+        var entH = Math.round(entVal * 0.0001);
+        var proH = Math.round(proVal * 0.0001);
+        var basicH = Math.round(basicVal * 0.0001);
         var totalH = entH + proH + basicH;
 
-        // Stacking calculations from bottom to top:
-        // Bottom layer: Annual (ent) seated on baseline
-        // Middle layer: Quarterly (pro)
-        // Top layer: Monthly (basic)
         var curY = baseline;
         var entY = curY - entH; if (entH > 0) curY = entY;
         var proY = curY - proH; if (proH > 0) curY = proY;
         var basicY = curY - basicH; if (basicH > 0) curY = basicY;
         var topY = baseline - totalH;
 
-        // Display total formatted
         var displayTotal = '';
         if (totalVal > 0) {
           if (isUsd) {
@@ -14782,8 +15205,6 @@
 
         html += '<g class="' + colClass + '" data-idx="' + idx + '" onclick="selectRevenueMonth(' + idx + ')" onmouseenter="showChartTooltip(event, ' + idx + ')" onmousemove="moveChartTooltip(event)" onmouseleave="hideChartTooltip()">';
 
-        // Precise SVG path for seamless column:
-        // Rounded at top corners (r=4), perfectly flat 90-degree square base on baseline (y=160)
         var r = (totalH < 8) ? (totalH / 2) : 4;
         var clipPathD = 'M ' + x + ' ' + baseline + ' '
           + 'L ' + x + ' ' + (topY + r) + ' '
@@ -14796,71 +15217,43 @@
         html += '<path d="' + clipPathD + '"/>';
         html += '</clipPath>';
 
-        // Column hover backdrop
         html += '<rect class="col-hover-bg" x="' + (x - 5) + '" y="16" width="' + (barWidth + 10) + '" height="150" rx="6"/>';
 
-        // Stacked Bar Group (Clipped to seamless unified pillar with flat base)
         var groupOpacity = d.isForecast ? ' opacity="0.85"' : '';
         html += '<g clip-path="url(#' + clipId + ')"' + groupOpacity + '>';
 
-        // Gói 1 Năm (Annual - Bottom)
         if (entH > 0) {
           html += '<rect class="chart-bar bar-ent bar-b2b" x="' + x + '" y="' + entY + '" width="' + barWidth + '" height="' + entH + '" fill="url(#stkEnt)"/>';
         }
 
-        // Gói 3 Tháng (Quý - Middle)
         if (proH > 0) {
           html += '<rect class="chart-bar bar-pro bar-b2b" x="' + x + '" y="' + proY + '" width="' + barWidth + '" height="' + proH + '" fill="url(#stkPro)"/>';
         }
 
-        // Gói 1 Tháng (Định kỳ - Top)
         if (basicH > 0) {
           html += '<rect class="chart-bar bar-basic bar-b2c" x="' + x + '" y="' + basicY + '" width="' + barWidth + '" height="' + basicH + '" fill="url(#stkBasic)"/>';
         }
 
         html += '</g>';
 
-        // Outer border styling:
-        if (d.isLive && totalH > 0) {
-          // Highlighting LIVE column: subtle crisp outer frame around the ENTIRE column
-          html += '<path d="' + clipPathD + '" fill="none" stroke="#089490" stroke-width="1.8"/>';
-        } else if (d.isForecast && totalH > 0) {
-          // Forecast columns: clean dashed outer frame around the ENTIRE column
-          html += '<path d="' + clipPathD + '" fill="none" stroke="#009BCC" stroke-width="1.2" stroke-dasharray="3 2"/>';
+        var strokeColor = isSel ? '#089490' : (d.isLive ? '#089490' : (d.isForecast ? '#009BCC' : '#cbd5e1'));
+        var strokeW = isSel ? '2' : (d.isLive ? '1.5' : '1');
+        var strokeDash = d.isForecast ? ' stroke-dasharray="3 2"' : '';
+        html += '<rect x="' + x + '" y="' + topY + '" width="' + barWidth + '" height="' + totalH + '" rx="4" fill="none" stroke="' + strokeColor + '" stroke-width="' + strokeW + '"' + strokeDash + ' pointer-events="none"/>';
+
+        if (totalVal > 0) {
+          var labelY = topY - 5;
+          var labelFill = isSel ? '#089490' : '#475569';
+          var labelWeight = isSel ? '800' : '700';
+          html += '<text class="chart-top-label" x="' + (x + barWidth / 2) + '" y="' + labelY + '" font-size="9" font-weight="' + labelWeight + '" fill="' + labelFill + '" text-anchor="middle">' + displayTotal + '</text>';
         }
 
-        // Selected month glow / ring
-        if (isSel && !d.isLive && totalH > 0) {
-          html += '<path d="' + clipPathD + '" fill="none" stroke="#089490" stroke-width="1.8" stroke-dasharray="4 2"/>';
-        }
-
-        // Labels and Badges
-        if (d.isLive) {
-          // LIVE badge placed with clean margin above the total label
-          html += '<rect x="' + (x + 1) + '" y="' + (topY - 24) + '" width="30" height="12" rx="3" fill="#089490"/>';
-          html += '<text x="' + (x + 16) + '" y="' + (topY - 15) + '" font-size="7.5" font-weight="800" fill="#fff" text-anchor="middle">LIVE</text>';
-          // Amount label placed right above the bar
-          if (totalVal > 0) {
-            html += '<text x="' + (x + barWidth / 2) + '" y="' + (topY - 5) + '" font-size="8.5" font-weight="800" fill="#089490" text-anchor="middle">' + displayTotal + '</text>';
-          }
-        } else {
-          // Regular and forecast amount labels
-          if (totalVal > 0) {
-            var labelFill = isSel ? '#089490' : (d.isForecast ? '#00779e' : '#64748b');
-            var labelWeight = (isSel || d.isForecast) ? '800' : '700';
-            html += '<text x="' + (x + barWidth / 2) + '" y="' + (topY - 6) + '" font-size="8" font-weight="' + labelWeight + '" fill="' + labelFill + '" text-anchor="middle">' + displayTotal + '</text>';
-          }
-        }
-
-        // X-Axis Month Label (Bottom)
-        var xLabelFill = isSel ? '#089490' : (d.isForecast ? '#009BCC' : '#64748b');
+        var xLabelFill = isSel ? '#089490' : (d.isLive ? '#089490' : '#64748b');
         var xLabelWeight = (isSel || d.isLive) ? '800' : '600';
-        var xLabelText = d.id;
-        html += '<text x="' + (x + barWidth / 2) + '" y="' + 176 + '" font-size="10" font-weight="' + xLabelWeight + '" fill="' + xLabelFill + '" text-anchor="middle">' + xLabelText + '</text>';
+        html += '<text class="chart-x-label" x="' + (x + barWidth / 2) + '" y="174" font-size="10" font-weight="' + xLabelWeight + '" fill="' + xLabelFill + '" text-anchor="middle">' + d.id + '</text>';
 
-        // Selected dot indicator under month label
-        if (isSel) {
-          html += '<circle cx="' + (x + barWidth / 2) + '" cy="183" r="2" fill="#089490"/>';
+        if (d.isLive) {
+          html += '<circle cx="' + (x + barWidth / 2) + '" cy="183" r="2.5" fill="#089490"/>';
         }
 
         html += '</g>';
@@ -14869,9 +15262,12 @@
       layer.innerHTML = html;
     };
 
-    window.showChartTooltip = function (evt, idx) {
+    window.showChartTooltip = function (e, idx) {
       var d = REVENUE_DATA_2026[idx];
       if (!d) return;
+
+      var tooltip = document.getElementById('chart-floating-tooltip');
+      if (!tooltip) return;
 
       var isUsd = (window.currentCurrency === 'USD');
       var rate = isUsd ? (1 / 150.24) : 1;
@@ -14883,86 +15279,47 @@
         return '¥' + val.toLocaleString('ja-JP');
       }
 
-      var typeBadge = d.isLive
-        ? '<span style="background:#089490;color:#fff;padding:1px 5px;border-radius:3px;font-size:9.5px;font-weight:700">LIVE HIỆN TẠI</span>'
-        : (d.isForecast ? '<span style="background:#009BCC;color:#fff;padding:1px 5px;border-radius:3px;font-size:9.5px;font-weight:700">DỰ BÁO Q4</span>' : '<span style="background:#334155;color:#fff;padding:1px 5px;border-radius:3px;font-size:9.5px;font-weight:700">THỰC THU</span>');
-
       var entVal = getMonthTierVal(d, 'ent', seg);
       var proVal = getMonthTierVal(d, 'pro', seg);
       var basicVal = getMonthTierVal(d, 'basic', seg);
       var total = entVal + proVal + basicVal;
 
-      var b2bTotal = (getMonthTierVal(d, 'ent', 'B2B') + getMonthTierVal(d, 'pro', 'B2B') + getMonthTierVal(d, 'basic', 'B2B'));
-      var b2cTotal = (getMonthTierVal(d, 'ent', 'B2C') + getMonthTierVal(d, 'pro', 'B2C') + getMonthTierVal(d, 'basic', 'B2C'));
+      var statusPill = d.isLive
+        ? '<span style="background:#089490;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px">LIVE</span>'
+        : (d.isForecast ? '<span style="background:#009BCC;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px">Dự báo</span>' : '');
 
-      var entPct = (total > 0 && entVal > 0) ? ((entVal / total) * 100).toFixed(1) + '%' : '0%';
-      var proPct = (total > 0 && proVal > 0) ? ((proVal / total) * 100).toFixed(1) + '%' : '0%';
-      var basicPct = (total > 0 && basicVal > 0) ? ((basicVal / total) * 100).toFixed(1) + '%' : '0%';
+      var segText = (seg === 'B2B') ? ' <span style="font-size:11px;color:#94a3b8">(Doanh nghiệp)</span>' : (seg === 'B2C' ? ' <span style="font-size:11px;color:#94a3b8">(Cá nhân)</span>' : '');
 
-      var entNote = entVal > 0 ? ('(' + entPct + ')') : '<span style="color:#94a3b8;font-size:9.5px">Không phát sinh</span>';
-      var proNote = proVal > 0 ? ('(' + proPct + ')') : '<span style="color:#94a3b8;font-size:9.5px">Chưa đến kỳ nạp tiếp</span>';
-      var basicNote = '(' + basicPct + ')';
+      var tipHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:5px">'
+        + '<strong style="font-size:12.5px;color:#f8fafc">' + d.name + segText + statusPill + '</strong>'
+        + '</div>';
 
-      var segTitle = (seg === 'B2B') ? ' (Doanh nghiệp)' : (seg === 'B2C' ? ' (Cá nhân)' : '');
+      tipHTML += '<div style="font-size:11.5px;color:#cbd5e1;line-height:1.6">'
+        + '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#0abab5">■ Gói 1 Năm (Annual):</span><strong>' + fmt(entVal) + '</strong></div>'
+        + '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#38bdf8">■ Gói 3 Tháng (Quý):</span><strong>' + fmt(proVal) + '</strong></div>'
+        + '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#fbbf24">■ Gói 1 Tháng (Định kỳ):</span><strong>' + fmt(basicVal) + '</strong></div>'
+        + '<div style="display:flex;justify-content:space-between;gap:12px;margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.12);color:#fff;font-weight:700"><span>Thực thu dòng tiền:</span><strong style="color:#34d399;font-size:13px">' + fmt(total) + '</strong></div>'
+        + '</div>';
 
-      var cleanNote = d.note;
-      if (seg === 'B2B') {
-        if (d.id === 'T9') cleanNote = 'KỲ HIỆN TẠI (LIVE) - Khớp 100% KPI Thực thu Doanh nghiệp: ' + fmt(94000);
-        else if (d.id === 'T11*') cleanNote = 'Dự báo ngân sách 2027: Ký sớm hợp đồng năm doanh nghiệp';
-        else if (d.id === 'T12') cleanNote = 'Dự báo chốt năm 2026: Tái ký hợp đồng năm doanh nghiệp lớn';
-      } else if (seg === 'B2C') {
-        if (d.id === 'T9') cleanNote = 'KỲ HIỆN TẠI (LIVE) - Khớp 100% KPI Thực thu Cá nhân: ' + fmt(18000);
-        else if (d.id === 'T11*') cleanNote = 'Dự báo ngân sách 2027: Ký sớm gói năm người dùng cá nhân';
-        else if (d.id === 'T12') cleanNote = 'Dự báo chốt năm 2026: Đăng ký gói năm cá nhân ưu đãi';
+      if (d.note) {
+        tipHTML += '<div style="font-size:10px;color:#94a3b8;margin-top:6px;padding-top:4px;border-top:1px dashed rgba(255,255,255,0.1);line-height:1.35">ℹ ' + d.note + '</div>';
       }
 
-      var footerLine = '';
-      if (seg === 'B2B') {
-        footerLine = '<div style="border-top:1px dashed rgba(255,255,255,0.15);padding-top:6px;font-size:10px;color:#2dd4bf"><span>🏢 100% Khách hàng Doanh nghiệp</span></div>';
-      } else if (seg === 'B2C') {
-        footerLine = '<div style="border-top:1px dashed rgba(255,255,255,0.15);padding-top:6px;font-size:10px;color:#38bdf8"><span>👤 100% Người dùng Cá nhân</span></div>';
-      } else {
-        footerLine = '<div style="border-top:1px dashed rgba(255,255,255,0.15);padding-top:6px;display:flex;justify-content:space-between;font-size:10px;color:#cbd5e1">'
-          + '<span>🏢 DN: ' + fmt(b2bTotal) + '</span>'
-          + '<span>👤 Cá nhân: ' + fmt(b2cTotal) + '</span>'
-          + '</div>';
-      }
+      tipHTML += '<div style="font-size:9.5px;color:#38bdf8;margin-top:4px;text-align:right">👉 Click để chọn xem kỳ này</div>';
 
-      var html = '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:6px;margin-bottom:8px">'
-        + '<strong style="font-size:12.5px;color:#fff">' + d.name + '<span style="font-size:10px;color:#94a3b8;font-weight:400">' + segTitle + '</span></strong>'
-        + typeBadge
-        + '</div>'
-        + '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">'
-        + '<span style="color:#94a3b8;font-size:11px">Thực thu:</span>'
-        + '<strong style="font-size:15px;color:#2dd4bf">' + fmt(total) + '</strong>'
-        + '</div>'
-        + '<div style="display:flex;flex-direction:column;gap:5px;font-size:11px;margin-bottom:8px">'
-        + '<div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#2dd4bf">● Gói 1 Năm:</span><strong>' + fmt(entVal) + ' ' + entNote + '</strong></div>'
-        + '<div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#38bdf8">● Gói 3 Tháng:</span><strong>' + fmt(proVal) + ' ' + proNote + '</strong></div>'
-        + '<div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#fbbf24">● Gói 1 Tháng:</span><strong>' + fmt(basicVal) + ' ' + basicNote + '</strong></div>'
-        + '</div>'
-        + footerLine
-        + '<div style="margin-top:5px;font-size:10px;color:#e2e8f0">'
-        + '<div>📌 <em>' + cleanNote + '</em></div>'
-        + '</div>'
-        + '<div style="font-size:9px;color:#2dd4bf;margin-top:5px;text-align:right">👉 Click để chọn xem kỳ này</div>';
-
-      var tooltip = document.getElementById('chart-floating-tooltip');
-      if (tooltip) {
-        tooltip.innerHTML = html;
-        tooltip.style.display = 'block';
-        moveChartTooltip(evt);
-      }
+      tooltip.innerHTML = tipHTML;
+      tooltip.style.display = 'block';
+      moveChartTooltip(e);
     };
 
-    window.moveChartTooltip = function (evt) {
+    window.moveChartTooltip = function (e) {
       var tooltip = document.getElementById('chart-floating-tooltip');
       var container = document.getElementById('revenue-chart-container');
       if (!tooltip || !container) return;
 
       var rect = container.getBoundingClientRect();
-      var x = evt.clientX - rect.left;
-      var y = evt.clientY - rect.top;
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
 
       if (x < 110) x = 110;
       if (x > rect.width - 110) x = rect.width - 110;
@@ -14989,6 +15346,17 @@
       var d = REVENUE_DATA_2026[idx];
       if (!d) return;
 
+      window.currentPeriod = d.period;
+      var periodSelect = document.getElementById('vb-period-select');
+      if (periodSelect) periodSelect.value = d.period;
+
+      var b8 = document.getElementById('btn-quick-t8');
+      var b9 = document.getElementById('btn-quick-t9');
+      var b10 = document.getElementById('btn-quick-t10');
+      if (b8) b8.classList.toggle('active', d.period === '2026-08');
+      if (b9) b9.classList.toggle('active', d.period === '2026-09');
+      if (b10) b10.classList.toggle('active', d.period === '2026-10');
+
       var isUsd = (window.currentCurrency === 'USD');
       var rate = isUsd ? (1 / 150.24) : 1;
       var seg = window.currentSegment || 'ALL';
@@ -15005,18 +15373,7 @@
       var total = entVal + proVal + basicVal;
 
       var segLabel = (seg === 'B2B') ? ' (Doanh nghiệp)' : (seg === 'B2C' ? ' (Cá nhân)' : '');
-      var cleanNote = d.note;
-      if (seg === 'B2B') {
-        if (d.id === 'T9') cleanNote = 'Khớp 100% KPI Thực thu DN: ' + fmt(94000);
-        else if (d.id === 'T11*') cleanNote = 'Ký sớm hợp đồng năm doanh nghiệp';
-        else if (d.id === 'T12') cleanNote = 'Tái ký hợp đồng năm doanh nghiệp lớn';
-      } else if (seg === 'B2C') {
-        if (d.id === 'T9') cleanNote = 'Khớp 100% KPI Thực thu Cá nhân: ' + fmt(18000);
-        else if (d.id === 'T11*') cleanNote = 'Ký sớm gói năm cá nhân';
-        else if (d.id === 'T12') cleanNote = 'Đăng ký gói năm cá nhân ưu đãi';
-      }
 
-      // Update inspector banner
       var banner = document.getElementById('chart-inspect-banner');
       var pill = document.getElementById('inspect-pill');
       var text = document.getElementById('inspect-text');
@@ -15026,22 +15383,45 @@
         pill.style.background = d.isLive ? '#089490' : (d.isForecast ? '#009BCC' : '#334155');
       }
       if (text) {
-        text.innerHTML = 'Đang xem: <strong>' + d.name + segLabel + '</strong> — Thực thu: <strong style="color:#089490">' + fmt(total) + '</strong> (1 Năm: ' + fmt(entVal) + ' • 3 Tháng: ' + fmt(proVal) + ' • 1 Tháng: ' + fmt(basicVal) + ') <span style="color:#64748b;font-weight:400">(' + cleanNote + ')</span>';
+        text.innerHTML = 'Đang xem: <strong>' + d.name + segLabel + '</strong> — Thực thu: <strong style="color:#089490">' + fmt(total) + '</strong> (1 Năm: ' + fmt(entVal) + ' • 3 Tháng: ' + fmt(proVal) + ' • 1 Tháng: ' + fmt(basicVal) + ') <span style="color:#64748b;font-weight:400">(' + d.note + ')</span>';
       }
 
-      // Re-render chart to reflect active selection
+      applyDashboardMetrics();
       renderInteractiveRevenueChart();
+    };
+
+    window.quickJumpPeriod = function (periodStr) {
+      window.currentPeriod = periodStr;
+      var sel = document.getElementById('vb-period-select');
+      if (sel) sel.value = periodStr;
+
+      var b8 = document.getElementById('btn-quick-t8');
+      var b9 = document.getElementById('btn-quick-t9');
+      var b10 = document.getElementById('btn-quick-t10');
+      if (b8) b8.classList.toggle('active', periodStr === '2026-08');
+      if (b9) b9.classList.toggle('active', periodStr === '2026-09');
+      if (b10) b10.classList.toggle('active', periodStr === '2026-10');
+
+      changeDashboardPeriod(periodStr);
     };
 
     function applyDashboardMetrics() {
       var isUsd = (window.currentCurrency === 'USD');
+      var rate = isUsd ? (1 / 150.24) : 1;
       var seg = window.currentSegment || 'ALL';
+      var period = window.currentPeriod || '2026-09';
 
-      // Topbar title & subtitle
+      var metrics = window.getDynamicPeriodMetrics(period, seg);
+
+      function fmt(val) {
+        if (!val) return '0đ';
+        if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
+        return '¥' + val.toLocaleString('ja-JP');
+      }
+
       var topTitle = document.getElementById('topbar-title');
       var topDesc = document.getElementById('topbar-desc');
 
-      // 4 KPI Card Title & Values
       var cCustTitle = document.getElementById('lbl-cust-title');
       var cCust = document.getElementById('val-cust');
       var subCust = document.getElementById('sub-cust');
@@ -15061,18 +15441,16 @@
       var cashB2c = document.getElementById('lbl-cash-b2c');
 
       var cDefTitle = document.getElementById('lbl-def-title');
-      var cDef = document.getElementById('val-deferred');
+      var cDefVal = document.getElementById('val-deferred');
       var subDef = document.getElementById('sub-def');
       var defB2b = document.getElementById('lbl-def-b2b');
       var defB2c = document.getElementById('lbl-def-b2c');
 
-      // Panel 1 & 2 Titles
       var p1Title = document.getElementById('panel1-title');
       var p1Desc = document.getElementById('panel1-desc');
       var p2Title = document.getElementById('panel2-title');
       var p2Desc = document.getElementById('panel2-desc');
 
-      // Donut elements
       var dCenter = document.getElementById('donut-center-val');
       var dSub = document.getElementById('donut-sub-lbl');
       var cEnt = document.getElementById('donut-circle-ent');
@@ -15080,256 +15458,689 @@
       var cBasic = document.getElementById('donut-circle-basic');
 
       var itemEnt = document.getElementById('donut-item-ent');
-      var lblEntName = document.getElementById('lbl-ent-name');
       var entEl = document.getElementById('lbl-ent-val');
-
       var itemPro = document.getElementById('donut-item-pro');
-      var lblProName = document.getElementById('lbl-pro-name');
       var proEl = document.getElementById('lbl-pro-val');
-
       var itemBasic = document.getElementById('donut-item-basic');
-      var lblBasicName = document.getElementById('lbl-basic-name');
       var basEl = document.getElementById('lbl-basic-val');
 
-      // 3 Payment Plans
-      var planTitle = document.getElementById('plan-header-title');
-      var planSub = document.getElementById('plan-header-sub');
-      var pAnnual = document.getElementById('plan-val-annual');
-      var pAnnualSub = document.getElementById('plan-sub-annual');
-      var pAnnualNote = document.getElementById('plan-note-annual');
+      var planValAnnual = document.getElementById('plan-val-annual');
+      var planValQuarterly = document.getElementById('plan-val-quarterly');
+      var planValMonthly = document.getElementById('plan-val-monthly');
 
-      var pQuarterly = document.getElementById('plan-val-quarterly');
-      var pQuarterlySub = document.getElementById('plan-sub-quarterly');
-      var pQuarterlyNote = document.getElementById('plan-note-quarterly');
-
-      var pMonthly = document.getElementById('plan-val-monthly');
-      var pMonthlySub = document.getElementById('plan-sub-monthly');
-      var pMonthlyNote = document.getElementById('plan-note-monthly');
+      var periodMonthNum = parseInt(period.split('-')[1], 10);
+      var monthText = 'Tháng ' + (periodMonthNum < 10 ? '0' : '') + periodMonthNum;
 
       if (seg === 'B2B') {
-        // 1. Topbar
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Doanh Nghiệp (B2B)';
-        if (topDesc) topDesc.textContent = 'Khối Doanh nghiệp (B2B) • 62 Khách hàng đối tác';
-
-        // 2. KPI Cards
-        if (cCustTitle) cCustTitle.textContent = 'KHÁCH HÀNG DOANH NGHIỆP';
-        if (cCust) cCust.textContent = '62';
-        if (subCust) subCust.textContent = 'doanh nghiệp đối tác';
-        if (custB2b) custB2b.textContent = '🏢 14 Enterprise (Lớn)';
-        if (custB2c) custB2c.textContent = '🏢 48 Professional (Vừa)';
-
+        if (topDesc) topDesc.textContent = 'Khối Doanh nghiệp (B2B) • 18 Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
+        if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG DOANH NGHIỆP';
+        if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active (' + monthText.replace('Tháng ', 'T') + ')';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2B)';
-        if (cMrr) cMrr.textContent = isUsd ? '$1,946' : '¥292,400';
-        if (arrEl) arrEl.textContent = isUsd ? '/tháng (ARR: $23.4k)' : '/tháng (ARR: ¥3.51M)';
-        if (mrrB2b) mrrB2b.textContent = isUsd ? '🏢 Enterprise: $1,088 (56%)' : '🏢 Enterprise: ¥163.2k (56%)';
-        if (mrrB2c) mrrB2c.textContent = isUsd ? '🏢 Professional: $861 (44%)' : '🏢 Professional: ¥129.2k (44%)';
-
-        if (cCashTitle) cCashTitle.textContent = 'THỰC THU THÁNG 09 (B2B)';
-        if (cCash) cCash.textContent = isUsd ? '$627' : '¥94,000';
+        if (cCashTitle) cCashTitle.textContent = 'THỰC THU ' + monthText.toUpperCase() + ' (B2B)';
         if (subCash) subCash.textContent = 'tiền DN về két';
-        if (cashB2b) cashB2b.textContent = isUsd ? '🏢 Gói 1 Tháng: $413' : '🏢 Gói 1 Tháng: ¥62,000';
-        if (cashB2c) cashB2c.textContent = isUsd ? '🏢 Gói 3 Tháng: $213' : '🏢 Gói 3 Tháng: ¥32,000';
-
-        if (cDefTitle) cDefTitle.textContent = 'THU LẠI NĂM 2027 (GÓI NĂM DN)';
-        if (cDef) cDef.textContent = isUsd ? '$10,133' : '¥1,520,000';
-        if (subDef) subDef.textContent = '20 HĐ DN';
-        if (defB2b) defB2b.textContent = '🏢 20 HĐ DN đã trả trước';
-        if (defB2c) defB2c.textContent = isUsd ? '🏢 Tái ký 2027: $10.1k' : '🏢 Tái ký 2027: ¥1.52M';
-
-        // 3. Panel 1 Chart Header
+        if (cDefTitle) cDefTitle.textContent = 'GHẾ DOANH NGHIỆP (B2B)';
         if (p1Title) p1Title.textContent = 'Diễn Biến Dòng Tiền Khối Doanh Nghiệp Năm 2026';
         if (p1Desc) p1Desc.textContent = 'Dòng tiền hợp đồng doanh nghiệp: Gói 1 Năm • Gói 3 Tháng (Quý) • Gói 1 Tháng định kỳ';
-
-        // 4. Panel 2 Donut
-        if (p2Title) p2Title.textContent = 'Cơ Cấu Doanh Thu Doanh Nghiệp';
+        if (p2Title) p2Title.textContent = 'Cơ Cấu Doanh Thu Doanh Nghiệp (' + monthText + ')';
         if (p2Desc) p2Desc.textContent = 'Tỷ trọng đóng góp 2 gói doanh nghiệp (Enterprise • Professional)';
-        if (dCenter) dCenter.textContent = isUsd ? '$1.95K' : '¥292.4K';
-        if (dSub) dSub.textContent = 'MRR Doanh nghiệp';
-
-        if (cEnt) { cEnt.setAttribute('stroke-dasharray', '56 44'); cEnt.setAttribute('stroke-dashoffset', '0'); }
-        if (cPro) { cPro.setAttribute('stroke-dasharray', '44 56'); cPro.setAttribute('stroke-dashoffset', '-56'); }
-        if (cBasic) { cBasic.setAttribute('stroke-dasharray', '0 100'); cBasic.setAttribute('stroke-dashoffset', '0'); }
-
-        if (itemEnt) itemEnt.style.display = 'flex';
-        if (lblEntName) lblEntName.innerHTML = '<strong>Enterprise</strong> <span style="font-size:10.5px;color:#64748b">(¥2.4k~3k)</span>';
-        if (entEl) entEl.textContent = isUsd ? '56% ($1,088)' : '56% (¥163.2k)';
-
-        if (itemPro) itemPro.style.display = 'flex';
-        if (lblProName) lblProName.innerHTML = '<strong>Professional</strong> <span style="font-size:10.5px;color:#64748b">(¥1.2k~1.5k)</span>';
-        if (proEl) proEl.textContent = isUsd ? '44% ($861)' : '44% (¥129.2k)';
-
-        if (itemBasic) itemBasic.style.display = 'none';
-
-        // 5. 3 Payment Plans
-        if (planTitle) planTitle.textContent = '3 KỲ THANH TOÁN DOANH NGHIỆP';
-        if (planSub) planSub.textContent = '62 hợp đồng doanh nghiệp';
-
-        if (pAnnual) pAnnual.textContent = isUsd ? '$1,200' : '¥180,000';
-        if (pAnnualSub) pAnnualSub.textContent = '20 HĐ DN (Đã trả trước)';
-        if (pAnnualNote) pAnnualNote.textContent = 'Sang năm 2027 thu lại';
-
-        if (pQuarterly) pQuarterly.textContent = isUsd ? '$266' : '¥40,000';
-        if (pQuarterlySub) pQuarterlySub.textContent = '10 HĐ DN (Kỳ 3 Tháng)';
-        if (pQuarterlyNote) pQuarterlyNote.textContent = 'Thu 4 đợt / năm';
-
-        if (pMonthly) pMonthly.textContent = isUsd ? '$482' : '¥72,400';
-        if (pMonthlySub) pMonthlySub.textContent = '32 DN (Thu đều)';
-        if (pMonthlyNote) pMonthlyNote.textContent = 'Thu tiền mỗi tháng';
-
       } else if (seg === 'B2C') {
-        // 1. Topbar
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Khối Cá Nhân (B2C)';
-        if (topDesc) topDesc.textContent = 'Khối Cá nhân (B2C) • 54 Người dùng cá nhân';
-
-        // 2. KPI Cards
-        if (cCustTitle) cCustTitle.textContent = 'KHÁCH HÀNG CÁ NHÂN';
-        if (cCust) cCust.textContent = '54';
-        if (subCust) subCust.textContent = 'người dùng cá nhân';
-        if (custB2b) custB2b.textContent = '👤 42 Cá nhân trả phí';
-        if (custB2c) custB2c.textContent = '👤 12 Dùng thử (Free)';
-
+        if (topDesc) topDesc.textContent = 'Khối Cá nhân (B2C) • 10 Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
+        if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG CÁ NHÂN';
+        if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active (' + monthText.replace('Tháng ', 'T') + ')';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2C)';
-        if (cMrr) cMrr.textContent = isUsd ? '$317' : '¥47,600';
-        if (arrEl) arrEl.textContent = isUsd ? '/tháng (ARR: $3.8k)' : '/tháng (ARR: ¥571k)';
-        if (mrrB2b) mrrB2b.textContent = isUsd ? '👤 Basic Pro: $237 (75%)' : '👤 Basic Pro: ¥35.6k (75%)';
-        if (mrrB2c) mrrB2c.textContent = isUsd ? '👤 Basic Starter: $80 (25%)' : '👤 Basic Starter: ¥12.0k (25%)';
-
-        if (cCashTitle) cCashTitle.textContent = 'THỰC THU THÁNG 09 (B2C)';
-        if (cCash) cCash.textContent = isUsd ? '$119' : '¥18,000';
+        if (cCashTitle) cCashTitle.textContent = 'THỰC THU ' + monthText.toUpperCase() + ' (B2C)';
         if (subCash) subCash.textContent = 'tiền cá nhân về két';
-        if (cashB2b) cashB2b.textContent = isUsd ? '👤 Gói 1 Tháng: $80' : '👤 Gói 1 Tháng: ¥12,000';
-        if (cashB2c) cashB2c.textContent = isUsd ? '👤 Gói 3 Tháng: $40' : '👤 Gói 3 Tháng: ¥6,000';
-
-        if (cDefTitle) cDefTitle.textContent = 'THU LẠI NĂM 2027 (GÓI NĂM CÁ NHÂN)';
-        if (cDef) cDef.textContent = isUsd ? '$1,493' : '¥224,000';
-        if (subDef) subDef.textContent = '6 HĐ cá nhân';
-        if (defB2b) defB2b.textContent = '👤 6 HĐ Cá nhân đã trả trước';
-        if (defB2c) defB2c.textContent = isUsd ? '👤 Tái ký 2027: $1.49k' : '👤 Tái ký 2027: ¥224k';
-
-        // 3. Panel 1 Chart Header
+        if (cDefTitle) cDefTitle.textContent = 'GHẾ CÁ NHÂN (B2C)';
         if (p1Title) p1Title.textContent = 'Diễn Biến Dòng Tiền Khối Cá Nhân Năm 2026';
         if (p1Desc) p1Desc.textContent = 'Dòng tiền người dùng cá nhân: Gói 1 Năm • Gói 3 Tháng (Quý) • Gói 1 Tháng định kỳ';
-
-        // 4. Panel 2 Donut
-        if (p2Title) p2Title.textContent = 'Cơ Cấu Doanh Thu Khối Cá Nhân';
-        if (p2Desc) p2Desc.textContent = 'Tỷ trọng gói người dùng cá nhân (Basic Pro • Basic Starter)';
-        if (dCenter) dCenter.textContent = isUsd ? '$317' : '¥47.6K';
-        if (dSub) dSub.textContent = 'MRR Cá nhân';
-
-        if (cEnt) { cEnt.setAttribute('stroke-dasharray', '0 100'); cEnt.setAttribute('stroke-dashoffset', '0'); }
-        if (cPro) { cPro.setAttribute('stroke-dasharray', '75 25'); cPro.setAttribute('stroke-dashoffset', '0'); }
-        if (cBasic) { cBasic.setAttribute('stroke-dasharray', '25 75'); cBasic.setAttribute('stroke-dashoffset', '-75'); }
-
-        if (itemEnt) itemEnt.style.display = 'none';
-
-        if (itemPro) itemPro.style.display = 'flex';
-        if (lblProName) lblProName.innerHTML = '<strong>Basic Pro</strong> <span style="font-size:10.5px;color:#64748b">(Chuyên gia)</span>';
-        if (proEl) proEl.textContent = isUsd ? '75% ($237)' : '75% (¥35.6k)';
-
-        if (itemBasic) itemBasic.style.display = 'flex';
-        if (lblBasicName) lblBasicName.innerHTML = '<strong>Basic Starter</strong> <span style="font-size:10.5px;color:#64748b">(Tiêu chuẩn)</span>';
-        if (basEl) basEl.textContent = isUsd ? '25% ($80)' : '25% (¥12.0k)';
-
-        // 5. 3 Payment Plans
-        if (planTitle) planTitle.textContent = '3 KỲ THANH TOÁN CÁ NHÂN';
-        if (planSub) planSub.textContent = '54 khách hàng cá nhân';
-
-        if (pAnnual) pAnnual.textContent = isUsd ? '$253' : '¥38,000';
-        if (pAnnualSub) pAnnualSub.textContent = '6 HĐ cá nhân (Đã trả trước)';
-        if (pAnnualNote) pAnnualNote.textContent = 'Sang năm 2027 thu lại';
-
-        if (pQuarterly) pQuarterly.textContent = isUsd ? '$54' : '¥8,000';
-        if (pQuarterlySub) pQuarterlySub.textContent = '4 TK cá nhân (Kỳ 3 Tháng)';
-        if (pQuarterlyNote) pQuarterlyNote.textContent = 'Thu 4 đợt / năm';
-
-        if (pMonthly) pMonthly.textContent = isUsd ? '$11' : '¥1,600';
-        if (pMonthlySub) pMonthlySub.textContent = '32 TK cá nhân (Thu đều)';
-        if (pMonthlyNote) pMonthlyNote.textContent = 'Thu tiền mỗi tháng';
-
+        if (p2Title) p2Title.textContent = 'Cơ Cấu Doanh Thu Khối Cá Nhân (' + monthText + ')';
+        if (p2Desc) p2Desc.textContent = 'Tỷ trọng gói người dùng cá nhân (Pro Personal • Basic Personal)';
       } else {
-        // ALL (Toàn bộ)
-        // 1. Topbar
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Toàn Nền Tảng';
-        if (topDesc) topDesc.textContent = 'Giám sát chỉ số tăng trưởng và doanh thu toàn hệ sinh thái';
-
-        // 2. KPI Cards
-        if (cCustTitle) cCustTitle.textContent = 'TỔNG KHÁCH HÀNG';
-        if (cCust) cCust.textContent = '116';
-        if (subCust) subCust.textContent = 'đối tác & cá nhân';
-        if (custB2b) custB2b.textContent = '🏢 62 Doanh nghiệp';
-        if (custB2c) custB2c.textContent = '👤 54 Cá nhân';
-
+        if (topDesc) topDesc.textContent = 'Khối Doanh nghiệp & Cá nhân • 28 Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
+        if (cCustTitle) cCustTitle.textContent = 'TỔNG HỢP ĐỒNG KHÁCH HÀNG';
+        if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active (' + monthText.replace('Tháng ', 'T') + ')';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR';
-        if (cMrr) cMrr.textContent = isUsd ? '$2,263' : '¥340,000';
-        if (arrEl) arrEl.textContent = isUsd ? '/tháng (ARR: $27.2k)' : '/tháng (ARR: ¥4.08M)';
-        if (mrrB2b) mrrB2b.textContent = isUsd ? '🏢 DN: $1,946 (86%)' : '🏢 DN: ¥292.4k (86%)';
-        if (mrrB2c) mrrB2c.textContent = isUsd ? '👤 Cá nhân: $317 (14%)' : '👤 Cá nhân: ¥47.6k (14%)';
-
-        if (cCashTitle) cCashTitle.textContent = 'THỰC THU THÁNG 09';
-        if (cCash) cCash.textContent = isUsd ? '$746' : '¥112,000';
+        if (cCashTitle) cCashTitle.textContent = 'THỰC THU ' + monthText.toUpperCase();
         if (subCash) subCash.textContent = 'tiền về két';
-        if (cashB2b) cashB2b.textContent = isUsd ? '🏢 DN: $627' : '🏢 DN: ¥94,000';
-        if (cashB2c) cashB2c.textContent = isUsd ? '👤 Cá nhân: $119' : '👤 Cá nhân: ¥18,000';
-
-        if (cDefTitle) cDefTitle.textContent = 'THU LẠI NĂM 2027 (GÓI NĂM)';
-        if (cDef) cDef.textContent = isUsd ? '$11,626' : '¥1,744,000';
-        if (subDef) subDef.textContent = '26 HĐ';
-        if (defB2b) defB2b.textContent = isUsd ? '🏢 DN: $10.1k (20 HĐ)' : '🏢 DN: ¥1.52M (20 HĐ)';
-        if (defB2c) defB2c.textContent = isUsd ? '👤 Cá nhân: $1.49k (6 HĐ)' : '👤 Cá nhân: ¥224k (6 HĐ)';
-
-        // 3. Panel 1 Chart Header
+        if (cDefTitle) cDefTitle.textContent = 'GHẾ ĐANG SỬ DỤNG (SEATS)';
         if (p1Title) p1Title.textContent = 'Diễn Biến Dòng Tiền & Thực Thu Năm 2026';
         if (p1Desc) p1Desc.textContent = 'Dòng tiền thực tế theo chu kỳ: Gói 1 Năm • Gói 3 Tháng (Quý) • Gói 1 Tháng định kỳ';
-
-        // 4. Panel 2 Donut
         if (p2Title) p2Title.textContent = 'Cơ Cấu Doanh Thu Theo Gói';
         if (p2Desc) p2Desc.textContent = 'Tỷ trọng đóng góp 3 gói sản phẩm (Enterprise • Professional • Basic)';
-        if (dCenter) dCenter.textContent = isUsd ? '$2.26K' : '¥340K';
-        if (dSub) dSub.textContent = 'Doanh thu T9';
-
-        if (cEnt) { cEnt.setAttribute('stroke-dasharray', '48 52'); cEnt.setAttribute('stroke-dashoffset', '0'); }
-        if (cPro) { cPro.setAttribute('stroke-dasharray', '38 62'); cPro.setAttribute('stroke-dashoffset', '-48'); }
-        if (cBasic) { cBasic.setAttribute('stroke-dasharray', '14 86'); cBasic.setAttribute('stroke-dashoffset', '-86'); }
-
-        if (itemEnt) itemEnt.style.display = 'flex';
-        if (lblEntName) lblEntName.innerHTML = '<strong>Enterprise</strong> <span style="font-size:10.5px;color:#64748b">(¥2.4k~3k)</span>';
-        if (entEl) entEl.textContent = isUsd ? '48% ($1,088)' : '48% (¥163.2k)';
-
-        if (itemPro) itemPro.style.display = 'flex';
-        if (lblProName) lblProName.innerHTML = '<strong>Professional</strong> <span style="font-size:10.5px;color:#64748b">(¥1.2k~1.5k)</span>';
-        if (proEl) proEl.textContent = isUsd ? '38% ($861)' : '38% (¥129.2k)';
-
-        if (itemBasic) itemBasic.style.display = 'flex';
-        if (lblBasicName) lblBasicName.innerHTML = '<strong>Basic</strong> <span style="font-size:10.5px;color:#64748b">(¥640~800)</span>';
-        if (basEl) basEl.textContent = isUsd ? '14% ($317)' : '14% (¥47.6k)';
-
-        // 5. 3 Payment Plans
-        if (planTitle) planTitle.textContent = '3 KỲ THANH TOÁN THEO GÓI';
-        if (planSub) planSub.textContent = '104 hợp đồng trả phí';
-
-        if (pAnnual) pAnnual.textContent = isUsd ? '$1,453' : '¥218,000';
-        if (pAnnualSub) pAnnualSub.textContent = '26 HĐ (Đã trả trước)';
-        if (pAnnualNote) pAnnualNote.textContent = 'Sang năm 2027 thu lại';
-
-        if (pQuarterly) pQuarterly.textContent = isUsd ? '$320' : '¥48,000';
-        if (pQuarterlySub) pQuarterlySub.textContent = '14 HĐ (Kỳ 3 Tháng)';
-        if (pQuarterlyNote) pQuarterlyNote.textContent = 'Thu 4 đợt / năm';
-
-        if (pMonthly) pMonthly.textContent = isUsd ? '$493' : '¥74,000';
-        if (pMonthlySub) pMonthlySub.textContent = '64 TK (Thu đều)';
-        if (pMonthlyNote) pMonthlyNote.textContent = 'Thu tiền mỗi tháng';
       }
 
-      // Y-Axis labels (Linear scale: 100k JPY = 30px)
+      // Card 1
+      if (cCust) cCust.textContent = metrics.totalManaged;
+      if (custB2b) custB2b.textContent = (seg === 'B2B') ? '🏢 18 Hợp đồng quản lý' : ('🏢 18 DN (' + metrics.segCustomers.b2b + ' Active)');
+      if (custB2c) custB2c.textContent = (seg === 'B2C') ? '👤 10 Hợp đồng quản lý' : ('👤 10 Cá nhân (' + metrics.segCustomers.b2c + ' Active)');
+
+      // Card 2
+      if (cMrr) cMrr.textContent = fmt(metrics.totalMrr);
+      var arrVal = metrics.totalMrr * 12;
+      if (arrEl) arrEl.textContent = '/tháng (ARR: ' + (isUsd ? ('$' + (arrVal * rate / 1000).toFixed(1) + 'k') : ('¥' + (arrVal / 1000000).toFixed(2) + 'M')) + ')';
+      var b2bPct = Math.round((metrics.segMrr.b2b / metrics.totalMrr) * 100) || 86;
+      var b2cPct = Math.round((metrics.segMrr.b2c / metrics.totalMrr) * 100) || 14;
+      if (mrrB2b) mrrB2b.textContent = '🏢 DN: ' + fmt(metrics.segMrr.b2b) + ' (' + b2bPct + '%)';
+      if (mrrB2c) mrrB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.segMrr.b2c) + ' (' + b2cPct + '%)';
+
+      // Update Timeline Toggle Active State
+      var tl8 = document.getElementById('tl-btn-2026-08');
+      var tl9 = document.getElementById('tl-btn-2026-09');
+      var tl10 = document.getElementById('tl-btn-2026-10');
+      var activeTlStyle = 'font-size:11.5px;padding:5px 12px;border-radius:7px;font-weight:800;background:#ffffff;color:#089490;box-shadow:0 1px 2px rgba(0,0,0,0.06);transition:all 0.15s';
+      var inactiveTlStyle = 'font-size:11.5px;padding:5px 10px;border-radius:7px;font-weight:600;background:transparent;color:#475569;border:none;transition:all 0.15s';
+
+      if (tl8) {
+        tl8.style.cssText = (period === '2026-08') ? activeTlStyle : inactiveTlStyle;
+        tl8.classList.toggle('active', period === '2026-08');
+      }
+      if (tl9) {
+        tl9.style.cssText = (period === '2026-09') ? activeTlStyle : inactiveTlStyle;
+        tl9.classList.toggle('active', period === '2026-09');
+      }
+      if (tl10) {
+        tl10.style.cssText = (period === '2026-10') ? activeTlStyle : inactiveTlStyle;
+        tl10.classList.toggle('active', period === '2026-10');
+      }
+
+      // Update Executive Insight Banner
+      var eibBanner = document.getElementById('executive-insight-banner');
+      var eibIcon = document.getElementById('eib-icon');
+      var eibTitle = document.getElementById('eib-title');
+      var eibDesc = document.getElementById('eib-desc');
+      var eibBtn = document.getElementById('eib-action-btn');
+
+      if (eibBanner && eibTitle && eibDesc) {
+        if (period === '2026-09') {
+          eibBanner.style.background = '#f0fdfa';
+          eibBanner.style.borderColor = '#99f6e4';
+          if (eibIcon) { eibIcon.textContent = '💡'; eibIcon.style.background = '#ccfbf1'; eibIcon.style.color = '#0f766e'; }
+          eibTitle.innerHTML = 'Tình Trạng Tháng 09/2026 (LIVE - Chốt đến 23/09)';
+          eibDesc.innerHTML = 'Đã thu đủ <strong>100% kế hoạch (' + fmt(metrics.totalCashIn) + ')</strong> từ 8 khách hàng trước hạn vào 15/09. Tỷ lệ lấp đầy ghế <strong>91.5%</strong> (348/380 ghế). Toàn bộ hệ thống ổn định.';
+          if (eibBtn) {
+            eibBtn.textContent = '📅 Bảng Kê Thu Tiền T09 ➔';
+            eibBtn.style.background = '#089490';
+            eibBtn.onclick = function() { openDailyCashModal('2026-09'); };
+          }
+        } else if (period === '2026-10') {
+          eibBanner.style.background = '#faf5ff';
+          eibBanner.style.borderColor = '#e9d5ff';
+          if (eibIcon) { eibIcon.textContent = '🎯'; eibIcon.style.background = '#f3e8ff'; eibIcon.style.color = '#7e22ce'; }
+          eibTitle.innerHTML = 'Kế Hoạch & Dự Báo Tháng 10/2026 (Đầu Quý 4)';
+          eibDesc.innerHTML = 'Dự kiến thu về <strong>' + fmt(metrics.totalCashIn) + '</strong> (+53.9% so với T9) từ <strong>12 hợp đồng</strong> (9 DN: ' + fmt(metrics.segCash.b2b) + ', 3 Cá nhân: ' + fmt(metrics.segCash.b2c) + '). Trọng tâm: Thu tiền đợt 2 của 5 khách nạp Quý. <span style="color:#d97706;font-weight:700">⚠️ Ghế chạm trần 96.3% (chỉ còn trống 14 ghế)!</span>';
+          if (eibBtn) {
+            eibBtn.textContent = '📋 Danh Sách 12 HĐ Tháng 10 ➔';
+            eibBtn.style.background = '#7e22ce';
+            eibBtn.onclick = function() { openDailyCashModal('2026-10'); };
+          }
+        } else if (period === '2026-08') {
+          eibBanner.style.background = '#f8fafc';
+          eibBanner.style.borderColor = '#cbd5e1';
+          if (eibIcon) { eibIcon.textContent = '📊'; eibIcon.style.background = '#e2e8f0'; eibIcon.style.color = '#334155'; }
+          eibTitle.innerHTML = 'Tổng Kết Tháng 08/2026 (Đã Chốt Sổ)';
+          eibDesc.innerHTML = 'Thực thu <strong>' + fmt(metrics.totalCashIn) + '</strong> từ 7 hợp đồng định kỳ. Tăng trưởng thực thu sang Tháng 9 là <strong>+¥38,000 (+51.4%)</strong>. 20/28 HĐ active.';
+          if (eibBtn) {
+            eibBtn.textContent = '📋 Xem Lịch Thu T08 ➔';
+            eibBtn.style.background = '#475569';
+            eibBtn.onclick = function() { openDailyCashModal('2026-08'); };
+          }
+        } else {
+          eibBanner.style.background = '#f0fdfa';
+          eibBanner.style.borderColor = '#99f6e4';
+          if (eibIcon) { eibIcon.textContent = '📅'; eibIcon.style.background = '#ccfbf1'; eibIcon.style.color = '#0f766e'; }
+          eibTitle.innerHTML = 'Số Liệu Kỳ ' + monthText + '/2026';
+          eibDesc.innerHTML = 'Doanh thu MRR: <strong>' + fmt(metrics.totalMrr) + '</strong> • Dòng tiền nạp: <strong>' + fmt(metrics.totalCashIn) + '</strong> (' + metrics.payingCount + ' HĐ) • Ghế: <strong>' + metrics.totalSeats + '/' + metrics.totalCapacity + '</strong>.';
+          if (eibBtn) {
+            eibBtn.textContent = '📋 Bảng Kê Kỳ Này ➔';
+            eibBtn.style.background = '#089490';
+            eibBtn.onclick = function() { openDailyCashModal(period); };
+          }
+        }
+      }
+
+      // Card 3 - Thực Thu / Dự Báo Thu Linh Hoạt
+      if (cCashTitle) {
+        if (period === '2026-09') {
+          cCashTitle.textContent = (seg === 'B2B') ? 'THỰC THU ĐẾN 23/09 (B2B)' : (seg === 'B2C' ? 'THỰC THU ĐẾN 23/09 (B2C)' : 'THỰC THU ĐẾN 23/09/2026');
+          if (subCash) subCash.textContent = metrics.payingCount + ' giao dịch • Đã thu 100% KPI ➔';
+        } else if (period === '2026-10') {
+          cCashTitle.textContent = (seg === 'B2B') ? 'DỰ BÁO THU T10 (B2B)' : (seg === 'B2C' ? 'DỰ BÁO THU T10 (B2C)' : 'DỰ BÁO TIỀN THU THÁNG 10');
+          if (subCash) subCash.textContent = metrics.payingCount + ' HĐ đến hạn • Bấm xem lịch nạp ➔';
+        } else if (period === '2026-08') {
+          cCashTitle.textContent = (seg === 'B2B') ? 'THỰC THU THÁNG 08 (B2B)' : (seg === 'B2C' ? 'THỰC THU THÁNG 08 (B2C)' : 'THỰC THU THÁNG 08/2026');
+          if (subCash) subCash.textContent = metrics.payingCount + ' HĐ định kỳ nạp • Đã đóng sổ';
+        } else {
+          cCashTitle.textContent = ((period > '2026-09') ? 'DỰ BÁO THU ' : 'THỰC THU ') + monthText.toUpperCase() + (seg !== 'ALL' ? (' (' + seg + ')') : '');
+          if (subCash) subCash.textContent = metrics.payingCount + ' hợp đồng nạp tiền';
+        }
+      }
+      if (cCash) cCash.textContent = fmt(metrics.totalCashIn);
+      if (cashB2b) cashB2b.textContent = '🏢 DN: ' + fmt(metrics.segCash.b2b);
+      if (cashB2c) cashB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.segCash.b2c);
+
+      // Card 4 - Ghế Đang Sử Dụng (Seats Capacity)
+      if (cDefTitle) {
+        if (period === '2026-10') cDefTitle.textContent = 'DỰ BÁO GHẾ THÁNG 10';
+        else if (period === '2026-08') cDefTitle.textContent = 'GHẾ THÁNG 08/2026';
+        else cDefTitle.textContent = (seg === 'B2B') ? 'GHẾ DOANH NGHIỆP (B2B)' : (seg === 'B2C' ? 'GHẾ CÁ NHÂN (B2C)' : 'GHẾ ĐANG SỬ DỤNG (SEATS)');
+      }
+      if (cDefVal) cDefVal.textContent = metrics.totalSeats + ' / ' + metrics.totalCapacity;
+      var seatUsagePct = ((metrics.totalSeats / metrics.totalCapacity) * 100).toFixed(1);
+      var vacantSeats = metrics.totalCapacity - metrics.totalSeats;
+      if (subDef) {
+        if (period === '2026-10') {
+          subDef.innerHTML = '<span style="color:#d97706;font-weight:700">⚠️ Chạm trần ' + seatUsagePct + '% (Chỉ còn ' + vacantSeats + ' ghế!)</span>';
+        } else if (period === '2026-09') {
+          subDef.textContent = 'Tỷ lệ ' + seatUsagePct + '% (Còn trống ' + vacantSeats + ' ghế)';
+        } else {
+          subDef.textContent = 'Tỷ lệ ' + seatUsagePct + '% (Trống ' + vacantSeats + ')';
+        }
+      }
+      if (defB2b) defB2b.textContent = '🏢 DN: ' + metrics.segSeats.b2b + ' / 350 ghế';
+      if (defB2c) defB2c.textContent = '👤 Cá nhân: ' + metrics.segSeats.b2c + ' / 30 ghế';
+
+      // Donut Chart
+      if (dCenter) dCenter.textContent = fmt(metrics.totalMrr);
+      if (dSub) dSub.textContent = 'Doanh thu ' + monthText.replace('Tháng ', 'T');
+
+      var totalTierMrr = (metrics.tierMrr.ent || 0) + (metrics.tierMrr.pro || 0) + (metrics.tierMrr.basic || 0);
+      if (totalTierMrr > 0) {
+        var pEnt = Math.round(((metrics.tierMrr.ent || 0) / totalTierMrr) * 100);
+        var pPro = Math.round(((metrics.tierMrr.pro || 0) / totalTierMrr) * 100);
+        var pBasic = Math.max(0, 100 - pEnt - pPro);
+
+        if (cEnt) { cEnt.setAttribute('stroke-dasharray', pEnt + ' ' + (100 - pEnt)); cEnt.setAttribute('stroke-dashoffset', '0'); }
+        if (cPro) { cPro.setAttribute('stroke-dasharray', pPro + ' ' + (100 - pPro)); cPro.setAttribute('stroke-dashoffset', '-' + pEnt); }
+        if (cBasic) { cBasic.setAttribute('stroke-dasharray', pBasic + ' ' + (100 - pBasic)); cBasic.setAttribute('stroke-dashoffset', '-' + (pEnt + pPro)); }
+
+        if (itemEnt) itemEnt.style.display = (seg === 'B2C' ? 'none' : 'flex');
+        if (entEl) entEl.textContent = pEnt + '% (' + fmt(metrics.tierMrr.ent || 0) + ')';
+
+        if (itemPro) itemPro.style.display = 'flex';
+        if (proEl) proEl.textContent = pPro + '% (' + fmt(metrics.tierMrr.pro || 0) + ')';
+
+        if (itemBasic) itemBasic.style.display = (seg === 'B2B' ? 'none' : 'flex');
+        if (basEl) basEl.textContent = pBasic + '% (' + fmt(metrics.tierMrr.basic || 0) + ')';
+      }
+
+      // Panel 2 - 3 Billing Cycle Cards
+      if (planValAnnual) planValAnnual.textContent = fmt(metrics.cycleMrr.annual);
+      if (planValQuarterly) planValQuarterly.textContent = fmt(metrics.cycleMrr.quarterly);
+      if (planValMonthly) planValMonthly.textContent = fmt(metrics.cycleMrr.monthly);
+
+      var pSubAnnual = document.getElementById('plan-sub-annual');
+      var pSubQuarterly = document.getElementById('plan-sub-quarterly');
+      var pSubMonthly = document.getElementById('plan-sub-monthly');
+      var pHeaderSub = document.getElementById('plan-header-sub');
+
+      if (pSubAnnual) pSubAnnual.textContent = metrics.cycleCount.annual + ' HĐ Active (Đã trả trước)';
+      if (pSubQuarterly) pSubQuarterly.textContent = metrics.cycleCount.quarterly + ' HĐ Active (Kỳ 3 Tháng)';
+      if (pSubMonthly) pSubMonthly.textContent = metrics.cycleCount.monthly + ' HĐ Active (Thu đều/tháng)';
+      if (pHeaderSub) pHeaderSub.textContent = metrics.activeCount + ' hợp đồng active (28 HĐ quản lý)';
+
       var y400 = document.getElementById('y-lbl-400');
       var y300 = document.getElementById('y-lbl-300');
       var y200 = document.getElementById('y-lbl-200');
       var y100 = document.getElementById('y-lbl-100');
-      if (y400) y400.textContent = isUsd ? '$2.7k' : '400k';
-      if (y300) y300.textContent = isUsd ? '$2.0k' : '300k';
-      if (y200) y200.textContent = isUsd ? '$1.3k' : '200k';
-      if (y100) y100.textContent = isUsd ? '$670' : '100k';
+      if (y400) y400.textContent = isUsd ? '$8.0k' : '1.2M';
+      if (y300) y300.textContent = isUsd ? '$6.0k' : '900k';
+      if (y200) y200.textContent = isUsd ? '$4.0k' : '600k';
+      if (y100) y100.textContent = isUsd ? '$2.0k' : '300k';
     }
+
+
+    // ===== MODAL BẢNG DÒNG TIỀN THỰC THU THEO NGÀY CỤ THỂ (DAILY CASH COLLECTIONS) =====
+    window.DAILY_COLLECTIONS_T09 = [
+      { day: '01/09/2026', id: 'CTR-2026-022', name: 'Khải Sáng Tooling Co.', contact: 'Ngô Văn Khải (Giám đốc)', type: 'B2B', plan: 'Standard', cycle: '1 Tháng (Định kỳ)', amount: 16000, note: 'Thu định kỳ tự động đầu tháng' },
+      { day: '01/09/2026', id: 'CTR-2026-023', name: 'Việt Thắng Textile Packaging', contact: 'Bùi Việt Thắng (Quản lý)', type: 'B2B', plan: 'Starter', cycle: '1 Tháng (Định kỳ)', amount: 14000, note: 'Thu định kỳ tự động đầu tháng' },
+      { day: '01/09/2026', id: 'CTR-2026-024', name: 'Hoàng Nam Mold Industrial', contact: 'Phạm Hoàng Nam (Kỹ thuật)', type: 'B2B', plan: 'Standard', cycle: '1 Tháng (Định kỳ)', amount: 16000, note: 'Thu định kỳ tự động đầu tháng' },
+      { day: '01/09/2026', id: 'CTR-2026-027', name: 'Tập hợp Khách Hàng Cá Nhân', contact: '15 thành viên độc lập', type: 'B2C', plan: 'Basic Personal', cycle: '1 Tháng (Định kỳ)', amount: 12000, note: 'Thẻ tín dụng thanh toán tự động' },
+      { day: '02/09/2026', id: 'CTR-2026-016', name: 'Global Logistics & Supply Co.', contact: 'Hoàng Minh Châu (VP Logistics)', type: 'B2B', plan: 'Professional', cycle: '3 Tháng (Quý)', amount: 33000, note: 'Ký mới & nạp tiền gói quý Q3-Q4' },
+      { day: '05/09/2026', id: 'CTR-2026-021', name: 'Nakamura Sota', contact: 'Nakamura Sota (Operations Dir)', type: 'B2C', plan: 'Pro Personal', cycle: '3 Tháng (Quý)', amount: 6000, note: 'Cá nhân nạp tiếp gói quý' },
+      { day: '10/09/2026', id: 'CTR-2026-025', name: 'Tân Phú Plastics Engineering', contact: 'Trần Đình Trọng (Giám đốc)', type: 'B2B', plan: 'Starter', cycle: '1 Tháng (Định kỳ)', amount: 8000, note: 'Thu định kỳ giữa tháng' },
+      { day: '15/09/2026', id: 'CTR-2026-026', name: 'Bình Dương Industrial Components', contact: 'Vũ Hoài Nam (Trưởng xưởng)', type: 'B2B', plan: 'Starter', cycle: '1 Tháng (Định kỳ)', amount: 7000, note: 'Thu định kỳ đợt 2 giữa tháng' }
+    ];
+
+    window.currentDailyCashSeg = 'ALL';
+
+    window.currentDailyCashPeriod = '2026-09';
+
+    window.renderDailyCashContent = function (seg, periodStr) {
+      var isUsd = (window.currentCurrency === 'USD');
+      var rate = isUsd ? (1 / 150.24) : 1;
+      function fmt(val) {
+        if (!val) return '0đ';
+        if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
+        return '¥' + val.toLocaleString('ja-JP');
+      }
+
+      var s = seg || window.currentDailyCashSeg || 'ALL';
+      var p = periodStr || window.currentDailyCashPeriod || window.currentPeriod || '2026-09';
+      window.currentDailyCashSeg = s;
+      window.currentDailyCashPeriod = p;
+
+      var tbody = document.getElementById('dcm-tbody');
+      var statTotal = document.getElementById('dcm-stat-total');
+      var statB2b = document.getElementById('dcm-stat-b2b');
+      var statB2c = document.getElementById('dcm-stat-b2c');
+      var noteEl = document.getElementById('dcm-filter-note');
+      var modalTitle = document.getElementById('dcm-modal-title');
+      var modalSubtitle = document.getElementById('dcm-modal-subtitle');
+
+      var pMonthNum = parseInt(p.split('-')[1], 10);
+      var pMonthText = 'Tháng ' + (pMonthNum < 10 ? '0' : '') + pMonthNum + '/2026';
+
+      if (modalTitle) {
+        if (p === '2026-09') modalTitle.textContent = 'Bảng Dòng Tiền Thực Thu Đến Ngày 23/09/2026';
+        else if (p === '2026-10') modalTitle.textContent = 'Lịch Dự Kiến Thu Tiền Tháng 10/2026 (Đầu Quý 4)';
+        else if (p === '2026-08') modalTitle.textContent = 'Bảng Kê Hợp Đồng Nạp Tiền Tháng 08/2026 (Đã Chốt)';
+        else modalTitle.textContent = 'Bảng Kê Nạp Tiền Kỳ ' + pMonthText;
+      }
+      if (modalSubtitle) {
+        if (p === '2026-09') modalSubtitle.textContent = 'Chi tiết lịch nạp tiền thực tế của từng khách hàng theo từng mốc ngày cụ thể trong Tháng 09/2026';
+        else if (p === '2026-10') modalSubtitle.textContent = 'Chi tiết 12 hợp đồng đến kỳ thanh toán tiếp theo trong Tháng 10/2026 (5 khách gói Quý + 7 khách định kỳ)';
+        else modalSubtitle.textContent = 'Chi tiết danh sách hợp đồng phát sinh giao dịch thanh toán trong kỳ ' + pMonthText;
+      }
+
+      // Update tab active appearance
+      var tabAll = document.getElementById('dcm-tab-all');
+      var tabB2b = document.getElementById('dcm-tab-b2b');
+      var tabB2c = document.getElementById('dcm-tab-b2c');
+
+      var activeStyle = 'background:#089490;color:#ffffff;font-weight:700;border:none;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all 0.15s';
+      var inactiveStyle = 'background:#f1f5f9;color:#334155;font-weight:600;border:1px solid #cbd5e1;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all 0.15s';
+
+      if (tabAll) tabAll.style.cssText = (s === 'ALL') ? activeStyle : inactiveStyle;
+      if (tabB2b) tabB2b.style.cssText = (s === 'B2B') ? activeStyle : inactiveStyle;
+      if (tabB2c) tabB2c.style.cssText = (s === 'B2C') ? activeStyle : inactiveStyle;
+
+      // Prepare rows for period
+      var allRows = [];
+      if (p === '2026-09') {
+        allRows = window.DAILY_COLLECTIONS_T09;
+      } else {
+        // Generate dynamically from DUMMY_CONTRACTS_DATA for period
+        window.DUMMY_CONTRACTS_DATA.forEach(function (c) {
+          if (c.paymentMonths && c.paymentMonths.indexOf(p) !== -1) {
+            allRows.push({
+              day: '01/' + (pMonthNum < 10 ? '0' : '') + pMonthNum + '/2026',
+              id: c.id,
+              name: c.customerName,
+              contact: c.contactPerson,
+              type: c.customerType,
+              plan: c.planTier,
+              cycle: c.billingCycle,
+              amount: c.billingAmount,
+              note: c.notes
+            });
+          }
+        });
+      }
+
+      var totalSumAll = 0, b2bSumAll = 0, b2cSumAll = 0;
+      allRows.forEach(function (r) {
+        totalSumAll += r.amount;
+        if (r.type === 'B2B') b2bSumAll += r.amount;
+        else b2cSumAll += r.amount;
+      });
+
+      if (statTotal) statTotal.textContent = fmt(totalSumAll);
+      if (statB2b) statB2b.textContent = fmt(b2bSumAll);
+      if (statB2c) statB2c.textContent = fmt(b2cSumAll);
+
+      if (tabAll) tabAll.textContent = 'Toàn bộ (' + fmt(totalSumAll) + ')';
+      if (tabB2b) tabB2b.textContent = '🏢 Doanh nghiệp (' + fmt(b2bSumAll) + ')';
+      if (tabB2c) tabB2c.textContent = '👤 Cá nhân (' + fmt(b2cSumAll) + ')';
+
+      var filteredRows = allRows.filter(function (r) {
+        if (s === 'ALL') return true;
+        return r.type === s;
+      });
+
+      if (noteEl) {
+        noteEl.textContent = 'Hiển thị ' + filteredRows.length + '/' + allRows.length + ' giao dịch tiền nạp';
+      }
+
+      var html = '';
+      var cum = 0;
+      filteredRows.forEach(function (r) {
+        cum += r.amount;
+
+        var segBadge = (r.type === 'B2B')
+          ? '<span style="background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700">🏢 B2B</span>'
+          : '<span style="background:#f0fdf4;color:#15803d;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700">👤 B2C</span>';
+
+        var statusBadge = (p === '2026-10')
+          ? '<span style="background:#f3e8ff;color:#7e22ce;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700">⏳ Đến hạn nạp</span>'
+          : '<span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700">✓ Đã về két</span>';
+
+        html += '<tr style="border-bottom:1px solid #f1f5f9;transition:background 0.15s" onmouseenter="this.style.background=\'#f8fafc\'" onmouseleave="this.style.background=\'transparent\'">';
+        html += '<td style="padding:9px 12px;font-weight:700;color:#0f172a">' + r.day + '</td>';
+        html += '<td style="padding:9px 12px"><code style="font-size:11.5px;color:#089490;font-weight:700">' + r.id + '</code></td>';
+        html += '<td style="padding:9px 12px"><div style="font-weight:700;color:#0f172a">' + r.name + '</div><div style="font-size:11px;color:#64748b">' + r.contact + '</div></td>';
+        html += '<td style="padding:9px 12px;text-align:center">' + segBadge + '</td>';
+        html += '<td style="padding:9px 12px"><strong>' + r.plan + '</strong><div style="font-size:10.5px;color:#64748b">' + r.cycle + '</div></td>';
+        html += '<td style="padding:9px 12px;text-align:right;font-weight:800;color:#16a34a">+' + fmt(r.amount) + '</td>';
+        html += '<td style="padding:9px 12px;text-align:right;font-weight:800;color:#0f766e;background:#f0fdfa">' + fmt(cum) + '</td>';
+        html += '<td style="padding:9px 12px;text-align:center">' + statusBadge + '</td>';
+        html += '</tr>';
+      });
+
+      // Dòng chốt số / tóm tắt
+      var targetLabel = (s === 'B2B') ? 'Khối Doanh Nghiệp (B2B)' : (s === 'B2C' ? 'Khối Cá Nhân (B2C)' : 'Toàn Nền Tảng');
+      var milestoneTitle = (p === '2026-09')
+        ? '🎯 Mốc hiện tại (23/09 Hôm nay) — Chốt thu ' + targetLabel + ': Hoàn thành 100% KPI Tháng 9'
+        : ('🎯 Tổng dự kiến thu ' + targetLabel + ' trong ' + pMonthText + ': Đạt ' + fmt(cum));
+
+      html += '<tr style="background:#fdf4ff;border-top:2px solid #f0abfc;font-weight:800">';
+      html += '<td style="padding:10px 12px;color:#86198f">' + (p === '2026-09' ? '23/09/2026' : ('Cuối ' + pMonthText.split('/')[0])) + '</td>';
+      html += '<td colspan="4" style="padding:10px 12px;color:#86198f">' + milestoneTitle + '</td>';
+      html += '<td style="padding:10px 12px;text-align:right;color:#86198f">+0đ</td>';
+      html += '<td style="padding:10px 12px;text-align:right;color:#a21caf;font-size:13.5px;background:#fae8ff">' + fmt(cum) + '</td>';
+      html += '<td style="padding:10px 12px;text-align:center"><span style="background:#fdf4ff;color:#a21caf;border:1px solid #f0abfc;padding:2px 8px;border-radius:12px;font-size:11px">★ ' + (p === '2026-09' ? '100% KPI' : 'Mục Tiêu') + '</span></td>';
+      html += '</tr>';
+
+      if (tbody) tbody.innerHTML = html;
+    };
+
+    window.openDailyCashModal = function (period) {
+      var m = document.getElementById('daily-cash-modal');
+      if (!m) return;
+
+      var p = period || window.currentPeriod || '2026-09';
+      var currentSeg = window.currentSegment || 'ALL';
+      window.currentDailyCashPeriod = p;
+      window.renderDailyCashContent(currentSeg, p);
+
+      m.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+
+        window.filterDailyCashModal = function (seg) {
+      window.renderDailyCashContent(seg);
+    };
+
+    window.openDailyCashModal = function (period) {
+      var m = document.getElementById('daily-cash-modal');
+      if (!m) return;
+
+      var currentSeg = window.currentSegment || 'ALL';
+      window.renderDailyCashContent(currentSeg);
+
+      m.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeDailyCashModal = function () {
+      var m = document.getElementById('daily-cash-modal');
+      if (m) m.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+
+    window.exportDailyCashCSV = function () {
+      var isUsd = (window.currentCurrency === 'USD');
+      var curr = isUsd ? 'USD' : 'JPY';
+      var rate = isUsd ? (1 / 150.24) : 1;
+
+      var csv = '\uFEFFNgay_Thu,Ma_HD,Khach_Hang,Nguoi_Lien_He,Phan_Khuc,Goi_Cuoc,Chu_Ky,So_Tien (' + curr + '),Luy_Ke_Den_Ngay (' + curr + '),Trang_Thai,Ghi_Chu\n';
+
+      var s = window.currentDailyCashSeg || 'ALL';
+      var rowsToExport = window.DAILY_COLLECTIONS_T09.filter(function (r) {
+        if (s === 'ALL') return true;
+        return r.type === s;
+      });
+
+      var cum = 0;
+      rowsToExport.forEach(function (r) {
+        var amt = isUsd ? Math.round(r.amount * rate) : r.amount;
+        cum += amt;
+        var cleanName = '"' + r.name.replace(/"/g, '""') + '"';
+        var cleanContact = '"' + r.contact.replace(/"/g, '""') + '"';
+        var cleanNote = '"' + r.note.replace(/"/g, '""') + '"';
+        csv += r.day + ',' + r.id + ',' + cleanName + ',' + cleanContact + ',' + r.type + ',' + r.plan + ',' + r.cycle + ',' + amt + ',' + cum + ',Da ve tai khoan,' + cleanNote + '\n';
+      });
+
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', 'Emind_Bang_Ke_Thu_Tien_T09_Den_23092026.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    // Close on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        window.closeDailyCashModal();
+      }
+    });
+
+
+
+    // ===== RENDER BẢNG DỮ LIỆU MẪU (DUMMY CONTRACTS DATA TABLE) =====
+    window.renderDummyContractsTable = function () {
+      var tbody = document.getElementById('dd-contracts-tbody');
+      if (!tbody) return;
+
+      var searchInput = document.getElementById('dd-search-input');
+      var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+      var segFilter = document.getElementById('dd-filter-segment') ? document.getElementById('dd-filter-segment').value : 'ALL';
+      var cycleFilter = document.getElementById('dd-filter-cycle') ? document.getElementById('dd-filter-cycle').value : 'ALL';
+      var monthFilter = document.getElementById('dd-filter-month') ? document.getElementById('dd-filter-month').value : '2026-09';
+
+      var isUsd = (window.currentCurrency === 'USD');
+      var rate = isUsd ? (1 / 150.24) : 1;
+
+      function fmt(val) {
+        if (!val) return '0đ';
+        if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
+        return '¥' + val.toLocaleString('ja-JP');
+      }
+
+      var filtered = window.DUMMY_CONTRACTS_DATA.filter(function (c) {
+        if (segFilter !== 'ALL' && c.customerType !== segFilter) return false;
+        if (cycleFilter !== 'ALL' && String(c.cycleMonths) !== String(cycleFilter)) return false;
+        if (query) {
+          var matchName = c.customerName.toLowerCase().indexOf(query) !== -1;
+          var matchContact = c.contactPerson.toLowerCase().indexOf(query) !== -1;
+          var matchId = c.id.toLowerCase().indexOf(query) !== -1;
+          var matchPlan = c.planTier.toLowerCase().indexOf(query) !== -1;
+          if (!matchName && !matchContact && !matchId && !matchPlan) return false;
+        }
+        return true;
+      });
+
+      var monthMetrics = window.getDynamicPeriodMetrics(monthFilter, segFilter);
+
+      var statTotal = document.getElementById('dd-stat-total');
+      var statPeriod = document.getElementById('dd-stat-period');
+      var statActive = document.getElementById('dd-stat-active-count');
+      var statMrr = document.getElementById('dd-stat-mrr');
+      var statCash = document.getElementById('dd-stat-cash');
+      var statCashSub = document.getElementById('dd-stat-cash-sub');
+      var statSeats = document.getElementById('dd-stat-seats');
+      var filterText = document.getElementById('dd-filter-text');
+
+      var mNum = parseInt(monthFilter.split('-')[1], 10);
+      var mShort = 'T' + (mNum < 10 ? '0' : '') + mNum + '/2026';
+
+      if (statTotal) statTotal.textContent = window.DUMMY_CONTRACTS_DATA.length;
+      if (statPeriod) statPeriod.textContent = mShort;
+      if (statActive) statActive.textContent = monthMetrics.activeCount + ' HĐ Active (' + monthMetrics.payingCount + ' nạp tiền)';
+      if (statMrr) statMrr.textContent = fmt(monthMetrics.totalMrr);
+      if (statCash) statCash.textContent = fmt(monthMetrics.totalCashIn);
+      if (statCashSub) statCashSub.textContent = (monthFilter === '2026-09') ? 'Khớp 100% KPI LIVE' : (monthFilter === '2026-10' ? 'Dự báo đầu Q4' : 'Dòng tiền thực tế');
+      if (statSeats) statSeats.textContent = monthMetrics.totalSeats + ' / 380';
+      if (filterText) filterText.textContent = 'Đang hiển thị ' + filtered.length + '/' + window.DUMMY_CONTRACTS_DATA.length + ' hợp đồng khách hàng';
+
+      var html = '';
+      if (filtered.length === 0) {
+        html = '<tr><td colspan="10" style="text-align:center;padding:32px;color:#94a3b8">Không tìm thấy hợp đồng nào khớp với bộ lọc</td></tr>';
+      } else {
+        filtered.forEach(function (c) {
+          var isPayingThisMonth = (c.paymentMonths && c.paymentMonths.indexOf(monthFilter) !== -1);
+          var isActiveThisMonth = (c.startDate <= monthFilter + '-31');
+
+          var statusBadge = '';
+          if (!isActiveThisMonth) {
+            statusBadge = '<span style="background:#fffbeb;color:#b45309;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700;border:1px solid #fde68a">⏳ Bắt đầu ' + c.startDate + '</span>';
+          } else if (isPayingThisMonth) {
+            statusBadge = '<span style="background:#dcfce7;color:#15803d;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700;border:1px solid #bbf7d0">💵 Nạp kỳ này: ' + fmt(c.billingAmount) + '</span>';
+          } else {
+            statusBadge = '<span style="background:#f0f9ff;color:#0369a1;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600;border:1px solid #bae6fd">✓ Active MRR (¥' + c.mrrContribution.toLocaleString() + ')</span>';
+          }
+
+          var segBadge = (c.customerType === 'B2B')
+            ? '<span style="background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700">🏢 Doanh nghiệp</span>'
+            : '<span style="background:#f0fdf4;color:#15803d;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700">👤 Cá nhân</span>';
+
+          var cycleBadge = (c.cycleMonths === 12)
+            ? '<span style="background:#ccfbf1;color:#0f766e;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:600">1 Năm (Annual)</span>'
+            : (c.cycleMonths === 3
+              ? '<span style="background:#e0f2fe;color:#0284c7;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:600">3 Tháng (Quý)</span>'
+              : '<span style="background:#fef3c7;color:#b45309;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:600">1 Tháng (Định kỳ)</span>');
+
+          var rowBg = isPayingThisMonth ? ' style="background:#fafffd"' : '';
+
+          html += '<tr' + rowBg + '>';
+          html += '<td><code style="font-size:11.5px;color:#089490;font-weight:700">' + c.id + '</code></td>';
+          html += '<td><div style="font-weight:700;color:#0f172a">' + c.customerName + '</div><div style="font-size:11.5px;color:#64748b;margin-top:2px">' + c.contactPerson + '</div></td>';
+          html += '<td>' + segBadge + '</td>';
+          html += '<td><strong style="color:#334155">' + c.planTier + '</strong><div style="font-size:11px;color:#64748b">' + c.seats + ' Ghế sử dụng</div></td>';
+          html += '<td>' + cycleBadge + '</td>';
+          html += '<td><span style="font-size:12px;color:#475569;font-weight:600">' + c.startDate + '</span></td>';
+          html += '<td style="text-align:right"><strong style="color:#0f172a;font-size:13px">' + fmt(c.billingAmount) + '</strong><div style="font-size:10.5px;color:#64748b">/' + (c.cycleMonths === 12 ? 'năm' : (c.cycleMonths === 3 ? 'quý' : 'tháng')) + '</div></td>';
+          html += '<td style="text-align:right"><strong style="color:#16a34a;font-size:13px">' + fmt(c.mrrContribution) + '</strong><div style="font-size:10.5px;color:#64748b">/tháng</div></td>';
+          html += '<td style="text-align:center">' + statusBadge + '</td>';
+          html += '<td style="text-align:center"><button class="btn btn-outline btn-sm" onclick="showContractOnDashboard(\'' + c.id + '\')" style="padding:4px 8px;font-size:11px;display:inline-flex;align-items:center;gap:4px">📊 Dashboard</button></td>';
+          html += '</tr>';
+        });
+      }
+
+      tbody.innerHTML = html;
+    };
+
+    window.onDummyMonthFilterChange = function (val) {
+      window.renderDummyContractsTable();
+    };
+
+    window.resetDummyFilters = function () {
+      var s = document.getElementById('dd-search-input'); if (s) s.value = '';
+      var seg = document.getElementById('dd-filter-segment'); if (seg) seg.value = 'ALL';
+      var cyc = document.getElementById('dd-filter-cycle'); if (cyc) cyc.value = 'ALL';
+      var m = document.getElementById('dd-filter-month'); if (m) m.value = '2026-09';
+      renderDummyContractsTable();
+    };
+
+    window.showContractOnDashboard = function (contractId) {
+      var contract = window.DUMMY_CONTRACTS_DATA.find(function (c) { return c.id === contractId; });
+      if (!contract) return;
+
+      var targetMonth = '2026-09';
+      if (contract.paymentMonths && contract.paymentMonths.length > 0) {
+        if (contract.paymentMonths.indexOf('2026-09') !== -1) targetMonth = '2026-09';
+        else if (contract.paymentMonths.indexOf('2026-10') !== -1) targetMonth = '2026-10';
+        else targetMonth = contract.paymentMonths[0];
+      } else {
+        targetMonth = contract.startDate.substring(0, 7);
+      }
+
+      window.currentSegment = contract.customerType;
+      window.currentPeriod = targetMonth;
+
+      navigate('admin-dashboard', null);
+      quickJumpPeriod(targetMonth);
+      filterSegment(contract.customerType);
+
+      showAdminToast('🔍 Đang xem Dashboard tại kỳ ' + targetMonth + ' cho hợp đồng: ' + contract.customerName, 'info');
+    };
+
+    window.exportDummyContractsCSV = function () {
+      var isUsd = (window.currentCurrency === 'USD');
+      var curr = isUsd ? 'USD' : 'JPY';
+      var csv = '\uFEFFMa_HD,Ten_Khach_Hang,Phan_Khuc,Nguoi_Lien_He,Goi_Cuoc,So_Ghe,Ky_Thanh_Toan,Ngay_Dang_Ky,So_Tien_Ky (' + curr + '),Dong_Gop_MRR (' + curr + '),Ghi_Chu\n';
+
+      window.DUMMY_CONTRACTS_DATA.forEach(function (c) {
+        var cleanName = '"' + c.customerName.replace(/"/g, '""') + '"';
+        var cleanContact = '"' + c.contactPerson.replace(/"/g, '""') + '"';
+        var cleanNotes = '"' + (c.notes || '').replace(/"/g, '""') + '"';
+        csv += c.id + ',' + cleanName + ',' + c.customerType + ',' + cleanContact + ',' + c.planTier + ',' + c.seats + ',' + c.billingCycle + ',' + c.startDate + ',' + c.billingAmount + ',' + c.mrrContribution + ',' + cleanNotes + '\n';
+      });
+
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', 'Emind_Danh_Sach_28_Hop_Dong_Mau.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    // Admin Quick Actions & Interactive Modals
+    window.openQuickLicenseModal = function () {
+      var m = document.getElementById('quick-license-modal');
+      if (m) m.style.display = 'flex';
+    };
+    window.closeQuickLicenseModal = function () {
+      var m = document.getElementById('quick-license-modal');
+      if (m) m.style.display = 'none';
+    };
+    window.submitQuickLicense = function () {
+      var comp = document.getElementById('ql-company-name').value.trim();
+      var tier = document.getElementById('ql-plan-tier').value;
+      var seats = document.getElementById('ql-seats').value;
+      if (!comp) {
+        alert('Vui lòng nhập tên Doanh nghiệp / Khách hàng!');
+        return;
+      }
+      closeQuickLicenseModal();
+      showAdminToast('🎉 Đã cấp License ' + tier + ' (' + seats + ' Ghế) cho "' + comp + '" thành công!', 'success');
+    };
+
+    window.openQuickAnnouncementModal = function () {
+      var m = document.getElementById('quick-announcement-modal');
+      if (m) m.style.display = 'flex';
+    };
+    window.closeQuickAnnouncementModal = function () {
+      var m = document.getElementById('quick-announcement-modal');
+      if (m) m.style.display = 'none';
+    };
+    window.submitQuickAnnouncement = function () {
+      var title = document.getElementById('qa-title').value.trim();
+      if (!title) {
+        alert('Vui lòng nhập tiêu đề thông báo!');
+        return;
+      }
+      closeQuickAnnouncementModal();
+      showAdminToast('📢 Đã phát thông báo hệ thống: "' + title + '" thành công!', 'success');
+    };
+
+    window.sendRenewalReminder = function (company, email) {
+      showAdminToast('✉️ Đã gửi email nhắc gia hạn tự động tới ' + company + ' (' + email + ')', 'info');
+    };
+
+    window.triggerStripeSync = function () {
+      showAdminToast('🔄 Đang đồng bộ dữ liệu cổng thanh toán Stripe...', 'info');
+      setTimeout(function () {
+        showAdminToast('✅ Đồng bộ cổng Stripe hoàn tất! Dữ liệu tài chính đã khớp 100%.', 'success');
+      }, 1000);
+    };
+
+    window.showAdminToast = function (msg, type) {
+      var t = document.getElementById('admin-toast');
+      if (!t) return;
+      var icon = (type === 'success') ? '✅' : (type === 'info' ? 'ℹ️' : '🔔');
+      t.innerHTML = '<span>' + icon + ' ' + msg + '</span>';
+      t.classList.add('show');
+      clearTimeout(window.adminToastTimer);
+      window.adminToastTimer = setTimeout(function () {
+        t.classList.remove('show');
+      }, 3500);
+    };
 
     window.toggleCurrency = function (curr) {
       window.currentCurrency = curr;
@@ -15340,6 +16151,7 @@
 
       applyDashboardMetrics();
       renderInteractiveRevenueChart();
+      renderDummyContractsTable();
     };
 
     window.changeDashboardPeriod = function (period) {
@@ -15366,15 +16178,15 @@
       csvContent += '"Tong The","Tong Khach Hang","116","62 Doanh nghiep • 54 Nguoi dung ca nhan"\n';
       csvContent += '"Tong The","Doanh Thu Thang (MRR)",' + (isUsd ? '"$2,263"' : '"¥340,000"') + ',"ARR: ' + (isUsd ? '$27.2k' : '¥4.08M') + '"\n';
       csvContent += '"Tong The","Thuc Thu Thang 09",' + (isUsd ? '"$746"' : '"¥112,000"') + ',"DN: ' + (isUsd ? '$627' : '¥94,000') + ' • Ca nhan: ' + (isUsd ? '$119' : '¥18,000') + '"\n';
-      csvContent += '"Tong The","Thu Lai 2027 (Goi Nam)",' + (isUsd ? '"$11,626"' : '"¥1,744,000"') + ',"26 Hop dong da tra truoc sang nam thu lai"\n';
+      csvContent += '"Tong The","Ghe Hoat Dong (Active Seats)","348 / 380","Ty le su dung 91.5% • Con trong 32 slot"\n';
       csvContent += '"Doanh Nghiep (B2B)","So Luong Khach Hang","62 Doi tac","14 Enterprise + 48 Professional"\n';
       csvContent += '"Doanh Nghiep (B2B)","Doanh Thu MRR (86%)",' + (isUsd ? '"$1,946"' : '"¥292,400"') + ',"Enterprise ¥163.2k + Professional ¥129.2k"\n';
       csvContent += '"Doanh Nghiep (B2B)","Thuc Thu Thang 09",' + (isUsd ? '"$627"' : '"¥94,000"') + ',"Tien mat ve ket tu hop dong DN"\n';
-      csvContent += '"Doanh Nghiep (B2B)","Thu Lai 2027",' + (isUsd ? '"$10,133"' : '"¥1,520,000"') + ',"20 Hop dong 1 nam doanh nghiep"\n';
+      csvContent += '"Doanh Nghiep (B2B)","Ghe Doanh Nghiep","294 / 320","Ty le 91.8% • Con trong 26 slot"\n';
       csvContent += '"Nguoi Dung (B2C)","So Luong Nguoi Dung","54 Ca nhan","42 Basic tra phi + 12 Free/Trial"\n';
       csvContent += '"Nguoi Dung (B2C)","Doanh Thu MRR (14%)",' + (isUsd ? '"$317"' : '"¥47,600"') + ',"Goi Basic ca nhan"\n';
       csvContent += '"Nguoi Dung (B2C)","Thuc Thu Thang 09",' + (isUsd ? '"$119"' : '"¥18,000"') + ',"Tien mat nop dinh ky thang"\n';
-      csvContent += '"Nguoi Dung (B2C)","Thu Lai 2027",' + (isUsd ? '"$1,493"' : '"¥224,000"') + ',"6 Hop dong ca nhan nam"\n';
+      csvContent += '"Nguoi Dung (B2C)","Tai Khoan Ca Nhan","54 / 60","Ty le 90.0% • Con trong 6 slot"\n';
 
       var encodedUri = encodeURI(csvContent);
       var link = document.createElement("a");
@@ -15392,7 +16204,9 @@
           changeDashboardPeriod(e.target.value);
         });
       }
+      applyDashboardMetrics();
       renderInteractiveRevenueChart();
+      renderDummyContractsTable();
     }
 
     if (document.readyState === 'loading') {
@@ -15400,8 +16214,7 @@
     } else {
       initDashboardLogic();
     }
-
-  </script>
+    </script>
 </body>
 
 </html>

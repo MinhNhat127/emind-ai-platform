@@ -8,3 +8,6 @@ build/
 .vercel/
 *.bak
 .claude/
+*.py
+__pycache__/
+*alias*
