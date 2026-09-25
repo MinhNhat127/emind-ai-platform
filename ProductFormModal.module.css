@@ -86,7 +86,11 @@
 }
 
 @media (max-width: 520px) {
-  .grid2, .grid3 { grid-template-columns: 1fr; }
+
+  .grid2,
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ── Field ── */
@@ -200,7 +204,9 @@
   white-space: nowrap;
 }
 
-.btnPrimary:hover { background: var(--color-primary-700); }
+.btnPrimary:hover {
+  background: var(--color-primary-700);
+}
 
 .btnSecondary {
   height: 44px;
