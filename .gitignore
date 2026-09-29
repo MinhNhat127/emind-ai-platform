@@ -11,3 +11,6 @@ build/
 *.py
 __pycache__/
 *alias*
+.vs/
+*.sqlite
+

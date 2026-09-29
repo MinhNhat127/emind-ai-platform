@@ -1,48 +1,56 @@
-# 生産管理システム (Production Management System)
+# E-Mind Platform — 生産管理システム (Production Management System)
 
-シンプルでスケーラブルな生産管理アプリケーションの初期プロトタイプ
+Nền tảng quản lý dự án, hợp đồng & tài chính vận hành doanh nghiệp.
 
-## 機能
+## 🚀 Hướng Dẫn Khởi Chạy (Cách Chạy Source)
 
-- 📅 **スケジュール管理** - ガントチャートでタスク管理
-- 📊 **進捗（タスク）管理** - タスク状態と進捗率の追跡
-- 👥 **リソース管理** - メンバーの稼働状況確認
-- ❓ **質問管理** - Q&A記録
-- ⚠️ **課題管理** - Issue tracker
-- 📋 **報告書作成** - 出勤表・月次報告
-- 📁 **ファイル共有** - ファイル管理
-- 💬 **チャット機能** - リアルタイムコミュニケーション
-- 🆘 **ヘルプ機能** - コンテキストヘルプ
+Dự án là ứng dụng Web tĩnh (HTML5 / Vanilla JS / CSS3), không cần build phức tạp.
 
-## セットアップ
-
-### ローカル開発
-
+### Cách 1: Sử dụng Node.js / npm (Khuyên dùng)
 ```bash
-npm install
+# Cài đặt hoặc chạy trực tiếp máy chủ dev
 npm run dev
 ```
+Trình duyệt sẽ mở tại: **[http://localhost:3001](http://localhost:3001)** (hoặc `http://localhost:3001/login.html`)
 
-ブラウザで `http://localhost:3001` を開く
+### Cách 2: Sử dụng Python
+```bash
+python -m http.server 3001
+```
+Mở trình duyệt: **[http://localhost:3001/login.html](http://localhost:3001/login.html)**
 
-### Vercelにデプロイ
+### Cách 3: Mở trực tiếp
+Mở file `login.html` hoặc `go-admin.html` trực tiếp bằng trình duyệt (Chrome, Edge, Firefox, Safari).
 
-詳しくは [Vercelドキュメント](https://vercel.com/docs) を参照
+---
 
-## 技術スタック
+## 🔑 Tài Khoản Đăng Nhập Mặc Định
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Responsive Design
+Tất cả tài khoản đều dùng mật khẩu chung: `1234`
 
-## ブラウザ対応
+| ID tài khoản | Vai trò / Quyền | Mô tả |
+| :--- | :--- | :--- |
+| **`admin`** | Quản trị viên hệ thống (Admin) | Toàn quyền xem Bàn điều hành doanh nghiệp, dòng tiền, hợp đồng, thành viên |
+| **`company`** | Quản trị viên công ty (Company) | Quản lý dự án, thành viên công ty E-Mind |
+| **`emind`** | Đầy đủ vai trò (Both) | Hệ thống + Công ty + Quản lý dự án |
+| **`company2`** | Đa công ty (Multi-Company) | Quản lý 3 workspace công ty (ABC, Techno, DevStar) |
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+> 💡 **Mẹo:** Có thể vào nhanh quyền Admin bằng cách mở file **`go-admin.html`**.
 
-## ライセンス
+---
 
-MIT
+## 🌟 Các Tính Năng Chính
+
+- 📊 **Executive Dashboard (Bàn điều hành hợp nhất)**: Thống kê doanh thu B2B/B2C, MRR, ARR, LTV, tỷ lệ chuyển đổi.
+- 💵 **Sổ dòng tiền & Hợp đồng**: Theo dõi doanh thu theo ngày/tháng, đối soát số ghế/user, tính toán chiết khấu chu kỳ thanh toán.
+- 📅 **Quản lý tiến độ & Gantt Chart**: Lịch trình dự án sản xuất, task, tiến độ.
+- 👥 **Quản lý tài nguyên & Thành viên**: Phân bổ nhân sự, theo dõi công số.
+- 🏢 **Quản lý Công ty & Gói cước (Licensing)**: Quản lý khách hàng doanh nghiệp, lịch sử hợp đồng và giấy phép.
+- 💬 **Giao tiếp nội bộ & File sharing**: Trao đổi tin nhắn, tài liệu đính kèm.
+
+---
+
+## 🛠️ Công Nghệ
+- **HTML5 & CSS3** (Giao diện tối ưu, thiết kế thương hiệu Teal `#089490`)
+- **Vanilla JavaScript** (Hiệu năng cao, phản hồi tức thì, không phụ thuộc nặng nề vào thư viện)
+- Không cần cấu hình môi trường phức tạp hay build tool nặng.
