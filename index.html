@@ -4519,11 +4519,11 @@
 
     /* KPI Grid */
     .vb-kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 20px;
-    }
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+              gap: 14px;
+              margin-bottom: 20px;
+            }
 
     @media (max-width: 1024px) {
       .vb-kpi-grid {
@@ -5989,40 +5989,41 @@
                 <div style="width:1px;height:18px;background:#e2e8f0;margin:0 1px"></div>
 
                 <!-- 2. Mốc Thời Gian (Tối giản, đầy đủ 12 tháng) -->
+                <!-- 2. Mốc Thời Gian (Cơ bản, trực quan, đậm & rõ nét) -->
                 <div class="vb-seg-control" id="vb-timeline-group">
-                  <button type="button" class="vb-seg-btn" id="tl-btn-today" onclick="quickJumpPeriod('2026-09-24')"
-                    title="Hôm nay 24/09/2026">
-                    Hôm nay (24/09)
+                  <button type="button" class="vb-seg-btn" id="tl-btn-today" onclick="quickJumpPeriod('2026-09-29')"
+                    title="Xem dữ liệu hôm nay (29/09/2026)">
+                    Hôm nay (29/09)
                   </button>
                   <button type="button" class="vb-seg-btn active" id="tl-btn-2026-09"
-                    onclick="quickJumpPeriod('2026-09')" title="Tháng 09/2026 (Live)">
+                    onclick="quickJumpPeriod('2026-09')" title="Tháng 09/2026 (Live - Thực tế)">
                     Tháng 9
                   </button>
                   <button type="button" class="vb-seg-btn" id="tl-btn-2026-10" onclick="quickJumpPeriod('2026-10')"
-                    title="Tháng 10/2026">
+                    title="Tháng 10/2026 (Kế hoạch)">
                     Tháng 10
                   </button>
-
                   <!-- Nút T08 ẩn để giữ tương thích JS -->
                   <button type="button" id="tl-btn-2026-08" onclick="quickJumpPeriod('2026-08')"
                     style="display:none"></button>
-
-                  <!-- Dropdown chọn tháng khác gọn gàng -->
-                  <div style="display:inline-flex;align-items:center;border-left:1px solid #e2e8f0;padding-left:2px">
+                  <!-- Dropdown chọn tháng khác rõ ràng -->
+                  <div style="display:inline-flex;align-items:center;border-left:1.5px solid #cbd5e1;padding-left:4px;margin-left:2px">
                     <select id="vb-period-select" onchange="quickJumpPeriod(this.value)" class="vb-seg-select"
                       title="Chọn tháng bất kỳ trong năm 2026">
-                      <option value="2026-09" selected>T09/2026 (Live)</option>
-                      <option value="2026-10">T10/2026</option>
-                      <option value="2026-08">T08/2026</option>
-                      <option value="2026-07">T07/2026</option>
-                      <option value="2026-06">T06/2026</option>
-                      <option value="2026-05">T05/2026</option>
-                      <option value="2026-04">T04/2026</option>
-                      <option value="2026-03">T03/2026</option>
-                      <option value="2026-02">T02/2026</option>
-                      <option value="2026-01">T01/2026</option>
-                      <option value="2026-11">T11/2026</option>
-                      <option value="2026-12">T12/2026</option>
+                      <option value="other" id="opt-other-label" selected>📅 Tháng khác...</option>
+                      <option value="2026-09">Tháng 09/2026 (Live)</option>
+                      <option value="2026-10">Tháng 10/2026</option>
+                      <option disabled>──────────</option>
+                      <option value="2026-08">Tháng 08/2026</option>
+                      <option value="2026-07">Tháng 07/2026</option>
+                      <option value="2026-06">Tháng 06/2026</option>
+                      <option value="2026-05">Tháng 05/2026</option>
+                      <option value="2026-04">Tháng 04/2026</option>
+                      <option value="2026-03">Tháng 03/2026</option>
+                      <option value="2026-02">Tháng 02/2026</option>
+                      <option value="2026-01">Tháng 01/2026</option>
+                      <option value="2026-11">Tháng 11/2026</option>
+                      <option value="2026-12">Tháng 12/2026</option>
                     </select>
                   </div>
                 </div>
@@ -6135,49 +6136,64 @@
                 </div>
               </div>
 
-              <!-- Card 3: Thực Thu Đến Ngày Cụ Thể (Cash-In) -->
-              <div class="vb-kpi-card" style="border-top:3px solid #089490;cursor:pointer;transition:all 0.2s ease"
-                onclick="openDailyCashModal('2026-09')"
-                title="Nhấn để xem Bảng Kê Dòng Tiền Thực Thu Đến Ngày 24/09/2026">
+              <!-- Card 3: Thực Thu Tháng 09 (Cash-In) -->
+              <div class="vb-kpi-card" style="border-top:3px solid #16a34a;cursor:pointer;transition:all 0.2s ease"
+                onclick="setDashboardDailyStatusFilter('COLLECTED')"
+                title="Nhấn để xem Bảng Kê Dòng Tiền Thực Thu Tháng 09/2026">
                 <div>
                   <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#089490" id="lbl-cash-title">THỰC THU ĐẾN 24/09/2026</span>
-                    <span class="vb-kpi-icon" style="background:#e6f7f6;color:#089490">💵</span>
+                    <span class="vb-kpi-label" style="color:#15803d;font-weight:800" id="lbl-cash-title">THỰC THU THÁNG 09</span>
+                    <span class="vb-kpi-icon" style="background:#dcfce7;color:#15803d">💵</span>
                   </div>
                   <div style="margin-top:2px">
-                    <span class="vb-kpi-val" id="val-cash-in" style="color:#089490">¥248,500</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#089490;font-weight:700" id="sub-cash">22 giao
-                      dịch đã vào két • Bấm xem chi tiết ➔</span>
+                    <span class="vb-kpi-val" id="val-cash-in" style="color:#16a34a">¥248,500</span>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#15803d;font-weight:700" id="sub-cash">22 HĐ đã vào két (92% dự thu) ➔</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
                   style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
-                  <span style="color:#089490;font-weight:700" id="lbl-cash-b2b" title="Thực thu DN">🏢 DN: ¥202,700 (14
-                    HĐ)</span>
-                  <span style="color:#009BCC;font-weight:700" id="lbl-cash-b2c" title="Thực thu Cá nhân">👤 Cá nhân:
-                    ¥45,800 (8 HĐ)</span>
+                  <span style="color:#15803d;font-weight:700" id="lbl-cash-b2b" title="Đã thu DN">🏢 DN: ¥202,700</span>
+                  <span style="color:#0284c7;font-weight:700" id="lbl-cash-b2c" title="Đã thu Cá nhân">👤 Cá nhân: ¥45,800</span>
                 </div>
               </div>
 
-              <!-- Card 4: Ghế Đang Sử Dụng (Seats) -->
-              <div class="vb-kpi-card" style="border-top:3px solid #d97706">
+              <!-- Card 4: Chưa Thu (Chờ Nạp) -->
+              <div class="vb-kpi-card" style="border-top:3px solid #f59e0b;cursor:pointer;transition:all 0.2s ease;background:#fffdfa"
+                onclick="setDashboardDailyStatusFilter('PENDING')"
+                title="Nhấn để lọc 2 hợp đồng chưa thu tiền trong kỳ">
                 <div>
                   <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#d97706" id="lbl-def-title">GHẾ BẢN QUYỀN (SEATS)</span>
-                    <span class="vb-kpi-icon" style="background:#fef3c7;color:#d97706">👥</span>
+                    <span class="vb-kpi-label" style="color:#d97706;font-weight:800" id="lbl-pending-title">🟡 CHƯA THU (CHỜ NẠP)</span>
+                    <span class="vb-kpi-icon" style="background:#fef3c7;color:#d97706">⏳</span>
                   </div>
                   <div style="margin-top:2px">
-                    <span class="vb-kpi-val" id="val-deferred" style="color:#b45309">442 / 520</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#b45309;font-weight:700" id="sub-def">Tỷ lệ
-                      85.0% (Trống 78 ghế)</span>
+                    <span class="vb-kpi-val" id="val-cash-pending" style="color:#d97706">¥21,300</span>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#b45309;font-weight:700" id="sub-cash-pending">2 HĐ chờ thu (8%) • Bấm lọc ➔</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
                   style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
-                  <span style="color:#089490;font-weight:700" id="lbl-def-b2b" title="Ghế doanh nghiệp">🏢 DN: 425 / 480
-                    ghế</span>
-                  <span style="color:#009BCC;font-weight:700" id="lbl-def-b2c" title="Ghế cá nhân">👤 Cá nhân: 17 / 40
-                    ghế</span>
+                  <span style="color:#b45309;font-weight:700" id="lbl-pending-b2b" title="Chưa thu DN">🏢 DN: ¥18,000</span>
+                  <span style="color:#7e22ce;font-weight:700" id="lbl-pending-b2c" title="Chưa thu Cá nhân">👤 Cá nhân: ¥3,300</span>
+                </div>
+              </div>
+
+              <!-- Card 5: Ghế Đang Sử Dụng (Seats) -->
+              <div class="vb-kpi-card" style="border-top:3px solid #6366f1">
+                <div>
+                  <div class="vb-kpi-header">
+                    <span class="vb-kpi-label" style="color:#4f46e5;font-weight:800" id="lbl-def-title">GHẾ ĐANG SỬ DỤNG (SEATS)</span>
+                    <span class="vb-kpi-icon" style="background:#e0e7ff;color:#4f46e5">👥</span>
+                  </div>
+                  <div style="margin-top:2px">
+                    <span class="vb-kpi-val" id="val-deferred" style="color:#4f46e5">455 / 520</span>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#4f46e5;font-weight:700" id="sub-def">Tỷ lệ 87.5% (Còn trống 65 ghế)</span>
+                  </div>
+                </div>
+                <div class="vb-kpi-footer"
+                  style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
+                  <span style="color:#089490;font-weight:700" id="lbl-def-b2b" title="Ghế doanh nghiệp">🏢 DN: 434 / 480 ghế</span>
+                  <span style="color:#7c3aed;font-weight:700" id="lbl-def-b2c" title="Ghế cá nhân">👤 Cá nhân: 21 / 40 ghế</span>
                 </div>
               </div>
 
@@ -16437,17 +16453,35 @@
       if (mrrB2b) mrrB2b.textContent = '🏢 DN: ' + fmt(metrics.segMrr.b2b) + ' (' + b2bPct + '%)';
       if (mrrB2c) mrrB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.segMrr.b2c) + ' (' + b2cPct + '%)';
 
-      // Card 3: Tiền mặt thực thu
-      if (cCash) cCash.textContent = fmt(metrics.totalCashIn);
-      if (subCash) {
-        if (isDayMode) subCash.textContent = '4 HĐ nạp hôm nay • Lũy kế: ¥158,900 ➔';
-        else if (period === '2026-09') subCash.textContent = metrics.payingCount + ' HĐ nạp tiền • Đã thu 100% KPI ➔';
-        else if (period === '2026-10') subCash.textContent = metrics.payingCount + ' HĐ đến hạn • Tăng +55% tiền về ➔';
-        else subCash.textContent = metrics.payingCount + ' hợp đồng phát sinh nạp tiền';
-      }
-      if (cashB2b) cashB2b.textContent = '🏢 DN: ' + fmt(metrics.segCash.b2b);
-      if (cashB2c) cashB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.segCash.b2c);
+      // Card 3: Tiền mặt ĐÃ THU (Thực thu đã vào két)
+      var colAmt = (period === "2026-09" || isDayMode) ? 248500 : metrics.totalCashIn;
+      var penAmt = (period === "2026-09" || isDayMode) ? 21300 : 0;
+      var colCnt = (period === "2026-09" || isDayMode) ? 22 : metrics.payingCount;
+      var penCnt = (period === "2026-09" || isDayMode) ? 2 : 0;
 
+      if (cCash) cCash.textContent = fmt(colAmt);
+      if (subCash) {
+        subCash.innerHTML = "<strong>" + colCnt + " HĐ đã vào két</strong> (92% dự thu) ➔";
+      }
+      if (cashB2b) cashB2b.textContent = "🏢 DN: " + fmt(202700);
+      if (cashB2c) cashB2c.textContent = "👤 Cá nhân: " + fmt(45800);
+
+      // Card 4: Tiền mặt CHƯA THU (Chờ nạp / Đối soát)
+      var cPending = document.getElementById("val-cash-pending");
+      var subPending = document.getElementById("sub-cash-pending");
+      var penB2b = document.getElementById("lbl-pending-b2b");
+      var penB2c = document.getElementById("lbl-pending-b2c");
+
+      if (cPending) cPending.textContent = fmt(penAmt);
+      if (subPending) {
+        if (penCnt === 0) {
+          subPending.innerHTML = '<span style="color:#16a34a;font-weight:700">✓ Đã thu hoàn tất 100% KPI</span>';
+        } else {
+          subPending.innerHTML = "<strong>" + penCnt + " HĐ chờ thu</strong> (8%) • Bấm lọc ➔";
+        }
+      }
+      if (penB2b) penB2b.textContent = "🏢 DN: " + fmt(18000);
+      if (penB2c) penB2c.textContent = "👤 Cá nhân: " + fmt(3300);
       // Card 4: Ghế bản quyền
       if (cDefVal) cDefVal.textContent = metrics.totalSeats + ' / ' + metrics.totalCapacity;
       var seatUsagePct = ((metrics.totalSeats / metrics.totalCapacity) * 100).toFixed(1);
