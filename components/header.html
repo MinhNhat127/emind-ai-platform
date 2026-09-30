@@ -1,0 +1,40 @@
+      <div class="header">
+        <div class="header-title" id="page-title">Bàn Điều Hành</div>
+        <div class="header-actions" style="display:flex;align-items:center;gap:12px">
+          <select id="project-select"
+            style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;display:none">
+            <option>案件：A社 製造ライン改修</option>
+            <option>案件：B社 設備導入</option>
+            <option>案件：C社 品質改善</option>
+          </select>
+          <button class="btn btn-outline btn-sm" id="role-switcher" onclick="switchRole()" style="display:none">
+            <span id="role-switcher-label">🏢 Projectモードへ</span>
+          </button>
+          <button class="btn-icon"
+            style="background:none;border:none;cursor:pointer;font-size:16px;color:#6b7280;padding:4px"
+            title="Thông báo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <button class="btn-icon"
+            style="background:none;border:none;cursor:pointer;font-size:16px;color:#6b7280;padding:4px"
+            onclick="navigate('chat', this)" title="Tin nhắn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </button>
+          <div
+            style="font-size:13px;font-weight:600;color:#374151;display:flex;align-items:center;gap:4px;cursor:pointer;padding:4px 8px;border-radius:6px;background:#f3f4f6">
+            <span>VN</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div class="avatar" id="user-avatar" style="background:#fef3c7;color:#92400e;font-weight:700">NH</div>
+        </div>
+      </div>

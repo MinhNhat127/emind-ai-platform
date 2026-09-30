@@ -1,0 +1,354 @@
+        <!-- ===== TRANG DỮ LIỆU HỢP ĐỒNG KHÁCH HÀNG (DUMMY DATA) ===== -->
+        <!-- ===== TRANG DỮ LIỆU HỢP ĐỒNG KHÁCH HÀNG (DUMMY DATA TAB) ===== -->
+        <div class="page" id="page-admin-dummy-data" style="width:100%;max-width:100%;box-sizing:border-box">
+          <!-- Header Tinh Gọn: Chỉ giữ Thêm mới, Về Dashboard và Xuất CSV (bỏ nút Đặt lại trùng lặp) -->
+          <div class="section-header" style="margin-bottom:12px;align-items:center;flex-wrap:wrap;gap:10px">
+            <div>
+              <div class="section-title" style="display:flex;align-items:center;gap:8px;font-size:18px">
+                <span>📑 Quản Lý Dữ Liệu Hợp Đồng Khách Hàng</span>
+                <span id="dd-badge-count"
+                  style="font-size:11.5px;background:#e6f7f6;color:#089490;font-weight:700;padding:2px 8px;border-radius:10px">52
+                  Hợp Đồng</span>
+              </div>
+              <div style="font-size:12px;color:#64748b;margin-top:2px">
+                Dữ liệu hợp đồng tính toán tự động cho Bàn Điều Hành (Dashboard) theo Ngày Này, Tháng Này và Tháng Sau.
+              </div>
+            </div>
+            <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+              <button class="btn btn-sm" onclick="openAddContractModal()"
+                style="display:inline-flex;align-items:center;gap:5px;background:#089490;color:#fff;font-weight:700;border:none;padding:6px 14px;border-radius:7px">
+                ➕ Thêm Hợp Đồng Mới
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="navigate('admin-dashboard', null)"
+                style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px">
+                📊 Bàn Điều Hành
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="exportDummyContractsCSV()"
+                style="padding:6px 11px;border-radius:7px">
+                📥 CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- 5 Thẻ Thống Kê Tổng Quan Tinh Gọn -->
+          <div class="summary-stat-bar"
+            style="margin-bottom:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px">
+            <div class="stat-chip" style="padding:9px 12px;border-radius:9px;background:#fff;border:1px solid #e2e8f0">
+              <span style="font-size:10.5px;color:#64748b;display:block">TỔNG HỢP ĐỒNG</span>
+              <strong style="font-size:17px;color:#0f172a" id="dd-stat-total">52</strong>
+              <span style="font-size:10.5px;color:#64748b;display:block" id="dd-stat-sub-total">32 DN • 20 Cá
+                nhân</span>
+            </div>
+            <div class="stat-chip" style="padding:9px 12px;border-radius:9px;background:#fff;border:1px solid #e2e8f0">
+              <span style="font-size:10.5px;color:#64748b;display:block">KỲ ĐANG XÉT</span>
+              <strong style="font-size:16px;color:#089490" id="dd-stat-period">T09/2026</strong>
+              <span style="font-size:10.5px;color:#16a34a;display:block" id="dd-stat-active-count">34 Active (12
+                nạp)</span>
+            </div>
+            <div class="stat-chip"
+              style="padding:9px 12px;border-radius:9px;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #16a34a">
+              <span style="font-size:10.5px;color:#64748b;display:block">DOANH THU MRR</span>
+              <strong style="font-size:17px;color:#16a34a" id="dd-stat-mrr">¥468,000</strong>
+              <span style="font-size:10.5px;color:#64748b;display:block">/tháng (ARR: ¥5.61M)</span>
+            </div>
+            <div class="stat-chip"
+              style="padding:9px 12px;border-radius:9px;background:#f0fdfa;border:1px solid #99f6e4;border-left:3px solid #16a34a">
+              <span style="font-size:10.5px;color:#15803d;font-weight:700;display:block" id="dd-stat-cash-label">🟢 ĐÃ
+                THU (THỰC THU)</span>
+              <strong style="font-size:17px;color:#16a34a" id="dd-stat-cash">¥248,500</strong>
+              <span style="font-size:10.5px;color:#15803d;display:block" id="dd-stat-cash-sub">22 HĐ đã vào tài
+                khoản</span>
+            </div>
+            <div class="stat-chip"
+              style="padding:9px 12px;border-radius:9px;background:#fffdf5;border:1px solid #fde68a;border-left:3px solid #d97706">
+              <span style="font-size:10.5px;color:#b45309;font-weight:700;display:block" id="dd-stat-pending-label">🟡
+                CHƯA THU (CHỜ NẠP)</span>
+              <strong style="font-size:17px;color:#d97706" id="dd-stat-pending">¥21,300</strong>
+              <span style="font-size:10.5px;color:#b45309;display:block" id="dd-stat-pending-sub">2 HĐ đến hạn
+                sau</span>
+            </div>
+            <div class="stat-chip" style="padding:9px 12px;border-radius:9px;background:#fff;border:1px solid #e2e8f0">
+              <span style="font-size:10.5px;color:#64748b;display:block">GHẾ SỬ DỤNG</span>
+              <strong style="font-size:17px;color:#009BCC" id="dd-stat-seats">442 / 520</strong>
+              <span style="font-size:10.5px;color:#64748b;display:block" id="dd-stat-seats-sub">85.0% (Trống 78)</span>
+            </div>
+          </div>
+
+          <!-- Thanh Công Cụ Lọc & Tìm Kiếm Tinh Gọn (Loại bỏ các nút trùng lặp) -->
+          <div class="card"
+            style="padding:10px 14px;margin-bottom:12px;background:#fff;border:1px solid #cbd5e1;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,0.02)">
+            <!-- Dòng 1: Thanh chuyển mốc nhanh -->
+            <div
+              style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-bottom:9px;border-bottom:1px solid #f1f5f9;margin-bottom:9px">
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <span style="font-size:11.5px;font-weight:700;color:#475569">⏱️ Xem Mốc:</span>
+                <div class="vb-pill-group" id="dd-quick-timeline"
+                  style="background:#f1f5f9;border:1px solid #cbd5e1;padding:2px;border-radius:8px;display:inline-flex;gap:2px">
+                  <button type="button" class="vb-pill-btn" id="dd-btn-tl-all" onclick="setDummyTimelineFilter('ALL')"
+                    style="font-size:11px;padding:4px 9px">
+                    🌐 Tất Cả (<span id="dd-count-all-btn">52</span>)
+                  </button>
+                  <button type="button" class="vb-pill-btn" id="dd-btn-tl-today"
+                    onclick="setDummyTimelineFilter('2026-09-24')" style="font-size:11px;padding:4px 9px">
+                    ⏱️ Hôm Nay (24/09)
+                  </button>
+                  <button type="button" class="vb-pill-btn active" id="dd-btn-tl-t9"
+                    onclick="setDummyTimelineFilter('2026-09')"
+                    style="font-size:11px;padding:4px 9px;font-weight:800;background:#ffffff;color:#089490;box-shadow:0 1px 2px rgba(0,0,0,0.06)">
+                    🟢 Tháng Này (T09)
+                  </button>
+                  <button type="button" class="vb-pill-btn" id="dd-btn-tl-t10"
+                    onclick="setDummyTimelineFilter('2026-10')" style="font-size:11px;padding:4px 9px">
+                    🔮 Tháng Sau (T10)
+                  </button>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                <span style="font-size:11.5px;font-weight:700;color:#475569">💳 Trạng thái:</span>
+                <div class="vb-pill-group" id="dd-quick-status"
+                  style="background:#f1f5f9;border:1px solid #cbd5e1;padding:2px;border-radius:8px;display:inline-flex;gap:2px">
+                  <button type="button" class="vb-pill-btn active" id="dd-btn-st-all"
+                    onclick="setDummyStatusFilter('ALL')" style="font-size:11px;padding:4px 9px">
+                    Tất Cả
+                  </button>
+                  <button type="button" class="vb-pill-btn" id="dd-btn-st-col"
+                    onclick="setDummyStatusFilter('COLLECTED')"
+                    style="font-size:11px;padding:4px 9px;color:#15803d;font-weight:600">
+                    🟢 Đã Thu (<span id="dd-count-col-btn">22</span>)
+                  </button>
+                  <button type="button" class="vb-pill-btn" id="dd-btn-st-pen" onclick="setDummyStatusFilter('PENDING')"
+                    style="font-size:11px;padding:4px 9px;color:#b45309;font-weight:600">
+                    🟡 Chưa Thu (<span id="dd-count-pen-btn">2</span>)
+                  </button>
+                  <button type="button" class="vb-pill-btn" id="dd-btn-st-mrr"
+                    onclick="setDummyStatusFilter('ACTIVE_MRR')" style="font-size:11px;padding:4px 9px;color:#0369a1">
+                    🔵 Duy Trì (<span id="dd-count-mrr-btn">30</span>)
+                  </button>
+                </div>
+                <span style="font-size:11.5px;color:#64748b;margin-left:6px" id="dd-timeline-status-hint">
+                  Đang đối chiếu: <strong>Tháng 09/2026 (LIVE)</strong>
+                </span>
+              </div>
+            </div>
+
+            <!-- Dòng 2: Ô tìm kiếm, bộ lọc phân khúc, chu kỳ & nút đặt lại duy nhất -->
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div style="flex:1;min-width:240px">
+                <input type="text" id="dd-search-input" placeholder="🔍 Tìm khách hàng, người liên hệ, mã HĐ..."
+                  oninput="renderDummyContractsTable()"
+                  style="width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:7px;font-size:12px;box-sizing:border-box">
+              </div>
+              <select id="dd-filter-status" onchange="onDummyStatusSelectChange(this.value)"
+                style="padding:6px 9px;border:1px solid #cbd5e1;border-radius:7px;font-size:11.5px;font-weight:700;color:#0f172a;background:#f8fafc">
+                <option value="ALL">💳 Toàn bộ Trạng thái Thu</option>
+                <option value="COLLECTED">🟢 Đã Thu Tiền (Collected)</option>
+                <option value="PENDING">🟡 Chưa Thu / Chờ Thu (Pending)</option>
+                <option value="ACTIVE_MRR">🔵 Đã Trả Trước / Duy Trì (Active MRR)</option>
+              </select>
+              <select id="dd-filter-segment" onchange="renderDummyContractsTable()"
+                style="padding:6px 9px;border:1px solid #cbd5e1;border-radius:7px;font-size:11.5px;font-weight:600;color:#0f172a">
+                <option value="ALL">🏢 Toàn bộ Phân khúc</option>
+                <option value="B2B">🏢 Doanh nghiệp</option>
+                <option value="B2C">👤 Cá nhân</option>
+              </select>
+              <select id="dd-filter-billing-day" onchange="renderDummyContractsTable()"
+                style="padding:6px 9px;border:1px solid #cbd5e1;border-radius:7px;font-size:11.5px;font-weight:600;color:#0f172a">
+                <option value="ALL">📅 Toàn bộ ngày thu (1 - 31)</option>
+                <option value="24">⏱️ Ngày 24 (Hôm nay)</option>
+                <option value="1">Ngày 01</option>
+                <option value="2">Ngày 02</option>
+                <option value="5">Ngày 05</option>
+                <option value="10">Ngày 10</option>
+                <option value="15">Ngày 15</option>
+                <option value="20">Ngày 20</option>
+                <option value="25">Ngày 25</option>
+              </select>
+              <select id="dd-filter-cycle" onchange="renderDummyContractsTable()"
+                style="padding:6px 9px;border:1px solid #cbd5e1;border-radius:7px;font-size:11.5px;font-weight:600;color:#0f172a">
+                <option value="ALL">🔄 Toàn bộ Chu kỳ</option>
+                <option value="12">Gói 1 Năm</option>
+                <option value="3">Gói 3 Tháng</option>
+                <option value="1">Gói 1 Tháng</option>
+              </select>
+
+              <!-- Ẩn dropdown chọn tháng vì đã có 4 nút pill ở dòng trên -->
+              <select id="dd-filter-month" onchange="onDummyMonthFilterChange(this.value)" style="display:none">
+                <option value="ALL">ALL</option>
+                <option value="2026-09-24">2026-09-24</option>
+                <option value="2026-08">2026-08</option>
+                <option value="2026-09" selected>2026-09</option>
+                <option value="2026-10">2026-10</option>
+                <option value="2026-11">2026-11</option>
+                <option value="2026-12">2026-12</option>
+              </select>
+
+              <button class="btn btn-outline btn-sm" onclick="resetDummyFilters()"
+                style="padding:5px 10px;font-size:11.5px;color:#64748b" title="Xóa toàn bộ bộ lọc về mặc định">
+                ↺ Đặt lại lọc
+              </button>
+            </div>
+
+            <div id="dd-filter-summary-bar" style="margin-top:7px;font-size:11px;color:#64748b">
+              <span id="dd-filter-text">Đang hiển thị 52/52 hợp đồng</span>
+            </div>
+          </div>
+
+          <!-- ===== BẢNG PHÂN TÍCH DIỄN BIẾN SỐ LIỆU THEO TỪNG NGÀY & CÔNG THỨC TÍNH TOÁN CHI TIẾT ===== -->
+          <!-- Đã tinh gọn: Khối ma trận và công thức lý thuyết rườm rà đã được lược bỏ theo yêu cầu, tab Data Dummy tập trung trọn vẹn vào Dữ Liệu Hợp Đồng Khách Hàng và Bộ Lọc Phân Loại -->
+
+
+
+          <!-- Bảng Danh Sách Hợp Đồng Chi Tiết (Dummy Contracts Table) -->
+          <div class="card"
+            style="padding:0;overflow:hidden;border:1px solid #cbd5e1;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.02)">
+            <div style="overflow-x:auto">
+              <table class="data-table billing-table" style="min-width:1180px" id="dd-contracts-table">
+                <thead>
+                  <tr style="background:#f8fafc">
+                    <th style="width:110px">Mã HĐ</th>
+                    <th>Tên Khách Hàng & Người Liên Hệ</th>
+                    <th style="width:95px">Phân Khúc</th>
+                    <th>Gói Cước & Ghế</th>
+                    <th>Kỳ Thanh Toán</th>
+                    <th style="width:110px">Ngày Đăng Ký</th>
+                    <th style="width:95px">Ngày Thu</th>
+                    <th style="text-align:right">Số Tiền/Kỳ</th>
+                    <th style="text-align:right">MRR/Tháng</th>
+                    <th style="min-width:230px;text-align:left">Chi Tiết Tính Toán (Công Thức)</th>
+                    <th style="text-align:center;min-width:150px">Trạng Thái Thu Tiền</th>
+                    <th style="width:110px;text-align:center">Thao Tác</th>
+                  </tr>
+                </thead>
+                <tbody id="dd-contracts-tbody">
+                  <!-- Rendered dynamically by renderDummyContractsTable() -->
+                </tbody>
+              </table>
+            </div>
+            <div
+              style="padding:12px 18px;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:#64748b">
+              <span id="dd-table-pagination-info">Tổng cộng 52 khách hàng đối tác & cá nhân</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="color:#089490;font-weight:600">✓ 100% dữ liệu đồng bộ hai chiều thời gian thực với Bàn Điều
+                  Hành</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL: THÊM HỢP ĐỒNG KHÁCH HÀNG MỚI (ADD CONTRACT MODAL) -->
+        <div id="add-contract-modal"
+          style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,0.6);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:20px">
+          <div
+            style="background:#ffffff;border-radius:16px;width:100%;max-width:680px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.2);border:1px solid #cbd5e1;overflow:hidden;animation:fadeIn 0.2s ease">
+            <div
+              style="padding:18px 24px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;background:#f8fafc">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span
+                  style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#089490;color:#fff;font-size:16px">➕</span>
+                <div>
+                  <h3 style="font-size:16px;font-weight:800;color:#0f172a;margin:0">Thêm Hợp Đồng Khách Hàng Mới</h3>
+                  <div style="font-size:12px;color:#64748b;margin-top:2px">Dữ liệu sau khi thêm sẽ tự động cập nhật ngay
+                    vào bảng mẫu và Bàn Điều Hành</div>
+                </div>
+              </div>
+              <button onclick="closeAddContractModal()"
+                style="border:none;background:transparent;font-size:22px;color:#94a3b8;cursor:pointer;padding:4px 8px;line-height:1">&times;</button>
+            </div>
+            <form id="add-contract-form" onsubmit="saveNewContract(event)"
+              style="padding:22px 24px;max-height:75vh;overflow-y:auto">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px">
+                <div style="grid-column:1 / -1">
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">TÊN KHÁCH
+                    HÀNG / DOANH NGHIỆP <span style="color:#ef4444">*</span></label>
+                  <input type="text" id="new-c-name" required placeholder="Ví dụ: Công ty Cơ Khí Chính Xác Quang Minh"
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">NGƯỜI LIÊN
+                    HỆ & CHỨC DANH <span style="color:#ef4444">*</span></label>
+                  <input type="text" id="new-c-contact" required placeholder="Ví dụ: Trần Đức Thắng (Giám đốc)"
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">PHÂN KHÚC
+                    KHÁCH HÀNG <span style="color:#ef4444">*</span></label>
+                  <select id="new-c-type" onchange="onNewContractTypeChange()"
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box;font-weight:600">
+                    <option value="B2B">🏢 Doanh nghiệp (B2B)</option>
+                    <option value="B2C">👤 Cá nhân (B2C)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">GÓI CƯỚC /
+                    HẠNG BẢN QUYỀN <span style="color:#ef4444">*</span></label>
+                  <select id="new-c-tier" onchange="autoSuggestAmount()"
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box;font-weight:600">
+                    <option value="Enterprise">Enterprise (Doanh nghiệp lớn)</option>
+                    <option value="Professional" selected>Professional (Tiêu chuẩn DN)</option>
+                    <option value="Standard">Standard (Cơ bản DN)</option>
+                    <option value="Starter">Starter (Khởi đầu DN)</option>
+                    <option value="Pro Personal">Pro Personal (Cá nhân cao cấp)</option>
+                    <option value="Basic Personal">Basic Personal (Cá nhân cơ bản)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">SỐ LƯỢNG
+                    GHẾ (SEATS) <span style="color:#ef4444">*</span></label>
+                  <input type="number" id="new-c-seats" min="1" max="500" value="15" required
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">KỲ THANH
+                    TOÁN <span style="color:#ef4444">*</span></label>
+                  <select id="new-c-cycle" onchange="autoSuggestAmount()"
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box;font-weight:600">
+                    <option value="1">1 Tháng (Định kỳ hàng tháng)</option>
+                    <option value="3" selected>3 Tháng (Quý - Nạp 3 tháng/lần)</option>
+                    <option value="12">1 Năm (Annual - Đóng 1 lần)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">NGÀY ĐĂNG
+                    KÝ / BẮT ĐẦU <span style="color:#ef4444">*</span></label>
+                  <input type="date" id="new-c-start" value="2026-09-24" required
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">NGÀY THU
+                    TRONG THÁNG (01 - 28) <span style="color:#ef4444">*</span></label>
+                  <input type="number" id="new-c-day" min="1" max="28" value="24" required
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">SỐ TIỀN
+                    THANH TOÁN MỖI KỲ (¥ JPY) <span style="color:#ef4444">*</span></label>
+                  <input type="number" id="new-c-amount" min="1000" step="1000" value="30000" required
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box;font-weight:700;color:#089490">
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">PHƯƠNG
+                    THỨC THANH TOÁN</label>
+                  <select id="new-c-method"
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+                    <option value="Chuyển khoản (Bank Transfer)">Chuyển khoản (Bank Transfer)</option>
+                    <option value="Thẻ tín dụng (Credit Card)">Thẻ tín dụng (Credit Card)</option>
+                    <option value="Ủy nhiệm chi tự động">Ủy nhiệm chi tự động</option>
+                  </select>
+                </div>
+                <div style="grid-column:1 / -1">
+                  <label style="display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:4px">GHI CHÚ
+                    HỢP ĐỒNG</label>
+                  <input type="text" id="new-c-note"
+                    placeholder="Ví dụ: Khách hàng mới ký thử nghiệm quy mô xưởng sản xuất"
+                    style="width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;box-sizing:border-box">
+                </div>
+              </div>
+              <div style="padding-top:14px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:10px">
+                <button type="button" class="btn btn-outline" onclick="closeAddContractModal()">Hủy Bỏ</button>
+                <button type="submit" class="btn btn-primary"
+                  style="background:#089490;font-weight:700;padding:8px 20px">💾 Lưu Hợp Đồng & Đồng Bộ</button>
+              </div>
+            </form>
+          </div>
+        </div>
+

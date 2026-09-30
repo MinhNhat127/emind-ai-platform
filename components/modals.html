@@ -1,0 +1,1197 @@
+    <!-- 解約確認モーダル -->
+    <div id="cancel-plan-overlay"
+      style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center">
+      <div
+        style="background:#fff;border-radius:16px;width:480px;max-width:90vw;padding:36px 32px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2)">
+        <button onclick="closeCancelPlanModal()"
+          style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;color:#9ca3af;cursor:pointer">✕</button>
+
+        <div style="font-size:32px;margin-bottom:12px">😢</div>
+        <div style="font-size:20px;font-weight:700;color:#111827;margin-bottom:8px">プランを解約しますか？</div>
+        <p style="font-size:14px;color:#6b7280;margin-bottom:20px">解約しても <strong>2026年6月30日まで</strong>
+          現在のプランをご利用いただけます。<br>翌月1日より <strong>Freeプラン</strong> に自動移行します。</p>
+
+        <div style="background:#fef9f0;border:1px solid #fde68a;border-radius:10px;padding:16px;margin-bottom:24px">
+          <div style="font-size:13px;font-weight:600;color:#92400e;margin-bottom:10px">解約後に利用できなくなる機能</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:13px;color:#78350f">✕ &nbsp;AIレポート・高度な分析</div>
+            <div style="font-size:13px;color:#78350f">✕ &nbsp;メンバー無制限招待</div>
+            <div style="font-size:13px;color:#78350f">✕ &nbsp;優先サポート</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px">
+          <button onclick="closeCancelPlanModal()"
+            style="flex:1;padding:12px;border-radius:8px;border:1px solid #d1d5db;background:#fff;font-size:14px;font-weight:600;cursor:pointer;color:#374151">プランを維持する</button>
+          <button onclick="confirmCancelPlan()"
+            style="flex:1;padding:12px;border-radius:8px;border:none;background:#dc2626;font-size:14px;font-weight:600;cursor:pointer;color:#fff">解約する</button>
+        </div>
+      </div>
+    </div>
+
+  <!-- Modal: プラン選択 -->
+  <div class="modal-overlay" id="modal-plan-select">
+    <div class="modal" style="max-width:580px">
+      <div class="modal-body">
+        <div class="modal-title">🔄 プランを変更する</div>
+        <div class="plan-steps">
+          <div class="plan-step">
+            <div class="plan-step-dot active" id="ps-dot-1">1</div>
+            <div class="plan-step-label active">プラン選択</div>
+          </div>
+          <div class="plan-step-line" id="ps-line-1"></div>
+          <div class="plan-step">
+            <div class="plan-step-dot" id="ps-dot-2">2</div>
+            <div class="plan-step-label" id="ps-lbl-2">お支払い</div>
+          </div>
+          <div class="plan-step-line" id="ps-line-2"></div>
+          <div class="plan-step">
+            <div class="plan-step-dot" id="ps-dot-3">3</div>
+            <div class="plan-step-label" id="ps-lbl-3">完了</div>
+          </div>
+        </div>
+        <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:10px">プランを選択</div>
+        <div class="plan-select-list" id="ps-plan-grid"></div>
+        <div class="plan-downgrade-warn" id="ps-downgrade-warn">
+          ⚠️ <span id="ps-downgrade-msg"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closePlanModals()">キャンセル</button>
+        <button class="btn btn-primary" id="ps-next-btn" onclick="openPlanPayment()" disabled>次へ → お支払い</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: お支払い -->
+  <div class="modal-overlay" id="modal-plan-payment">
+    <div class="modal" style="max-width:480px">
+      <div class="modal-body">
+        <div class="modal-title">💳 お支払い情報</div>
+        <div class="plan-steps">
+          <div class="plan-step">
+            <div class="plan-step-dot done">✓</div>
+            <div class="plan-step-label">プラン選択</div>
+          </div>
+          <div class="plan-step-line done"></div>
+          <div class="plan-step">
+            <div class="plan-step-dot active">2</div>
+            <div class="plan-step-label active">お支払い</div>
+          </div>
+          <div class="plan-step-line"></div>
+          <div class="plan-step">
+            <div class="plan-step-dot">3</div>
+            <div class="plan-step-label">完了</div>
+          </div>
+        </div>
+
+        <div class="payment-card-display">
+          <div class="pcd-number">**** &nbsp;**** &nbsp;**** &nbsp;4242</div>
+          <div class="pcd-meta">
+            <span>YAMADA TARO</span>
+            <span>有効期限 09/27</span>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="margin-bottom:16px;font-size:12px"
+          onclick="alert('別のカード情報を入力してください。')">+ 別のカードを使う</button>
+
+        <div class="payment-summary">
+          <div class="ps-row"><span>現在のプラン</span><span id="pay-from-plan">—</span></div>
+          <div class="ps-row"><span>新しいプラン</span><span id="pay-to-plan">—</span></div>
+          <div class="ps-row"><span>適用タイミング</span><span id="pay-timing">—</span></div>
+          <div class="ps-row total"><span>請求金額</span><span id="pay-amount">—</span></div>
+        </div>
+        <div style="font-size:11px;color:#9ca3af">※ ダウングレードの場合、次回更新日から適用されます。アップグレードは即時反映されます。</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="backToPlanSelect()">← 戻る</button>
+        <button class="btn btn-primary" onclick="submitPlanPayment()">今すぐ支払う</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: プラン変更完了 -->
+  <div class="modal-overlay" id="modal-plan-done">
+    <div class="modal" style="max-width:420px">
+      <div class="modal-body" style="text-align:center;padding:32px 24px">
+        <div class="plan-steps">
+          <div class="plan-step">
+            <div class="plan-step-dot done">✓</div>
+            <div class="plan-step-label">プラン選択</div>
+          </div>
+          <div class="plan-step-line done"></div>
+          <div class="plan-step">
+            <div class="plan-step-dot done">✓</div>
+            <div class="plan-step-label">お支払い</div>
+          </div>
+          <div class="plan-step-line done"></div>
+          <div class="plan-step">
+            <div class="plan-step-dot active">3</div>
+            <div class="plan-step-label active">完了</div>
+          </div>
+        </div>
+        <div class="plan-done-icon">✅</div>
+        <div class="plan-done-title" id="done-title">プランを変更しました</div>
+        <div class="plan-done-sub" id="done-sub"></div>
+        <div class="plan-done-detail" id="done-detail"></div>
+      </div>
+      <div class="modal-footer" style="justify-content:center">
+        <button class="btn btn-primary" onclick="closePlanDone()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: プラン更新確認 -->
+  <div class="modal-overlay" id="modal-plan-renew">
+    <div class="modal" style="max-width:420px">
+      <div class="modal-body">
+        <div class="modal-title">🔁 プランを更新する</div>
+        <div class="payment-card-display">
+          <div class="pcd-number">**** &nbsp;**** &nbsp;**** &nbsp;4242</div>
+          <div class="pcd-meta"><span>YAMADA TARO</span><span>有効期限 09/27</span></div>
+        </div>
+        <div class="payment-summary">
+          <div class="ps-row"><span>プラン</span><span id="renew-plan-name">—</span></div>
+          <div class="ps-row"><span>更新後の期限</span><span id="renew-new-date">—</span></div>
+          <div class="ps-row total"><span>請求金額</span><span id="renew-amount">—</span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-plan-renew').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary" onclick="submitPlanRenew()">更新する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 自動更新OFF確認 -->
+  <div class="modal-overlay" id="modal-autorenew-off">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-body" style="text-align:center;padding:28px 24px">
+        <div style="font-size:40px;margin-bottom:12px">⚠️</div>
+        <div style="font-size:16px;font-weight:700;color:#1f2937;margin-bottom:8px">自動更新を無効にしますか？</div>
+        <div style="font-size:13px;color:#6b7280;line-height:1.7">
+          <strong id="ar-off-date"></strong> 以降、プランが自動的に終了します。<br>
+          その後は機能が制限されます。<br>
+          手動更新すれば、いつでも再開できます。
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="cancelAutoRenewOff()">キャンセル</button>
+        <button class="btn" style="background:#ef4444;color:#fff" onclick="confirmAutoRenewOff()">無効にする</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: グループ作成 -->
+  <div class="modal-overlay" id="modal-create-room">
+    <div class="modal">
+      <div class="modal-body">
+        <div class="modal-title">💬 新規グループ作成</div>
+        <div class="form-group">
+          <label class="form-label">グループ名 *</label>
+          <input class="form-control" type="text" id="new-room-name" placeholder="例：設計チーム、調達担当、緊急連絡">
+        </div>
+        <div class="form-group">
+          <label class="form-label">グループタイプ *</label>
+          <div class="room-type-toggle">
+            <button class="room-type-btn selected-public" id="btn-type-public" onclick="selectRoomType('public')">
+              🌐 パブリック<br><span style="font-size:11px;font-weight:400">案件メンバー全員が参加可能</span>
+            </button>
+            <button class="room-type-btn" id="btn-type-private" onclick="selectRoomType('private')">
+              🔒 プライベート<br><span style="font-size:11px;font-weight:400">招待されたメンバーのみ</span>
+            </button>
+          </div>
+          <input type="hidden" id="new-room-type" value="public">
+        </div>
+        <div class="form-group" id="member-select-group">
+          <label class="form-label">メンバー選択 <span style="font-weight:400;color:#9ca3af">（プライベートのみ）</span></label>
+          <div class="member-list" id="new-room-members"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">説明（任意）</label>
+          <input class="form-control" type="text" id="new-room-desc" placeholder="グループの目的や説明">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-create-room').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary" onclick="submitCreateRoom()">作成</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: タスク追加 -->
+  <div class="modal-overlay" id="modal-task">
+    <div class="modal">
+      <div class="modal-body">
+        <div class="modal-title">📊 タスク追加</div>
+        <div class="form-group">
+          <label class="form-label">タスク名 *</label>
+          <input class="form-control" type="text" placeholder="タスク名を入力">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">開始日 *</label>
+            <input class="form-control" type="date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">終了予定日 *</label>
+            <input class="form-control" type="date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">担当者</label>
+            <select class="form-control">
+              <option>田中 一郎</option>
+              <option>佐藤 花子</option>
+              <option>山田 次郎</option>
+              <option>鈴木 三郎</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">状態</label>
+            <select class="form-control">
+              <option>未開始</option>
+              <option>進行中</option>
+              <option>完了</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">メモ</label>
+          <textarea class="form-control" rows="3" placeholder="備考を入力"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-task').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary"
+          onclick="document.getElementById('modal-task').classList.remove('open')">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 質問詳細 -->
+  <div class="modal-overlay" id="modal-qa-detail">
+    <div class="modal" style="max-width:580px">
+      <div class="modal-body">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <div class="modal-title" style="margin-bottom:0" id="qa-detail-title">❓ 質問詳細</div>
+          <span id="qa-detail-status"></span>
+        </div>
+        <div class="qa-meta" id="qa-detail-meta"></div>
+
+        <!-- 質問ブロック -->
+        <div class="qa-bubble qa-bubble-q">
+          <div class="qa-bubble-label">質問</div>
+          <div class="qa-bubble-text" id="qa-detail-question"></div>
+          <div class="qa-bubble-meta" id="qa-detail-q-meta"></div>
+        </div>
+
+        <!-- 回答ブロック or 未回答メッセージ -->
+        <div id="qa-detail-answer-block"></div>
+
+        <!-- 回答フォーム（未回答・確認中のみ表示） -->
+        <div class="qa-answer-form" id="qa-detail-form" style="display:none">
+          <div id="qa-form-title" style="font-size:13px;font-weight:600;color:#059669;margin-bottom:10px">✏️ 新しい回答を入力
+          </div>
+          <div class="form-row" style="margin-bottom:10px">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">回答者</label>
+              <select class="form-control" id="qa-answer-user">
+                <option>田中 一郎</option>
+                <option>佐藤 花子</option>
+                <option>山田 次郎</option>
+                <option>鈴木 三郎</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">状態を更新</label>
+              <select class="form-control" id="qa-answer-status">
+                <option value="未回答">未回答</option>
+                <option value="確認中">確認中</option>
+                <option value="回答済">回答済</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">回答内容 *</label>
+            <textarea class="form-control" id="qa-answer-text" rows="4" placeholder="回答内容を入力してください"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">ファイル添付</label>
+            <div class="qa-file-drop" id="qa-file-drop" onclick="document.getElementById('qa-file-input').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')" ondrop="handleQaFileDrop(event)">
+              📎 クリックまたはドラッグ＆ドロップでファイルを添付
+            </div>
+            <input type="file" id="qa-file-input" multiple style="display:none" onchange="handleQaFileSelect(this)">
+            <div class="qa-file-list" id="qa-file-list"></div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:8px">
+            <button class="btn btn-outline btn-sm" onclick="toggleQaForm(false)">キャンセル</button>
+            <button class="btn btn-primary btn-sm" onclick="submitQaAnswer()">送信</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-qa-detail').classList.remove('open')">閉じる</button>
+        <button class="btn btn-primary" id="qa-reply-btn" onclick="toggleQaForm(true)"
+          style="display:none">回答する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 質問登録 -->
+  <div class="modal-overlay" id="modal-qa">
+    <div class="modal">
+      <div class="modal-body">
+        <div class="modal-title">❓ 質問登録</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">項目</label>
+            <select class="form-control">
+              <option>設計</option>
+              <option>調達</option>
+              <option>施工</option>
+              <option>品質</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">質問者</label>
+            <select class="form-control">
+              <option>田中 一郎</option>
+              <option>佐藤 花子</option>
+              <option>山田 次郎</option>
+              <option>鈴木 三郎</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">質問内容 *</label>
+          <textarea class="form-control" rows="4" placeholder="質問内容を入力してください"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">回答者（担当）</label>
+          <select class="form-control">
+            <option>未定</option>
+            <option>田中 一郎</option>
+            <option>佐藤 花子</option>
+            <option>山田 次郎</option>
+            <option>鈴木 三郎</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-qa').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary"
+          onclick="document.getElementById('modal-qa').classList.remove('open')">登録</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 案件登録 -->
+  <div class="modal-overlay" id="modal-project">
+    <div class="modal" style="max-width:560px">
+      <div class="modal-body">
+        <div class="modal-title" id="modal-project-title">📁 案件登録</div>
+        <div class="form-group">
+          <label class="form-label">案件コード *</label>
+          <input class="form-control" type="text" id="prj-code" placeholder="PRJ-006">
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:2">
+            <label class="form-label">案件名 *</label>
+            <input class="form-control" type="text" id="prj-name" placeholder="案件名を入力">
+          </div>
+          <div class="form-group">
+            <label class="form-label">種別 *</label>
+            <select class="form-control" id="prj-type-input">
+              <option value="外注">外注</option>
+              <option value="社内">社内</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">案件状態</label>
+            <select class="form-control" id="prj-status-input">
+              <option>予定</option>
+              <option>進行中</option>
+              <option>保留</option>
+              <option>完了</option>
+              <option>停止</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">開始予定日</label>
+            <input class="form-control" type="date" id="prj-start">
+          </div>
+          <div class="form-group">
+            <label class="form-label">終了予定日</label>
+            <input class="form-control" type="date" id="prj-end">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">工数予定 <span style="font-size:11px;color:#9ca3af">(h)</span></label>
+            <input class="form-control" type="number" id="prj-manday" min="0" placeholder="0"
+              oninput="autoCalcProgress()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">消化工数 <span style="font-size:11px;color:#9ca3af">(h)</span></label>
+            <input class="form-control" type="number" id="prj-spent" min="0" placeholder="0"
+              oninput="autoCalcProgress()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">進捗率 <span style="font-size:11px;color:#9ca3af">(%)</span></label>
+            <input class="form-control" type="number" id="prj-progress" min="0" max="100" placeholder="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">備考</label>
+          <textarea class="form-control" id="prj-note" rows="2" placeholder="備考を入力"></textarea>
+        </div>
+
+        <!-- ユーザーアサイン -->
+        <div style="border-top:1px solid #e8eaed;margin:12px 0 10px;padding-top:12px">
+          <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px">👥 ユーザーアサイン</div>
+          <div style="display:flex;gap:8px;margin-bottom:8px">
+            <select class="form-control" id="prj-assign-user" style="flex:2">
+              <option value="">ユーザーを選択</option>
+              <option value="tanaka">田中 一郎</option>
+              <option value="sato">佐藤 花子</option>
+              <option value="yamada">山田 次郎</option>
+              <option value="linh">LINH Nguyen</option>
+            </select>
+            <select class="form-control" id="prj-assign-role" style="flex:1">
+              <option value="member">メンバー</option>
+              <option value="manager">案件管理者</option>
+            </select>
+            <button class="btn btn-outline btn-sm" onclick="addProjectMember()">追加</button>
+          </div>
+          <table class="data-table" style="font-size:12px">
+            <thead>
+              <tr>
+                <th>名前</th>
+                <th>権限</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="prj-member-list">
+              <tr style="color:#9ca3af;text-align:center">
+                <td colspan="3">未アサイン</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- /.modal-body -->
+
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeProjectModal()">キャンセル</button>
+        <button class="btn btn-primary" onclick="saveProject()">登録</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 会社メンバー追加/編集 -->
+  <div class="modal-overlay" id="modal-user">
+    <div class="modal">
+      <div class="modal-body">
+        <div class="modal-title" id="modal-user-title">👤 会社メンバー追加</div>
+
+        <!-- 名前（編集・アクティブ時のみ表示） -->
+        <div class="form-group" id="u-name-row" style="display:none">
+          <label class="form-label">名前</label>
+          <div id="u-name-display"
+            style="padding:8px 12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;color:#374151;font-size:14px;font-weight:600">
+          </div>
+        </div>
+
+        <!-- メールアドレス -->
+        <div class="form-group">
+          <label class="form-label">メールアドレス *</label>
+          <input class="form-control" type="email" id="u-email" placeholder="email@example.com">
+        </div>
+
+        <!-- 社員区分 -->
+        <div class="form-group">
+          <label class="form-label">社員区分 *</label>
+          <div style="display:flex;gap:12px;margin-top:4px">
+            <label
+              style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 16px;border:1px solid #d1d5db;border-radius:6px;flex:1;justify-content:center"
+              id="label-shaunai">
+              <input type="radio" name="u-kubun" id="u-kubun-shaunai" value="社内" onchange="updateKubunStyle()"
+                style="accent-color:#3c8b86">
+              <span style="font-weight:600;color:#1d4ed8">社内</span>
+            </label>
+            <label
+              style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 16px;border:1px solid #d1d5db;border-radius:6px;flex:1;justify-content:center"
+              id="label-shagaisoc">
+              <input type="radio" name="u-kubun" id="u-kubun-shagai" value="社外" onchange="updateKubunStyle()"
+                style="accent-color:#3c8b86">
+              <span style="font-weight:600;color:#92400e">社外</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- サイト管理者フラグ -->
+        <div class="form-group">
+          <label class="form-label">サイト管理者</label>
+          <label
+            style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 12px;border:1px solid #e5e7eb;border-radius:6px;background:#f9fafb">
+            <input type="checkbox" id="u-admin" style="accent-color:#3c8b86;width:16px;height:16px">
+            <span style="font-size:13px;color:#374151">管理者権限を付与する</span>
+          </label>
+        </div>
+
+        <!-- 備考 -->
+        <div class="form-group">
+          <label class="form-label">備考</label>
+          <textarea class="form-control" id="u-note" rows="2" placeholder="備考を入力"></textarea>
+        </div>
+
+        <!-- 招待・参加情報（編集時のみ表示） -->
+        <div id="u-info-section"
+          style="display:none;margin-top:4px;padding:12px 14px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb">
+          <div
+            style="font-size:11px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">
+            招待・参加情報</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+            <div>
+              <div style="color:#9ca3af;font-size:11px;margin-bottom:2px">招待日時</div>
+              <div id="u-invited-at" style="color:#374151;font-weight:500">—</div>
+            </div>
+            <div>
+              <div style="color:#9ca3af;font-size:11px;margin-bottom:2px">参加日時</div>
+              <div id="u-joined-at" style="color:#374151;font-weight:500">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-user').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-outline" id="u-resend-btn" onclick="resendInvite()"
+          style="display:none;color:#d97706;border-color:#f59e0b">📧 招待メール再送信</button>
+        <button class="btn btn-primary" id="u-submit-btn" onclick="saveUser()">招待メール送信</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 会社登録/編集 -->
+  <div class="modal-overlay" id="modal-company">
+    <div class="modal">
+      <div class="modal-body">
+        <div class="modal-title" id="modal-company-title">🏢 会社登録</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">会社コード（自動採番）</label>
+            <input class="form-control" type="text" id="company-code" placeholder="COMP-005" readonly
+              style="background:#f9fafb;color:#9ca3af">
+          </div>
+          <div class="form-group">
+            <label class="form-label">国</label>
+            <select class="form-control" id="company-country">
+              <option>🇯🇵 日本</option>
+              <option>🇻🇳 ベトナム</option>
+              <option>その他</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">会社名 *</label>
+          <input class="form-control" type="text" id="company-name" placeholder="会社名を入力">
+        </div>
+        <div class="form-group">
+          <label class="form-label">住所</label>
+          <input class="form-control" type="text" id="company-address" placeholder="住所を入力">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-company').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary" onclick="saveCompany()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 会社情報 -->
+  <div class="modal-overlay" id="modal-company-info">
+    <div class="modal" style="max-width:680px">
+      <div class="modal-body">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+          <div style="font-size:22px">🏢</div>
+          <div>
+            <div class="modal-title" id="ci-modal-title" style="margin-bottom:2px">会社情報</div>
+            <div id="ci-modal-code" style="font-size:12px;color:#9ca3af;font-family:monospace"></div>
+          </div>
+        </div>
+        <input type="hidden" id="ci-edit-code">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">会社名（日本語）</label>
+            <input class="form-control" type="text" id="ci-name-ja" placeholder="例: E-Mind株式会社">
+          </div>
+          <div class="form-group">
+            <label class="form-label">会社名（英語）</label>
+            <input class="form-control" type="text" id="ci-name-en" placeholder="例: E-Mind Co., Ltd.">
+          </div>
+          <div class="form-group">
+            <label class="form-label">国</label>
+            <select class="form-control" id="ci-country">
+              <option value="日本">🇯🇵 日本</option>
+              <option value="ベトナム">🇻🇳 ベトナム</option>
+              <option value="その他">🌐 その他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">郵便番号</label>
+            <input class="form-control" type="text" id="ci-zip" placeholder="例: 150-0001">
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">住所</label>
+            <input class="form-control" type="text" id="ci-address" placeholder="例: 東京都渋谷区神宮前1-1-1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">電話番号</label>
+            <input class="form-control" type="text" id="ci-tel" placeholder="例: 03-1234-5678">
+          </div>
+          <div class="form-group">
+            <label class="form-label">メールアドレス</label>
+            <input class="form-control" type="email" id="ci-email" placeholder="例: info@company.co.jp">
+          </div>
+          <div class="form-group">
+            <label class="form-label">担当者名</label>
+            <input class="form-control" type="text" id="ci-contact" placeholder="例: 田中 太郎">
+          </div>
+          <div class="form-group">
+            <label class="form-label">業種</label>
+            <input class="form-control" type="text" id="ci-industry" placeholder="例: IT・ソフトウェア">
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">Webサイト</label>
+            <input class="form-control" type="url" id="ci-website" placeholder="例: https://example.com">
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">備考</label>
+            <textarea class="form-control" id="ci-note" rows="2" placeholder="メモ・特記事項"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid #f1f5f9;font-size:11px;color:#9ca3af">
+          登録日: <span id="ci-registered-at">—</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-company-info').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary" onclick="saveCompanyInfo()">💾 保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: ライセンス登録/編集/更新 -->
+  <div class="modal-overlay" id="modal-license">
+    <div class="modal" style="max-width:560px">
+      <div class="modal-body">
+        <div class="modal-title" id="modal-license-title">🔐 ライセンス登録</div>
+        <input type="hidden" id="license-edit-code">
+        <input type="hidden" id="license-mode"> <!-- 'new' | 'edit' | 'renew' -->
+
+        <!-- 更新モード: 現在のライセンス情報を表示 -->
+        <div id="license-current-info"
+          style="display:none;background:#f0f9f8;border:1px solid #7dd9d6;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#089490">
+          <div style="font-weight:700;margin-bottom:4px">📋 現在のライセンス（更新前）</div>
+          <div id="license-current-summary" style="color:#374151"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">会社コード</label>
+            <select class="form-control" id="license-company">
+              <option value="">会社を選択</option>
+              <option value="COMP-001">COMP-001 — E-Mind株式会社</option>
+              <option value="COMP-002">COMP-002 — ABC Manufacturing Vietnam</option>
+              <option value="COMP-003">COMP-003 — Techno Solutions</option>
+              <option value="COMP-004">COMP-004 — DevStar Co., Ltd.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">利用ユーザー数</label>
+            <input class="form-control" type="number" id="license-users" placeholder="例: 50" min="1">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" id="license-start-label">ライセンス開始日 *</label>
+            <input class="form-control" type="date" id="license-start">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ライセンス終了日</label>
+            <input class="form-control" type="date" id="license-end">
+            <div style="font-size:11px;color:#9ca3af;margin-top:3px">空白の場合は無期限</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">利用状態</label>
+          <select class="form-control" id="license-status">
+            <option value="有効">有効</option>
+            <option value="無効">無効</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">備考</label>
+          <textarea class="form-control" id="license-note" rows="2" placeholder="備考・メモを入力"></textarea>
+        </div>
+
+        <!-- 更新モードのみ: 更新理由（必須） -->
+        <div class="form-group" id="license-reason-group" style="display:none">
+          <label class="form-label">更新理由 <span style="color:#ef4444">*</span></label>
+          <input class="form-control" type="text" id="license-reason" placeholder="例: 年間契約更新、ユーザー数追加">
+          <div style="font-size:11px;color:#9ca3af;margin-top:3px">この更新は履歴に記録されます</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-license').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary" id="license-save-btn" onclick="saveLicense()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: ライセンス履歴 -->
+  <div class="modal-overlay" id="modal-license-history">
+    <div class="modal" style="width:92vw;max-width:1000px;min-width:600px">
+      <div class="modal-body">
+        <div class="modal-title" id="modal-history-title">📋 ライセンス履歴</div>
+        <div id="modal-history-content" style="overflow-x:auto"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-license-history').classList.remove('open')">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 個人ライセンス登録/編集/更新 -->
+  <div class="modal-overlay" id="modal-personal-license">
+    <div class="modal" style="max-width:560px">
+      <div class="modal-body">
+        <div class="modal-title" id="modal-pl-title">👤 個人ライセンス登録</div>
+        <input type="hidden" id="pl-edit-code">
+        <input type="hidden" id="pl-mode"> <!-- 'new' | 'edit' | 'renew' -->
+
+        <!-- 更新モード: 現在のライセンス情報を表示 -->
+        <div id="pl-current-info"
+          style="display:none;background:#f0f9f8;border:1px solid #7dd9d6;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#089490">
+          <div style="font-weight:700;margin-bottom:4px">📋 現在のライセンス（更新前）</div>
+          <div id="pl-current-summary" style="color:#374151"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">氏名 *</label>
+            <input class="form-control" type="text" id="pl-name" placeholder="例: 山田 花子">
+          </div>
+          <div class="form-group">
+            <label class="form-label">プラン *</label>
+            <select class="form-control" id="pl-plan">
+              <option value="Free">Free</option>
+              <option value="Basic">Basic</option>
+              <option value="Pro">Pro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">メールアドレス *</label>
+          <input class="form-control" type="email" id="pl-email" placeholder="例: yamada@example.com">
+        </div>
+
+        <div class="form-row" id="pl-date-row">
+          <div class="form-group">
+            <label class="form-label" id="pl-start-label">ライセンス開始日 *</label>
+            <input class="form-control" type="date" id="pl-start">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ライセンス終了日</label>
+            <input class="form-control" type="date" id="pl-end">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">状態</label>
+            <select class="form-control" id="pl-status">
+              <option value="有効">有効</option>
+              <option value="無効">無効</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">備考</label>
+            <input class="form-control" type="text" id="pl-note" placeholder="メモ">
+          </div>
+        </div>
+
+        <div class="form-group" id="pl-reason-group" style="display:none">
+          <label class="form-label">更新理由 *</label>
+          <input class="form-control" type="text" id="pl-reason" placeholder="例: プランアップグレード、年間更新">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-personal-license').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary" id="pl-save-btn" onclick="savePersonalLicense()">登録</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 個人ライセンス履歴 -->
+  <div class="modal-overlay" id="modal-pl-history">
+    <div class="modal" style="width:92vw;max-width:900px;min-width:600px">
+      <div class="modal-body">
+        <div class="modal-title" id="modal-pl-history-title">📋 個人ライセンス履歴</div>
+        <div id="modal-pl-history-content" style="overflow-x:auto"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-pl-history').classList.remove('open')">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: ユーザー詳細 -->
+  <div class="modal-overlay" id="modal-user-detail">
+    <div class="modal" style="max-width:560px">
+      <div class="modal-body">
+
+        <!-- Avatar + Name -->
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+          <div class="avatar" id="up-avatar" style="width:48px;height:48px;font-size:15px;flex-shrink:0"></div>
+          <div style="flex:1;min-width:0">
+            <div id="up-name-view" style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
+              <span id="up-name-text" style="font-size:17px;font-weight:700;color:#111827"></span>
+              <button onclick="startEditName()"
+                style="background:none;border:none;cursor:pointer;font-size:11px;color:#0ABAB5;padding:2px 6px;border:1px solid #0ABAB5;border-radius:4px;white-space:nowrap">名前を編集</button>
+            </div>
+            <div id="up-name-edit" style="display:none;margin-bottom:6px">
+              <div style="display:flex;gap:6px;margin-bottom:6px">
+                <input id="up-edit-last" class="form-control" style="width:100px;padding:5px 8px;font-size:13px"
+                  placeholder="姓">
+                <input id="up-edit-first" class="form-control" style="flex:1;padding:5px 8px;font-size:13px"
+                  placeholder="名">
+              </div>
+              <div style="display:flex;gap:6px">
+                <button onclick="saveNameEdit()" class="btn btn-primary btn-sm">保存</button>
+                <button onclick="cancelEditName()" class="btn btn-outline btn-sm">キャンセル</button>
+              </div>
+            </div>
+            <div style="font-size:12px;color:#9ca3af" id="up-email"></div>
+            <div style="font-size:11px;color:#b0b8c4;margin-top:2px" id="up-registered"></div>
+          </div>
+        </div>
+
+        <!-- Password reset -->
+        <div style="background:#f9fafb;border:1px solid #e8eaed;border-radius:8px;padding:14px;margin-bottom:20px">
+          <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:6px">🔑 パスワード再設定</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <span style="font-size:12px;color:#6b7280">対象ユーザーのメールアドレス宛に再設定リンクを送信します。</span>
+            <button class="btn btn-outline btn-sm" style="white-space:nowrap" onclick="sendPasswordResetPanel()">🔗
+              再設定リンクを送信</button>
+          </div>
+        </div>
+
+        <!-- Companies -->
+        <div>
+          <div
+            style="font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">
+            所属会社</div>
+          <div id="up-companies"></div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeUserPanel()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: ユーザーライセンス情報 -->
+  <div class="modal-overlay" id="modal-user-license">
+    <div class="modal" style="max-width:540px">
+      <div class="modal-body">
+        <div class="modal-title" id="ul-title">📋 ライセンス情報</div>
+
+        <!-- No license -->
+        <div id="ul-no-license" style="display:none;text-align:center;padding:20px 0;color:#9ca3af;font-size:13px">
+          このユーザーのライセンス情報が登録されていません。
+        </div>
+
+        <!-- License detail -->
+        <div id="ul-detail">
+          <!-- Current plan header -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <div>
+              <div style="font-size:11px;color:#9ca3af;margin-bottom:4px">現在のプラン</div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span id="ul-plan-badge"></span>
+                <span id="ul-status-badge"></span>
+              </div>
+            </div>
+            <div id="ul-days-box" style="text-align:right">
+              <div style="font-size:11px;color:#9ca3af;margin-bottom:2px">残日数</div>
+              <div id="ul-days" style="font-size:20px;font-weight:700"></div>
+            </div>
+          </div>
+
+          <!-- Info grid -->
+          <div
+            style="display:grid;grid-template-columns:100px 1fr;gap:8px 0;font-size:13px;background:#f9fafb;border-radius:8px;padding:14px;margin-bottom:16px">
+            <span style="color:#9ca3af;align-self:center">開始日</span> <span id="ul-start" style="font-weight:500"></span>
+            <span style="color:#9ca3af;align-self:center">終了日</span> <span id="ul-end" style="font-weight:500"></span>
+            <span style="color:#9ca3af;align-self:center">最終更新</span> <span id="ul-updated"
+              style="font-weight:500"></span>
+            <span style="color:#9ca3af;align-self:center">更新理由</span> <span id="ul-reason"
+              style="font-weight:500;color:#6b7280"></span>
+            <span id="ul-note-label" style="color:#9ca3af;align-self:center">備考</span> <span id="ul-note"
+              style="color:#6b7280"></span>
+          </div>
+
+          <!-- History -->
+          <div id="ul-history-section">
+            <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px" id="ul-history-title">変更履歴</div>
+            <div id="ul-history-body"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-user-license').classList.remove('open')">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 課題詳細 -->
+  <div class="modal-overlay" id="modal-issue-detail">
+    <div class="modal" style="max-width:600px">
+      <div class="modal-body">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <div class="modal-title" style="margin-bottom:0" id="issue-detail-title">⚠️ 課題詳細</div>
+          <span id="issue-detail-status"></span>
+        </div>
+        <div class="qa-meta" id="issue-detail-meta" style="margin-bottom:14px"></div>
+
+        <div style="background:#f9fafb;border-radius:8px;padding:14px;margin-bottom:14px">
+          <div style="font-size:12px;font-weight:600;color:#6b7280;margin-bottom:6px">課題内容</div>
+          <div id="issue-detail-content" style="font-size:14px;color:#111827;line-height:1.6"></div>
+        </div>
+
+        <div class="form-row" style="margin-bottom:14px">
+          <div style="flex:1">
+            <div style="font-size:11px;color:#6b7280;margin-bottom:2px">登録日</div>
+            <div id="issue-detail-reg-date" style="font-size:13px;font-weight:500"></div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:11px;color:#6b7280;margin-bottom:2px">登録者</div>
+            <div id="issue-detail-registrant" style="font-size:13px;font-weight:500"></div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:11px;color:#6b7280;margin-bottom:2px">対応日</div>
+            <div id="issue-detail-resp-date" style="font-size:13px;font-weight:500"></div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:11px;color:#6b7280;margin-bottom:2px">対応者</div>
+            <div id="issue-detail-responder" style="font-size:13px;font-weight:500"></div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #e5e7eb;padding-top:14px">
+          <div style="font-size:12px;font-weight:600;color:#6b7280;margin-bottom:10px">状態を更新</div>
+          <div class="form-group">
+            <label class="form-label">状態</label>
+            <select class="form-control" id="issue-detail-status-select">
+              <option>オープン</option>
+              <option>対応中</option>
+              <option>クローズ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">コメント</label>
+            <textarea class="form-control" id="issue-detail-comment" rows="3" placeholder="対応内容や備考を入力"
+              style="resize:vertical"></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom:10px">
+            <label class="form-label">ファイル添付</label>
+            <div class="qa-file-drop" id="issue-edit-file-drop"
+              onclick="document.getElementById('issue-edit-file-input').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')" ondrop="handleIssueEditFileDrop(event)">
+              📎 クリックまたはドラッグ＆ドロップでファイルを添付
+            </div>
+            <input type="file" id="issue-edit-file-input" multiple style="display:none"
+              onchange="handleIssueEditFileSelect(this)">
+            <div class="qa-file-list" id="issue-edit-file-list"></div>
+          </div>
+          <div style="display:flex;justify-content:flex-end">
+            <button class="btn btn-primary btn-sm" onclick="updateIssueStatus()">更新</button>
+          </div>
+          <div id="issue-detail-comments" style="margin-top:12px"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-issue-detail').classList.remove('open')">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 課題登録 -->
+  <div class="modal-overlay" id="modal-issue">
+    <div class="modal">
+      <div class="modal-body">
+        <div class="modal-title">⚠️ 課題登録</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">優先度 *</label>
+            <select class="form-control">
+              <option>高</option>
+              <option>中</option>
+              <option>低</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">分類 *</label>
+            <select class="form-control">
+              <option>設計</option>
+              <option>調達</option>
+              <option>施工</option>
+              <option>品質</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">状態 *</label>
+            <select class="form-control">
+              <option>オープン</option>
+              <option>対応中</option>
+              <option>クローズ</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">項目 *</label>
+          <input class="form-control" type="text" placeholder="課題のタイトル">
+        </div>
+        <div class="form-group">
+          <label class="form-label">内容 *</label>
+          <textarea class="form-control" rows="3" placeholder="課題の詳細内容"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">登録者</label>
+            <select class="form-control">
+              <option>田中 一郎</option>
+              <option>佐藤 花子</option>
+              <option>山田 次郎</option>
+              <option>鈴木 三郎</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">対応者</label>
+            <select class="form-control">
+              <option>未定</option>
+              <option>田中 一郎</option>
+              <option>佐藤 花子</option>
+              <option>山田 次郎</option>
+              <option>鈴木 三郎</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ファイル添付</label>
+          <div class="qa-file-drop" id="issue-reg-file-drop"
+            onclick="document.getElementById('issue-reg-file-input').click()"
+            ondragover="event.preventDefault();this.classList.add('dragover')"
+            ondragleave="this.classList.remove('dragover')" ondrop="handleIssueRegFileDrop(event)">
+            📎 クリックまたはドラッグ＆ドロップでファイルを添付
+          </div>
+          <input type="file" id="issue-reg-file-input" multiple style="display:none"
+            onchange="handleIssueRegFileSelect(this)">
+          <div class="qa-file-list" id="issue-reg-file-list"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-issue').classList.remove('open');issueRegFiles=[];renderIssueRegFileList()">キャンセル</button>
+        <button class="btn btn-primary" onclick="submitIssueReg()">登録</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 料金改定 -->
+  <div class="modal-overlay" id="modal-price-revision">
+    <div class="modal" style="max-width:540px">
+      <div class="modal-body">
+        <div class="modal-title" id="pr-title">💴 料金改定</div>
+        <input type="hidden" id="pr-plan-idx">
+        <div
+          style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#6b7280">
+          現在の月額単価: <strong id="pr-current-price" style="color:#111827"></strong> /席・月
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">新しい月額単価 (¥) *</label>
+            <input class="form-control" type="number" id="pr-new-price" min="0" oninput="prUpdatePreview()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">適用日 (適用日) *</label>
+            <input class="form-control" type="date" id="pr-effective">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">6ヶ月 期間割引 (%)</label>
+            <input class="form-control" type="number" id="pr-disc6" min="0" max="100" oninput="prUpdatePreview()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">年 期間割引 (%)</label>
+            <input class="form-control" type="number" id="pr-disc12" min="0" max="100" oninput="prUpdatePreview()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">初月割引 (%)</label>
+            <input class="form-control" type="number" id="pr-first" min="0" max="100">
+          </div>
+        </div>
+        <div class="sim-box" id="pr-preview"></div>
+        <div class="form-group">
+          <label class="form-label">改定理由 * <span style="font-weight:400;color:#9ca3af">（履歴に記録されます）</span></label>
+          <input class="form-control" type="text" id="pr-reason" placeholder="例: 2026年度 価格改定、機能拡充に伴う値上げ">
+        </div>
+        <div id="pr-notice" style="font-size:12px;border-radius:8px;line-height:1.6"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-price-revision').classList.remove('open')">キャンセル</button>
+        <button class="btn btn-primary" onclick="savePriceRevision()">改定を確定</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 料金改定履歴 -->
+  <div class="modal-overlay" id="modal-price-history">
+    <div class="modal" style="width:92vw;max-width:780px">
+      <div class="modal-body">
+        <div class="modal-title" id="prh-title">📋 料金改定履歴</div>
+        <div id="prh-content" style="overflow-x:auto"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline"
+          onclick="document.getElementById('modal-price-history').classList.remove('open')">閉じる</button>
+      </div>
+    </div>
+  </div>

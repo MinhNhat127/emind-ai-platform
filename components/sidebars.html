@@ -1,0 +1,314 @@
+    <!-- Sidebar: Admin (AI Platform Style - 100% Identical Icons & Collapsible) -->
+    <div class="sidebar sidebar-admin" id="sidebar-admin" style="display:none">
+      <!-- Header with Logo & Toggle Button -->
+      <div class="sidebar-header-row">
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-badge">C</div>
+          <span class="sidebar-brand-title">AI Platform</span>
+        </div>
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Thu nhỏ / Mở rộng">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="7" x2="20" y2="7"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="17" x2="20" y2="17"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Main Navigation Items (Exact Vector Icons from User Mockup) -->
+      <div class="sidebar-nav-list">
+
+        <!-- 0. Bàn điều hành (Dashboard) -->
+        <div class="nav-item active" onclick="navigate('admin-dashboard', this)" title="Bàn điều hành">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9" rx="1.5"></rect>
+              <rect x="14" y="3" width="7" height="5" rx="1.5"></rect>
+              <rect x="14" y="12" width="7" height="9" rx="1.5"></rect>
+              <rect x="3" y="16" width="7" height="5" rx="1.5"></rect>
+            </svg>
+          </span>
+          <span class="nav-text">Bàn điều hành</span>
+        </div>
+
+        <!-- Dummy Data Tab for System Admin -->
+        <div class="nav-item" onclick="navigate('admin-dummy-data', this)" title="Dữ liệu hợp đồng mẫu">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </span>
+          <span class="nav-text">Dữ liệu Hợp đồng Mẫu</span>
+          <span class="notif" id="sidebar-dummy-count-1"
+            style="background:#089490;color:#fff;margin-left:auto;font-size:10px;padding:1px 6px">52</span>
+        </div>
+
+        <!-- 1. Thành viên công ty (People / Users Icon) -->
+        <div class="nav-item" onclick="navigate('adminusers', this)" title="Thành viên công ty">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span class="nav-text">Thành viên công ty</span>
+        </div>
+
+        <!-- 2. Dự án (Briefcase Icon) -->
+        <div class="nav-item" onclick="navigate('projects', this)" title="Dự án">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </span>
+          <span class="nav-text">Dự án</span>
+        </div>
+
+        <!-- 3. Chia sẻ tệp (Folder Icon) -->
+        <div class="nav-item" onclick="navigate('files', this)" title="Chia sẻ tệp">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </span>
+          <span class="nav-text">Chia sẻ tệp</span>
+        </div>
+
+        <!-- 4. Cài đặt dịch (Translate Character Icon - 文A) -->
+        <div class="nav-item" onclick="alert('Chức năng: Cài đặt dịch đa ngôn ngữ AI đang kích hoạt.')"
+          title="Cài đặt dịch">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m5 8 6 6"></path>
+              <path d="m4 14 6-6 2-3"></path>
+              <path d="M2 5h12"></path>
+              <path d="M7 2h1"></path>
+              <path d="m22 22-5-10-5 10"></path>
+              <path d="M14 18h6"></path>
+            </svg>
+          </span>
+          <span class="nav-text">Cài đặt dịch</span>
+        </div>
+
+        <!-- 5. Dữ liệu master (List with Bullets Icon) -->
+        <div class="nav-item" onclick="navigate('admin-master', this)" title="Dữ liệu master">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <circle cx="4" cy="6" r="1.5" fill="currentColor"></circle>
+              <circle cx="4" cy="12" r="1.5" fill="currentColor"></circle>
+              <circle cx="4" cy="18" r="1.5" fill="currentColor"></circle>
+            </svg>
+          </span>
+          <span class="nav-text">Dữ liệu master</span>
+        </div>
+
+        <!-- 6. Quản lý gói cá nhân (Single User with Badge Icon) -->
+        <div class="nav-item" onclick="navigate('personal-licenses', this)" title="Quản lý gói cá nhân">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <span class="nav-text">Quản lý gói cá nhân</span>
+        </div>
+
+        <!-- 7. Quản lý gói công ty (Building / Enterprise Icon) -->
+        <div class="nav-item" onclick="navigateAdminPlan('tab-ap-companies', this)" title="Quản lý gói công ty">
+          <span class="nav-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+              <path d="M9 22v-4h6v4"></path>
+              <path d="M8 6h.01"></path>
+              <path d="M16 6h.01"></path>
+              <path d="M12 6h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M16 10h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M16 14h.01"></path>
+            </svg>
+          </span>
+          <span class="nav-text">Quản lý gói công ty</span>
+        </div>
+
+      </div>
+
+      <!-- Bottom Logout Item -->
+      <div style="padding: 10px; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.12)">
+        <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.75)" title="Đăng xuất">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </span>
+          <span class="nav-text">Đăng xuất</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar: Company -->
+    <div class="sidebar" id="sidebar-company" style="display:none">
+      <div class="sidebar-logo" style="padding:14px 16px">
+        <div id="sidebar-logo-area">
+          <img src="https://e-mind.ltd/wp-content/uploads/2022/08/500_120_emaind_logo_horizontal_simple.png"
+            alt="E-Mind" style="width:120px;height:auto;display:block">
+        </div>
+        <span id="sidebar-company-name" style="margin-top:6px">会社ユーザー</span>
+        <button id="btn-switch-company" onclick="openCompanySelector()"
+          style="display:none;margin-top:8px;width:100%;padding:5px 8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:6px;color:#7dd9d6;font-size:11px;cursor:pointer;text-align:left">
+          🔄 会社切り替え
+        </button>
+      </div>
+
+      <!-- Level 1: Default nav (always shown) -->
+      <div id="nav-level1">
+        <div class="nav-group">
+          <div class="nav-label">CHỨC NĂNG CHÍNH</div>
+          <div class="nav-item" onclick="navigate('admin-dashboard',this)">
+            <span class="nav-icon">📊</span> Bàn Điều Hành (Dashboard)
+          </div>
+          <div class="nav-item active" onclick="navigate('companyinfo',this)">
+            <span class="nav-icon">🏢</span> Thông tin Công ty
+          </div>
+          <div class="nav-item" id="nav-admin-tools" style="display:none" onclick="navigate('licenses',this)">
+            <span class="nav-icon">🏢</span> Quản lý Giấy phép
+          </div>
+          <div class="nav-item" onclick="navigate('users',this)">
+            <span class="nav-icon">👤</span> Danh sách Nhân sự
+          </div>
+          <div class="nav-item" onclick="navigate('projects',this)">
+            <span class="nav-icon">📁</span> Quản lý Dự án
+          </div>
+          <div class="nav-item" onclick="navigate('project-overview',this)">
+            <span class="nav-icon">📊</span> Tổng quan Dự án
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-label">GIAO TIẾP & TRAO ĐỔI</div>
+          <div class="nav-item" onclick="navigateChatGlobal(this)">
+            <span class="nav-icon">💬</span> Trò chuyện (Chat)
+            <span class="notif" id="chat-notif-global" style="margin-left:auto;display:none">0</span>
+          </div>
+        </div>
+        <div class="nav-group" id="nav-admin-plan-group" style="display:none">
+          <div class="nav-label" style="color:rgba(255,220,100,0.8)">MENU QUẢN TRỊ VIÊN</div>
+          <div class="nav-item" onclick="navigate('admin-dashboard', this)">
+            <span class="nav-icon">📊</span> Bàn Điều Hành (Dashboard)
+          </div>
+          <div class="nav-item" onclick="navigate('admin-dummy-data', this)">
+            <span class="nav-icon">📑</span> Dữ liệu Hợp đồng Mẫu (Dummy Data)
+            <span class="notif" id="sidebar-dummy-count-2"
+              style="background:#089490;color:#fff;margin-left:auto;font-size:10px">52</span>
+          </div>
+          <div class="nav-item" onclick="navigateAdminPlan('tab-ap-companies',this)">
+            <span class="nav-icon">🏢</span> Danh sách Doanh nghiệp
+          </div>
+          <div class="nav-item" onclick="navigateAdminPlan('tab-ap-billing',this)">
+            <span class="nav-icon">📋</span> Hóa đơn & Thu phí
+          </div>
+          <div class="nav-item" onclick="navigate('admin-personal',this)">
+            <span class="nav-icon">👤</span> Người dùng Cá nhân
+          </div>
+          <div class="nav-item" onclick="navigate('admin-master',this)">
+            <span class="nav-icon">🔧</span> Cấu hình Gói cước
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-label">GÓI DỊCH VỤ</div>
+          <div class="nav-item" onclick="navigate('my-plan',this)">
+            <span class="nav-icon">📦</span> Quản lý gói công ty
+          </div>
+          <div class="nav-item" onclick="navigate('personal-plan',this)">
+            <span class="nav-icon">👤</span> Quản lý gói cá nhân
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-label">HỖ TRỢ</div>
+          <div class="nav-item" onclick="navigate('help',this)">
+            <span class="nav-icon">🆘</span> Hướng dẫn sử dụng
+          </div>
+          <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.6)">
+            <span class="nav-icon">🚪</span> Đăng xuất
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 2: Project nav (shown when project is selected) -->
+      <div id="nav-level2" style="display:none">
+        <div class="nav-group">
+          <div class="nav-item" onclick="backToProjects()" style="color:rgba(255,255,255,0.5);font-size:12px">
+            <span class="nav-icon">←</span> 案件一覧へ戻る
+          </div>
+        </div>
+        <div style="padding:8px 16px 4px;font-size:11px;color:rgba(255,255,255,0.5)">案件</div>
+        <div
+          style="padding:4px 16px 12px;font-size:13px;font-weight:600;color:#7dd9d6;border-bottom:1px solid rgba(255,255,255,0.1)"
+          id="selected-project-name">—</div>
+        <div class="nav-group">
+          <div class="nav-label">進捗</div>
+          <div class="nav-item" onclick="navigate('schedule',this)">
+            <span class="nav-icon">📅</span> スケジュール
+          </div>
+          <div class="nav-item" onclick="navigate('progress',this)">
+            <span class="nav-icon">📊</span> タスク管理
+          </div>
+          <div class="nav-item" onclick="navigate('resource',this)">
+            <span class="nav-icon">👥</span> リソース管理
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-label">管理</div>
+          <div class="nav-item" onclick="navigate('qa',this)">
+            <span class="nav-icon">❓</span> 質問管理
+            <span class="notif" style="margin-left:auto">3</span>
+          </div>
+          <div class="nav-item" onclick="navigate('issues',this)">
+            <span class="nav-icon">⚠️</span> 課題管理
+            <span class="notif" style="margin-left:auto">2</span>
+          </div>
+          <div class="nav-item" onclick="navigate('report',this)">
+            <span class="nav-icon">📋</span> 報告書
+          </div>
+          <div class="nav-item" onclick="navigate('files',this)">
+            <span class="nav-icon">🗂️</span> ファイル共有
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-label">コミュニケーション</div>
+          <div class="nav-item" onclick="navigate('chat',this)" id="nav-chat-item">
+            <span class="nav-icon">💬</span> チャット
+            <span class="notif" id="chat-notif-badge" style="margin-left:auto;display:none">0</span>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-item" onclick="doLogout()" style="color:rgba(255,255,255,0.4)">
+            <span class="nav-icon">🚪</span> ログアウト
+          </div>
+        </div>
+      </div>
+    </div>

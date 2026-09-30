@@ -1,0 +1,40 @@
+  <!-- ===== COMPANY SELECTOR SCREEN ===== -->
+
+  <div class="company-select-screen hidden" id="company-select-screen">
+    <div class="company-select-box">
+      <div id="company-select-logos"
+        style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap"></div>
+      <div class="company-select-title">会社を選択してください</div>
+      <div class="company-select-sub" id="company-select-sub">担当している会社を選択してください</div>
+      <div id="company-select-list"></div>
+    </div>
+  </div>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <div class="login-logo" style="margin-bottom:16px">
+        <img src="https://e-mind.ltd/wp-content/uploads/2022/08/500_120_emaind_logo_horizontal_simple.png" alt="E-Mind"
+          style="width:180px;height:auto">
+      </div>
+      <div class="login-title">AI Platform</div>
+      <div class="login-sub">エンジニアデザインAIプラットフォーム</div>
+      <label class="login-label">ユーザーID</label>
+      <input class="login-input" type="text" id="login-id" placeholder="IDを入力"
+        onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
+      <label class="login-label">パスワード</label>
+      <input class="login-input" type="password" id="login-pass" placeholder="パスワードを入力"
+        onkeydown="if(event.key==='Enter')doLogin()">
+      <div class="login-error" id="login-error">IDまたはパスワードが正しくありません。</div>
+      <button class="login-btn" onclick="doLogin()">ログイン</button>
+      <div class="login-hint">
+        <strong>テスト用アカウント：</strong><br>
+        🔑 <code>admin</code> → システム管理者<br>
+        🏢 <code>company</code> → 会社ユーザー<br>
+        ⭐ <code>emind</code> → Admin + Project<br>
+        🔀 <code>company2</code> → 複数会社担当<br>
+        <span style="margin-top:6px;display:block;border-top:1px solid #e5e7eb;padding-top:6px">🔒 パスワード（全共通）:
+          <code>1234</code></span>
+      </div>
+    </div>
+  </div>

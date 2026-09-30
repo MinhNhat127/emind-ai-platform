@@ -1,4 +1,4 @@
-window.DEFAULT_DUMMY_CONTRACTS = [
+    window.DEFAULT_DUMMY_CONTRACTS = [
       // --- 1. NHÓM HỢP ĐỒNG NĂM (ANNUAL - 12 THÁNG) B2B ---
       { id: 'CTR-2026-001', customerName: 'ABC Manufacturing Vietnam', customerType: 'B2B', contactPerson: 'Đặng Quốc Huy (Operations Dir)', planTier: 'Enterprise', planCategory: 'ent', seats: 50, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-01-10', billingDay: 10, billingAmount: 744000, mrrContribution: 62000, paymentMonths: ['2026-01'], paymentMethod: 'Chuyển khoản (Bank Transfer)', status: 'active', notes: 'HĐ chiến lược 70 ghế Enterprise, đóng 1 lần đầu năm (chiết khấu 15%)' },
       { id: 'CTR-2026-002', customerName: 'Vietnam Precision Machinery', customerType: 'B2B', contactPerson: 'Trịnh Đình Quang (Factory Head)', planTier: 'Enterprise', planCategory: 'ent', seats: 55, billingCycle: '1 Năm (Annual)', cycleMonths: 12, startDate: '2026-03-15', billingDay: 15, billingAmount: 840000, mrrContribution: 70000, paymentMonths: ['2026-03'], paymentMethod: 'Chuyển khoản (Bank Transfer)', status: 'active', notes: 'Chốt hợp đồng Q1, quy mô 75 license xưởng cơ khí chính xác' },
@@ -68,71 +68,3 @@ window.DEFAULT_DUMMY_CONTRACTS = [
     ];
 
     // Khởi tạo tập dữ liệu động từ danh sách mặc định
-    window.DUMMY_CONTRACTS_DATA = JSON.parse(JSON.stringify(window.DEFAULT_DUMMY_CONTRACTS));
-
-    // Master 12-Month Metadata
-    var MONTH_METADATA = [
-      { id: 'T1', period: '2026-01', name: 'Tháng 01/2026', note: 'Khởi đầu năm mới: Hợp đồng năm + nạp quý + định kỳ', isForecast: false, isLive: false },
-      { id: 'T2', period: '2026-02', name: 'Tháng 02/2026', note: 'Tháng không: 100% nạp định kỳ tháng', isForecast: false, isLive: false },
-      { id: 'T3', period: '2026-03', name: 'Tháng 03/2026', note: 'Chốt Q1: Hợp đồng năm cơ khí + nạp quý', isForecast: false, isLive: false },
-      { id: 'T4', period: '2026-04', name: 'Tháng 04/2026', note: 'Đầu Q2: Khách quý T1 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
-      { id: 'T5', period: '2026-05', name: 'Tháng 05/2026', note: 'Tháng không: Khách tháng nạp định kỳ', isForecast: false, isLive: false },
-      { id: 'T6', period: '2026-06', name: 'Tháng 06/2026', note: 'Chốt bán niên H1: Hợp đồng năm + khách quý T3 nạp tiếp', isForecast: false, isLive: false },
-      { id: 'T7', period: '2026-07', name: 'Tháng 07/2026', note: 'Đầu Q3: Khách quý T4 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
-      { id: 'T8', period: '2026-08', name: 'Tháng 08/2026', note: 'Tháng không: Khách tháng nạp định kỳ (Đã chốt)', isForecast: false, isLive: false },
-      { id: 'T9', period: '2026-09', name: 'Tháng 09/2026', note: 'KỲ HIỆN TẠI (LIVE) - Đã thu 100% KPI (¥158,900)', isForecast: false, isLive: true },
-      { id: 'T10*', period: '2026-10', name: 'Tháng 10/2026', note: 'Dự báo đầu Q4: 10 khách quý tái nạp + 5 HĐ mới ký (¥246.3k)', isForecast: true, isLive: false },
-      { id: 'T11*', period: '2026-11', name: 'Tháng 11/2026', note: 'Dự báo ngân sách 2027: Ký sớm hợp đồng năm Enterprise', isForecast: true, isLive: false },
-      { id: 'T12', period: '2026-12', name: 'Tháng 12/2026', note: 'Dự báo chốt năm: Tái ký hợp đồng năm lớn cả 2 phân khúc', isForecast: true, isLive: false }
-    ];
-
-    window.REVENUE_DATA_2026 = [];
-
-    window.recalculateRevenueData2026 = function () {
-      window.REVENUE_DATA_2026 = MONTH_METADATA.map(function (m) {
-        var entB2b = 0, entB2c = 0;
-        var proB2b = 0, proB2c = 0;
-        var basB2b = 0, basB2c = 0;
-
-        window.DUMMY_CONTRACTS_DATA.forEach(function (c) {
-          if (c.paymentMonths && c.paymentMonths.indexOf(m.period) !== -1) {
-            if (c.planCategory === 'ent') {
-              if (c.customerType === 'B2B') entB2b += c.billingAmount;
-              else entB2c += c.billingAmount;
-            } else if (c.planCategory === 'pro') {
-              if (c.customerType === 'B2B') proB2b += c.billingAmount;
-              else proB2c += c.billingAmount;
-            } else {
-              if (c.customerType === 'B2B') basB2b += c.billingAmount;
-              else basB2c += c.billingAmount;
-            }
-          }
-        });
-
-        return {
-          id: m.id,
-          period: m.period,
-          name: m.name,
-          ent: { b2b: entB2b, b2c: entB2c },
-          pro: { b2b: proB2b, b2c: proB2c },
-          basic: { b2b: basB2b, b2c: basB2c },
-          note: m.note,
-          isForecast: m.isForecast,
-          isLive: m.isLive
-        };
-      });
-    };
-
-    window.recalculateRevenueData2026();
-
-    window.getMonthTierVal = function (d, tier, seg) {
-      var data = d[tier];
-      if (!data) return 0;
-      if (typeof data === 'number') return data;
-      if (seg === 'B2B') return data.b2b || 0;
-      if (seg === 'B2C') return data.b2c || 0;
-      return (data.b2b || 0) + (data.b2c || 0);
-    };
-    var getMonthTierVal = window.getMonthTierVal;
-
-    // ===== HÀM TÍNH TOÁN DÒNG TIỀN VÀ MRR ĐỘNG TỪ BẢNG DUMMY CONTRACTS =====

@@ -1,15 +1,80 @@
-// ===== C-LEVEL EXECUTIVE DASHBOARD CONTROLS & LOGIC ENGINE =====
+    // ===== C-LEVEL EXECUTIVE DASHBOARD CONTROLS & LOGIC ENGINE =====
     window.currentCurrency = 'JPY';
     window.currentPeriod = '2026-09';
     window.currentSegment = 'ALL';
 
     // 52 HỢP ĐỒNG KHÁCH HÀNG MẪU CHUẨN (CHUẨN B2B & B2C ĐA DẠNG NGÀNH NGHỀ)
-    
+    window.DUMMY_CONTRACTS_DATA = JSON.parse(JSON.stringify(window.DEFAULT_DUMMY_CONTRACTS));
 
-window.getDynamicPeriodMetrics = function (periodStr, segment) {
+    // Master 12-Month Metadata
+    var MONTH_METADATA = [
+      { id: 'T1', period: '2026-01', name: 'Tháng 01/2026', note: 'Khởi đầu năm mới: Hợp đồng năm + nạp quý + định kỳ', isForecast: false, isLive: false },
+      { id: 'T2', period: '2026-02', name: 'Tháng 02/2026', note: 'Tháng không: 100% nạp định kỳ tháng', isForecast: false, isLive: false },
+      { id: 'T3', period: '2026-03', name: 'Tháng 03/2026', note: 'Chốt Q1: Hợp đồng năm cơ khí + nạp quý', isForecast: false, isLive: false },
+      { id: 'T4', period: '2026-04', name: 'Tháng 04/2026', note: 'Đầu Q2: Khách quý T1 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
+      { id: 'T5', period: '2026-05', name: 'Tháng 05/2026', note: 'Tháng không: Khách tháng nạp định kỳ', isForecast: false, isLive: false },
+      { id: 'T6', period: '2026-06', name: 'Tháng 06/2026', note: 'Chốt bán niên H1: Hợp đồng năm + khách quý T3 nạp tiếp', isForecast: false, isLive: false },
+      { id: 'T7', period: '2026-07', name: 'Tháng 07/2026', note: 'Đầu Q3: Khách quý T4 nạp tiếp sau 3 tháng', isForecast: false, isLive: false },
+      { id: 'T8', period: '2026-08', name: 'Tháng 08/2026', note: 'Tháng không: Khách tháng nạp định kỳ (Đã chốt)', isForecast: false, isLive: false },
+      { id: 'T9', period: '2026-09', name: 'Tháng 09/2026', note: 'KỲ HIỆN TẠI (LIVE) - Đã thu 100% KPI (¥158,900)', isForecast: false, isLive: true },
+      { id: 'T10*', period: '2026-10', name: 'Tháng 10/2026', note: 'Dự báo đầu Q4: 10 khách quý tái nạp + 5 HĐ mới ký (¥246.3k)', isForecast: true, isLive: false },
+      { id: 'T11*', period: '2026-11', name: 'Tháng 11/2026', note: 'Dự báo ngân sách 2027: Ký sớm hợp đồng năm Enterprise', isForecast: true, isLive: false },
+      { id: 'T12', period: '2026-12', name: 'Tháng 12/2026', note: 'Dự báo chốt năm: Tái ký hợp đồng năm lớn cả 2 phân khúc', isForecast: true, isLive: false }
+    ];
+
+    window.REVENUE_DATA_2026 = [];
+
+    window.recalculateRevenueData2026 = function () {
+      window.REVENUE_DATA_2026 = MONTH_METADATA.map(function (m) {
+        var entB2b = 0, entB2c = 0;
+        var proB2b = 0, proB2c = 0;
+        var basB2b = 0, basB2c = 0;
+
+        window.DUMMY_CONTRACTS_DATA.forEach(function (c) {
+          if (c.paymentMonths && c.paymentMonths.indexOf(m.period) !== -1) {
+            if (c.planCategory === 'ent') {
+              if (c.customerType === 'B2B') entB2b += c.billingAmount;
+              else entB2c += c.billingAmount;
+            } else if (c.planCategory === 'pro') {
+              if (c.customerType === 'B2B') proB2b += c.billingAmount;
+              else proB2c += c.billingAmount;
+            } else {
+              if (c.customerType === 'B2B') basB2b += c.billingAmount;
+              else basB2c += c.billingAmount;
+            }
+          }
+        });
+
+        return {
+          id: m.id,
+          period: m.period,
+          name: m.name,
+          ent: { b2b: entB2b, b2c: entB2c },
+          pro: { b2b: proB2b, b2c: proB2c },
+          basic: { b2b: basB2b, b2c: basB2c },
+          note: m.note,
+          isForecast: m.isForecast,
+          isLive: m.isLive
+        };
+      });
+    };
+
+    window.recalculateRevenueData2026();
+
+    function getMonthTierVal(d, tier, seg) {
+      var data = d[tier];
+      if (!data) return 0;
+      if (typeof data === 'number') return data;
+      if (seg === 'B2B') return data.b2b || 0;
+      if (seg === 'B2C') return data.b2c || 0;
+      return (data.b2b || 0) + (data.b2c || 0);
+    }
+
+    // ===== HÀM TÍNH TOÁN DÒNG TIỀN VÀ MRR ĐỘNG TỪ BẢNG DUMMY CONTRACTS =====
+    window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var seg = segment || window.currentSegment || 'ALL';
       var allContracts = window.DUMMY_CONTRACTS_DATA;
-      var isDayMode = ((periodStr === '2026-09-29' || periodStr === '2026-09-24'));
+      var isDayMode = (periodStr === '2026-09-24');
       var effectiveMonth = isDayMode ? '2026-09' : periodStr;
 
       var filteredContracts = allContracts.filter(function (c) {
@@ -92,8 +157,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var pendingCash = 0;
       var pendingCount = 0;
       var prepaidCount = 0;
-      var collectedSeg = { b2b: 0, b2c: 0 };
-      var pendingSeg = { b2b: 0, b2c: 0 };
+      var colSegCash = { b2b: 0, b2c: 0 };
+      var penSegCash = { b2b: 0, b2c: 0 };
 
       filteredContracts.forEach(function (c) {
         var isPaying = false;
@@ -108,13 +173,13 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
           if (isCol) {
             collectedCash += c.billingAmount;
             collectedCount++;
-            if (c.customerType === 'B2B') collectedSeg.b2b += c.billingAmount;
-            else collectedSeg.b2c += c.billingAmount;
+            if (c.customerType === 'B2B') colSegCash.b2b += c.billingAmount;
+            else colSegCash.b2c += c.billingAmount;
           } else {
             pendingCash += c.billingAmount;
             pendingCount++;
-            if (c.customerType === 'B2B') pendingSeg.b2b += c.billingAmount;
-            else pendingSeg.b2c += c.billingAmount;
+            if (c.customerType === 'B2B') penSegCash.b2b += c.billingAmount;
+            else penSegCash.b2c += c.billingAmount;
           }
         } else {
           var isActive = isDayMode ? (c.startDate <= '2026-09-24') : (c.startDate <= effectiveMonth + '-31');
@@ -165,8 +230,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         pendingCash: pendingCash,
         pendingCount: pendingCount,
         prepaidCount: prepaidCount,
-        collectedSeg: collectedSeg,
-        pendingSeg: pendingSeg,
+        colSegCash: colSegCash,
+        penSegCash: penSegCash,
         totalExpectedCash: collectedCash + pendingCash
       };
     };
@@ -215,15 +280,6 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       });
     };
 
-    function getMonthTierVal(d, tier, seg) {
-      var data = d[tier];
-      if (!data) return 0;
-      if (typeof data === 'number') return data;
-      if (seg === 'B2B') return data.b2b || 0;
-      if (seg === 'B2C') return data.b2c || 0;
-      return (data.b2b || 0) + (data.b2c || 0);
-    }
-
     window.renderInteractiveRevenueChart = function () {
       var layer = document.getElementById('chart-bars-layer');
       if (!layer) return;
@@ -234,8 +290,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
       var xCoords = [60, 108, 156, 204, 252, 300, 348, 396, 444, 504, 552, 600];
       var barWidth = 32;
-      var baseline = 170;
-      var scale = 0.00007; // 2,000,000 JPY = 140px
+      var baseline = 160;
 
       var html = '';
 
@@ -248,9 +303,9 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         var basicVal = window.activeTiers.basic ? getMonthTierVal(d, 'basic', seg) : 0;
         var totalVal = entVal + proVal + basicVal;
 
-        var entH = Math.round(entVal * scale);
-        var proH = Math.round(proVal * scale);
-        var basicH = Math.round(basicVal * scale);
+        var entH = Math.round(entVal * 0.0001);
+        var proH = Math.round(proVal * 0.0001);
+        var basicH = Math.round(basicVal * 0.0001);
         var totalH = entH + proH + basicH;
 
         var curY = baseline;
@@ -262,9 +317,9 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         var displayTotal = '';
         if (totalVal > 0) {
           if (isUsd) {
-            displayTotal = (d.isForecast ? '~$' : '$') + (totalVal * rate / 1000).toFixed(1) + 'k';
+            displayTotal = '$' + (totalVal * rate / 1000).toFixed(1) + 'k';
           } else {
-            displayTotal = (d.isForecast ? '~¥' : '¥') + Math.round(totalVal / 1000) + 'k';
+            displayTotal = '¥' + Math.round(totalVal / 1000) + 'k';
           }
         }
 
@@ -285,9 +340,9 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         html += '<path d="' + clipPathD + '"/>';
         html += '</clipPath>';
 
-        html += '<rect class="col-hover-bg" x="' + (x - 5) + '" y="20" width="' + (barWidth + 10) + '" height="152" rx="6"/>';
+        html += '<rect class="col-hover-bg" x="' + (x - 5) + '" y="16" width="' + (barWidth + 10) + '" height="150" rx="6"/>';
 
-        var groupOpacity = d.isForecast ? ' opacity="0.88"' : '';
+        var groupOpacity = d.isForecast ? ' opacity="0.85"' : '';
         html += '<g clip-path="url(#' + clipId + ')"' + groupOpacity + '>';
 
         if (entH > 0) {
@@ -304,24 +359,24 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
         html += '</g>';
 
-        var strokeColor = isSel ? '#089490' : (d.isLive ? '#089490' : (d.isForecast ? '#0284c7' : '#94a3b8'));
-        var strokeW = isSel ? '2' : (d.isLive ? '2' : (d.isForecast ? '1.8' : '1.2'));
+        var strokeColor = isSel ? '#089490' : (d.isLive ? '#089490' : (d.isForecast ? '#009BCC' : '#cbd5e1'));
+        var strokeW = isSel ? '2' : (d.isLive ? '1.5' : '1');
         var strokeDash = d.isForecast ? ' stroke-dasharray="3 2"' : '';
         html += '<rect x="' + x + '" y="' + topY + '" width="' + barWidth + '" height="' + totalH + '" rx="4" fill="none" stroke="' + strokeColor + '" stroke-width="' + strokeW + '"' + strokeDash + ' pointer-events="none"/>';
 
         if (totalVal > 0) {
           var labelY = topY - 5;
-          var labelFill = isSel ? '#089490' : (d.isForecast ? '#0284c7' : '#1e293b');
-          var labelWeight = (isSel || d.isForecast) ? '800' : '700';
+          var labelFill = isSel ? '#089490' : '#475569';
+          var labelWeight = isSel ? '800' : '700';
           html += '<text class="chart-top-label" x="' + (x + barWidth / 2) + '" y="' + labelY + '" font-size="9" font-weight="' + labelWeight + '" fill="' + labelFill + '" text-anchor="middle">' + displayTotal + '</text>';
         }
 
-        var xLabelFill = isSel ? '#089490' : (d.isLive ? '#089490' : (d.isForecast ? '#0284c7' : '#334155'));
-        var xLabelWeight = (isSel || d.isLive || d.isForecast) ? '800' : '700';
-        html += '<text class="chart-x-label" x="' + (x + barWidth / 2) + '" y="' + 188 + '" font-size="10.5" font-weight="' + xLabelWeight + '" fill="' + xLabelFill + '" text-anchor="middle">' + d.id + '</text>';
+        var xLabelFill = isSel ? '#089490' : (d.isLive ? '#089490' : '#64748b');
+        var xLabelWeight = (isSel || d.isLive) ? '800' : '600';
+        html += '<text class="chart-x-label" x="' + (x + barWidth / 2) + '" y="' + 174 + '" font-size="10" font-weight="' + xLabelWeight + '" fill="' + xLabelFill + '" text-anchor="middle">' + d.id + '</text>';
 
         if (d.isLive) {
-          html += '<circle cx="' + (x + barWidth / 2) + '" cy="198" r="3" fill="#089490"/>';
+          html += '<circle cx="' + (x + barWidth / 2) + '" cy="183" r="2.5" fill="#089490"/>';
         }
 
         html += '</g>';
@@ -353,8 +408,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var total = entVal + proVal + basicVal;
 
       var statusPill = d.isLive
-        ? '<span style="background:#089490;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;margin-left:6px">🟢 KỲ HIỆN TẠI (LIVE)</span>'
-        : (d.isForecast ? '<span style="background:#0284c7;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;margin-left:6px">🔮 DỰ KIẾN KẾ HOẠCH Q4</span>' : '<span style="background:#10b981;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;margin-left:6px">✓ ĐÃ HOÀN TẤT THU</span>');
+        ? '<span style="background:#089490;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px">LIVE</span>'
+        : (d.isForecast ? '<span style="background:#009BCC;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px">Dự báo</span>' : '');
 
       var segText = (seg === 'B2B') ? ' <span style="font-size:11px;color:#94a3b8">(Doanh nghiệp)</span>' : (seg === 'B2C' ? ' <span style="font-size:11px;color:#94a3b8">(Cá nhân)</span>' : '');
 
@@ -362,15 +417,11 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         + '<strong style="font-size:12.5px;color:#f8fafc">' + d.name + segText + statusPill + '</strong>'
         + '</div>';
 
-      var totalLabel = d.isForecast ? 'Dòng tiền dự kiến nạp:' : 'Thực thu dòng tiền (Đã về két):';
-      var totalColor = d.isForecast ? '#38bdf8' : '#34d399';
-      var totalPrefix = d.isForecast ? '~' : '';
-
       tipHTML += '<div style="font-size:11.5px;color:#cbd5e1;line-height:1.6">'
         + '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#0abab5">■ Gói 1 Năm (Annual):</span><strong>' + fmt(entVal) + '</strong></div>'
         + '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#38bdf8">■ Gói 3 Tháng (Quý):</span><strong>' + fmt(proVal) + '</strong></div>'
         + '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#fbbf24">■ Gói 1 Tháng (Định kỳ):</span><strong>' + fmt(basicVal) + '</strong></div>'
-        + '<div style="display:flex;justify-content:space-between;gap:12px;margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.12);color:#fff;font-weight:700"><span>' + totalLabel + '</span><strong style="color:' + totalColor + ';font-size:13px">' + totalPrefix + fmt(total) + '</strong></div>'
+        + '<div style="display:flex;justify-content:space-between;gap:12px;margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.12);color:#fff;font-weight:700"><span>Thực thu dòng tiền:</span><strong style="color:#34d399;font-size:13px">' + fmt(total) + '</strong></div>'
         + '</div>';
 
       if (d.note) {
@@ -381,6 +432,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
       tooltip.innerHTML = tipHTML;
       tooltip.style.display = 'block';
+      moveChartTooltip(e);
     };
 
     window.moveChartTooltip = function (e) {
@@ -419,33 +471,20 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
       window.currentPeriod = d.period;
       var periodSelect = document.getElementById('vb-period-select');
-      if (periodSelect) {
-        if (d.period === '2026-09' || d.period === '2026-10') {
-          periodSelect.value = 'other';
-        } else {
-          periodSelect.value = d.period;
-        }
-      }
+      if (periodSelect) periodSelect.value = d.period;
 
       applyDashboardMetrics();
       renderInteractiveRevenueChart();
     };
 
     window.quickJumpPeriod = function (periodStr) {
-      if (!periodStr || periodStr === 'other') return;
       window.currentPeriod = periodStr;
       var sel = document.getElementById('vb-period-select');
-      if (sel) {
-        if (periodStr === '2026-09-29' || periodStr === '2026-09-24' || periodStr === '2026-09' || periodStr === '2026-10') {
-          sel.value = 'other';
-        } else {
-          sel.value = periodStr;
-        }
-      }
+      if (sel) sel.value = (periodStr === '2026-09-24') ? '2026-09' : periodStr;
 
       var foundIdx = -1;
       for (var i = 0; i < window.REVENUE_DATA_2026.length; i++) {
-        if (window.REVENUE_DATA_2026[i].period === ((periodStr === '2026-09-29' || periodStr === '2026-09-24') ? '2026-09' : periodStr)) {
+        if (window.REVENUE_DATA_2026[i].period === (periodStr === '2026-09-24' ? '2026-09' : periodStr)) {
           foundIdx = i;
           break;
         }
@@ -504,9 +543,9 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var p2Title = document.getElementById('panel2-title');
       var p2Desc = document.getElementById('panel2-desc');
 
-      var isDayMode = ((period === '2026-09-29' || period === '2026-09-24'));
+      var isDayMode = (period === '2026-09-24');
       var periodMonthNum = isDayMode ? 9 : parseInt(period.split('-')[1], 10);
-      var monthText = isDayMode ? 'Ngày 29/09/2026' : ('Tháng ' + (periodMonthNum < 10 ? '0' : '') + periodMonthNum);
+      var monthText = isDayMode ? 'Ngày 24/09/2026' : ('Tháng ' + (periodMonthNum < 10 ? '0' : '') + periodMonthNum);
 
       if (seg === 'B2B') {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Doanh Nghiệp (B2B)';
@@ -514,7 +553,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG DOANH NGHIỆP';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2B)';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU ĐẾN 29/09 (B2B)' : ('THỰC THU ' + monthText.toUpperCase() + ' (B2B)');
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU NGÀY 24/09 (B2B)' : ('THỰC THU ' + monthText.toUpperCase() + ' (B2B)');
         if (cDefTitle) cDefTitle.textContent = 'GHẾ DOANH NGHIỆP (B2B)';
       } else if (seg === 'B2C') {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Khối Cá Nhân (B2C)';
@@ -522,78 +561,74 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG CÁ NHÂN';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2C)';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU ĐẾN 29/09 (B2C)' : ('THỰC THU ' + monthText.toUpperCase() + ' (B2C)');
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU NGÀY 24/09 (B2C)' : ('THỰC THU ' + monthText.toUpperCase() + ' (B2C)');
         if (cDefTitle) cDefTitle.textContent = 'GHẾ CÁ NHÂN (B2C)';
       } else {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Toàn Nền Tảng';
         if (topDesc) topDesc.textContent = 'Hệ sinh thái Doanh nghiệp & Cá nhân • ' + metrics.totalManaged + ' Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
-        if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG ĐANG HOẠT ĐỘNG';
+        if (cCustTitle) cCustTitle.textContent = 'TỔNG HỢP ĐỒNG KHÁCH HÀNG';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? '🟢 TIỀN ĐÃ THU (THỰC THU T9)' : ('🟢 TIỀN ĐÃ THU ' + monthText.toUpperCase());
-        if (cDefTitle) cDefTitle.textContent = 'GHẾ BẢN QUYỀN (SEATS)';
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU NGÀY 24/09/2026' : ('THỰC THU ' + monthText.toUpperCase());
+        if (cDefTitle) cDefTitle.textContent = 'GHẾ ĐANG SỬ DỤNG (SEATS)';
       }
 
-      // Card 1: Hợp đồng & Khách hàng
-      if (cCust) cCust.innerHTML = metrics.activeCount + ' <span style="font-size:13px;color:#64748b;font-weight:700">/ ' + metrics.totalManaged + ' HĐ</span>';
-      if (subCust) subCust.textContent = metrics.activeCount + ' hợp đồng đang hoạt động (Active)';
-      if (custB2b) custB2b.textContent = '🏢 DN: ' + metrics.segCustomers.b2b + ' Active (' + metrics.segManaged.b2b + ' tổng)';
-      if (custB2c) custB2c.textContent = '👤 Cá nhân: ' + metrics.segCustomers.b2c + ' Active (' + metrics.segManaged.b2c + ' tổng)';
+      // Card 1: Khách hàng
+      if (cCust) cCust.textContent = metrics.totalManaged;
+      if (custB2b) custB2b.textContent = '🏢 ' + metrics.segManaged.b2b + ' DN (' + metrics.segCustomers.b2b + ' Active)';
+      if (custB2c) custB2c.textContent = '👤 ' + metrics.segManaged.b2c + ' Cá nhân (' + metrics.segCustomers.b2c + ' Active)';
 
       // Card 2: MRR
       if (cMrr) cMrr.textContent = fmt(metrics.totalMrr);
       var arrVal = metrics.totalMrr * 12;
-      if (arrEl) arrEl.textContent = 'Doanh thu chia đều/tháng • ARR: ' + (isUsd ? ('$' + (arrVal * rate / 1000).toFixed(1) + 'k') : ('¥' + (arrVal / 1000000).toFixed(2) + 'M'));
-      var b2bPct = Math.round((metrics.segMrr.b2b / metrics.totalMrr) * 100) || 86;
-      var b2cPct = Math.round((metrics.segMrr.b2c / metrics.totalMrr) * 100) || 14;
+      if (arrEl) arrEl.textContent = '/tháng (ARR: ' + (isUsd ? ('$' + (arrVal * rate / 1000).toFixed(1) + 'k') : ('¥' + (arrVal / 1000000).toFixed(2) + 'M')) + ')';
+      var b2bPct = Math.round((metrics.segMrr.b2b / metrics.totalMrr) * 100) || 85;
+      var b2cPct = Math.round((metrics.segMrr.b2c / metrics.totalMrr) * 100) || 15;
       if (mrrB2b) mrrB2b.textContent = '🏢 DN: ' + fmt(metrics.segMrr.b2b) + ' (' + b2bPct + '%)';
       if (mrrB2c) mrrB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.segMrr.b2c) + ' (' + b2cPct + '%)';
 
       // Card 3: Tiền mặt ĐÃ THU (Thực thu đã vào két)
-      if (cCash) cCash.textContent = fmt(metrics.collectedCash);
-      var colRate = metrics.totalExpectedCash > 0 ? ((metrics.collectedCash / metrics.totalExpectedCash) * 100).toFixed(1) : '100';
+      var colAmt = metrics.collectedCash;
+      var penAmt = metrics.pendingCash;
+      var colCnt = metrics.collectedCount;
+      var penCnt = metrics.pendingCount;
+      var totalExp = colAmt + penAmt;
+      var colPct = totalExp > 0 ? Math.round((colAmt / totalExp) * 100) : 100;
+      var penPct = totalExp > 0 ? (100 - colPct) : 0;
+
+      if (cCash) cCash.textContent = fmt(colAmt);
       if (subCash) {
-        subCash.innerHTML = '<strong>' + metrics.collectedCount + '/' + metrics.payingCount + ' HĐ đã vào két</strong> (Đạt ' + colRate + '%) • Xem ➔';
+        subCash.innerHTML = "<strong>" + colCnt + " HĐ đã vào két</strong> (" + colPct + "% dự thu) ➔";
       }
-      if (cashB2b) cashB2b.textContent = '🏢 DN: ' + fmt(metrics.collectedSeg.b2b);
-      if (cashB2c) cashB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.collectedSeg.b2c);
+      if (cashB2b) cashB2b.textContent = "🏢 DN: " + fmt(metrics.colSegCash ? metrics.colSegCash.b2b : colAmt);
+      if (cashB2c) cashB2c.textContent = "👤 Cá nhân: " + fmt(metrics.colSegCash ? metrics.colSegCash.b2c : 0);
 
       // Card 4: Tiền mặt CHƯA THU (Chờ nạp / Đối soát)
-      var cPending = document.getElementById('val-cash-pending');
-      var subPending = document.getElementById('sub-cash-pending');
-      var penB2b = document.getElementById('lbl-pending-b2b');
-      var penB2c = document.getElementById('lbl-pending-b2c');
+      var cPending = document.getElementById("val-cash-pending");
+      var subPending = document.getElementById("sub-cash-pending");
+      var penB2b = document.getElementById("lbl-pending-b2b");
+      var penB2c = document.getElementById("lbl-pending-b2c");
 
-      if (cPending) cPending.textContent = fmt(metrics.pendingCash);
-      var penRate = metrics.totalExpectedCash > 0 ? (100 - colRate) : 0;
+      if (cPending) cPending.textContent = fmt(penAmt);
       if (subPending) {
-        if (metrics.pendingCount === 0) {
+        if (penCnt === 0) {
           subPending.innerHTML = '<span style="color:#16a34a;font-weight:700">✓ Đã thu hoàn tất 100% KPI</span>';
         } else {
-          var penRate = (100 - parseFloat(colRate)).toFixed(1);
-          subPending.innerHTML = '<strong>' + metrics.pendingCount + ' HĐ chưa nạp</strong> (' + penRate + '% còn thiếu) • Đôn đốc ➔';
+          subPending.innerHTML = "<strong>" + penCnt + " HĐ chờ thu</strong> (" + penPct + "%) • Bấm lọc ➔";
         }
       }
-      if (penB2b) penB2b.textContent = '🏢 DN: ' + fmt(metrics.pendingSeg.b2b);
-      if (penB2c) penB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.pendingSeg.b2c);
-
-      // Cập nhật số đếm badge bộ lọc trạng thái trên thanh công cụ Bảng Dòng Tiền
-      var dashBadgeCol = document.getElementById('dash-badge-col-count');
-      var dashBadgePen = document.getElementById('dash-badge-pen-count');
-      if (dashBadgeCol) dashBadgeCol.textContent = metrics.collectedCount;
-      if (dashBadgePen) dashBadgePen.textContent = metrics.pendingCount;
-
-      var trigColBadge = document.getElementById('tab-trigger-col-badge');
-      var trigPenBadge = document.getElementById('tab-trigger-pen-badge');
-      if (trigColBadge) trigColBadge.textContent = metrics.collectedCount + ' HĐ • ' + fmt(metrics.collectedCash);
-      if (trigPenBadge) trigPenBadge.textContent = metrics.pendingCount + ' HĐ • ' + fmt(metrics.pendingCash);
-
-      // Card 5: Ghế bản quyền
-      if (cDefVal) cDefVal.innerHTML = metrics.totalSeats + ' <span style="font-size:13px;color:#64748b;font-weight:700">/ ' + metrics.totalCapacity + '</span>';
+      if (penB2b) penB2b.textContent = "🏢 DN: " + fmt(metrics.penSegCash ? metrics.penSegCash.b2b : penAmt);
+      if (penB2c) penB2c.textContent = "👤 Cá nhân: " + fmt(metrics.penSegCash ? metrics.penSegCash.b2c : 0);
+      // Card 4: Ghế bản quyền
+      if (cDefVal) cDefVal.textContent = metrics.totalSeats + ' / ' + metrics.totalCapacity;
       var seatUsagePct = ((metrics.totalSeats / metrics.totalCapacity) * 100).toFixed(1);
       var vacantSeats = metrics.totalCapacity - metrics.totalSeats;
       if (subDef) {
-        subDef.innerHTML = 'Lấp đầy <strong>' + seatUsagePct + '%</strong> • Trống <strong>' + vacantSeats + ' ghế</strong>';
+        if (period === '2026-10') {
+          subDef.innerHTML = '<span style="color:#d97706;font-weight:700">⚠️ Chạm trần ' + seatUsagePct + '% (Chỉ còn ' + vacantSeats + ' ghế!)</span>';
+        } else {
+          subDef.textContent = 'Tỷ lệ ' + seatUsagePct + '% (Còn trống ' + vacantSeats + ' ghế)';
+        }
       }
       if (defB2b) defB2b.textContent = '🏢 DN: ' + metrics.segSeats.b2b + ' / 480 ghế';
       if (defB2c) defB2c.textContent = '👤 Cá nhân: ' + metrics.segSeats.b2c + ' / 40 ghế';
@@ -603,25 +638,14 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var btnT8 = document.getElementById('tl-btn-2026-08');
       var btnT9 = document.getElementById('tl-btn-2026-09');
       var btnT10 = document.getElementById('tl-btn-2026-10');
-      var topbarSel = document.getElementById('vb-period-select');
 
-      var actStyle = 'height:30px;padding:0 14px;font-size:13px;border-radius:6px;font-weight:700;background:#089490;color:#ffffff;box-shadow:0 2px 4px rgba(8,148,144,0.3);border:none;cursor:pointer;font-family:inherit;transition:all 0.15s ease;display:inline-flex;align-items:center;';
-      var inactStyle = 'height:30px;padding:0 14px;font-size:13px;border-radius:6px;font-weight:700;background:transparent;color:#1e293b;border:none;cursor:pointer;font-family:inherit;transition:all 0.15s ease;display:inline-flex;align-items:center;';
+      var actStyle = 'height:28px;padding:0 12px;font-size:12px;border-radius:6px;font-weight:700;background:#ffffff;color:#089490;box-shadow:0 1px 3px rgba(15,23,42,0.08);border:none;cursor:pointer;font-family:inherit';
+      var inactStyle = 'height:28px;padding:0 12px;font-size:12px;border-radius:6px;font-weight:600;background:transparent;color:#64748b;border:none;cursor:pointer;font-family:inherit';
 
       if (btnToday) { btnToday.style.cssText = isDayMode ? actStyle : inactStyle; btnToday.classList.toggle('active', isDayMode); }
       if (btnT8) { btnT8.style.cssText = (period === '2026-08') ? actStyle : inactStyle; btnT8.classList.toggle('active', period === '2026-08'); }
-      if (btnT9) { btnT9.style.cssText = (!isDayMode && period === '2026-09') ? actStyle : inactStyle; btnT9.classList.toggle('active', !isDayMode && period === '2026-09'); }
+      if (btnT9) { btnT9.style.cssText = (period === '2026-09') ? actStyle : inactStyle; btnT9.classList.toggle('active', period === '2026-09'); }
       if (btnT10) { btnT10.style.cssText = (period === '2026-10') ? actStyle : inactStyle; btnT10.classList.toggle('active', period === '2026-10'); }
-
-      if (topbarSel) {
-        if (isDayMode || period === '2026-09' || period === '2026-10') {
-          topbarSel.value = 'other';
-          topbarSel.style.cssText = 'height:30px;border:none;background:transparent;font-size:12.5px;font-weight:700;color:#334155;cursor:pointer;outline:none;padding:0 8px;border-radius:6px;font-family:inherit;';
-        } else {
-          topbarSel.value = period;
-          topbarSel.style.cssText = 'height:30px;border:none;background:#089490;font-size:12.5px;font-weight:700;color:#ffffff;cursor:pointer;outline:none;padding:0 8px;border-radius:6px;font-family:inherit;box-shadow:0 2px 4px rgba(8,148,144,0.3);';
-        }
-      }
 
       // Update 3-Timeline Matrix Cards Highlight
       var colToday = document.getElementById('tm-col-today');
@@ -654,16 +678,16 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
             eibBtn.style.background = '#0284c7';
             eibBtn.onclick = function () { navigate('admin-dummy-data', null); setDummyTimelineFilter('2026-09-24'); };
           }
-        } else if (period === '2026-09' || isDayMode) {
+        } else if (period === '2026-09') {
           eibBanner.style.background = '#f0fdfa';
           eibBanner.style.borderColor = '#99f6e4';
-          if (eibIcon) { eibIcon.textContent = '📅'; eibIcon.style.background = '#ccfbf1'; eibIcon.style.color = '#0f766e'; }
-          eibTitle.innerHTML = 'Tình Hình Ngày 29/09/2026 — Dòng Tiền &amp; Doanh Thu Thực Tế (Cuối Tháng 9)';
-          eibDesc.innerHTML = 'Đã thực thu: <strong style="color:#15803d">' + fmt(metrics.collectedCash) + '</strong> (' + metrics.collectedCount + ' HĐ đã vào két, đạt <strong>' + colRate + '%</strong>) • Còn thiếu: <strong style="color:#b45309">' + fmt(metrics.pendingCash) + '</strong> (' + metrics.pendingCount + ' HĐ chưa thanh toán) • Doanh thu MRR: <strong>' + fmt(metrics.totalMrr) + ' / tháng</strong>.';
+          if (eibIcon) { eibIcon.textContent = '💡'; eibIcon.style.background = '#ccfbf1'; eibIcon.style.color = '#0f766e'; }
+          eibTitle.innerHTML = 'Tình Trạng Tháng 09/2026 (LIVE - Hiện Tại)';
+          eibDesc.innerHTML = 'Thực thu cả tháng đạt <strong>¥158,900</strong> (+84.8% so với T08) từ 12 hợp đồng nạp tiền. Doanh thu MRR: <strong>¥468,000 / tháng</strong>. Tỷ lệ lấp đầy ghế: <strong>85.0%</strong> (442/520 ghế). Toàn bộ hệ thống ổn định.';
           if (eibBtn) {
-            eibBtn.textContent = '👉 Đôn Đốc ' + metrics.pendingCount + ' HĐ Chưa Nạp ➔';
-            eibBtn.style.background = '#b45309';
-            eibBtn.onclick = function () { toggleCashflowList('PENDING'); };
+            eibBtn.textContent = '📅 Bảng Kê Thu Tiền T09 ➔';
+            eibBtn.style.background = '#089490';
+            eibBtn.onclick = function () { openDailyCashModal('2026-09'); };
           }
         } else if (period === '2026-10') {
           eibBanner.style.background = '#faf5ff';
@@ -710,7 +734,211 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       if (typeof window.renderDailyCashflowDashboard === 'function') {
         window.renderDailyCashflowDashboard(period, seg);
       }
+
+      // Cập nhật khối giám sát công nợ và vòng đời hợp đồng
+      if (typeof window.renderDashboardOperations === 'function') {
+        window.renderDashboardOperations(period, seg);
+      }
     }
+
+    // ===== GIÁM SÁT CÔNG NỢ & VÒNG ĐỜI HỢP ĐỒNG (OPERATIONAL INTELLIGENCE) =====
+    window.currentOpsContractTab = 'NEW';
+    window.switchOpsContractTab = function (tab) {
+      window.currentOpsContractTab = tab;
+      var pNew = document.getElementById('ops-tab-new-panel');
+      var pRenew = document.getElementById('ops-tab-renew-panel');
+      var bNew = document.getElementById('btn-ops-tab-new');
+      var bRenew = document.getElementById('btn-ops-tab-renew');
+      if (tab === 'NEW') {
+        if (pNew) pNew.style.display = 'block';
+        if (pRenew) pRenew.style.display = 'none';
+        if (bNew) bNew.classList.add('active');
+        if (bRenew) bRenew.classList.remove('active');
+      } else {
+        if (pNew) pNew.style.display = 'none';
+        if (pRenew) pRenew.style.display = 'block';
+        if (bNew) bNew.classList.remove('active');
+        if (bRenew) bRenew.classList.add('active');
+      }
+    };
+
+    window.renderDashboardOperations = function (periodStr, segment) {
+      var period = periodStr || window.currentPeriod || '2026-09';
+      var seg = segment || window.currentSegment || 'ALL';
+      var isUsd = (window.currentCurrency === 'USD');
+      var rate = isUsd ? (1 / 150.24) : 1;
+
+      function fmt(val) {
+        if (!val) return '0đ';
+        if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
+        return '¥' + val.toLocaleString('ja-JP');
+      }
+
+      var all = window.DUMMY_CONTRACTS_DATA || [];
+      var contracts = all.filter(function (c) {
+        if (seg === 'ALL') return true;
+        return c.customerType === seg;
+      });
+
+      var effectiveMonth = (period === '2026-09-24') ? '2026-09' : period;
+      var curDay = 24; // Mốc thời gian hệ thống
+
+      // 1. Phân loại Công nợ & Kỳ hạn thu
+      var collectedList = [];
+      var dueSoonList = [];
+      var overdueList = [];
+
+      var payingInMonth = contracts.filter(function (c) {
+        return c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1;
+      });
+
+      payingInMonth.forEach(function (c) {
+        var isCol = window.isContractCollected(c, effectiveMonth, period);
+        if (isCol) {
+          collectedList.push(c);
+        } else {
+          if (c.billingDay >= curDay) {
+            dueSoonList.push(c);
+          } else {
+            overdueList.push(c);
+          }
+        }
+      });
+
+      var sumCol = collectedList.reduce(function (s, c) { return s + c.billingAmount; }, 0);
+      var sumDue = dueSoonList.reduce(function (s, c) { return s + c.billingAmount; }, 0);
+      var sumOver = overdueList.reduce(function (s, c) { return s + c.billingAmount; }, 0);
+      var totalBill = sumCol + sumDue + sumOver;
+      var colPct = totalBill > 0 ? ((sumCol / totalBill) * 100).toFixed(1) : 100;
+
+      // Update KPI cards in Section 1.5
+      var elValCol = document.getElementById('ops-val-collected');
+      var elCntCol = document.getElementById('ops-cnt-collected');
+      var elValDue = document.getElementById('ops-val-due');
+      var elCntDue = document.getElementById('ops-cnt-due');
+      var elValOver = document.getElementById('ops-val-overdue');
+      var elCntOver = document.getElementById('ops-cnt-overdue');
+      var elHealth = document.getElementById('debt-health-badge');
+
+      if (elValCol) elValCol.textContent = fmt(sumCol);
+      if (elCntCol) elCntCol.textContent = collectedList.length + ' hợp đồng (' + colPct + '%)';
+      if (elValDue) elValDue.textContent = fmt(sumDue);
+      if (elCntDue) elCntDue.textContent = dueSoonList.length + ' hợp đồng (' + (100 - colPct).toFixed(1) + '%)';
+      if (elValOver) elValOver.textContent = fmt(sumOver);
+      if (elCntOver) elCntOver.textContent = overdueList.length + ' hợp đồng nợ trễ';
+      if (elHealth) elHealth.textContent = 'Tỷ lệ thu đúng hạn: ' + colPct + '%';
+
+      // Render Debt / Due list
+      var debtContainer = document.getElementById('ops-debt-list');
+      if (debtContainer) {
+        if (dueSoonList.length === 0 && overdueList.length === 0) {
+          debtContainer.innerHTML = '<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:16px;text-align:center;color:#64748b;font-size:12px">🎉 Toàn bộ hợp đồng trong kỳ ' + effectiveMonth + ' đã hoàn tất thu tiền đúng hạn 100%!</div>';
+        } else {
+          var html = '';
+          overdueList.forEach(function (c) {
+            var daysLate = curDay - c.billingDay;
+            html += '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center">';
+            html += '<div>';
+            html += '<div style="font-weight:700;font-size:12px;color:#991b1b">' + c.customerName + ' <span style="font-size:10px;background:#fee2e2;color:#b91c1c;padding:1px 5px;border-radius:4px">Quá hạn ' + daysLate + ' ngày</span></div>';
+            html += '<div style="font-size:11px;color:#7f1d1d;margin-top:2px">' + c.contactPerson + ' • ' + c.planTier + ' • Hạn: Ngày ' + c.billingDay + '/' + effectiveMonth.split('-')[1] + '</div>';
+            html += '</div>';
+            html += '<div style="text-align:right">';
+            html += '<div style="font-size:13px;font-weight:800;color:#dc2626">' + fmt(c.billingAmount) + '</div>';
+            html += '<button type="button" class="btn btn-outline btn-sm" onclick="showAdminToast(\'Đã gửi thông báo nhắc nợ đến ' + c.customerName + '\')" style="margin-top:4px;padding:1px 6px;font-size:10.5px;color:#dc2626;border-color:#fca5a5;background:#fff">📞 Đôn đốc</button>';
+            html += '</div>';
+            html += '</div>';
+          });
+          dueSoonList.forEach(function (c) {
+            var daysLeft = c.billingDay - curDay;
+            var badgeText = daysLeft === 0 ? 'Hôm nay' : ('Còn ' + daysLeft + ' ngày');
+            html += '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center">';
+            html += '<div>';
+            html += '<div style="font-weight:700;font-size:12px;color:#92400e">' + c.customerName + ' <span style="font-size:10px;background:#fef3c7;color:#b45309;padding:1px 5px;border-radius:4px;font-weight:700">' + badgeText + '</span></div>';
+            html += '<div style="font-size:11px;color:#78350f;margin-top:2px">' + c.contactPerson + ' • ' + c.planTier + ' (' + c.billingCycle + ') • Hạn: Ngày ' + c.billingDay + '/' + effectiveMonth.split('-')[1] + '</div>';
+            html += '</div>';
+            html += '<div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px">';
+            html += '<div style="font-size:13px;font-weight:800;color:#b45309">' + fmt(c.billingAmount) + '</div>';
+            html += '<div style="display:flex;gap:4px">';
+            html += '<button type="button" class="btn btn-outline btn-sm" onclick="window.openReconciliationModal(\'ALL\', ' + c.billingDay + ')" style="padding:1px 6px;font-size:10.5px;color:#089490;border-color:#99f6e4;background:#f0fdfa" title="Xem trên bảng">🔍 Xem</button>';
+            html += '<button type="button" class="btn btn-outline btn-sm" onclick="showAdminToast(\'Đã gửi nhắc lịch nạp tiền đến ' + c.customerName + '\')" style="padding:1px 6px;font-size:10.5px;color:#b45309;border-color:#fde68a;background:#fff" title="Nhắc nợ">✉️ Nhắc</button>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+          });
+          debtContainer.innerHTML = html;
+        }
+      }
+
+      // 2. Tình trạng Hợp đồng mới ký & Sắp hết hạn
+      var newInMonth = contracts.filter(function (c) {
+        return c.startDate && c.startDate.indexOf(effectiveMonth) === 0;
+      });
+      var newTotalAmt = newInMonth.reduce(function (s, c) { return s + c.billingAmount; }, 0);
+
+      var elNewAmt = document.getElementById('ops-new-total-amt');
+      var elNewCnt = document.getElementById('ops-new-total-cnt');
+      var elNewBtn = document.getElementById('btn-ops-tab-new');
+      if (elNewAmt) elNewAmt.textContent = fmt(newTotalAmt);
+      if (elNewCnt) elNewCnt.textContent = newInMonth.length + ' HĐ phát sinh';
+      if (elNewBtn) elNewBtn.textContent = '🌟 Mới ký (' + newInMonth.length + ')';
+
+      var newListContainer = document.getElementById('ops-new-contracts-list');
+      if (newListContainer) {
+        if (newInMonth.length === 0) {
+          newListContainer.innerHTML = '<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:14px;text-align:center;color:#64748b;font-size:12px">Không có hợp đồng mới ký trong tháng ' + effectiveMonth + '</div>';
+        } else {
+          var nHtml = '';
+          newInMonth.forEach(function (c) {
+            nHtml += '<div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;transition:background 0.2s">';
+            nHtml += '<div>';
+            nHtml += '<div style="font-weight:700;font-size:12px;color:#0f172a">' + c.customerName + ' <span style="font-size:9.5px;background:#f0fdfa;color:#089490;padding:1px 5px;border-radius:4px;font-weight:700;border:1px solid #ccfbf1">' + c.customerType + '</span></div>';
+            nHtml += '<div style="font-size:11px;color:#64748b;margin-top:2px">' + c.planTier + ' (' + c.seats + ' ghế) • ' + c.billingCycle + ' • Ngày ký: ' + c.startDate + '</div>';
+            nHtml += '</div>';
+            nHtml += '<div style="text-align:right">';
+            nHtml += '<div style="font-size:13px;font-weight:800;color:#089490">' + fmt(c.billingAmount) + '</div>';
+            nHtml += '<span style="font-size:10px;color:#64748b">MRR: ' + fmt(c.mrrContribution) + '/tháng</span>';
+            nHtml += '</div>';
+            nHtml += '</div>';
+          });
+          newListContainer.innerHTML = nHtml;
+        }
+      }
+
+      // Hợp đồng sắp hết hạn chu kỳ cần gia hạn
+      var renewDue = contracts.filter(function (c) {
+        return (c.cycleMonths === 3 || c.cycleMonths === 12) && c.billingAmount >= 15000;
+      }).slice(0, 4);
+
+      var renewTotalAmt = renewDue.reduce(function (s, c) { return s + c.billingAmount; }, 0);
+      var elRenewAmt = document.getElementById('ops-renew-total-amt');
+      var elRenewBtn = document.getElementById('btn-ops-tab-renew');
+      if (elRenewAmt) elRenewAmt.textContent = fmt(renewTotalAmt);
+      if (elRenewBtn) elRenewBtn.textContent = '⏳ Sắp hết hạn (' + renewDue.length + ')';
+
+      var renewListContainer = document.getElementById('ops-renew-contracts-list');
+      if (renewListContainer) {
+        var rHtml = '';
+        renewDue.forEach(function (c) {
+          rHtml += '<div style="background:#ffffff;border:1px solid #fee2e2;border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center">';
+          rHtml += '<div>';
+          rHtml += '<div style="font-weight:700;font-size:12px;color:#1e293b">' + c.customerName + ' <span style="font-size:9.5px;background:#fef2f2;color:#dc2626;padding:1px 5px;border-radius:4px;font-weight:700">Tái ký Q4</span></div>';
+          rHtml += '<div style="font-size:11px;color:#64748b;margin-top:2px">' + c.contactPerson + ' • ' + c.planTier + ' (' + c.billingCycle + ')</div>';
+          rHtml += '</div>';
+          rHtml += '<div style="text-align:right">';
+          rHtml += '<div style="font-size:13px;font-weight:800;color:#b91c1c">' + fmt(c.billingAmount) + '</div>';
+          rHtml += '<button type="button" class="btn btn-outline btn-sm" onclick="showAdminToast(\'Đã tạo đề xuất gia hạn gói cho ' + c.customerName + '\')" style="margin-top:3px;padding:1px 6px;font-size:10.5px;color:#b91c1c;border-color:#fca5a5;background:#fff">🔄 Đề xuất tái ký</button>';
+          rHtml += '</div>';
+          rHtml += '</div>';
+        });
+        renewListContainer.innerHTML = rHtml;
+      }
+
+      // Update Summary Header Badge
+      var elSumBadge = document.getElementById('ops-summary-badge');
+      if (elSumBadge) {
+        elSumBadge.textContent = 'Kỳ ' + effectiveMonth + ': ' + collectedList.length + ' Đúng hạn • ' + dueSoonList.length + ' Sắp đến hạn • ' + newInMonth.length + ' HĐ mới';
+      }
+    };
 
     // ===== RENDER BẢNG DỮ LIỆU HỢP ĐỒNG KHÁCH HÀNG (DUMMY CONTRACTS DATA TABLE) =====
     // ===== RENDER BẢNG DIỄN BIẾN DÒNG TIỀN CHI TIẾT THEO NGÀY TRÊN DASHBOARD =====
@@ -840,6 +1068,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       quickJumpPeriod(targetMonth);
     };
 
+        // ===== QUẢN LÝ TRẠNG THÁI THU TIỀN (COLLECTED vs PENDING) =====
+    window.currentDashboardDailyStatusFilter = 'ALL';
     window.currentDashboardMainView = 'daily';
     window.currentDashboardDailyDay = 'ALL';
     window.currentDashboardDailyPeriod = '2026-09';
@@ -850,24 +1080,142 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       window.currentDashboardMainView = view;
       var vDaily = document.getElementById('dash-view-daily');
       var vCharts = document.getElementById('dash-view-charts');
-
-      // Cả 2 view luôn hiển thị đồng thời trên cùng 1 màn hình
-      if (vDaily) vDaily.style.display = 'block';
-      if (vCharts) vCharts.style.display = 'block';
-
-      if (view === 'charts' && vCharts) {
-        vCharts.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else if (view === 'daily' && vDaily) {
+      if (view === 'daily' && vDaily) {
         vDaily.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      if (typeof renderInteractiveRevenueChart === 'function') {
-        renderInteractiveRevenueChart();
-      }
-      if (typeof window.renderDailyCashflowDashboard === 'function') {
-        window.renderDailyCashflowDashboard();
+      } else if (view === 'charts' && vCharts) {
+        vCharts.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
+
+    window.setDashboardDailyStatusFilter = function (status, noScroll) {
+      window.currentDashboardDailyStatusFilter = status || 'ALL';
+
+      // Update button styling across toolbar & header
+      var btnAll = document.getElementById('btn-dash-st-all');
+      var btnCol = document.getElementById('btn-dash-st-col');
+      var btnPen = document.getElementById('btn-dash-st-pen');
+      var btnAll2 = document.getElementById('btn-dash-st-all-header');
+      var btnCol2 = document.getElementById('btn-dash-st-col-header');
+      var btnPen2 = document.getElementById('btn-dash-st-pen-header');
+
+      [btnAll, btnAll2].forEach(function (b) {
+        if (b) {
+          b.style.background = (status === 'ALL' ? '#0f172a' : '#ffffff');
+          b.style.color = (status === 'ALL' ? '#ffffff' : '#334155');
+          b.style.border = (status === 'ALL' ? 'none' : '1px solid #cbd5e1');
+        }
+      });
+      [btnCol, btnCol2].forEach(function (b) {
+        if (b) {
+          b.style.background = (status === 'COLLECTED' ? '#15803d' : '#ffffff');
+          b.style.color = (status === 'COLLECTED' ? '#ffffff' : '#15803d');
+          b.style.border = (status === 'COLLECTED' ? 'none' : '1px solid #86efac');
+        }
+      });
+      [btnPen, btnPen2].forEach(function (b) {
+        if (b) {
+          b.style.background = (status === 'PENDING' ? '#b45309' : '#ffffff');
+          b.style.color = (status === 'PENDING' ? '#ffffff' : '#b45309');
+          b.style.border = (status === 'PENDING' ? 'none' : '1px solid #fde68a');
+        }
+      });
+
+      // Highlight active KPI cards
+      var cardCol = document.getElementById('card-kpi-collected');
+      var cardPen = document.getElementById('card-kpi-pending');
+      if (cardCol) {
+        cardCol.style.boxShadow = (status === 'COLLECTED') ? '0 0 0 3px rgba(22, 163, 74, 0.45), 0 4px 12px rgba(22, 163, 74, 0.15)' : 'none';
+        cardCol.style.borderColor = (status === 'COLLECTED') ? '#16a34a' : '';
+      }
+      if (cardPen) {
+        cardPen.style.boxShadow = (status === 'PENDING') ? '0 0 0 3px rgba(217, 119, 6, 0.45), 0 4px 12px rgba(217, 119, 6, 0.15)' : 'none';
+        cardPen.style.borderColor = (status === 'PENDING') ? '#d97706' : '';
+      }
+
+      // Reset day filter to ALL to show all items for this status
+      window.currentDashboardDailyDay = 'ALL';
+
+      // Re-render
+      window.renderDailyCashflowDashboard();
+
+      // Sync lower dummy contracts table if present
+      if (typeof window.setDummyStatusFilter === 'function') {
+        window.setDummyStatusFilter(status);
+      }
+
+      // Update modal title and toast feedback dynamically
+      var dynPeriod = window.currentDashboardDailyPeriod || window.currentPeriod || '2026-09';
+      var dynMetrics = window.getDynamicPeriodMetrics ? window.getDynamicPeriodMetrics(dynPeriod, window.currentSegment || 'ALL') : null;
+      var isUsd = (window.currentCurrency === 'USD');
+      var rate = isUsd ? (1 / 150.24) : 1;
+      function dynFmt(val) {
+        if (!val) return '0đ';
+        if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
+        return '¥' + val.toLocaleString('ja-JP');
+      }
+
+      var titleEl = document.getElementById('reconcile-modal-title');
+      if (titleEl) {
+        if (status === 'COLLECTED') {
+          var colCount = dynMetrics ? dynMetrics.collectedCount : 22;
+          titleEl.innerHTML = '🟢 SỔ DÒNG TIỀN: DANH SÁCH ' + colCount + ' HỢP ĐỒNG ĐÃ THU';
+        } else if (status === 'PENDING') {
+          var penCount = dynMetrics ? dynMetrics.pendingCount : 2;
+          titleEl.innerHTML = '🟡 SỔ DÒNG TIỀN: DANH SÁCH ' + penCount + ' HỢP ĐỒNG CHƯA THU (CHỜ NẠP)';
+        } else {
+          titleEl.innerHTML = '📅 SỔ DÒNG TIỀN & ĐỐI SOÁT THEO NGÀY';
+        }
+      }
+
+      // Scroll only if not suppressed and modal is not open
+      var dailyPanel = document.getElementById('dash-view-daily');
+      if (!noScroll && dailyPanel && dailyPanel.style.display !== 'none' && dailyPanel.style.position !== 'fixed') {
+        dailyPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Toast feedback
+      if (typeof window.showAdminToast === 'function') {
+        if (status === 'COLLECTED') {
+          var cCnt = dynMetrics ? dynMetrics.collectedCount : 22;
+          var cAmt = dynMetrics ? dynFmt(dynMetrics.collectedCash) : '¥248,500';
+          window.showAdminToast('Đang lọc ' + cCnt + ' hợp đồng ĐÃ THU TIỀN (' + cAmt + ')', 'success');
+        } else if (status === 'PENDING') {
+          var pCnt = dynMetrics ? dynMetrics.pendingCount : 2;
+          var pAmt = dynMetrics ? dynFmt(dynMetrics.pendingCash) : '¥21,300';
+          window.showAdminToast('Đang lọc ' + pCnt + ' hợp đồng CHƯA THU TIỀN (' + pAmt + ')', 'info');
+        } else {
+          window.showAdminToast('Đang hiển thị toàn bộ hợp đồng trong kỳ', 'info');
+        }
+      }
+    };
+
+    window.openReconciliationModal = function (status, specificDay) {
+      var m = document.getElementById('dash-view-daily');
+      if (!m) return;
+      m.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      if (status) {
+        window.setDashboardDailyStatusFilter(status, true);
+      }
+      if (specificDay !== undefined) {
+        window.filterContractsBySpecificDay(specificDay);
+      }
+    };
+
+    window.closeReconciliationModal = function () {
+      var m = document.getElementById('dash-view-daily');
+      if (m) {
+        m.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    };
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        window.closeReconciliationModal();
+      }
+    });
 
     window.selectDailyMilestoneDay = function (day) {
       window.currentDashboardDailyDay = day;
@@ -908,155 +1256,6 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       window.renderDailyCashflowDashboard();
     };
 
-    window.currentCashflowListVisible = false;
-    window.currentCashflowListStatus = null;
-
-    window.toggleCashflowList = function (status) {
-      if (window.currentCashflowListVisible && window.currentCashflowListStatus === status) {
-        window.closeCashflowList();
-      } else {
-        window.openCashflowList(status);
-      }
-    };
-
-    window.openCashflowList = function (status) {
-      status = status || 'COLLECTED';
-      window.currentCashflowListVisible = true;
-      window.currentCashflowListStatus = status;
-
-      var sec = document.getElementById('dash-cashflow-section');
-      if (sec) sec.style.display = 'block';
-
-      var btnClose = document.getElementById('btn-close-cashflow-list');
-      if (btnClose) btnClose.style.display = 'inline-block';
-
-      var hint = document.getElementById('tab-trigger-status-hint');
-      if (hint) hint.textContent = (status === 'COLLECTED' ? '🟢 Đang hiển thị danh sách Tiền Đã Thu' : '🟡 Đang hiển thị danh sách Tiền Chưa Thu');
-
-      // Cập nhật giao diện 2 nút tab trigger
-      var bCol = document.getElementById('tab-trigger-collected');
-      var bPen = document.getElementById('tab-trigger-pending');
-      if (bCol) {
-        if (status === 'COLLECTED') {
-          bCol.style.background = '#15803d';
-          bCol.style.color = '#ffffff';
-          bCol.style.borderColor = '#15803d';
-          bCol.style.boxShadow = '0 3px 8px rgba(21,128,61,0.35)';
-        } else {
-          bCol.style.background = '#f0fdf4';
-          bCol.style.color = '#15803d';
-          bCol.style.borderColor = '#86efac';
-          bCol.style.boxShadow = 'none';
-        }
-      }
-      if (bPen) {
-        if (status === 'PENDING') {
-          bPen.style.background = '#d97706';
-          bPen.style.color = '#ffffff';
-          bPen.style.borderColor = '#d97706';
-          bPen.style.boxShadow = '0 3px 8px rgba(217,119,6,0.35)';
-        } else {
-          bPen.style.background = '#fffdf5';
-          bPen.style.color = '#b45309';
-          bPen.style.borderColor = '#fde68a';
-          bPen.style.boxShadow = 'none';
-        }
-      }
-
-      // Cập nhật Header của Section
-      var sIcon = document.getElementById('cashflow-section-icon');
-      var sTitle = document.getElementById('cashflow-section-title');
-      var sDesc = document.getElementById('cashflow-section-desc');
-      if (status === 'COLLECTED') {
-        if (sIcon) {
-          sIcon.textContent = '🟢';
-          sIcon.style.background = 'linear-gradient(135deg,#15803d,#16a34a)';
-          sIcon.style.boxShadow = '0 2px 6px rgba(22,163,74,0.3)';
-        }
-        if (sTitle) sTitle.textContent = 'DANH SÁCH HỢP ĐỒNG ĐÃ THU TIỀN';
-        if (sDesc) sDesc.textContent = 'Chi tiết đối soát các giao dịch nạp tiền thực tế đã vào két';
-      } else {
-        if (sIcon) {
-          sIcon.textContent = '🟡';
-          sIcon.style.background = 'linear-gradient(135deg,#d97706,#f59e0b)';
-          sIcon.style.boxShadow = '0 2px 6px rgba(245,158,11,0.3)';
-        }
-        if (sTitle) sTitle.textContent = 'DANH SÁCH HỢP ĐỒNG CHỜ THU TIỀN (PENDING)';
-        if (sDesc) sDesc.textContent = 'Các khoản phí định kỳ hoặc hợp đồng sắp/chưa nạp tiền trong kỳ';
-      }
-
-      // Lọc danh sách
-      window.setDashboardDailyStatusFilter(status);
-
-      // Cuộn mượt đến danh sách
-      if (sec) {
-        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
-
-    window.closeCashflowList = function () {
-      window.currentCashflowListVisible = false;
-      window.currentCashflowListStatus = null;
-
-      var sec = document.getElementById('dash-cashflow-section');
-      if (sec) sec.style.display = 'none';
-
-      var btnClose = document.getElementById('btn-close-cashflow-list');
-      if (btnClose) btnClose.style.display = 'none';
-
-      var hint = document.getElementById('tab-trigger-status-hint');
-      if (hint) hint.textContent = '(Bấm vào tab hoặc thẻ KPI để hiện danh sách)';
-
-      var bCol = document.getElementById('tab-trigger-collected');
-      var bPen = document.getElementById('tab-trigger-pending');
-      if (bCol) {
-        bCol.style.background = '#f0fdf4';
-        bCol.style.color = '#15803d';
-        bCol.style.borderColor = '#86efac';
-        bCol.style.boxShadow = 'none';
-      }
-      if (bPen) {
-        bPen.style.background = '#fffdf5';
-        bPen.style.color = '#b45309';
-        bPen.style.borderColor = '#fde68a';
-        bPen.style.boxShadow = 'none';
-      }
-    };
-
-    window.currentDashboardDailyStatusFilter = 'ALL';
-
-    window.setDashboardDailyStatusFilter = function (status) {
-      window.currentDashboardDailyStatusFilter = status;
-
-      var btnAll = document.getElementById('btn-dash-st-all');
-      var btnCol = document.getElementById('btn-dash-st-col');
-      var btnPen = document.getElementById('btn-dash-st-pen');
-
-      if (btnAll) {
-        btnAll.style.background = (status === 'ALL' ? '#0f172a' : '#ffffff');
-        btnAll.style.color = (status === 'ALL' ? '#ffffff' : '#334155');
-        btnAll.style.border = (status === 'ALL' ? 'none' : '1px solid #cbd5e1');
-      }
-      if (btnCol) {
-        btnCol.style.background = (status === 'COLLECTED' ? '#15803d' : '#ffffff');
-        btnCol.style.color = (status === 'COLLECTED' ? '#ffffff' : '#15803d');
-        btnCol.style.border = (status === 'COLLECTED' ? 'none' : '1px solid #cbd5e1');
-      }
-      if (btnPen) {
-        btnPen.style.background = (status === 'PENDING' ? '#b45309' : '#ffffff');
-        btnPen.style.color = (status === 'PENDING' ? '#ffffff' : '#b45309');
-        btnPen.style.border = (status === 'PENDING' ? 'none' : '1px solid #cbd5e1');
-      }
-
-      window.renderDailyCashflowDashboard();
-    };
-
-    window.filterDashboardByPendingStatus = function () {
-      window.setDashboardDailyStatusFilter('PENDING');
-      var panel = document.getElementById('dashboard-daily-cashflow-panel');
-      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
     window.renderDailyCashflowDashboard = function (arg1, arg2, arg3) {
       var container = document.getElementById('dashboard-daily-cashflow-panel');
       if (!container) return;
@@ -1074,7 +1273,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var p = window.currentPeriod || '2026-09';
       var specificDay = undefined;
 
-      [arg1, arg2, arg3].forEach(function(arg) {
+      [arg1, arg2, arg3].forEach(function (arg) {
         if (typeof arg === 'string') {
           if (arg === 'ALL' || arg === 'B2B' || arg === 'B2C') {
             s = arg;
@@ -1097,7 +1296,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         s = window.currentDashboardDailySegFilter;
       }
 
-      var isDayMode = ((p === '2026-09-29' || p === '2026-09-24'));
+      var isDayMode = (p === '2026-09-24');
       var targetMonth = isDayMode ? '2026-09' : p;
       var pParts = targetMonth.split('-');
       var pYear = pParts[0] || '2026';
@@ -1117,17 +1316,9 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
       // Sync Month Selectors
       var topbarSel = document.getElementById('vb-period-select');
-      if (topbarSel) {
-        if (isDayMode || targetMonth === '2026-09' || targetMonth === '2026-10') {
-          topbarSel.value = 'other';
-        } else {
-          topbarSel.value = targetMonth;
-        }
-      }
-      var periodTagText = document.getElementById('dash-period-tag-text');
-      if (periodTagText) {
-        periodTagText.textContent = isDayMode ? 'Hôm nay: 29/09/2026' : ('Kỳ: ' + monthName + (targetMonth === '2026-09' ? ' (LIVE)' : ''));
-      }
+      if (topbarSel) topbarSel.value = targetMonth;
+      var tabSel = document.getElementById('dash-month-selector-main');
+      if (tabSel) tabSel.value = targetMonth;
 
       // Collect all transactions for targetMonth (bao gồm cả Đã thu và Chưa thu)
       var allTx = [];
@@ -1136,7 +1327,9 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         if (c.paymentMonths && c.paymentMonths.indexOf(targetMonth) !== -1) {
           if (s === 'ALL' || c.customerType === s) {
             var bDay = c.billingDay || 1;
-            var isCol = window.isContractCollected(c, targetMonth, p);
+            var isCol = (typeof window.isContractCollected === 'function')
+              ? window.isContractCollected(c, targetMonth, p)
+              : (bDay <= 24);
 
             // Nếu đang xem chế độ Hôm nay 24/09 thì chỉ lấy ngày 24
             if (isDayMode && bDay !== 24) return;
@@ -1176,12 +1369,23 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         tx.mrr = Math.round(tx.amount / tx.cycleMonths);
       });
 
-      // Tính tổng Đã Thu vs Chưa Thu toàn tháng
-      var totalMonthCash = allTx.reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var collectedMonthCash = allTx.filter(function(x){ return x.isCollected; }).reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var pendingMonthCash = allTx.filter(function(x){ return !x.isCollected; }).reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var collectedCount = allTx.filter(function(x){ return x.isCollected; }).length;
-      var pendingCount = allTx.filter(function(x){ return !x.isCollected; }).length;
+      // Phân tách số liệu Đã Thu vs Chưa Thu toàn tháng
+      var totalMonthCash = allTx.reduce(function (acc, x) { return acc + x.amount; }, 0);
+      var collectedMonthCash = allTx.filter(function (x) { return x.isCollected; }).reduce(function (acc, x) { return acc + x.amount; }, 0);
+      var pendingMonthCash = allTx.filter(function (x) { return !x.isCollected; }).reduce(function (acc, x) { return acc + x.amount; }, 0);
+      var collectedCount = allTx.filter(function (x) { return x.isCollected; }).length;
+      var pendingCount = allTx.filter(function (x) { return !x.isCollected; }).length;
+
+      // Cập nhật số đếm badge
+      var dashBadgeCol = document.getElementById('dash-badge-col-count');
+      var dashBadgePen = document.getElementById('dash-badge-pen-count');
+      if (dashBadgeCol) dashBadgeCol.textContent = collectedCount;
+      if (dashBadgePen) dashBadgePen.textContent = pendingCount;
+
+      var tabBadge = document.getElementById('tab-daily-badge');
+      if (tabBadge) {
+        tabBadge.textContent = collectedCount + ' Đã thu • ' + pendingCount + ' Chờ thu';
+      }
 
       // Group by day for left column milestones
       var dayMap = {};
@@ -1209,13 +1413,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       });
 
       var uniqueDays = Object.keys(dayMap).map(function (k) { return dayMap[k]; }).sort(function (a, b) { return a.day - b.day; });
-      var maxDaySum = uniqueDays.reduce(function(max, d){ return Math.max(max, d.sum); }, 1);
-
-      // Cập nhật số đếm badge trên các nút lọc bộ công cụ
-      var dashBadgeCol = document.getElementById('dash-badge-col-count');
-      var dashBadgePen = document.getElementById('dash-badge-pen-count');
-      if (dashBadgeCol) dashBadgeCol.textContent = collectedCount;
-      if (dashBadgePen) dashBadgePen.textContent = pendingCount;
+      var maxDaySum = uniqueDays.reduce(function (max, d) { return Math.max(max, d.sum); }, 1);
 
       // Update Left Column Header & All-Month button
       var matrixTitleEl = document.getElementById('daily-matrix-title');
@@ -1224,14 +1422,30 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var allSumBadge = document.getElementById('daily-all-sum-badge');
       var allCountSub = document.getElementById('daily-all-count-sub');
       var btnAll = document.getElementById('daily-milestone-all');
-      var tabBadge = document.getElementById('tab-daily-badge');
+
+      var currentStFilter = window.currentDashboardDailyStatusFilter || 'ALL';
 
       if (matrixTitleEl) matrixTitleEl.textContent = 'Mốc Ngày Thu — ' + monthName;
-      if (matrixSubtitleEl) matrixSubtitleEl.textContent = uniqueDays.length + ' ngày có nạp (' + collectedCount + ' đã thu • ' + pendingCount + ' chờ thu)';
+      if (matrixSubtitleEl) {
+        if (currentStFilter === 'COLLECTED') {
+          matrixSubtitleEl.textContent = 'Đang lọc ' + collectedCount + ' hợp đồng đã vào két (' + fmt(collectedMonthCash) + ')';
+        } else if (currentStFilter === 'PENDING') {
+          matrixSubtitleEl.textContent = 'Đang lọc ' + pendingCount + ' hợp đồng chờ nạp (' + fmt(pendingMonthCash) + ')';
+        } else {
+          matrixSubtitleEl.textContent = uniqueDays.length + ' ngày có nạp (' + collectedCount + ' đã thu • ' + pendingCount + ' chờ thu)';
+        }
+      }
       if (matrixBadgeEl) matrixBadgeEl.textContent = uniqueDays.length + ' mốc ngày';
-      if (allSumBadge) allSumBadge.textContent = fmt(totalMonthCash);
-      if (allCountSub) allCountSub.textContent = allTx.length + ' hợp đồng trong tháng';
-      if (tabBadge) tabBadge.textContent = allTx.length + ' HĐ';
+      if (allSumBadge) {
+        if (currentStFilter === 'COLLECTED') allSumBadge.textContent = fmt(collectedMonthCash);
+        else if (currentStFilter === 'PENDING') allSumBadge.textContent = fmt(pendingMonthCash);
+        else allSumBadge.textContent = fmt(totalMonthCash);
+      }
+      if (allCountSub) {
+        if (currentStFilter === 'COLLECTED') allCountSub.textContent = collectedCount + ' HĐ đã vào két';
+        else if (currentStFilter === 'PENDING') allCountSub.textContent = pendingCount + ' HĐ đang chờ thu';
+        else allCountSub.textContent = allTx.length + ' hợp đồng trong tháng';
+      }
 
       if (btnAll) {
         var isAllActive = (activeDay === 'ALL');
@@ -1244,13 +1458,20 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       // Render Left Column Milestones List
       var milestonesList = document.getElementById('daily-milestones-list');
       if (milestonesList) {
-        if (uniqueDays.length === 0) {
-          milestonesList.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:12px">Không có giao dịch nạp tiền trong tháng này.</div>';
+        var visibleMilestones = uniqueDays;
+        if (currentStFilter === 'COLLECTED') {
+          visibleMilestones = uniqueDays.filter(function (d) { return d.collectedSum > 0; });
+        } else if (currentStFilter === 'PENDING') {
+          visibleMilestones = uniqueDays.filter(function (d) { return d.pendingSum > 0; });
+        }
+
+        if (visibleMilestones.length === 0) {
+          milestonesList.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:12px">Không có mốc ngày nào khớp với bộ lọc.</div>';
         } else {
           var mListHTML = '';
-          uniqueDays.forEach(function (d) {
+          visibleMilestones.forEach(function (d) {
             var isSelected = (activeDay === d.day);
-            var isToday = (targetMonth === '2026-09' && (d.day === 24 || d.day === 29));
+            var isToday = (targetMonth === '2026-09' && d.day === 24);
             var pct = Math.max(8, Math.round((d.sum / maxDaySum) * 100));
 
             var cardBg = isSelected
@@ -1269,10 +1490,12 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
               badgeTag = '<span style="font-size:10px;background:#fffdf5;color:#b45309;padding:1px 5px;border-radius:4px;font-weight:700;border:1px solid #fde68a">⏳ Chờ thu</span>';
             }
 
+            var dayAmount = (currentStFilter === 'COLLECTED') ? d.collectedSum : ((currentStFilter === 'PENDING') ? d.pendingSum : d.sum);
+
             mListHTML += '<div onclick="selectDailyMilestoneDay(' + d.day + ')" style="cursor:pointer;padding:9px 12px;border-radius:10px;background:' + cardBg + ';border:' + cardBorder + ';transition:all 0.15s;position:relative" title="Xem chi tiết ngày ' + d.day + '/' + monthCode + '">';
             mListHTML += '<div style="display:flex;justify-content:space-between;align-items:center">';
             mListHTML += '<div style="display:flex;align-items:center;gap:6px"><strong style="font-size:12.5px;color:' + (isSelected ? '#089490' : '#0f172a') + '">Ngày ' + (d.day < 10 ? '0' : '') + d.day + '/' + monthCode + '</strong>' + badgeTag + '</div>';
-            mListHTML += '<strong style="font-size:13px;color:' + (isSelected ? '#089490' : '#0f172a') + '">' + fmt(d.sum) + '</strong>';
+            mListHTML += '<strong style="font-size:13px;color:' + (isSelected ? '#089490' : '#0f172a') + '">' + fmt(dayAmount) + '</strong>';
             mListHTML += '</div>';
 
             mListHTML += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;font-size:11px;color:#64748b">';
@@ -1280,7 +1503,6 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
             mListHTML += '<span>Lũy kế: ' + fmt(d.cumulative) + '</span>';
             mListHTML += '</div>';
 
-            // Mini progress bar
             mListHTML += '<div style="margin-top:6px;width:100%;height:3px;background:#f1f5f9;border-radius:2px;overflow:hidden">';
             mListHTML += '<div style="height:100%;width:' + pct + '%;background:' + (isSelected ? (isToday ? '#d97706' : '#089490') : '#cbd5e1') + ';border-radius:2px"></div>';
             mListHTML += '</div>';
@@ -1294,8 +1516,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       // Update Left Column Footer
       var matB2bEl = document.getElementById('matrix-sum-b2b');
       var matB2cEl = document.getElementById('matrix-sum-b2c');
-      var b2bTotalMonth = allTx.filter(function(x){ return x.type === 'B2B'; }).reduce(function(s, x){ return s + x.amount; }, 0);
-      var b2cTotalMonth = allTx.filter(function(x){ return x.type === 'B2C'; }).reduce(function(s, x){ return s + x.amount; }, 0);
+      var b2bTotalMonth = allTx.filter(function (x) { return x.type === 'B2B'; }).reduce(function (s, x) { return s + x.amount; }, 0);
+      var b2cTotalMonth = allTx.filter(function (x) { return x.type === 'B2C'; }).reduce(function (s, x) { return s + x.amount; }, 0);
       if (matB2bEl) matB2bEl.textContent = fmt(b2bTotalMonth);
       if (matB2cEl) matB2cEl.textContent = fmt(b2cTotalMonth);
 
@@ -1306,7 +1528,6 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       }
 
       // Filter by Payment Status (ĐÃ THU vs CHƯA THU)
-      var currentStFilter = window.currentDashboardDailyStatusFilter || 'ALL';
       if (currentStFilter === 'COLLECTED') {
         displayTx = displayTx.filter(function (tx) { return tx.isCollected === true; });
       } else if (currentStFilter === 'PENDING') {
@@ -1322,19 +1543,18 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         });
       }
 
-      var currentDispTotal = displayTx.reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var dispB2b = displayTx.filter(function(x){ return x.type === 'B2B'; }).reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var dispB2c = displayTx.filter(function(x){ return x.type === 'B2C'; }).reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var dispCollected = displayTx.filter(function(x){ return x.isCollected; }).reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var dispPending = displayTx.filter(function(x){ return !x.isCollected; }).reduce(function(acc, x){ return acc + x.amount; }, 0);
-      var dispCollectedCount = displayTx.filter(function(x){ return x.isCollected; }).length;
-      var dispPendingCount = displayTx.filter(function(x){ return !x.isCollected; }).length;
+      var currentDispTotal = displayTx.reduce(function (acc, x) { return acc + x.amount; }, 0);
+      var dispB2b = displayTx.filter(function (x) { return x.type === 'B2B'; }).reduce(function (acc, x) { return acc + x.amount; }, 0);
+      var dispB2c = displayTx.filter(function (x) { return x.type === 'B2C'; }).reduce(function (acc, x) { return acc + x.amount; }, 0);
+      var dispCollected = displayTx.filter(function (x) { return x.isCollected; }).reduce(function (acc, x) { return acc + x.amount; }, 0);
+      var dispPending = displayTx.filter(function (x) { return !x.isCollected; }).reduce(function (acc, x) { return acc + x.amount; }, 0);
 
       // Update Search Counter Badge
       var searchCounterEl = document.getElementById('dash-daily-search-counter');
       if (searchCounterEl) {
         var dayScopeText = (activeDay === 'ALL') ? '' : ('Ngày ' + (activeDay < 10 ? '0' : '') + activeDay + ': ');
-        searchCounterEl.textContent = dayScopeText + displayTx.length + ' HĐ • ' + fmt(currentDispTotal);
+        var stLabel = (currentStFilter === 'COLLECTED') ? 'Đã thu • ' : ((currentStFilter === 'PENDING') ? 'Chờ thu • ' : '');
+        searchCounterEl.textContent = dayScopeText + stLabel + displayTx.length + ' HĐ • ' + fmt(currentDispTotal);
       }
 
       // Update Formulas Box Content
@@ -1348,7 +1568,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         fCashinEl.innerHTML = '🟢 Đã thu: <strong>' + fmt(collectedMonthCash) + '</strong> (' + collectedCount + ' HĐ)<br>🟡 Chưa thu: <strong>' + fmt(pendingMonthCash) + '</strong> (' + pendingCount + ' HĐ)<br>💰 Tổng dự thu = <strong>' + fmt(totalMonthCash) + '</strong>';
       }
       if (fMrrEl) {
-        var totalMrrCalc = allTx.reduce(function(sum, tx){ return sum + tx.mrr; }, 0);
+        var totalMrrCalc = allTx.reduce(function (sum, tx) { return sum + tx.mrr; }, 0);
         fMrrEl.innerHTML = 'MRR = ∑(HĐ/chu kỳ) = <strong>' + fmt(totalMrrCalc) + '/tháng</strong> (ARR = ' + fmt(totalMrrCalc * 12) + ')';
       }
       if (fSegEl) {
@@ -1357,7 +1577,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         fSegEl.innerHTML = 'B2B: ' + fmt(b2bTotalMonth) + ' (' + b2bPct + '%) | B2C: ' + fmt(b2cTotalMonth) + ' (' + b2cPct + '%)';
       }
 
-      // Render Table Rows (Table-layout fixed, no horizontal overflow)
+      // Render Table Rows
       var tbody = document.getElementById('dashboard-daily-tbody');
       if (tbody) {
         if (displayTx.length === 0) {
@@ -1380,11 +1600,11 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
             var calcFormula = '<span style="font-family:Consolas,monospace;font-size:10.5px;color:#0f766e">' + fmt(tx.amount) + ' ÷ ' + tx.cycleMonths + ' = <strong>' + fmt(tx.mrr) + ' MRR</strong></span>';
 
             var statusBadge = tx.isCollected
-              ? '<span onclick="window.toggleContractPaymentStatus(\'' + tx.id + '\');window.applyDashboardMetrics();" style="cursor:pointer;background:#dcfce7;color:#15803d;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:800;border:1px solid #86efac;display:inline-flex;align-items:center;gap:3px" title="Bấm vào để chuyển sang Chưa Thu (Pending)">🟢 Đã thu ↺</span>'
-              : '<span onclick="window.toggleContractPaymentStatus(\'' + tx.id + '\');window.applyDashboardMetrics();" style="cursor:pointer;background:#fffdf5;color:#b45309;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:800;border:1px solid #fde68a;display:inline-flex;align-items:center;gap:3px" title="Bấm vào để xác nhận Đã Thu Tiền (Collected)">🟡 Chưa thu ↺</span>';
+              ? '<span onclick="window.toggleContractPaymentStatus(\'' + tx.id + '\');window.applyDashboardMetrics();window.renderDailyCashflowDashboard();" style="cursor:pointer;background:#dcfce7;color:#15803d;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:800;border:1px solid #86efac;display:inline-flex;align-items:center;gap:3px" title="Bấm vào để đổi sang Chưa thu (Pending)">🟢 Đã thu ↺</span>'
+              : '<span onclick="window.toggleContractPaymentStatus(\'' + tx.id + '\');window.applyDashboardMetrics();window.renderDailyCashflowDashboard();" style="cursor:pointer;background:#fffdf5;color:#b45309;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:800;border:1px solid #fde68a;display:inline-flex;align-items:center;gap:3px" title="Bấm vào để đổi sang Đã thu (Collected)">🟡 Chưa thu ↺</span>';
 
             var amountColor = tx.isCollected ? '#089490' : '#d97706';
-            var rowBg = isToday ? ' style="background:#fffdf5"' : (!tx.isCollected ? ' style="background:#fffdf9"' : '');
+            var rowBg = isToday ? ' style="background:#fffdf5"' : (!tx.isCollected ? ' style="background:#fffdfa"' : '');
 
             rowsHTML += '<tr' + rowBg + ' style="border-bottom:1px solid #f1f5f9;transition:background-color 0.12s ease">';
             rowsHTML += '<td style="padding:8px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><code style="color:#089490;font-weight:700;font-size:11px;background:#f0fdfa;padding:2px 5px;border-radius:4px;border:1px solid #ccfbf1">' + tx.id + '</code></td>';
@@ -1401,27 +1621,26 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         }
       }
 
-      // Update Summary Footer Bar (Phân Biệt Rõ Đã Thu vs Chưa Thu)
+      // Update Summary Footer Bar
       var sumCountEl = document.getElementById('daily-sum-tx-count');
       var sumB2bEl = document.getElementById('daily-sum-b2b');
       var sumB2cEl = document.getElementById('daily-sum-b2c');
-      var sumCollectedEl = document.getElementById('daily-sum-collected');
-      var sumPendingEl = document.getElementById('daily-sum-pending');
       var sumTotalEl = document.getElementById('daily-sum-total');
       var sumBadgeEl = document.getElementById('daily-sum-status-badge');
 
       if (sumCountEl) sumCountEl.textContent = displayTx.length + ' HĐ';
       if (sumB2bEl) sumB2bEl.textContent = fmt(dispB2b);
       if (sumB2cEl) sumB2cEl.textContent = fmt(dispB2c);
-      if (sumCollectedEl) sumCollectedEl.textContent = fmt(dispCollected) + ' (' + dispCollectedCount + ' HĐ)';
-      if (sumPendingEl) sumPendingEl.textContent = fmt(dispPending) + ' (' + dispPendingCount + ' HĐ)';
       if (sumTotalEl) sumTotalEl.textContent = fmt(currentDispTotal);
 
       if (sumBadgeEl) {
-        var rateNum = currentDispTotal > 0 ? ((dispCollected / currentDispTotal) * 100).toFixed(1) : 100;
-        sumBadgeEl.textContent = rateNum + '% Đã thu';
-        sumBadgeEl.style.background = (rateNum >= 100) ? '#dcfce7' : (rateNum >= 80 ? '#ecfdf5' : '#fffbeb');
-        sumBadgeEl.style.color = (rateNum >= 80) ? '#15803d' : '#b45309';
+        if (currentStFilter === 'COLLECTED') {
+          sumBadgeEl.innerHTML = '<span style="color:#15803d;font-weight:700;background:#dcfce7;padding:2px 7px;border-radius:8px;font-size:11px">✓ Đã vào két: ' + fmt(collectedMonthCash) + '</span>';
+        } else if (currentStFilter === 'PENDING') {
+          sumBadgeEl.innerHTML = '<span style="color:#b45309;font-weight:700;background:#fef3c7;padding:2px 7px;border-radius:8px;font-size:11px">⏳ Chờ thu nạp: ' + fmt(pendingMonthCash) + '</span>';
+        } else {
+          sumBadgeEl.innerHTML = '<span style="color:#0f766e;font-weight:700;background:#ccfbf1;padding:2px 7px;border-radius:8px;font-size:11px">' + collectedCount + ' Đã thu • ' + pendingCount + ' Chờ thu</span>';
+        }
       }
     };
 
@@ -1457,7 +1676,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       document.body.removeChild(link);
     };
 
-    
+
     // ===== HỆ THỐNG PHÂN BIỆT ĐÃ THU (COLLECTED) & CHƯA THU (PENDING) =====
     window.currentDummyStatusFilter = 'ALL';
     window.CONTRACT_MANUAL_STATUS = {}; // Lưu trạng thái can thiệp thủ công: { [id_month]: 'collected' | 'pending' }
@@ -1473,7 +1692,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var isPaying = (c.paymentMonths && c.paymentMonths.indexOf(p) !== -1);
       if (!isPaying) return null; // Không có kỳ nạp tháng này (Active MRR)
 
-      if ((timelineMode === '2026-09-29' || timelineMode === '2026-09-24')) {
+      if (timelineMode === '2026-09-24') {
         // Mốc hôm nay 24/09:
         if (c.billingDay === 24) return true;
         if (c.billingDay < 24) return true;
@@ -1494,9 +1713,19 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
     // Chuyển đổi trạng thái thu tiền trực tiếp khi click
     window.toggleContractPaymentStatus = function (id) {
       var monthFilter = document.getElementById('dd-filter-month') ? document.getElementById('dd-filter-month').value : '2026-09';
-      var p = (monthFilter === 'ALL' || (monthFilter === '2026-09-29' || monthFilter === '2026-09-24')) ? '2026-09' : monthFilter;
+      var p = (monthFilter && monthFilter !== 'ALL') ? (monthFilter === '2026-09-24' ? '2026-09' : monthFilter) : (window.currentPeriod || '2026-09');
+      if (p === '2026-09-24') p = '2026-09';
+
       var contract = window.DUMMY_CONTRACTS_DATA.find(function (c) { return c.id === id; });
       if (!contract) return;
+
+      if (!contract.paymentMonths || contract.paymentMonths.length === 0) {
+        alert('Hợp đồng ' + contract.customerName + ' không có kỳ nạp tiền trong năm 2026.');
+        return;
+      }
+      if (contract.paymentMonths.indexOf(p) === -1) {
+        p = contract.paymentMonths[0];
+      }
 
       var current = window.isContractCollected(contract, p, monthFilter);
       if (current === null) {
@@ -1507,12 +1736,40 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var newStatus = current ? 'pending' : 'collected';
       window.CONTRACT_MANUAL_STATUS[id + '_' + p] = newStatus;
 
-      var msg = newStatus === 'collected'
-        ? '✓ Đã chuyển hợp đồng ' + contract.customerName + ' sang trạng thái: ĐÃ THU TIỀN.'
-        : '⏳ Đã chuyển hợp đồng ' + contract.customerName + ' sang trạng thái: CHƯA THU (CHỜ NẠP).';
-      
+      var statusLabel = (newStatus === 'collected') ? '🟢 ĐÃ THU' : '🟡 CHƯA THU';
+      var msg = '✓ Đã chuyển hợp đồng ' + contract.customerName + ' (' + contract.id + ') sang trạng thái: ' + statusLabel + '.';
       console.log(msg);
-      window.renderDummyContractsTable();
+
+      // Cập nhật ngay lập tức:
+      // 1. Bảng hợp đồng mẫu ở tab Dummy Data
+      if (typeof window.renderDummyContractsTable === 'function') {
+        window.renderDummyContractsTable();
+      }
+
+      // 2. Thẻ chỉ số tổng quan ở Admin Dashboard (Thực thu, Chưa thu, v.v.)
+      if (typeof window.applyDashboardMetrics === 'function') {
+        window.applyDashboardMetrics();
+      }
+
+      // 3. Biểu đồ doanh thu
+      if (typeof window.renderInteractiveRevenueChart === 'function') {
+        window.renderInteractiveRevenueChart();
+      }
+
+      // 4. Giám sát công nợ & vòng đời hợp đồng (Phần 1.5 Admin Dashboard)
+      if (typeof window.renderDashboardOperations === 'function') {
+        window.renderDashboardOperations();
+      }
+
+      // 5. Bảng sổ quỹ dòng tiền / đối soát modal
+      if (typeof window.renderDailyCashflowDashboard === 'function') {
+        window.renderDailyCashflowDashboard();
+      }
+
+      // 6. Hiển thị thông báo phản hồi (Toast) tức thì
+      if (typeof window.showAdminToast === 'function') {
+        window.showAdminToast(statusLabel + ': ' + contract.customerName + ' — Dashboard đã cập nhật số liệu ngay!', 'success');
+      }
     };
 
     // Lọc nhanh bằng nút pill
@@ -1564,7 +1821,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       // Đã lược bỏ renderDailyMatrixData theo yêu cầu tinh gọn tab data dummy
 
       var statusFilter = window.currentDummyStatusFilter || 'ALL';
-      var checkMonth = (monthFilter === 'ALL' || (monthFilter === '2026-09-29' || monthFilter === '2026-09-24')) ? '2026-09' : monthFilter;
+      var checkMonth = (monthFilter === 'ALL' || monthFilter === '2026-09-24') ? '2026-09' : monthFilter;
 
       var filtered = window.DUMMY_CONTRACTS_DATA.filter(function (c) {
         if (segFilter !== 'ALL' && c.customerType !== segFilter) return false;
@@ -1572,7 +1829,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         if (dayFilter !== 'ALL' && String(c.billingDay) !== String(dayFilter)) return false;
 
         // Month / Timeline filter
-        if ((monthFilter === '2026-09-29' || monthFilter === '2026-09-24')) {
+        if (monthFilter === '2026-09-24') {
           // Chỉ lấy HĐ nạp tiền vào ngày 24/09 hoặc active
           if (c.billingDay !== 24 && c.startDate > '2026-09-24') return false;
         } else if (monthFilter !== 'ALL') {
@@ -1582,7 +1839,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
         // BỘ LỌC PHÂN BIỆT ĐÃ THU VÀ CHƯA THU
         var isPayingInPeriod = (c.paymentMonths && c.paymentMonths.indexOf(checkMonth) !== -1);
-        if ((monthFilter === '2026-09-29' || monthFilter === '2026-09-24')) {
+        if (monthFilter === '2026-09-24') {
           isPayingInPeriod = (isPayingInPeriod && c.billingDay === 24);
         }
         var isCol = window.isContractCollected(c, checkMonth, monthFilter);
@@ -1643,8 +1900,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var statPendingLabel = document.getElementById('dd-stat-pending-label');
       var statPendingSub = document.getElementById('dd-stat-pending-sub');
 
-      if ((monthFilter === '2026-09-29' || monthFilter === '2026-09-24')) {
-        if (statPeriod) statPeriod.textContent = '29/09/2026 (Hôm nay)';
+      if (monthFilter === '2026-09-24') {
+        if (statPeriod) statPeriod.textContent = '24/09/2026 (Hôm nay)';
         if (statActive) statActive.textContent = monthMetrics.collectedCount + ' HĐ nạp hôm nay';
         if (statCashLabel) statCashLabel.textContent = '🟢 ĐÃ THU HÔM NAY';
         if (statCash) statCash.textContent = fmt(monthMetrics.collectedCash);
@@ -1688,9 +1945,9 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
           var isPayingThisMonth = false;
           var statusBadge = '';
 
-          var pMonth = (monthFilter === 'ALL' || (monthFilter === '2026-09-29' || monthFilter === '2026-09-24')) ? '2026-09' : monthFilter;
+          var pMonth = (monthFilter === 'ALL' || monthFilter === '2026-09-24') ? '2026-09' : monthFilter;
           isPayingThisMonth = (c.paymentMonths && c.paymentMonths.indexOf(pMonth) !== -1);
-          if ((monthFilter === '2026-09-29' || monthFilter === '2026-09-24')) {
+          if (monthFilter === '2026-09-24') {
             isPayingThisMonth = (isPayingThisMonth && c.billingDay === 24);
           }
           var isActiveThisMonth = (c.startDate <= pMonth + '-31');
@@ -1805,7 +2062,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       }
 
       var p = periodStr || window.currentPeriod || '2026-09';
-      if ((p === '2026-09-29' || p === '2026-09-24')) p = '2026-09';
+      if (p === '2026-09-24') p = '2026-09';
       var pMonthNum = parseInt(p.split('-')[1], 10);
       var pYear = p.split('-')[0];
 
@@ -1915,13 +2172,13 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var inactStyle = 'font-size:11.5px;padding:5px 11px;font-weight:600;background:transparent;color:#475569;border:none';
 
       if (btnAll) btnAll.style.cssText = (filterVal === 'ALL') ? actStyle : inactStyle;
-      if (btnToday) btnToday.style.cssText = ((filterVal === '2026-09-29' || filterVal === '2026-09-24')) ? actStyle : inactStyle;
+      if (btnToday) btnToday.style.cssText = (filterVal === '2026-09-24') ? actStyle : inactStyle;
       if (btnT9) btnT9.style.cssText = (filterVal === '2026-09') ? actStyle : inactStyle;
       if (btnT10) btnT10.style.cssText = (filterVal === '2026-10') ? actStyle : inactStyle;
 
       var hint = document.getElementById('dd-timeline-status-hint');
       if (hint) {
-        if ((filterVal === '2026-09-29' || filterVal === '2026-09-24')) hint.innerHTML = 'Đang đối chiếu: <strong>Hôm nay (29/09/2026)</strong>';
+        if (filterVal === '2026-09-24') hint.innerHTML = 'Đang đối chiếu: <strong>Hôm nay (24/09/2026)</strong>';
         else if (filterVal === '2026-09') hint.innerHTML = 'Đang đối chiếu: <strong>Tháng 09/2026 (LIVE)</strong>';
         else if (filterVal === '2026-10') hint.innerHTML = 'Đang đối chiếu: <strong>Tháng 10/2026 (Dự báo Q4)</strong>';
         else hint.innerHTML = 'Đang hiển thị: <strong>Toàn bộ 52 hợp đồng</strong>';
@@ -2036,7 +2293,6 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
       var category = (tier === 'Enterprise') ? 'ent' : ((tier === 'Professional' || tier === 'Pro Personal') ? 'pro' : 'basic');
       var mrr = Math.round(amount / cycle);
-
       // Generate payment months
       var paymentMonths = [];
       var startMonth = start.substring(0, 7);
@@ -2087,6 +2343,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       renderDummyContractsTable();
       applyDashboardMetrics();
       renderInteractiveRevenueChart();
+      if (typeof window.renderDashboardOperations === 'function') window.renderDashboardOperations();
+      if (typeof window.renderDailyCashflowDashboard === 'function') window.renderDailyCashflowDashboard();
 
       showAdminToast('🎉 Đã thêm hợp đồng ' + newId + ' ("' + name + '") thành công! Số liệu đã cập nhật sang Dashboard.', 'success');
     };
@@ -2094,6 +2352,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
     window.resetDummyToDefault = function () {
       if (!confirm('Khôi phục danh sách 52 hợp đồng mẫu chuẩn ban đầu?')) return;
       window.DUMMY_CONTRACTS_DATA = JSON.parse(JSON.stringify(window.DEFAULT_DUMMY_CONTRACTS));
+      window.CONTRACT_MANUAL_STATUS = {};
       window.recalculateRevenueData2026();
 
       var sc1 = document.getElementById('sidebar-dummy-count-1');
@@ -2104,6 +2363,8 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       renderDummyContractsTable();
       applyDashboardMetrics();
       renderInteractiveRevenueChart();
+      if (typeof window.renderDashboardOperations === 'function') window.renderDashboardOperations();
+      if (typeof window.renderDailyCashflowDashboard === 'function') window.renderDailyCashflowDashboard();
 
       showAdminToast('↺ Đã khôi phục lại 52 hợp đồng mẫu chuẩn!', 'info');
     };
@@ -2137,7 +2398,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
     window.getDailyCashRecordsForPeriod = function (periodStr) {
       var p = periodStr || window.currentDailyCashPeriod || window.currentPeriod || '2026-09';
-      if ((p === '2026-09-29' || p === '2026-09-24')) p = '2026-09';
+      if (p === '2026-09-24') p = '2026-09';
       var pMonthNum = parseInt(p.split('-')[1], 10);
       var pYear = p.split('-')[0];
 
@@ -2145,26 +2406,28 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       window.DUMMY_CONTRACTS_DATA.forEach(function (c) {
         if (c.paymentMonths && c.paymentMonths.indexOf(p) !== -1) {
           var bDay = c.billingDay || 1;
-          var isCol = window.isContractCollected(c, p, periodStr);
-          records.push({
-            dayNum: bDay,
-            day: (bDay < 10 ? '0' : '') + bDay + '/' + (pMonthNum < 10 ? '0' : '') + pMonthNum + '/' + pYear,
-            id: c.id,
-            name: c.customerName,
-            contact: c.contactPerson,
-            type: c.customerType,
-            plan: c.planTier,
-            cycle: c.billingCycle,
-            cycleMonths: c.cycleMonths,
-            amount: c.billingAmount,
-            method: c.paymentMethod || 'Chuyển khoản NH',
-            note: c.notes || '',
-            isCollected: isCol
-          });
+          // In September, include all transactions up to day 24 (all September paying contracts fall on or before 24)
+          var isIncluded = (p === '2026-09') ? (bDay <= 24) : true;
+          if (isIncluded) {
+            records.push({
+              dayNum: bDay,
+              day: (bDay < 10 ? '0' : '') + bDay + '/' + (pMonthNum < 10 ? '0' : '') + pMonthNum + '/' + pYear,
+              id: c.id,
+              name: c.customerName,
+              contact: c.contactPerson,
+              type: c.customerType,
+              plan: c.planTier,
+              cycle: c.billingCycle,
+              cycleMonths: c.cycleMonths,
+              amount: c.billingAmount,
+              method: c.paymentMethod || 'Chuyển khoản (Bank Transfer)',
+              note: c.notes || 'Thanh toán theo hợp đồng'
+            });
+          }
         }
       });
 
-      // Sort by billing day ascending
+      // Sort chronologically by billingDay
       records.sort(function (a, b) {
         if (a.dayNum !== b.dayNum) return a.dayNum - b.dayNum;
         return a.id.localeCompare(b.id);
@@ -2226,7 +2489,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
       var s = seg || window.currentDailyCashSeg || 'ALL';
       var p = periodStr || window.currentDailyCashPeriod || window.currentPeriod || '2026-09';
-      if ((p === '2026-09-29' || p === '2026-09-24')) p = '2026-09';
+      if (p === '2026-09-24') p = '2026-09';
       window.currentDailyCashSeg = s;
       window.currentDailyCashPeriod = p;
 
@@ -2363,10 +2626,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
             h += '<td style="padding:10px 12px"><span style="font-size:11.5px;color:#475569;display:inline-flex;align-items:center;gap:4px">' + methodIcon + ' ' + r.method.split('(')[0].trim() + '</span></td>';
             h += '<td style="padding:10px 12px;text-align:right"><strong style="color:#089490;font-size:13.5px">' + fmt(r.amount) + '</strong></td>';
             h += '<td style="padding:10px 12px;text-align:right;background:#fafffd"><strong style="color:#0f766e;font-size:13px">' + fmt(cum) + '</strong></td>';
-            var modalStBadge = r.isCollected
-              ? '<span style="background:#dcfce7;color:#15803d;padding:3px 8px;border-radius:12px;font-size:10.5px;font-weight:700;border:1px solid #86efac;display:inline-flex;align-items:center;gap:3px">🟢 Đã về két</span>'
-              : '<span style="background:#fffdf5;color:#b45309;padding:3px 8px;border-radius:12px;font-size:10.5px;font-weight:700;border:1px solid #fde68a;display:inline-flex;align-items:center;gap:3px">🟡 Chưa thu</span>';
-            h += '<td style="padding:10px 12px;text-align:center">' + modalStBadge + '</td>';
+            h += '<td style="padding:10px 12px;text-align:center"><span style="background:#dcfce7;color:#15803d;padding:3px 8px;border-radius:12px;font-size:10.5px;font-weight:700;border:1px solid #bbf7d0;display:inline-flex;align-items:center;gap:3px">✓ Đã về két</span></td>';
             h += '<td style="padding:10px 12px;font-size:11.5px;color:#475569">' + r.note + '</td>';
             h += '</tr>';
           });
@@ -2388,7 +2648,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       var m = document.getElementById('daily-cash-modal');
       if (!m) return;
       var p = period || window.currentPeriod || '2026-09';
-      if ((p === '2026-09-29' || p === '2026-09-24')) p = '2026-09';
+      if (p === '2026-09-24') p = '2026-09';
       window.currentDailyCashPeriod = p;
       window.renderDailyCashContent(window.currentDailyCashSeg || 'ALL', p, '');
       m.style.display = 'flex';
@@ -2436,7 +2696,6 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         window.closeAddContractModal();
       }
     });
-
     window.showAdminToast = function (msg, type) {
       var t = document.getElementById('admin-toast');
       if (!t) return;
@@ -2448,7 +2707,6 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
         t.classList.remove('show');
       }, 3500);
     };
-
     window.toggleTimelineMatrix = function (forceState) {
       var panel = document.getElementById('timeline-matrix-panel');
       var icon = document.getElementById('matrix-toggle-icon');
@@ -2468,6 +2726,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
 
       if (typeof window.applyDashboardMetrics === 'function') window.applyDashboardMetrics();
       if (typeof window.renderInteractiveRevenueChart === 'function') window.renderInteractiveRevenueChart();
+      if (typeof window.renderDailyCashflowDashboard === 'function') window.renderDailyCashflowDashboard();
       if (typeof window.renderDummyContractsTable === 'function') window.renderDummyContractsTable();
     };
 
@@ -2503,7 +2762,7 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
       }
       if (typeof window.applyDashboardMetrics === "function") window.applyDashboardMetrics();
       if (typeof window.renderInteractiveRevenueChart === "function") window.renderInteractiveRevenueChart();
-      if (typeof window.renderDailyCashflowDashboard === "function") window.renderDailyCashflowDashboard();
+      if (typeof window.renderDashboardOperations === "function") window.renderDashboardOperations();
       if (typeof window.renderDummyContractsTable === "function") window.renderDummyContractsTable();
     }
 
@@ -2512,12 +2771,3 @@ window.getDynamicPeriodMetrics = function (periodStr, segment) {
     } else {
       initDashboardLogic();
     }
-
-    window.toggleMetricGuideDetails = function () {
-      var box = document.getElementById('admin-guide-details');
-      var btn = document.getElementById('btn-toggle-guide');
-      if (!box) return;
-      var isHidden = (box.style.display === 'none' || !box.style.display);
-      box.style.display = isHidden ? 'block' : 'none';
-      if (btn) btn.textContent = isHidden ? '▲ Thu gọn giải thích' : '💡 Giải thích MRR & Thực thu';
-    };

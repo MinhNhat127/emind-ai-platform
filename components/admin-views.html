@@ -1,0 +1,924 @@
+        <div class="page" id="page-licenses">
+          <div class="section-header">
+            <div class="section-title">🔐 会社ライセンス一覧</div>
+          </div>
+
+          <div class="filter-bar">
+            <input type="text" placeholder="🔍 会社コード・会社名で検索" style="width:240px">
+            <select>
+              <option>全ステータス</option>
+              <option>有効</option>
+              <option>無効</option>
+              <option>期限切れ</option>
+            </select>
+            <button class="btn btn-primary btn-sm">検索</button>
+          </div>
+
+          <div class="card" style="padding:0">
+            <table class="data-table" id="license-table">
+              <thead>
+                <tr>
+                  <th>会社コード</th>
+                  <th>会社名</th>
+                  <th>国</th>
+                  <th>住所</th>
+                  <th>ライセンス開始日</th>
+                  <th>ライセンス終了日</th>
+                  <th>利用ユーザー数</th>
+                  <th>残日数</th>
+                  <th>利用状態</th>
+                  <th>最終更新</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="license-tbody">
+              </tbody>
+            </table>
+          </div>
+
+          <div id="license-count" style="font-size:12px;color:#9ca3af;text-align:right;margin-top:8px"></div>
+        </div>
+
+        <!-- ===== 個人ライセンス一覧 (ADMIN) ===== -->
+        <div class="page" id="page-personal-licenses">
+          <div class="section-header">
+            <div class="section-title">👤 個人ライセンス一覧</div>
+          </div>
+
+          <div class="filter-bar">
+            <input type="text" id="pl-search" placeholder="🔍 氏名・メールアドレスで検索" style="width:240px"
+              oninput="filterPersonalLicenseTable(this.value)">
+            <select id="pl-filter-plan"
+              onchange="filterPersonalLicenseTable(document.getElementById('pl-search').value)">
+              <option value="">全プラン</option>
+              <option value="Free">Free</option>
+              <option value="Basic">Basic</option>
+              <option value="Pro">Pro</option>
+            </select>
+            <select id="pl-filter-status"
+              onchange="filterPersonalLicenseTable(document.getElementById('pl-search').value)">
+              <option value="">全ステータス</option>
+              <option value="有効">有効</option>
+              <option value="無効">無効</option>
+            </select>
+          </div>
+
+          <div class="card" style="padding:0">
+            <table class="data-table" id="personal-license-table">
+              <thead>
+                <tr>
+                  <th>ユーザーID</th>
+                  <th>氏名</th>
+                  <th>メールアドレス</th>
+                  <th>プラン</th>
+                  <th>開始日</th>
+                  <th>終了日</th>
+                  <th>残日数</th>
+                  <th>状態</th>
+                  <th>最終更新</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="personal-license-tbody">
+              </tbody>
+            </table>
+          </div>
+          <div id="personal-license-count" style="font-size:12px;color:#9ca3af;text-align:right;margin-top:8px"></div>
+        </div>
+
+        <!-- ===== ユーザー一覧 (ADMIN) ===== -->
+        <div class="page" id="page-adminusers">
+          <div class="section-header">
+            <div class="section-title">👥 ユーザー一覧</div>
+          </div>
+
+          <div class="filter-bar">
+            <input type="text" id="au-search" placeholder="🔍 名前・メールアドレスで検索" style="width:240px"
+              oninput="filterAdminUserTable()">
+            <select id="au-filter-company" onchange="filterAdminUserTable()">
+              <option value="">全会社</option>
+              <option value="E-Mind株式会社">E-Mind株式会社</option>
+              <option value="ABC Manufacturing Vietnam">ABC Manufacturing Vietnam</option>
+              <option value="Techno Solutions">Techno Solutions</option>
+              <option value="DevStar Co., Ltd.">DevStar Co., Ltd.</option>
+            </select>
+          </div>
+
+          <div class="card" style="padding:0">
+            <table class="data-table" id="au-table">
+              <thead>
+                <tr>
+                  <th>ユーザー名</th>
+                  <th>メールアドレス</th>
+                  <th>所属会社</th>
+                  <th>登録日</th>
+                </tr>
+              </thead>
+              <tbody id="au-tbody">
+              </tbody>
+            </table>
+          </div>
+
+          <div style="font-size:12px;color:#9ca3af;text-align:right;margin-top:8px" id="au-count-label">全5名</div>
+        </div>
+
+
+        <!-- ===== Quản lý gói công ty (Company Plan Management) ===== -->
+        <div class="page" id="page-my-plan">
+          <div class="section-header" style="margin-bottom: 20px;">
+            <div class="section-title"
+              style="font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              <span>📦</span> Quản lý gói công ty
+            </div>
+          </div>
+
+          <div class="modern-pill-tabs">
+            <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-current',this)">Gói hiện tại</div>
+            <div class="modern-pill-tab active" onclick="switchPlanTab('my-plan','tab-mp-change',this)">Thay đổi gói
+            </div>
+            <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-members',this)">Danh sách thành viên
+            </div>
+            <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-billing',this)">Lịch sử thanh toán
+            </div>
+            <div class="modern-pill-tab" onclick="switchPlanTab('my-plan','tab-mp-payment',this)">Phương thức thanh toán
+            </div>
+          </div>
+
+          <!-- Tab: Thay đổi gói (Active matching Screenshot 2) -->
+          <div class="plan-tab-panel active" id="tab-mp-change">
+            <div class="plan-overview-bar" id="company-overview-bar">
+              <span>Gói hiện tại:</span>
+              <span class="plan-overview-badge badge-pro-purple" id="company-current-badge">Professional</span>
+              <span class="plan-overview-price" id="company-current-price-label">¥1.500 / người / tháng</span>
+            </div>
+
+            <div class="plan-grid-3" id="company-plan-cards">
+              <!-- Starter -->
+              <div class="plan-box-card" id="card-company-Starter">
+                <div class="plan-box-tag tag-empty">&nbsp;</div>
+                <div class="plan-box-title">Starter</div>
+                <div class="plan-box-price-wrap">
+                  <span class="plan-box-price">¥500</span>
+                  <span class="plan-box-period">/ người / tháng</span>
+                </div>
+                <div class="plan-box-features">
+                  <div class="plan-box-feat-row">Dự án: 3 dự án</div>
+                  <div class="plan-box-feat-row">Lưu trữ: 5 GB</div>
+                </div>
+                <button class="btn-plan-action btn-select" onclick="chooseCompanyPlan('Starter')">Chọn</button>
+              </div>
+
+              <!-- Standard -->
+              <div class="plan-box-card" id="card-company-Standard">
+                <div class="plan-box-tag tag-empty">&nbsp;</div>
+                <div class="plan-box-title">Standard</div>
+                <div class="plan-box-price-wrap">
+                  <span class="plan-box-price">¥1.000</span>
+                  <span class="plan-box-period">/ người / tháng</span>
+                </div>
+                <div class="plan-box-features">
+                  <div class="plan-box-feat-row">Dự án: 10 dự án</div>
+                  <div class="plan-box-feat-row">Lưu trữ: 20 GB</div>
+                </div>
+                <button class="btn-plan-action btn-select" onclick="chooseCompanyPlan('Standard')">Chọn</button>
+              </div>
+
+              <!-- Professional -->
+              <div class="plan-box-card card-current" id="card-company-Professional">
+                <div class="plan-box-tag tag-current">Gói hiện tại</div>
+                <div class="plan-box-title">Professional</div>
+                <div class="plan-box-price-wrap">
+                  <span class="plan-box-price">¥1.500</span>
+                  <span class="plan-box-period">/ người / tháng</span>
+                </div>
+                <div class="plan-box-features">
+                  <div class="plan-box-feat-row">Dự án: 50 dự án</div>
+                  <div class="plan-box-feat-row">Lưu trữ: 100 GB</div>
+                </div>
+                <button class="btn-plan-action btn-current-disabled" disabled>Gói hiện tại</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab: Gói hiện tại -->
+          <div class="plan-tab-panel" id="tab-mp-current">
+            <div class="plan-info-grid">
+              <div class="plan-info-card">
+                <div class="plan-info-label">Thông tin hợp đồng</div>
+                <div class="plan-info-row"><span class="lbl">Gói dịch vụ</span><span><span class="badge-pro"
+                      id="mp-info-badge">Professional</span></span></div>
+                <div class="plan-info-row"><span class="lbl">Đơn giá</span><span class="val" id="mp-info-unit">¥1.500 /
+                    người / tháng</span></div>
+                <div class="plan-info-row"><span class="lbl">Số thành viên đang dùng</span><span class="val">10
+                    người</span></div>
+                <div class="plan-info-row"><span class="lbl">Chu kỳ thanh toán</span><span class="val">Theo tháng</span>
+                </div>
+              </div>
+              <div class="plan-info-card">
+                <div class="plan-info-label">Dự toán cước tháng này</div>
+                <div class="plan-info-row"><span class="lbl">Kỳ tính cước</span><span class="val">2026-06-01 〜
+                    2026-06-30</span></div>
+                <div class="plan-info-row"><span class="lbl">Số tiền dự tính</span><span class="val green"
+                    id="mp-info-total">¥15.000</span></div>
+                <div class="plan-info-row"><span class="lbl">Ngày chốt cước</span><span class="val">2026-06-30</span>
+                </div>
+                <div class="plan-info-row"><span class="lbl">Trạng thái</span><span><span class="badge-pending">Chờ
+                      quyết toán</span></span></div>
+              </div>
+            </div>
+            <div class="plan-card">
+              <div class="plan-section-title">Quyền lợi & Tài nguyên theo gói</div>
+              <div class="plan-feature-list">
+                <div class="plan-feature-item">Số dự án: 50 dự án (đang dùng: 8 dự án)</div>
+                <div class="plan-feature-item">Dung lượng lưu trữ: 100 GB (đang dùng: 14.8 GB)</div>
+                <div class="plan-feature-item">Thành viên: Tối đa 50 người dùng trong công ty</div>
+                <div class="plan-feature-item">AI Platform: Tự động phân bổ tài nguyên & telemetry</div>
+                <div class="plan-feature-item">Hỗ trợ: Ưu tiên email & kỹ thuật viên chuyên trách 24/7</div>
+              </div>
+            </div>
+            <div class="plan-notice">ℹ️ Cước phí tháng này sẽ được tự động chốt và thanh toán vào ngày 30 hàng tháng.
+              Thay đổi gói trong tháng sẽ được tính bù trừ theo tỷ lệ ngày thực tế.</div>
+            <div style="margin-top:16px;text-align:right">
+              <button class="btn btn-primary btn-sm" onclick="switchPlanTab('my-plan','tab-mp-change',null)">Nâng cấp /
+                Thay đổi gói dịch vụ →</button>
+            </div>
+          </div>
+
+          <!-- Tab: Danh sách thành viên -->
+          <div class="plan-tab-panel" id="tab-mp-members">
+            <div class="card" style="padding:0">
+              <div
+                style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e7eb">
+                <div style="font-size:14px;font-weight:700;color:#111827">Thành viên áp dụng gói cước (10 người)</div>
+                <button class="btn btn-primary btn-sm" onclick="openAddUser()">+ Thêm thành viên</button>
+              </div>
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Phân quyền</th>
+                    <th>Dự án tham gia</th>
+                    <th>Ngày kích hoạt</th>
+                    <th>Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <div class="avatar" style="width:28px;height:28px;font-size:11px">NH</div><strong>Nguyễn
+                          Hoàng</strong>
+                      </div>
+                    </td>
+                    <td>nguyen.hoang@emind.ltd</td>
+                    <td><span class="badge" style="background:#ede9fe;color:#6366f1;font-weight:600">Quản trị viên công
+                        ty</span></td>
+                    <td>12 dự án</td>
+                    <td>2025/01/01</td>
+                    <td><span class="badge-active">● Hoạt động</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <div class="avatar" style="width:28px;height:28px;font-size:11px">TT</div><strong>Trần
+                          Tuấn</strong>
+                      </div>
+                    </td>
+                    <td>tran.tuan@emind.ltd</td>
+                    <td><span class="badge" style="background:#e0f2fe;color:#0369a1;font-weight:600">Kỹ sư trưởng</span>
+                    </td>
+                    <td>8 dự án</td>
+                    <td>2025/01/15</td>
+                    <td><span class="badge-active">● Hoạt động</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <div class="avatar" style="width:28px;height:28px;font-size:11px">LM</div><strong>Lê
+                          Minh</strong>
+                      </div>
+                    </td>
+                    <td>le.minh@emind.ltd</td>
+                    <td><span class="badge" style="background:#e0f2fe;color:#0369a1;font-weight:600">Nhà phát triển
+                        AI</span></td>
+                    <td>5 dự án</td>
+                    <td>2025/02/01</td>
+                    <td><span class="badge-active">● Hoạt động</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <div class="avatar" style="width:28px;height:28px;font-size:11px">PH</div><strong>Phạm
+                          Hương</strong>
+                      </div>
+                    </td>
+                    <td>pham.huong@emind.ltd</td>
+                    <td><span class="badge" style="background:#fef3c7;color:#92400e;font-weight:600">Quản lý dự
+                        án</span></td>
+                    <td>6 dự án</td>
+                    <td>2025/03/10</td>
+                    <td><span class="badge-active">● Hoạt động</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab: Lịch sử thanh toán -->
+          <div class="plan-tab-panel" id="tab-mp-billing">
+            <div class="plan-card">
+              <table class="data-table billing-table">
+                <thead>
+                  <tr>
+                    <th>Kỳ thanh toán</th>
+                    <th>Gói dịch vụ</th>
+                    <th>Số lượng</th>
+                    <th>Tổng cước</th>
+                    <th>Trạng thái</th>
+                    <th>Chi tiết</th>
+                    <th>Chứng từ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2026-06</td>
+                    <td><span class="badge-pro">Professional</span></td>
+                    <td>10 người</td>
+                    <td style="font-weight:700;color:#059669">¥15.000</td>
+                    <td><span class="badge-pending">Chờ thanh toán</span></td>
+                    <td><button class="billing-dl" onclick="toggleBillingDetail('mp-detail-jun')">▼ Chi tiết</button>
+                    </td>
+                    <td>
+                      <div style="display:flex;gap:4px">
+                        <button class="btn btn-sm"
+                          style="font-size:11px;padding:3px 7px;color:#dc2626;border-color:#fca5a5">PDF</button>
+                        <button class="btn btn-sm"
+                          style="font-size:11px;padding:3px 7px;color:#059669;border-color:#6ee7b7">Excel</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="mp-detail-jun" style="display:none">
+                    <td colspan="7" style="padding:0">
+                      <table style="width:100%;font-size:12px;background:#f9fafb">
+                        <tr style="color:#6b7280">
+                          <th style="padding:8px 14px">Khoảng thời gian</th>
+                          <th>Gói cước</th>
+                          <th>Số người</th>
+                          <th>Đơn giá</th>
+                          <th>Thành tiền</th>
+                        </tr>
+                        <tr>
+                          <td style="padding:6px 14px">01/06 〜 30/06</td>
+                          <td><span class="badge-pro">Professional</span></td>
+                          <td>10 người</td>
+                          <td>¥1.500</td>
+                          <td>¥15.000</td>
+                        </tr>
+                        <tr>
+                          <td colspan="4" style="padding:8px 14px;font-weight:600;text-align:right">Tổng cộng:</td>
+                          <td style="padding:8px 14px;font-weight:700;color:#059669">¥15.000</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2026-05</td>
+                    <td><span class="badge-std">Standard</span></td>
+                    <td>8 người</td>
+                    <td style="font-weight:600">¥8.000</td>
+                    <td><span class="badge-confirmed">Đã thanh toán</span></td>
+                    <td><button class="billing-dl">▼ Chi tiết</button></td>
+                    <td>
+                      <div style="display:flex;gap:4px">
+                        <button class="btn btn-sm"
+                          style="font-size:11px;padding:3px 7px;color:#dc2626;border-color:#fca5a5">PDF</button>
+                        <button class="btn btn-sm"
+                          style="font-size:11px;padding:3px 7px;color:#059669;border-color:#6ee7b7">Excel</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab: Phương thức thanh toán -->
+          <div class="plan-tab-panel" id="tab-mp-payment">
+            <div class="plan-card">
+              <div class="plan-section-title">Thẻ thanh toán mặc định</div>
+              <div class="card-display-box">
+                <span style="font-size:28px">💳</span>
+                <div style="flex:1">
+                  <div style="font-weight:600;font-size:14px">VISA **** **** **** 4242</div>
+                  <div style="font-size:12px;color:#6b7280;margin-top:2px">Hạn sử dụng: 2028/09 ／ Chủ thẻ: NGUYEN HOANG
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn btn-sm">Thay đổi</button>
+                  <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5">Xóa</button>
+                </div>
+              </div>
+              <div class="plan-section-title" style="margin-top:18px">Cập nhật thẻ thanh toán</div>
+              <div class="card-form-group"><label class="card-form-label">Số thẻ tín dụng / ghi nợ</label><input
+                  class="card-form-input" placeholder="1234 5678 9012 3456" /></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <div class="card-form-group"><label class="card-form-label">Ngày hết hạn (MM / YY)</label><input
+                    class="card-form-input" placeholder="MM / YY" /></div>
+                <div class="card-form-group"><label class="card-form-label">Mã bảo mật CVV/CVC</label><input
+                    class="card-form-input" placeholder="CVV" /></div>
+              </div>
+              <div class="card-form-group"><label class="card-form-label">Tên in trên thẻ (không dấu)</label><input
+                  class="card-form-input" placeholder="NGUYEN HOANG" /></div>
+              <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
+                <button class="btn btn-sm">Hủy</button>
+                <button class="btn btn-primary btn-sm">Lưu thông tin thẻ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Quản lý gói cá nhân (Personal Plan Management) ===== -->
+        <div class="page" id="page-personal-plan">
+          <div class="section-header" style="margin-bottom: 20px;">
+            <div class="section-title"
+              style="font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              <span>👤</span> Quản lý gói cá nhân
+            </div>
+          </div>
+
+          <div class="modern-pill-tabs">
+            <div class="modern-pill-tab active" onclick="switchPlanTab('personal-plan','tab-pp-change',this)">Thay đổi
+              gói</div>
+            <div class="modern-pill-tab" onclick="switchPlanTab('personal-plan','tab-pp-current',this)">Gói hiện tại
+            </div>
+            <div class="modern-pill-tab" onclick="switchPlanTab('personal-plan','tab-pp-billing',this)">Lịch sử thanh
+              toán</div>
+            <div class="modern-pill-tab" onclick="switchPlanTab('personal-plan','tab-pp-payment',this)">Phương thức
+              thanh toán</div>
+          </div>
+
+          <!-- Tab: Thay đổi gói (Active matching Screenshot 1) -->
+          <div class="plan-tab-panel active" id="tab-pp-change">
+            <div class="plan-overview-bar" id="personal-overview-bar">
+              <span>Gói hiện tại:</span>
+              <span class="plan-overview-badge badge-std-mint" id="personal-current-badge">Standard</span>
+              <span class="plan-overview-price" id="personal-current-price-label">¥1.000 / tháng</span>
+            </div>
+
+            <div class="plan-grid-3" id="personal-plan-cards">
+              <!-- Starter -->
+              <div class="plan-box-card" id="card-personal-Starter">
+                <div class="plan-box-tag tag-empty">&nbsp;</div>
+                <div class="plan-box-title">Starter</div>
+                <div class="plan-box-price-wrap">
+                  <span class="plan-box-price">¥500</span>
+                  <span class="plan-box-period">/ tháng</span>
+                </div>
+                <div class="plan-box-features">
+                  <div class="plan-box-feat-row">Dự án: 3 dự án</div>
+                  <div class="plan-box-feat-row">Lưu trữ: 5 GB</div>
+                </div>
+                <button class="btn-plan-action btn-select" onclick="choosePersonalPlan('Starter')">Chọn</button>
+              </div>
+
+              <!-- Standard -->
+              <div class="plan-box-card card-current" id="card-personal-Standard">
+                <div class="plan-box-tag tag-current">Gói hiện tại</div>
+                <div class="plan-box-title">Standard</div>
+                <div class="plan-box-price-wrap">
+                  <span class="plan-box-price">¥1.000</span>
+                  <span class="plan-box-period">/ tháng</span>
+                </div>
+                <div class="plan-box-features">
+                  <div class="plan-box-feat-row">Dự án: 10 dự án</div>
+                  <div class="plan-box-feat-row">Lưu trữ: 20 GB</div>
+                </div>
+                <button class="btn-plan-action btn-current-disabled" disabled>Gói hiện tại</button>
+              </div>
+
+              <!-- Professional -->
+              <div class="plan-box-card card-recommended" id="card-personal-Professional">
+                <div class="plan-box-tag tag-recommended">Đề xuất</div>
+                <div class="plan-box-title">Professional</div>
+                <div class="plan-box-price-wrap">
+                  <span class="plan-box-price">¥1.500</span>
+                  <span class="plan-box-period">/ tháng</span>
+                </div>
+                <div class="plan-box-features">
+                  <div class="plan-box-feat-row">Dự án: 50 dự án</div>
+                  <div class="plan-box-feat-row">Lưu trữ: 100 GB</div>
+                </div>
+                <button class="btn-plan-action btn-select" onclick="choosePersonalPlan('Professional')">Chọn</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab: Gói hiện tại -->
+          <div class="plan-tab-panel" id="tab-pp-current">
+            <div class="plan-info-grid">
+              <div class="plan-info-card">
+                <div class="plan-info-label">Thông tin hợp đồng</div>
+                <div class="plan-info-row"><span class="lbl">Gói dịch vụ</span><span><span class="badge-std"
+                      id="pp-info-badge">Standard</span></span></div>
+                <div class="plan-info-row"><span class="lbl">Đơn giá</span><span class="val" id="pp-info-unit">¥1.000 /
+                    tháng</span></div>
+                <div class="plan-info-row"><span class="lbl">Chu kỳ thanh toán</span><span class="val">Hàng tháng</span>
+                </div>
+              </div>
+              <div class="plan-info-card">
+                <div class="plan-info-label">Dự toán cước tháng này</div>
+                <div class="plan-info-row"><span class="lbl">Kỳ tính cước</span><span class="val">2026-06-01 〜
+                    2026-06-30</span></div>
+                <div class="plan-info-row"><span class="lbl">Số tiền dự tính</span><span class="val green">¥1.000</span>
+                </div>
+                <div class="plan-info-row"><span class="lbl">Ngày chốt cước</span><span class="val">2026-06-30</span>
+                </div>
+                <div class="plan-info-row"><span class="lbl">Trạng thái</span><span><span class="badge-confirmed">Đã
+                      thanh toán</span></span></div>
+              </div>
+            </div>
+            <div class="plan-card">
+              <div class="plan-section-title">Quyền lợi & Tài nguyên tài khoản cá nhân</div>
+              <div class="plan-feature-list">
+                <div class="plan-feature-item">Số dự án: 10 dự án (đang dùng: 3 dự án)</div>
+                <div class="plan-feature-item">Dung lượng lưu trữ: 20 GB (đang dùng: 2.4 GB)</div>
+                <div class="plan-feature-item">AI Platform: Không giới hạn phân tích cơ bản</div>
+                <div class="plan-feature-item">Hỗ trợ: Email phản hồi trong vòng 24 giờ</div>
+              </div>
+            </div>
+            <div style="margin-top:16px;text-align:right">
+              <button class="btn btn-primary btn-sm" onclick="switchPlanTab('personal-plan','tab-pp-change',null)">Nâng
+                cấp gói dịch vụ →</button>
+            </div>
+          </div>
+
+          <!-- Tab: Lịch sử thanh toán -->
+          <div class="plan-tab-panel" id="tab-pp-billing">
+            <div class="plan-card">
+              <table class="data-table billing-table">
+                <thead>
+                  <tr>
+                    <th>Kỳ thanh toán</th>
+                    <th>Gói cước</th>
+                    <th>Số tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Hóa đơn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2026-06</td>
+                    <td><span class="badge-std">Standard</span></td>
+                    <td style="font-weight:700">¥1.000</td>
+                    <td><span class="badge-confirmed">Đã thanh toán</span></td>
+                    <td><button class="billing-dl" onclick="alert('Đang tải hóa đơn PDF...')">⬇ Tải PDF</button></td>
+                  </tr>
+                  <tr>
+                    <td>2026-05</td>
+                    <td><span class="badge-std">Standard</span></td>
+                    <td style="font-weight:700">¥1.000</td>
+                    <td><span class="badge-confirmed">Đã thanh toán</span></td>
+                    <td><button class="billing-dl" onclick="alert('Đang tải hóa đơn PDF...')">⬇ Tải PDF</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab: Phương thức thanh toán -->
+          <div class="plan-tab-panel" id="tab-pp-payment">
+            <div class="plan-card">
+              <div class="plan-section-title">Thẻ thanh toán liên kết</div>
+              <div class="card-display-box">
+                <span style="font-size:28px">💳</span>
+                <div style="flex:1">
+                  <div style="font-weight:600;font-size:14px">VISA **** **** **** 4242</div>
+                  <div style="font-size:12px;color:#6b7280;margin-top:2px">Hạn sử dụng: 2028/09</div>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn btn-sm">Thay đổi</button>
+                  <button class="btn btn-sm" style="color:#dc2626;border-color:#fca5a5">Xóa</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== System Admin: プラン管理 ===== -->
+        <div class="page" id="page-admin-plan">
+          <div class="section-header">
+            <div class="section-title">📦 プラン管理（システム管理者）</div>
+            <button class="btn btn-sm">CSV出力</button>
+          </div>
+
+          <div class="summary-stat-bar">
+            <div class="stat-chip"><strong>32</strong>全社</div>
+            <div class="stat-chip"><strong>28</strong>Active</div>
+            <div class="stat-chip"><strong>3</strong>Trial</div>
+            <div class="stat-chip"><strong>1</strong>停止</div>
+            <div class="stat-chip"><strong>¥248,000</strong>今月予定合計</div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-bottom:14px">
+            <input type="text" placeholder="会社名で検索..."
+              style="flex:1;padding:7px 10px;border-radius:8px;border:1px solid #d1d5db;font-size:13px">
+            <select style="padding:7px 10px;border-radius:8px;border:1px solid #d1d5db;font-size:13px;color:#6b7280">
+              <option>プラン: すべて</option>
+              <option>Starter</option>
+              <option>Standard</option>
+              <option>Professional</option>
+            </select>
+            <select style="padding:7px 10px;border-radius:8px;border:1px solid #d1d5db;font-size:13px;color:#6b7280">
+              <option>ステータス: すべて</option>
+              <option>Active</option>
+              <option>Trial</option>
+              <option>停止</option>
+            </select>
+          </div>
+
+          <div class="plan-card" style="padding:0;overflow:hidden">
+            <table class="data-table billing-table">
+              <thead>
+                <tr>
+                  <th>会社名</th>
+                  <th>プラン</th>
+                  <th>メンバー数</th>
+                  <th>今月請求額</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="font-weight:600">ABC株式会社</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px">次回請求: 2026-06-30</div>
+                  </td>
+                  <td><span class="badge-pro">Professional</span></td>
+                  <td>10名</td>
+                  <td>
+                    <div class="tip-wrap">
+                      <span style="font-weight:600">¥5,758</span>
+                      <span class="tip-icon">%</span>
+                      <div class="tip-box">
+                        🎉 初月割引 50% OFF<br>
+                        元の請求額: ¥11,516<br>
+                        割引額: -¥5,758<br>
+                        <strong>確定額: ¥5,758</strong>
+                      </div>
+                    </div>
+                    <div style="margin-top:3px"><span class="badge-pending">未確定</span></div>
+                  </td>
+                  <td><button class="btn btn-sm" onclick="openCompanyDetail('abc')">詳細</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight:600">XYZ合同会社</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px"><span class="badge-trial"
+                        style="font-size:10px">Trial 残7日</span></div>
+                  </td>
+                  <td><span class="badge-std">Standard</span></td>
+                  <td>5名</td>
+                  <td>
+                    <div style="font-weight:600">¥833</div>
+                    <div style="margin-top:3px"><span class="badge-pending">未確定</span></div>
+                  </td>
+                  <td><button class="btn btn-sm" onclick="openCompanyDetail('xyz')">詳細</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight:600">テスト会社</div>
+                    <div style="font-size:11px;margin-top:2px"><span class="badge-suspended"
+                        style="font-size:10px">停止</span></div>
+                  </td>
+                  <td><span class="badge-str">Starter</span></td>
+                  <td>2名</td>
+                  <td style="color:#9ca3af">¥0</td>
+                  <td><button class="btn btn-sm" onclick="openCompanyDetail('test')">詳細</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===== プランマスタ ===== -->
+        <div class="page" id="page-admin-master">
+          <div class="section-header">
+            <div class="section-title">🔧 プランマスタ管理</div>
+            <button class="btn btn-primary btn-sm">+ プラン追加</button>
+          </div>
+          <div
+            style="background:#f0fdfc;border:1px solid #99e6e2;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:#0a5c58;line-height:1.7">
+            💡 ここで設定するのは <strong>カタログ単価</strong>（標準価格）です。既存契約の <strong>契約単価</strong> は登録時に固定され、料金改定は
+            <strong>次回更新分から</strong>反映されます（<strong>値上げは適用日の30日前告知</strong>）。前払い（6ヶ月/年）契約は満了まで価格ロック。
+          </div>
+          <div class="plan-card" style="padding:0;overflow:auto">
+            <table class="data-table billing-table" style="min-width:860px">
+              <thead>
+                <tr>
+                  <th>プラン名</th>
+                  <th>月額単価<br><span style="font-weight:400;color:#9ca3af;font-size:10px">/席・月</span></th>
+                  <th>6ヶ月払い<br><span style="font-weight:400;color:#9ca3af;font-size:10px">期間割引</span></th>
+                  <th>年払い<br><span style="font-weight:400;color:#9ca3af;font-size:10px">期間割引</span></th>
+                  <th>初月割引</th>
+                  <th>適用中</th>
+                  <th>ステータス</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="plan-master-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===== 個人ユーザー一覧 (Admin) ===== -->
+        <div class="page" id="page-admin-personal">
+          <div class="section-header">
+            <div class="section-title">👤 個人ユーザー管理（システム管理者）</div>
+            <button class="btn btn-sm">CSV出力</button>
+          </div>
+
+          <div class="summary-stat-bar">
+            <div class="stat-chip"><strong>84</strong>全ユーザー</div>
+            <div class="stat-chip"><strong>61</strong>Active</div>
+            <div class="stat-chip"><strong>12</strong>Trial</div>
+            <div class="stat-chip"><strong>11</strong>Free</div>
+            <div class="stat-chip"><strong>¥92,000</strong>今月予定合計</div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-bottom:14px">
+            <input type="text" placeholder="名前・メールで検索..."
+              style="flex:1;padding:7px 10px;border-radius:8px;border:1px solid #d1d5db;font-size:13px">
+            <select style="padding:7px 10px;border-radius:8px;border:1px solid #d1d5db;font-size:13px;color:#6b7280">
+              <option>プラン: すべて</option>
+              <option>Free</option>
+              <option>Standard</option>
+              <option>Professional</option>
+            </select>
+            <select style="padding:7px 10px;border-radius:8px;border:1px solid #d1d5db;font-size:13px;color:#6b7280">
+              <option>ステータス: すべて</option>
+              <option>Active</option>
+              <option>Trial</option>
+              <option>停止</option>
+            </select>
+          </div>
+
+          <div class="plan-card" style="padding:0;overflow:hidden">
+            <table class="data-table billing-table">
+              <thead>
+                <tr>
+                  <th>ユーザー名</th>
+                  <th>プラン</th>
+                  <th>登録日</th>
+                  <th>今月請求額</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="font-weight:600">山田 花子</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px">hanako@example.com</div>
+                  </td>
+                  <td><span class="badge-pro">Professional</span></td>
+                  <td>2026-03-15</td>
+                  <td>
+                    <div style="font-weight:600">¥1,500</div>
+                    <div style="margin-top:3px"><span class="badge-pending">未確定</span></div>
+                  </td>
+                  <td><button class="btn btn-sm" onclick="openPersonalDetail('u001')">詳細</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight:600">鈴木 一郎</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px">ichiro@example.com</div>
+                  </td>
+                  <td><span class="badge-std">Standard</span></td>
+                  <td>2026-05-01</td>
+                  <td>
+                    <div class="tip-wrap">
+                      <span style="font-weight:600">¥338</span>
+                      <span class="tip-icon">%</span>
+                      <div class="tip-box">
+                        🎉 初月割引 50% OFF<br>
+                        元の請求額: ¥677<br>
+                        割引額: -¥339<br>
+                        <strong>確定額: ¥338</strong>
+                      </div>
+                    </div>
+                    <div style="margin-top:3px"><span class="badge-pending">未確定</span></div>
+                  </td>
+                  <td><button class="btn btn-sm" onclick="openPersonalDetail('u002')">詳細</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight:600">佐藤 健</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px">ken@example.com</div>
+                  </td>
+                  <td><span class="badge-str">Free</span></td>
+                  <td>2026-06-10</td>
+                  <td style="color:#9ca3af">¥0</td>
+                  <td><button class="btn btn-sm" onclick="openPersonalDetail('u003')">詳細</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===== 個人ユーザー詳細 ===== -->
+        <div class="page" id="page-personal-detail">
+          <div class="section-header" style="align-items:center">
+            <button class="btn btn-sm" style="font-size:13px" onclick="navigate('admin-personal',null)">← 戻る</button>
+            <div style="display:flex;align-items:center;gap:10px;flex:1;margin-left:12px">
+              <div class="section-title" id="pd-user-name" style="margin:0">ユーザー詳細</div>
+              <span id="pd-user-status"></span>
+            </div>
+          </div>
+
+          <div class="plan-tabs" style="margin-bottom:20px">
+            <div class="plan-tab active" id="pd-tab-info" onclick="switchPersonalDetailTab('pd-panel-info',this)">
+              基本情報・プラン</div>
+            <div class="plan-tab" id="pd-tab-billing" onclick="switchPersonalDetailTab('pd-panel-billing',this)">今月の請求詳細
+            </div>
+            <div class="plan-tab" id="pd-tab-history" onclick="switchPersonalDetailTab('pd-panel-history',this)">変更履歴
+            </div>
+          </div>
+
+          <div class="plan-tab-panel active" id="pd-panel-info">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div class="plan-card">
+                <div style="font-weight:700;font-size:14px;margin-bottom:14px;color:#374151">基本情報</div>
+                <div id="pd-info-basic"></div>
+              </div>
+              <div class="plan-card">
+                <div style="font-weight:700;font-size:14px;margin-bottom:14px;color:#374151">現在のプラン</div>
+                <div id="pd-info-plan"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-tab-panel" id="pd-panel-billing">
+            <div class="plan-card">
+              <div style="font-weight:700;font-size:14px;margin-bottom:16px;color:#374151">今月の請求詳細</div>
+              <div id="pd-billing-body"></div>
+            </div>
+          </div>
+
+          <div class="plan-tab-panel" id="pd-panel-history">
+            <div class="plan-card">
+              <div style="font-weight:700;font-size:14px;margin-bottom:16px;color:#374151">プラン変更履歴</div>
+              <div id="pd-history-body"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 会社詳細 ===== -->
+        <div class="page" id="page-company-detail">
+          <div class="section-header" style="align-items:center">
+            <button class="btn btn-sm" style="font-size:13px" onclick="navigate('admin-plan',null)">← 戻る</button>
+            <div style="display:flex;align-items:center;gap:10px;flex:1;margin-left:12px">
+              <div class="section-title" id="cd-company-name" style="margin:0">会社詳細</div>
+              <span id="cd-company-status"></span>
+            </div>
+          </div>
+
+          <div class="plan-tabs" style="margin-bottom:20px">
+            <div class="plan-tab active" id="cd-tab-info" onclick="switchCompanyDetailTab('cd-panel-info',this)">
+              基本情報・プラン</div>
+            <div class="plan-tab" id="cd-tab-billing" onclick="switchCompanyDetailTab('cd-panel-billing',this)">今月の請求詳細
+            </div>
+            <div class="plan-tab" id="cd-tab-history" onclick="switchCompanyDetailTab('cd-panel-history',this)">変更履歴
+            </div>
+          </div>
+
+          <!-- Tab 1: 基本情報・プラン -->
+          <div class="plan-tab-panel active" id="cd-panel-info">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div class="plan-card">
+                <div style="font-weight:700;font-size:14px;margin-bottom:14px;color:#374151">基本情報</div>
+                <div id="cd-info-basic"></div>
+              </div>
+              <div class="plan-card">
+                <div style="font-weight:700;font-size:14px;margin-bottom:14px;color:#374151">現在のプラン</div>
+                <div id="cd-info-plan"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: 今月の請求詳細 -->
+          <div class="plan-tab-panel" id="cd-panel-billing">
+            <div class="plan-card">
+              <div style="font-weight:700;font-size:14px;margin-bottom:16px;color:#374151">今月の請求詳細</div>
+              <div id="cd-billing-body"></div>
+            </div>
+          </div>
+
+          <!-- Tab 3: 変更履歴 -->
+          <div class="plan-tab-panel" id="cd-panel-history">
+            <div class="plan-card">
+              <div style="font-weight:700;font-size:14px;margin-bottom:16px;color:#374151">プラン変更履歴</div>
+              <div id="cd-history-body"></div>
+            </div>
+          </div>
+        </div>
+

@@ -1,4 +1,4 @@
-// ===== CHAT DATA (per-project) =====
+    // ===== CHAT DATA (per-project) =====
     const avatarColors = ['', 'green', 'purple', 'orange', 'blue'];
     const projectMembers = {
       'PRJ-001': [
@@ -1136,12 +1136,20 @@
       const storedUser = sessionStorage.getItem('emind_user');
       if (storedId && storedUser) {
         sessionStorage.removeItem('emind_user_id');
-        sessionStorage.removeItem('emind_user');
-        document.addEventListener('DOMContentLoaded', function () {
-          document.getElementById('login-id').value = storedId;
-          document.getElementById('login-pass').value = JSON.parse(storedUser).password;
-          doLogin();
-        });
+        const doAutoLogin = function () {
+          const elId = document.getElementById('login-id');
+          const elPass = document.getElementById('login-pass');
+          if (elId && elPass) {
+            elId.value = storedId;
+            elPass.value = JSON.parse(storedUser).password;
+            doLogin();
+          }
+        };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', doAutoLogin);
+        } else {
+          doAutoLogin();
+        }
       }
     })();
 
@@ -1383,9 +1391,6 @@
       if (key === 'admin-dashboard') {
         applyDashboardMetrics();
         renderInteractiveRevenueChart();
-        if (typeof window.renderDailyCashflowDashboard === 'function') {
-          window.renderDailyCashflowDashboard();
-        }
       }
     }
 
@@ -1774,13 +1779,18 @@
     }
 
     // 初期テーブル描画
-    document.addEventListener('DOMContentLoaded', () => {
+    const initLicenseTables = () => {
       renderLicenseTable();
       updateLicenseCount();
       renderPersonalLicenseTable();
       renderAdminUserTable(adminUserData);
       renderPlanMaster();
-    });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLicenseTables);
+    } else {
+      initLicenseTables();
+    }
 
     // ===== 個人ライセンス一覧 =====
     const personalLicenseData = {
@@ -5624,3 +5634,5 @@
         if (sbC) sbC.classList.add('collapsed');
       }
     });
+
+
