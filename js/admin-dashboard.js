@@ -553,7 +553,7 @@
         if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG DOANH NGHIỆP';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2B)';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU NGÀY 24/09 (B2B)' : ('THỰC THU ' + monthText.toUpperCase() + ' (B2B)');
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2B)' : 'ĐÃ THU (B2B)';
         if (cDefTitle) cDefTitle.textContent = 'GHẾ DOANH NGHIỆP (B2B)';
       } else if (seg === 'B2C') {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Khối Cá Nhân (B2C)';
@@ -561,7 +561,7 @@
         if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG CÁ NHÂN';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2C)';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU NGÀY 24/09 (B2C)' : ('THỰC THU ' + monthText.toUpperCase() + ' (B2C)');
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2C)' : 'ĐÃ THU (B2C)';
         if (cDefTitle) cDefTitle.textContent = 'GHẾ CÁ NHÂN (B2C)';
       } else {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Toàn Nền Tảng';
@@ -569,7 +569,7 @@
         if (cCustTitle) cCustTitle.textContent = 'TỔNG HỢP ĐỒNG KHÁCH HÀNG';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'THỰC THU NGÀY 24/09/2026' : ('THỰC THU ' + monthText.toUpperCase());
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09/2026' : 'ĐÃ THU';
         if (cDefTitle) cDefTitle.textContent = 'GHẾ ĐANG SỬ DỤNG (SEATS)';
       }
 
