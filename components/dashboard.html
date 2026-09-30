@@ -220,22 +220,24 @@
                 </div>
               </div>
 
-              <!-- Card 5: Ghế Đang Sử Dụng (Seats) -->
-              <div class="vb-kpi-card" style="border-top:3px solid #6366f1">
+              <!-- Card 5: Đang Nợ (Công Nợ) -->
+              <div class="vb-kpi-card" id="card-kpi-overdue" style="border-top:3px solid #dc2626;cursor:pointer;transition:all 0.2s ease"
+                onclick="openReconciliationModal('OVERDUE')"
+                title="Nhấn để mở bảng chi tiết các hợp đồng ĐANG NỢ">
                 <div>
                   <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#4f46e5;font-weight:800" id="lbl-def-title">GHẾ ĐANG SỬ DỤNG (SEATS)</span>
-                    <span class="vb-kpi-icon" style="background:#e0e7ff;color:#4f46e5">👥</span>
+                    <span class="vb-kpi-label" style="color:#dc2626;font-weight:800" id="lbl-def-title">ĐANG NỢ</span>
+                    <span class="vb-kpi-icon" style="background:#fee2e2;color:#dc2626">⚠️</span>
                   </div>
                   <div style="margin-top:2px">
-                    <span class="vb-kpi-val" id="val-deferred" style="color:#4f46e5">455 / 520</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#4f46e5;font-weight:700" id="sub-def">Tỷ lệ 87.5% (Còn trống 65 ghế)</span>
+                    <span class="vb-kpi-val" id="val-deferred" style="color:#16a34a">¥0</span>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#16a34a;font-weight:700" id="sub-def">✓ 0 HĐ nợ quá hạn (An toàn 100%)</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
                   style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
-                  <span style="color:#089490;font-weight:700" id="lbl-def-b2b" title="Ghế doanh nghiệp">🏢 DN: 434 / 480 ghế</span>
-                  <span style="color:#7c3aed;font-weight:700" id="lbl-def-b2c" title="Ghế cá nhân">👤 Cá nhân: 21 / 40 ghế</span>
+                  <span style="color:#64748b;font-weight:700" id="lbl-def-b2b" title="Nợ DN">🏢 DN: ¥0 (Khớp)</span>
+                  <span style="color:#64748b;font-weight:700" id="lbl-def-b2c" title="Nợ Cá nhân">👤 Cá nhân: ¥0 (Khớp)</span>
                 </div>
               </div>
 

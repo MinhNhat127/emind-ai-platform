@@ -159,6 +159,10 @@
       var prepaidCount = 0;
       var colSegCash = { b2b: 0, b2c: 0 };
       var penSegCash = { b2b: 0, b2c: 0 };
+      var overdueCash = 0;
+      var overdueCount = 0;
+      var overdueSegCash = { b2b: 0, b2c: 0 };
+      var curDay = isDayMode ? 24 : (effectiveMonth === '2026-09' ? 24 : (effectiveMonth < '2026-09' ? 32 : 0));
 
       filteredContracts.forEach(function (c) {
         var isPaying = false;
@@ -180,6 +184,14 @@
             pendingCount++;
             if (c.customerType === 'B2B') penSegCash.b2b += c.billingAmount;
             else penSegCash.b2c += c.billingAmount;
+
+            // Kiểm tra quá hạn nợ (đến kỳ nạp nhưng chưa thanh toán)
+            if (c.billingDay < curDay) {
+              overdueCash += c.billingAmount;
+              overdueCount++;
+              if (c.customerType === 'B2B') overdueSegCash.b2b += c.billingAmount;
+              else overdueSegCash.b2c += c.billingAmount;
+            }
           }
         } else {
           var isActive = isDayMode ? (c.startDate <= '2026-09-24') : (c.startDate <= effectiveMonth + '-31');
@@ -229,9 +241,12 @@
         collectedCount: collectedCount,
         pendingCash: pendingCash,
         pendingCount: pendingCount,
+        overdueCash: overdueCash,
+        overdueCount: overdueCount,
         prepaidCount: prepaidCount,
         colSegCash: colSegCash,
         penSegCash: penSegCash,
+        overdueSegCash: overdueSegCash,
         totalExpectedCash: collectedCash + pendingCash
       };
     };
@@ -554,7 +569,7 @@
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2B)';
         if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2B)' : 'ĐÃ THU (B2B)';
-        if (cDefTitle) cDefTitle.textContent = 'GHẾ DOANH NGHIỆP (B2B)';
+        if (cDefTitle) cDefTitle.textContent = 'ĐANG NỢ (B2B)';
       } else if (seg === 'B2C') {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Khối Cá Nhân (B2C)';
         if (topDesc) topDesc.textContent = 'Khối Cá nhân (B2C) • ' + metrics.totalManaged + ' Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
@@ -562,7 +577,7 @@
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2C)';
         if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2C)' : 'ĐÃ THU (B2C)';
-        if (cDefTitle) cDefTitle.textContent = 'GHẾ CÁ NHÂN (B2C)';
+        if (cDefTitle) cDefTitle.textContent = 'ĐANG NỢ (B2C)';
       } else {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Toàn Nền Tảng';
         if (topDesc) topDesc.textContent = 'Hệ sinh thái Doanh nghiệp & Cá nhân • ' + metrics.totalManaged + ' Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
@@ -570,7 +585,7 @@
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
         if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR';
         if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09/2026' : 'ĐÃ THU';
-        if (cDefTitle) cDefTitle.textContent = 'GHẾ ĐANG SỬ DỤNG (SEATS)';
+        if (cDefTitle) cDefTitle.textContent = 'ĐANG NỢ';
       }
 
       // Card 1: Khách hàng
@@ -619,19 +634,32 @@
       }
       if (penB2b) penB2b.textContent = "🏢 DN: " + fmt(metrics.penSegCash ? metrics.penSegCash.b2b : penAmt);
       if (penB2c) penB2c.textContent = "👤 Cá nhân: " + fmt(metrics.penSegCash ? metrics.penSegCash.b2c : 0);
-      // Card 4: Ghế bản quyền
-      if (cDefVal) cDefVal.textContent = metrics.totalSeats + ' / ' + metrics.totalCapacity;
-      var seatUsagePct = ((metrics.totalSeats / metrics.totalCapacity) * 100).toFixed(1);
-      var vacantSeats = metrics.totalCapacity - metrics.totalSeats;
+      // Card 5: Tiền mặt ĐANG NỢ (Công nợ quá hạn kỳ thu)
+      var overAmt = metrics.overdueCash || 0;
+      var overCnt = metrics.overdueCount || 0;
+      if (cDefVal) {
+        cDefVal.textContent = fmt(overAmt);
+        cDefVal.style.color = overAmt > 0 ? '#dc2626' : '#16a34a';
+      }
       if (subDef) {
-        if (period === '2026-10') {
-          subDef.innerHTML = '<span style="color:#d97706;font-weight:700">⚠️ Chạm trần ' + seatUsagePct + '% (Chỉ còn ' + vacantSeats + ' ghế!)</span>';
+        if (overCnt === 0) {
+          subDef.style.color = '#16a34a';
+          subDef.innerHTML = '✓ 0 HĐ nợ quá hạn (An toàn 100%)';
         } else {
-          subDef.textContent = 'Tỷ lệ ' + seatUsagePct + '% (Còn trống ' + vacantSeats + ' ghế)';
+          subDef.style.color = '#dc2626';
+          subDef.innerHTML = '<strong>⚠️ ' + overCnt + ' HĐ nợ quá hạn</strong> • Bấm lọc ➔';
         }
       }
-      if (defB2b) defB2b.textContent = '🏢 DN: ' + metrics.segSeats.b2b + ' / 480 ghế';
-      if (defB2c) defB2c.textContent = '👤 Cá nhân: ' + metrics.segSeats.b2c + ' / 40 ghế';
+      var b2bOver = metrics.overdueSegCash ? metrics.overdueSegCash.b2b : 0;
+      var b2cOver = metrics.overdueSegCash ? metrics.overdueSegCash.b2c : 0;
+      if (defB2b) {
+        defB2b.textContent = '🏢 DN: ' + fmt(b2bOver) + (b2bOver === 0 ? ' (Khớp)' : '');
+        defB2b.style.color = b2bOver > 0 ? '#dc2626' : '#64748b';
+      }
+      if (defB2c) {
+        defB2c.textContent = '👤 Cá nhân: ' + fmt(b2cOver) + (b2cOver === 0 ? ' (Khớp)' : '');
+        defB2c.style.color = b2cOver > 0 ? '#dc2626' : '#64748b';
+      }
 
       // Update Topbar Timeline Active States
       var btnToday = document.getElementById('tl-btn-today');
@@ -1123,6 +1151,7 @@
       // Highlight active KPI cards
       var cardCol = document.getElementById('card-kpi-collected');
       var cardPen = document.getElementById('card-kpi-pending');
+      var cardOver = document.getElementById('card-kpi-overdue');
       if (cardCol) {
         cardCol.style.boxShadow = (status === 'COLLECTED') ? '0 0 0 3px rgba(22, 163, 74, 0.45), 0 4px 12px rgba(22, 163, 74, 0.15)' : 'none';
         cardCol.style.borderColor = (status === 'COLLECTED') ? '#16a34a' : '';
@@ -1130,6 +1159,10 @@
       if (cardPen) {
         cardPen.style.boxShadow = (status === 'PENDING') ? '0 0 0 3px rgba(217, 119, 6, 0.45), 0 4px 12px rgba(217, 119, 6, 0.15)' : 'none';
         cardPen.style.borderColor = (status === 'PENDING') ? '#d97706' : '';
+      }
+      if (cardOver) {
+        cardOver.style.boxShadow = (status === 'OVERDUE') ? '0 0 0 3px rgba(220, 38, 38, 0.45), 0 4px 12px rgba(220, 38, 38, 0.15)' : 'none';
+        cardOver.style.borderColor = (status === 'OVERDUE') ? '#dc2626' : '';
       }
 
       // Reset day filter to ALL to show all items for this status
@@ -1162,6 +1195,9 @@
         } else if (status === 'PENDING') {
           var penCount = dynMetrics ? dynMetrics.pendingCount : 2;
           titleEl.innerHTML = '🟡 SỔ DÒNG TIỀN: DANH SÁCH ' + penCount + ' HỢP ĐỒNG CHƯA THU (CHỜ NẠP)';
+        } else if (status === 'OVERDUE') {
+          var overCount = dynMetrics ? dynMetrics.overdueCount : 0;
+          titleEl.innerHTML = '🔴 SỔ DÒNG TIỀN: DANH SÁCH ' + overCount + ' HỢP ĐỒNG ĐANG NỢ (QUÁ HẠN)';
         } else {
           titleEl.innerHTML = '📅 SỔ DÒNG TIỀN & ĐỐI SOÁT THEO NGÀY';
         }
@@ -1183,6 +1219,10 @@
           var pCnt = dynMetrics ? dynMetrics.pendingCount : 2;
           var pAmt = dynMetrics ? dynFmt(dynMetrics.pendingCash) : '¥21,300';
           window.showAdminToast('Đang lọc ' + pCnt + ' hợp đồng CHƯA THU TIỀN (' + pAmt + ')', 'info');
+        } else if (status === 'OVERDUE') {
+          var oCnt = dynMetrics ? dynMetrics.overdueCount : 0;
+          var oAmt = dynMetrics ? dynFmt(dynMetrics.overdueCash) : '¥0';
+          window.showAdminToast('Đang lọc ' + oCnt + ' hợp đồng ĐANG NỢ (' + oAmt + ')', 'warning');
         } else {
           window.showAdminToast('Đang hiển thị toàn bộ hợp đồng trong kỳ', 'info');
         }
@@ -1527,11 +1567,14 @@
         displayTx = allTx.filter(function (tx) { return tx.dayNum === activeDay; });
       }
 
-      // Filter by Payment Status (ĐÃ THU vs CHƯA THU)
+      // Filter by Payment Status (ĐÃ THU vs CHƯA THU vs ĐANG NỢ)
+      var curDayNum = (targetMonth === '2026-09') ? 24 : (targetMonth < '2026-09' ? 32 : 0);
       if (currentStFilter === 'COLLECTED') {
         displayTx = displayTx.filter(function (tx) { return tx.isCollected === true; });
       } else if (currentStFilter === 'PENDING') {
         displayTx = displayTx.filter(function (tx) { return tx.isCollected === false; });
+      } else if (currentStFilter === 'OVERDUE') {
+        displayTx = displayTx.filter(function (tx) { return tx.isCollected === false && tx.dayNum < curDayNum; });
       }
 
       // Filter by Search Query
@@ -1553,7 +1596,7 @@
       var searchCounterEl = document.getElementById('dash-daily-search-counter');
       if (searchCounterEl) {
         var dayScopeText = (activeDay === 'ALL') ? '' : ('Ngày ' + (activeDay < 10 ? '0' : '') + activeDay + ': ');
-        var stLabel = (currentStFilter === 'COLLECTED') ? 'Đã thu • ' : ((currentStFilter === 'PENDING') ? 'Chờ thu • ' : '');
+        var stLabel = (currentStFilter === 'COLLECTED') ? 'Đã thu • ' : ((currentStFilter === 'PENDING') ? 'Chờ thu • ' : ((currentStFilter === 'OVERDUE') ? 'Đang nợ • ' : ''));
         searchCounterEl.textContent = dayScopeText + stLabel + displayTx.length + ' HĐ • ' + fmt(currentDispTotal);
       }
 
@@ -1581,7 +1624,11 @@
       var tbody = document.getElementById('dashboard-daily-tbody');
       if (tbody) {
         if (displayTx.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:#94a3b8;font-size:12.5px"><div style="font-size:20px;margin-bottom:6px">🔍</div>Không tìm thấy hợp đồng nào khớp với bộ lọc.<br><button type="button" onclick="document.getElementById(\'dash-daily-search\').value=\'\';onDashDailySearch(\'\');setDashboardDailyStatusFilter(\'ALL\');selectDailyMilestoneDay(\'ALL\');" style="margin-top:8px;padding:4px 10px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:6px;font-size:11.5px;cursor:pointer">Đặt lại bộ lọc</button></td></tr>';
+          if (currentStFilter === 'OVERDUE') {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:#16a34a;font-size:13px"><div style="font-size:26px;margin-bottom:6px">🎉</div><strong>Không có hợp đồng nào đang nợ quá hạn!</strong><br><span style="color:#64748b;font-size:12px">Toàn bộ các khoản thu đến kỳ hạn đã được đối soát hoàn tất 100%.</span><br><button type="button" onclick="document.getElementById(\'dash-daily-search\').value=\'\';onDashDailySearch(\'\');setDashboardDailyStatusFilter(\'ALL\');selectDailyMilestoneDay(\'ALL\');" style="margin-top:10px;padding:5px 12px;background:#f0fdf4;border:1px solid #86efac;color:#15803d;font-weight:700;border-radius:6px;font-size:11.5px;cursor:pointer">Xem tất cả dòng tiền</button></td></tr>';
+          } else {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:#94a3b8;font-size:12.5px"><div style="font-size:20px;margin-bottom:6px">🔍</div>Không tìm thấy hợp đồng nào khớp với bộ lọc.<br><button type="button" onclick="document.getElementById(\'dash-daily-search\').value=\'\';onDashDailySearch(\'\');setDashboardDailyStatusFilter(\'ALL\');selectDailyMilestoneDay(\'ALL\');" style="margin-top:8px;padding:4px 10px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:6px;font-size:11.5px;cursor:pointer">Đặt lại bộ lọc</button></td></tr>';
+          }
         } else {
           var rowsHTML = '';
           displayTx.forEach(function (tx) {
