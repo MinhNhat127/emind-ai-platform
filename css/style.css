@@ -4416,17 +4416,17 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 16px;
       background: #ffffff;
-      padding: 20px 24px;
-      border-radius: 16px;
+      padding: 14px 20px;
+      border-radius: 14px;
       border: 1px solid #e2e8f0;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
     .vb-title-group h2 {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
       color: #0f172a;
       display: flex;
@@ -4469,9 +4469,9 @@
     }
 
     .vb-subtitle {
-      font-size: 12.5px;
+      font-size: 12px;
       color: #64748b;
-      margin-top: 3px;
+      margin-top: 2px;
     }
 
     .vb-top-actions {
@@ -4507,15 +4507,15 @@
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     }
 
-    /* KPI Grid */
+    /* KPI Grid - Balanced 4 columns */
     .vb-kpi-grid {
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-              gap: 14px;
-              margin-bottom: 20px;
-            }
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 16px;
+    }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1150px) {
       .vb-kpi-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -4530,11 +4530,12 @@
     .vb-kpi-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 18px 20px;
+      border-radius: 14px;
+      padding: 15px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 112px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 

@@ -14,10 +14,11 @@
     { slot: '#slot-modals', file: 'components/modals.html' }
   ];
 
+  const BUILD_VERSION = Date.now();
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = src;
+      script.src = src + '?v=' + BUILD_VERSION;
       script.onload = () => resolve();
       script.onerror = (err) => reject(new Error('Failed to load script: ' + src));
       document.body.appendChild(script);
@@ -27,7 +28,7 @@
   async function loadAllTemplates() {
     try {
       const fetches = components.map(async ({ slot, file }) => {
-        const res = await fetch(file);
+        const res = await fetch(file + '?v=' + BUILD_VERSION);
         if (!res.ok) {
           throw new Error(`Failed to load ${file} (${res.status} ${res.statusText})`);
         }

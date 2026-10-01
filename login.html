@@ -1004,7 +1004,7 @@ function doLogin() {
   // 1ワークスペース → そのままindex.htmlへ
   sessionStorage.setItem('emind_user_id', id);
   sessionStorage.setItem('emind_user', JSON.stringify(user));
-  window.location.href = 'index.html';
+  window.location.href = 'index.html?t=' + Date.now();
 }
 
 function goto(viewId) {
