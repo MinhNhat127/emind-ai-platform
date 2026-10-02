@@ -33,37 +33,47 @@
 
                 <!-- 2. Mốc Ngày Demo (Quá khứ, Bây giờ, Vài ngày nữa, Tháng sau, Tương lai) -->
                 <div class="vb-seg-control" id="vb-timeline-group" style="padding:2px 6px;display:inline-flex;align-items:center;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px">
-                  <span style="font-size:11.5px;font-weight:700;color:#089490;margin-right:6px">🎯 Mốc Demo:</span>
+                  <span style="font-size:11.5px;font-weight:700;color:#089490;margin-right:6px">Mốc Demo:</span>
                   <select id="vb-demo-day-select" onchange="setDemoCheckpoint(this.value)" class="vb-seg-select"
                     style="font-weight:700;color:#0f766e;background:#ffffff;border:1px solid #99f6e4;border-radius:6px;padding:4px 9px;cursor:pointer;font-size:12px;outline:none"
                     title="Chọn mốc thời gian để demo diễn biến: Quá khứ, Hiện tại, Vài ngày nữa hoặc Tháng sau">
                     
-                    <!-- 1. BÂY GIỜ (THỜI GIAN THỰC) -->
-                    <optgroup label="📍 HIỆN TẠI (THỜI GIAN THỰC / HÔM NAY)">
-                      <option value="NOW_REAL" selected>🔴 Hôm nay (Live Real-Time)</option>
+                    <!-- 1. QUÁ KHỨ (ĐÃ QUA) -->
+                    <optgroup label="QUÁ KHỨ (ĐÃ QUA)">
+                      <option value="PAST_LAST_MONTH">Tháng trước (Đã chốt sổ đối soát)</option>
+                      <option value="PAST_LAST_WEEK">Tuần trước</option>
+                      <option value="PAST_YESTERDAY">Hôm qua</option>
+                      <option value="PAST_2026-09-29">Mẫu Ngày 29/09: Thu 22/24 HĐ (¥248.5k)</option>
+                      <option value="PAST_2026-09-30">Mẫu Chốt Tháng 9: Thu 24/24 HĐ (¥269.8k)</option>
                     </optgroup>
 
-                    <!-- 2. VÀI NGÀY NỮA (SẮP TỚI) -->
-                    <optgroup label="⏱️ VÀI NGÀY NỮA (SẮP TỚI)">
-                      <option value="SOON_TOMORROW">⏳ Ngày mai</option>
-                      <option value="SOON_IN_3_DAYS">⏱️ 3 ngày nữa</option>
-                      <option value="SOON_END_OF_MONTH">🏁 Cuối tháng này (Chốt 100% KPI)</option>
+                    <!-- 2. HIỆN TẠI (THỜI GIAN THỰC) -->
+                    <optgroup label="HIỆN TẠI (THỜI GIAN THỰC / HÔM NAY)">
+                      <option value="NOW_REAL" selected>Hôm nay (Live Real-Time)</option>
                     </optgroup>
 
-                    <!-- 3. THÁNG SAU & TƯƠNG LAI -->
-                    <optgroup label="🔮 THÁNG SAU & TƯƠNG LAI">
-                      <option value="FUTURE_NEXT_MONTH">📅 Tháng sau</option>
-                      <option value="FUTURE_NEXT_2_MONTHS">🚀 2 tháng nữa</option>
-                      <option value="FUTURE_2026-12">🎯 Chốt năm: Tháng 12/2026 (Đại hội FDI ¥1.37M)</option>
+                    <!-- 3. VÀI NGÀY NỮA (SẮP TỚI) -->
+                    <optgroup label="VÀI NGÀY NỮA (SẮP TỚI)">
+                      <option value="SOON_TOMORROW">Ngày mai</option>
+                      <option value="SOON_IN_3_DAYS">3 ngày nữa</option>
+                      <option value="SOON_END_OF_MONTH">Cuối tháng này (Chốt 100% KPI)</option>
                     </optgroup>
 
-                    <!-- 4. QUÁ KHỨ -->
-                    <optgroup label="⏪ QUÁ KHỨ (ĐÃ QUA)">
-                      <option value="PAST_YESTERDAY">⏪ Hôm qua</option>
-                      <option value="PAST_LAST_WEEK">⏪ Tuần trước</option>
-                      <option value="PAST_LAST_MONTH">⏮️ Tháng trước (Đã chốt sổ đối soát)</option>
-                      <option value="PAST_2026-09-29">📜 Mẫu Ngày 29/09: Thu 22/24 HĐ (¥248.5k)</option>
-                      <option value="PAST_2026-09-30">📜 Mẫu Chốt Tháng 9: Thu 24/24 HĐ (¥269.8k)</option>
+                    <!-- 4. THÁNG SAU & TƯƠNG LAI -->
+                    <optgroup label="THÁNG SAU & TƯƠNG LAI 2026">
+                      <option value="FUTURE_NEXT_MONTH">Tháng sau</option>
+                      <option value="FUTURE_NEXT_2_MONTHS">2 tháng nữa</option>
+                      <option value="FUTURE_2026-12">Chốt năm: Tháng 12/2026 (Đại hội FDI ¥1.37M)</option>
+                    </optgroup>
+
+                    <!-- 5. NĂM SAU 2027 (KẾ HOẠCH & DỰ BÁO NGÂN SÁCH) -->
+                    <optgroup label="NĂM SAU 2027 (KẾ HOẠCH & DỰ BÁO)">
+                      <option value="FUTURE_2027-01">Tháng 01/2027 (Gia hạn năm Q1 & Tái nạp Quý)</option>
+                      <option value="FUTURE_2027-03">Tháng 03/2027 (Kỳ nạp Quý 1 & HĐ năm)</option>
+                      <option value="FUTURE_2027-06">Tháng 06/2027 (Chốt bán niên H1/2027)</option>
+                      <option value="FUTURE_2027-09">Tháng 09/2027 (Kỳ nạp Quý 3/2027)</option>
+                      <option value="FUTURE_2027-10">Tháng 10/2027 (Kỳ nạp Quý 4/2027)</option>
+                      <option value="FUTURE_2027-12">Tháng 12/2027 (Chốt năm tài chính 2027)</option>
                     </optgroup>
                   </select>
                 </div>
@@ -133,42 +143,118 @@
               <div id="timeline-matrix-panel" style="display:none"></div>
             </div>
 
+            <style>
+              .kpi-card-time-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 2.5px 8px;
+                border-radius: 5px;
+                letter-spacing: 0.1px;
+                line-height: 1.2;
+              }
+              .kpi-card-time-badge .kpi-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                display: inline-block;
+              }
+              .kpi-card-time-badge.teal {
+                background: #f0fdfa;
+                color: #0d9488;
+                border: 1px solid #ccfbf1;
+              }
+              .kpi-card-time-badge.teal .kpi-dot {
+                background: #0d9488;
+              }
+              .kpi-card-time-badge.green {
+                background: #f0fdf4;
+                color: #15803d;
+                border: 1px solid #bbf7d0;
+              }
+              .kpi-card-time-badge.green .kpi-dot {
+                background: #16a34a;
+              }
+              .kpi-card-time-badge.amber {
+                background: #fffbeb;
+                color: #b45309;
+                border: 1px solid #fde68a;
+              }
+              .kpi-card-time-badge.amber .kpi-dot {
+                background: #f59e0b;
+              }
+              .kpi-card-time-badge.red {
+                background: #fef2f2;
+                color: #b91c1c;
+                border: 1px solid #fecaca;
+              }
+              .kpi-card-time-badge.red .kpi-dot {
+                background: #dc2626;
+              }
+            </style>
+
             <!-- 4 THẺ THỐNG KÊ TÀI CHÍNH ĐẲNG CẤP FINTECH (DYNAMIC THEO MỐC NGÀY/THÁNG) -->
             <div class="vb-kpi-grid">
 
-              <!-- Card 1: Khách Hàng -->
-              <div class="vb-kpi-card" style="border-top:3px solid #089490">
+              <!-- Card 1: Khách Hàng / Tổng Hợp Đồng -->
+              <div class="vb-kpi-card" id="card-kpi-all" style="border-top:3px solid #089490;cursor:pointer;transition:all 0.2s ease"
+                onclick="openReconciliationModal('ALL')"
+                title="Nhấn để xem toàn bộ danh sách hợp đồng">
                 <div>
-                  <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" id="lbl-cust-title">TỔNG HỢP ĐỒNG KHÁCH HÀNG</span>
+                  <div class="vb-kpi-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+                    <div>
+                      <span class="vb-kpi-label" id="lbl-cust-title">TỔNG HỢP ĐỒNG</span>
+                      <div style="margin-top:3px">
+                        <span id="lbl-cust-period" class="kpi-card-time-badge teal">
+                          <span class="kpi-dot"></span>Toàn hệ thống • Đến 02/10
+                        </span>
+                      </div>
+                    </div>
                     <span class="vb-kpi-icon" style="background:#e6f7f6;color:#089490">🌐</span>
                   </div>
                   <div style="margin-top:2px">
                     <span class="vb-kpi-val" id="val-cust">52</span>
-                    <span class="vb-kpi-sub" id="sub-cust">41 HĐ đang active (22 nạp tiền)</span>
+                    <span class="vb-kpi-sub" id="sub-cust">41 HĐ đang active</span>
+                  </div>
+                  <div style="margin:6px 0 4px;background:#e2e8f0;border-radius:4px;height:5px;overflow:hidden;width:100%">
+                    <div id="prog-cust-active" style="background:#089490;height:100%;border-radius:4px;width:80%;transition:width 0.4s ease"></div>
+                  </div>
+                  <div style="font-size:11.5px;color:#0f766e;font-weight:700;display:flex;align-items:center;justify-content:space-between">
+                    <span>Tổng dự kiến:</span>
+                    <span id="val-total-expected" style="font-size:12.5px;font-weight:800;color:#0f172a">¥329,600</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
                   style="padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px">
-                  <span style="color:#089490;font-weight:700" id="lbl-cust-b2b" title="HĐ Doanh nghiệp active">🏢 32 DN
-                    (27 Active)</span>
-                  <span style="color:#009BCC;font-weight:700" id="lbl-cust-b2c" title="HĐ Cá nhân active">👤 20 Cá nhân
-                    (14 Active)</span>
+                  <span style="color:#089490;font-weight:700" id="lbl-cust-b2b" title="HĐ Doanh nghiệp active">🏢 32 DN (27 Active)</span>
+                  <span style="color:#009BCC;font-weight:700" id="lbl-cust-b2c" title="HĐ Cá nhân active">👤 20 Cá nhân (14 Active)</span>
                 </div>
               </div>
 
-              <!-- Card 3: Đã Thu (Cash-In) - Bấm để mở bảng Đã Thu -->
+              <!-- Card 2: Đã Thu (Cash-In) - Bấm để mở bảng Đã Thu -->
               <div class="vb-kpi-card" id="card-kpi-collected" style="border-top:3px solid #16a34a;cursor:pointer;transition:all 0.2s ease"
                 onclick="openReconciliationModal('COLLECTED')"
-                title="Nhấn để mở bảng chi tiết các hợp đồng ĐÃ THU TIỀN">
+                title="Nhấn để mở bảng chi tiết các hợp đồng ĐÃ THANH TOÁN">
                 <div>
-                  <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#15803d;font-weight:800" id="lbl-cash-title">ĐÃ THU</span>
+                  <div class="vb-kpi-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+                    <div>
+                      <span class="vb-kpi-label" style="color:#15803d;font-weight:800" id="lbl-cash-title">ĐÃ THANH TOÁN</span>
+                      <div style="margin-top:3px">
+                        <span id="lbl-cash-period" class="kpi-card-time-badge green">
+                          <span class="kpi-dot"></span>Kỳ T10/2026 (01/10 — 31/10)
+                        </span>
+                      </div>
+                    </div>
                     <span class="vb-kpi-icon" style="background:#dcfce7;color:#15803d">💵</span>
                   </div>
                   <div style="margin-top:2px">
                     <span class="vb-kpi-val" id="val-cash-in" style="color:#16a34a">¥94,000</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#15803d;font-weight:700" id="sub-cash">5 HĐ đã vào két (29% dự thu) ➔</span>
+                    <div style="margin:6px 0 4px;background:#dcfce7;border-radius:4px;height:5px;overflow:hidden;width:100%">
+                      <div id="prog-cash-in" style="background:#16a34a;height:100%;border-radius:4px;width:34%;transition:width 0.4s ease"></div>
+                    </div>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#15803d;font-weight:700" id="sub-cash">5 HĐ đã thanh toán (29% kế hoạch) ➔</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
@@ -178,18 +264,28 @@
                 </div>
               </div>
 
-              <!-- Card 4: Chưa Thu (Chờ Nạp) - Bấm để mở bảng Chưa Thu -->
+              <!-- Card 3: Chưa Thu (Chờ Thanh Toán) - Bấm để mở bảng Chưa Thu -->
               <div class="vb-kpi-card" id="card-kpi-pending" style="border-top:3px solid #f59e0b;cursor:pointer;transition:all 0.2s ease;background:#fffdfa"
                 onclick="openReconciliationModal('PENDING')"
-                title="Nhấn để mở bảng chi tiết các hợp đồng CHƯA THU TIỀN">
+                title="Nhấn để mở bảng chi tiết các hợp đồng CHỜ THANH TOÁN">
                 <div>
-                  <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#d97706;font-weight:800" id="lbl-pending-title">CHƯA THU (CHỜ NẠP)</span>
+                  <div class="vb-kpi-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+                    <div>
+                      <span class="vb-kpi-label" style="color:#d97706;font-weight:800" id="lbl-pending-title">CHỜ THANH TOÁN</span>
+                      <div style="margin-top:3px">
+                        <span id="lbl-pending-period" class="kpi-card-time-badge amber">
+                          <span class="kpi-dot"></span>Kỳ T10/2026 (01/10 — 31/10)
+                        </span>
+                      </div>
+                    </div>
                     <span class="vb-kpi-icon" style="background:#fef3c7;color:#d97706">⏳</span>
                   </div>
                   <div style="margin-top:2px">
                     <span class="vb-kpi-val" id="val-cash-pending" style="color:#d97706">¥235,600</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#b45309;font-weight:700" id="sub-cash-pending">26 HĐ chờ thu (71%) • Bấm mở bảng ➔</span>
+                    <div style="margin:6px 0 4px;background:#fef3c7;border-radius:4px;height:5px;overflow:hidden;width:100%">
+                      <div id="prog-cash-pending" style="background:#f59e0b;height:100%;border-radius:4px;width:66%;transition:width 0.4s ease"></div>
+                    </div>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#b45309;font-weight:700" id="sub-cash-pending">26 HĐ chờ thanh toán (71%) • Bấm mở bảng ➔</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
@@ -199,18 +295,28 @@
                 </div>
               </div>
 
-              <!-- Card 5: Đang Nợ (Công Nợ) -->
+              <!-- Card 4: Nợ Quá Hạn - Bấm để mở bảng Nợ -->
               <div class="vb-kpi-card" id="card-kpi-overdue" style="border-top:3px solid #dc2626;cursor:pointer;transition:all 0.2s ease"
                 onclick="openReconciliationModal('OVERDUE')"
-                title="Nhấn để mở bảng chi tiết các hợp đồng ĐANG NỢ (Theo dõi tuổi nợ tối đa 12 tháng)">
+                title="Nhấn để mở bảng chi tiết các hợp đồng NỢ QUÁ HẠN (Giới hạn tối đa 12 tháng)">
                 <div>
-                  <div class="vb-kpi-header">
-                    <span class="vb-kpi-label" style="color:#dc2626;font-weight:800" id="lbl-def-title">ĐANG NỢ (TỐI ĐA 12 THÁNG)</span>
+                  <div class="vb-kpi-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+                    <div>
+                      <span class="vb-kpi-label" style="color:#dc2626;font-weight:800" id="lbl-def-title">NỢ QUÁ HẠN</span>
+                      <div style="margin-top:3px">
+                        <span id="lbl-def-period" class="kpi-card-time-badge red">
+                          <span class="kpi-dot"></span>Lũy kế ≤12 thg (Đến 02/10)
+                        </span>
+                      </div>
+                    </div>
                     <span class="vb-kpi-icon" style="background:#fee2e2;color:#dc2626">⚠️</span>
                   </div>
                   <div style="margin-top:2px">
                     <span class="vb-kpi-val" id="val-deferred" style="color:#16a34a">¥0</span>
-                    <span class="vb-kpi-sub" style="font-size:11px;color:#16a34a;font-weight:700" id="sub-def">✓ 0 HĐ nợ quá hạn (Giới hạn tối đa 12 tháng)</span>
+                    <div id="prog-def-wrap" style="margin:6px 0 4px;background:#fee2e2;border-radius:4px;height:5px;overflow:hidden;width:100%;display:none">
+                      <div id="prog-deferred" style="background:#dc2626;height:100%;border-radius:4px;width:0%;transition:width 0.4s ease"></div>
+                    </div>
+                    <span class="vb-kpi-sub" style="font-size:11px;color:#16a34a;font-weight:700" id="sub-def">✓ 0 HĐ nợ quá hạn (Trong hạn an toàn ≤12 thg)</span>
                   </div>
                 </div>
                 <div class="vb-kpi-footer"
@@ -473,78 +579,141 @@
               </div>
             </div>
 
-            <!-- ===== MỤC 1: KHÁCH HÀNG ĐĂNG KÝ TÀI KHOẢN MỚI TRONG THÁNG (THEO YÊU CẦU SẾP) ===== -->
-            <div id="dash-view-new-signups" style="margin:20px 0 24px;border-top:1px solid #e2e8f0;padding-top:18px">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:12px">
-                <div style="display:flex;align-items:center;gap:10px">
-                  <span style="font-size:20px;background:#e0f2fe;color:#0284c7;width:34px;height:34px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">👥</span>
+            <!-- ===== MỤC 1: KHÁCH HÀNG ĐĂNG KÝ TÀI KHOẢN MỚI TRONG THÁNG (REDESIGNED ULTRA MODERN) ===== -->
+            <div id="dash-view-new-signups" style="margin:24px 0 28px;border-top:1px solid #e2e8f0;padding-top:22px">
+              
+              <!-- Header Bar -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(37,99,235,0.25)">
+                    ✨
+                  </div>
                   <div>
-                    <h3 style="font-size:15px;font-weight:800;color:#0f172a;margin:0">KHÁCH HÀNG ĐĂNG KÝ TÀI KHOẢN MỚI TRONG THÁNG</h3>
-                    <p style="font-size:11.5px;color:#64748b;margin:2px 0 0">Danh sách tài khoản doanh nghiệp & cá nhân đăng ký mới, số ghế và gói dịch vụ tham gia trong kỳ</p>
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <h3 style="font-size:16px;font-weight:800;color:#0f172a;margin:0;letter-spacing:-0.2px">KHÁCH HÀNG ĐĂNG KÝ TÀI KHOẢN MỚI TRONG THÁNG</h3>
+                      <span style="font-size:10.5px;font-weight:700;color:#0284c7;background:#e0f2fe;padding:2px 8px;border-radius:12px;border:1px solid #bae6fd">✨ Onboarding Pipeline</span>
+                    </div>
+                    <p style="font-size:12px;color:#64748b;margin:2px 0 0">Theo dõi dòng tài khoản doanh nghiệp & cá nhân gia nhập hệ sinh thái, mở rộng số ghế và gói dịch vụ trong kỳ</p>
                   </div>
                 </div>
+
                 <div style="display:flex;align-items:center;gap:8px">
-                  <span id="new-signups-summary-badge" style="background:#f0fdfa;color:#089490;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid #99f6e4">
-                    Tháng 09/2026: 7 Tài khoản mới • 45 Ghế • ¥98,900
+                  <span id="new-signups-summary-badge" style="background:linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);color:#0f766e;font-size:12px;font-weight:800;padding:6px 14px;border-radius:24px;border:1px solid #99f6e4;box-shadow:0 1px 3px rgba(13,148,136,0.1)">
+                    Tháng 10/2026: 5 Tài khoản mới • 56 Ghế • ¥66,000
                   </span>
+                  <button type="button" class="btn btn-sm" onclick="exportNewSignupsCSV()"
+                    style="background:#ffffff;border:1px solid #cbd5e1;color:#334155;padding:6px 12px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all 0.15s">
+                    <span>📥</span> Xuất CSV
+                  </button>
                 </div>
               </div>
 
-              <!-- 3 Thẻ thống kê tóm tắt nhanh -->
-              <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:12px;margin-bottom:14px">
-                <div style="background:#ffffff;border:1px solid #e2e8f0;border-left:3px solid #0284c7;border-radius:10px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,0.02)">
-                  <div style="display:flex;justify-content:space-between;align-items:center">
-                    <span style="font-size:11px;color:#64748b;font-weight:700">🏢 DOANH NGHIỆP MỚI (B2B)</span>
-                    <span style="font-size:13px">🏢</span>
+              <!-- 4 Thẻ chỉ số tổng quan phong cách Executive Cards -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:14px;margin-bottom:18px">
+                
+                <!-- Card 1: B2B -->
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(15,23,42,0.03);position:relative;overflow:hidden;transition:all 0.2s">
+                  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right, #0284c7, #38bdf8)"></div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                    <span style="font-size:11px;color:#64748b;font-weight:800;text-transform:uppercase;letter-spacing:0.5px">🏢 Doanh Nghiệp Mới (B2B)</span>
+                    <span style="width:26px;height:26px;border-radius:6px;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;font-size:13px">🏢</span>
                   </div>
-                  <div style="font-size:18px;font-weight:800;color:#0284c7;margin:3px 0 1px" id="new-stat-b2b-cnt">4 Doanh nghiệp</div>
-                  <div style="font-size:11px;color:#0369a1" id="new-stat-b2b-detail">42 ghế • ¥84,000 thực thu</div>
+                  <div style="font-size:22px;font-weight:900;color:#0284c7;line-height:1.2" id="new-stat-b2b-cnt">3 Doanh nghiệp</div>
+                  <div style="font-size:11.5px;color:#475569;margin-top:4px;display:flex;align-items:center;gap:6px" id="new-stat-b2b-detail">
+                    <strong style="color:#0369a1">54 ghế</strong> • ¥62,000 thực thu
+                  </div>
                 </div>
 
-                <div style="background:#ffffff;border:1px solid #e2e8f0;border-left:3px solid #9333ea;border-radius:10px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,0.02)">
-                  <div style="display:flex;justify-content:space-between;align-items:center">
-                    <span style="font-size:11px;color:#64748b;font-weight:700">👤 CÁ NHÂN MỚI (B2C)</span>
-                    <span style="font-size:13px">👤</span>
+                <!-- Card 2: B2C -->
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(15,23,42,0.03);position:relative;overflow:hidden;transition:all 0.2s">
+                  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right, #7e22ce, #a855f7)"></div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                    <span style="font-size:11px;color:#64748b;font-weight:800;text-transform:uppercase;letter-spacing:0.5px">👤 Khách Hàng Cá Nhân (B2C)</span>
+                    <span style="width:26px;height:26px;border-radius:6px;background:#f3e8ff;color:#7e22ce;display:flex;align-items:center;justify-content:center;font-size:13px">👤</span>
                   </div>
-                  <div style="font-size:18px;font-weight:800;color:#9333ea;margin:3px 0 1px" id="new-stat-b2c-cnt">3 Chuyên gia / Kỹ sư</div>
-                  <div style="font-size:11px;color:#7e22ce" id="new-stat-b2c-detail">3 tài khoản Pro • ¥14,900 thực thu</div>
+                  <div style="font-size:22px;font-weight:900;color:#7e22ce;line-height:1.2" id="new-stat-b2c-cnt">2 Chuyên gia</div>
+                  <div style="font-size:11.5px;color:#475569;margin-top:4px;display:flex;align-items:center;gap:6px" id="new-stat-b2c-detail">
+                    <strong style="color:#7e22ce">2 tài khoản</strong> • ¥4,000 thực thu
+                  </div>
                 </div>
 
-                <div style="background:#ffffff;border:1px solid #e2e8f0;border-left:3px solid #16a34a;border-radius:10px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,0.02)">
-                  <div style="display:flex;justify-content:space-between;align-items:center">
-                    <span style="font-size:11px;color:#64748b;font-weight:700">⚡ TỶ LỆ KÍCH HOẠT DỊCH VỤ</span>
-                    <span style="font-size:13px">✓</span>
+                <!-- Card 3: Ghế & Bản quyền -->
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(15,23,42,0.03);position:relative;overflow:hidden;transition:all 0.2s">
+                  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right, #0d9488, #2dd4bf)"></div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                    <span style="font-size:11px;color:#64748b;font-weight:800;text-transform:uppercase;letter-spacing:0.5px">💺 Quy Mô Ghế Cấp Mới</span>
+                    <span style="width:26px;height:26px;border-radius:6px;background:#ccfbf1;color:#0f766e;display:flex;align-items:center;justify-content:center;font-size:13px">💺</span>
                   </div>
-                  <div style="font-size:18px;font-weight:800;color:#16a34a;margin:3px 0 1px" id="new-stat-rate">100% Kích hoạt</div>
-                  <div style="font-size:11px;color:#15803d" id="new-stat-rate-detail">5 Hợp đồng nạp tiền • 2 Dùng thử</div>
+                  <div style="font-size:22px;font-weight:900;color:#0f766e;line-height:1.2" id="new-stat-seats-cnt">56 Ghế mới</div>
+                  <div style="font-size:11.5px;color:#475569;margin-top:4px;display:flex;align-items:center;gap:6px" id="new-stat-seats-detail">
+                    Bình quân <strong>11.2 ghế</strong>/khách hàng
+                  </div>
                 </div>
+
+                <!-- Card 4: Kích hoạt SLA -->
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(15,23,42,0.03);position:relative;overflow:hidden;transition:all 0.2s">
+                  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right, #16a34a, #4ade80)"></div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                    <span style="font-size:11px;color:#64748b;font-weight:800;text-transform:uppercase;letter-spacing:0.5px">⚡ SLA Kích Hoạt Bản Quyền</span>
+                    <span style="width:26px;height:26px;border-radius:6px;background:#dcfce7;color:#16a34a;display:flex;align-items:center;justify-content:center;font-size:13px">✓</span>
+                  </div>
+                  <div style="font-size:22px;font-weight:900;color:#16a34a;line-height:1.2" id="new-stat-rate">100% Cấp Phép</div>
+                  <div style="margin-top:6px;height:5px;border-radius:3px;background:#e2e8f0;overflow:hidden">
+                    <div style="width:100%;height:100%;background:linear-gradient(to right, #16a34a, #22c55e);border-radius:3px"></div>
+                  </div>
+                  <div style="font-size:11px;color:#15803d;margin-top:4px" id="new-stat-rate-detail">5/5 Hợp đồng sẵn sàng vận hành</div>
+                </div>
+
               </div>
 
-              <!-- Bảng Danh Sách Tài Khoản Mới Đăng Ký Trong Tháng -->
-              <div class="card" style="padding:0;overflow:hidden;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.03);margin-bottom:28px">
-                <div style="padding:10px 16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-                  <div style="display:flex;align-items:center;gap:8px">
-                    <strong style="font-size:12.5px;color:#1e293b">Danh Sách Tài Khoản & Hợp Đồng Mới Tạo</strong>
-                    <span id="new-table-count-badge" style="background:#e0f2fe;color:#0284c7;font-size:11px;font-weight:700;padding:1px 7px;border-radius:8px">7 khách hàng</span>
+              <!-- Bảng Danh Sách Tài Khoản Mới Đăng Ký (Clean Modern Enterprise Card) -->
+              <div class="card" style="padding:0;overflow:hidden;border:1px solid #cbd5e1;border-radius:16px;box-shadow:0 4px 16px -2px rgba(15,23,42,0.05);background:#ffffff">
+                
+                <!-- Table Toolbar -->
+                <div style="padding:12px 18px;background:linear-gradient(to right, #f8fafc, #ffffff);border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                    <div style="display:flex;align-items:center;gap:6px">
+                      <strong style="font-size:13px;color:#0f172a">Hồ Sơ Tài Khoản Khởi Tạo</strong>
+                      <span id="new-table-count-badge" style="background:#e0f2fe;color:#0369a1;font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;border:1px solid #bae6fd">5 khách hàng</span>
+                    </div>
+
+                    <!-- Quick Segment Pills -->
+                    <div style="display:flex;gap:4px;margin-left:8px;padding-left:8px;border-left:1px solid #e2e8f0">
+                      <button type="button" class="btn btn-sm" onclick="setNewSignupsSegment('ALL')" id="btn-new-seg-all"
+                        style="padding:3px 9px;font-size:11px;font-weight:700;border-radius:6px;background:#0f172a;color:#ffffff;border:none;cursor:pointer">Tất cả</button>
+                      <button type="button" class="btn btn-sm" onclick="setNewSignupsSegment('B2B')" id="btn-new-seg-b2b"
+                        style="padding:3px 9px;font-size:11px;font-weight:700;border-radius:6px;background:#ffffff;color:#0284c7;border:1px solid #cbd5e1;cursor:pointer">🏢 B2B</button>
+                      <button type="button" class="btn btn-sm" onclick="setNewSignupsSegment('B2C')" id="btn-new-seg-b2c"
+                        style="padding:3px 9px;font-size:11px;font-weight:700;border-radius:6px;background:#ffffff;color:#7e22ce;border:1px solid #cbd5e1;cursor:pointer">👤 B2C</button>
+                    </div>
                   </div>
-                  <div style="display:flex;gap:6px;align-items:center">
-                    <input type="text" id="new-signups-search" placeholder="🔍 Tìm tên khách hàng, mã HĐ..." oninput="filterNewSignupsTable(this.value)" style="padding:4px 10px;font-size:11.5px;border:1px solid #cbd5e1;border-radius:6px;outline:none;width:220px">
+
+                  <!-- Search Bar -->
+                  <div style="position:relative;width:100%;max-width:260px">
+                    <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:12px;pointer-events:none">🔍</span>
+                    <input type="text" id="new-signups-search" placeholder="Tìm theo tên KH, mã HĐ, gói..." oninput="filterNewSignupsTable(this.value)"
+                      style="width:100%;box-sizing:border-box;padding:6px 12px 6px 30px;font-size:11.5px;border:1px solid #cbd5e1;border-radius:8px;outline:none;background:#ffffff;transition:border-color 0.15s"
+                      onfocus="this.style.borderColor='#0284c7'" onblur="this.style.borderColor='#cbd5e1'">
+                    <button type="button" onclick="document.getElementById('new-signups-search').value='';filterNewSignupsTable('');"
+                      style="position:absolute;right:8px;top:50%;transform:translateY(-50%);border:none;background:transparent;cursor:pointer;color:#94a3b8;font-size:12px" title="Xóa">✕</button>
                   </div>
                 </div>
+
+                <!-- Table Content -->
                 <div style="overflow-x:auto">
-                  <table class="data-table" style="width:100%;font-size:12px;margin:0" id="new-signups-table">
+                  <table class="data-table" style="width:100%;font-size:12px;margin:0;border-collapse:collapse" id="new-signups-table">
                     <thead>
-                      <tr style="background:#f1f5f9;color:#334155">
-                        <th style="width:105px">Mã HĐ</th>
-                        <th style="min-width:210px">Tên Khách Hàng / Doanh Nghiệp</th>
-                        <th style="width:90px;text-align:center">Phân Khúc</th>
-                        <th style="width:115px">Ngày Đăng Ký</th>
-                        <th style="min-width:130px">Gói Dịch Vụ</th>
-                        <th style="width:110px">Chu Kỳ</th>
-                        <th style="width:85px;text-align:center">Số Ghế</th>
-                        <th style="width:110px;text-align:right">Doanh Thu Kỳ</th>
-                        <th style="width:115px;text-align:center">Trạng Thái</th>
-                        <th style="width:80px;text-align:center">Thao Tác</th>
+                      <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">
+                        <th style="padding:10px 12px;width:105px;font-weight:700">Mã HĐ</th>
+                        <th style="padding:10px 12px;min-width:230px;font-weight:700">Khách Hàng & Người Ký</th>
+                        <th style="padding:10px 12px;width:95px;text-align:center;font-weight:700">Phân Khúc</th>
+                        <th style="padding:10px 12px;width:115px;font-weight:700">Ngày Gia Nhập</th>
+                        <th style="padding:10px 12px;min-width:130px;font-weight:700">Gói Dịch Vụ</th>
+                        <th style="padding:10px 12px;width:110px;font-weight:700">Chu Kỳ</th>
+                        <th style="padding:10px 12px;width:85px;text-align:center;font-weight:700">Số Ghế</th>
+                        <th style="padding:10px 12px;width:115px;text-align:right;font-weight:700">Doanh Thu Kỳ</th>
+                        <th style="padding:10px 12px;width:120px;text-align:center;font-weight:700">Trạng Thái</th>
+                        <th style="padding:10px 12px;width:85px;text-align:center;font-weight:700">Thao Tác</th>
                       </tr>
                     </thead>
                     <tbody id="new-signups-tbody">
@@ -552,6 +721,7 @@
                     </tbody>
                   </table>
                 </div>
+
               </div>
             </div>
 
@@ -655,23 +825,6 @@
                           id="btn-seg-filter-b2c"
                           style="padding:4px 8px;font-size:11px;font-weight:700;border-radius:6px;background:#ffffff;color:#7e22ce;border:1px solid #cbd5e1;cursor:pointer">👤 B2C</button>
                       </div>
-
-                      <!-- Filter Status Chips (Đã thu / Chưa thu / Đang nợ) -->
-                      <div style="display:flex;gap:4px;margin-left:6px;padding-left:6px;border-left:1px solid #cbd5e1">
-                        <button type="button" class="btn btn-sm" onclick="setDashboardDailyStatusFilter('ALL')"
-                          id="btn-dash-st-all"
-                          style="padding:4px 8px;font-size:11px;font-weight:700;border-radius:6px;background:#0f172a;color:#fff;border:none;cursor:pointer">Tất cả TT</button>
-                        <button type="button" class="btn btn-sm" onclick="setDashboardDailyStatusFilter('COLLECTED')"
-                          id="btn-dash-st-col"
-                          style="padding:4px 8px;font-size:11px;font-weight:700;border-radius:6px;background:#ffffff;color:#15803d;border:1px solid #86efac;cursor:pointer">🟢 Đã thu (<span id="dash-badge-col-count">5</span>)</button>
-                        <button type="button" class="btn btn-sm" onclick="setDashboardDailyStatusFilter('PENDING')"
-                          id="btn-dash-st-pen"
-                          style="padding:4px 8px;font-size:11px;font-weight:700;border-radius:6px;background:#ffffff;color:#b45309;border:1px solid #fde68a;cursor:pointer">🟡 Chưa thu (<span id="dash-badge-pen-count">26</span>)</button>
-                        <button type="button" class="btn btn-sm" onclick="setDashboardDailyStatusFilter('OVERDUE')"
-                          id="btn-dash-st-over"
-                          title="Lọc các hợp đồng nợ quá hạn (Thời gian nợ giới hạn tối đa 12 tháng)"
-                          style="padding:4px 8px;font-size:11px;font-weight:700;border-radius:6px;background:#ffffff;color:#dc2626;border:1px solid #fca5a5;cursor:pointer">🔴 Đang nợ (≤12 thg) (<span id="dash-badge-over-count">0</span>)</button>
-                      </div>
                     </div>
 
                     <!-- Action Buttons -->
@@ -703,9 +856,13 @@
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
                       <strong style="color:#0f172a;font-size:12.5px" id="dash-formulas-title">📐 Giải Trình Công Thức &
                         Đối Soát Toán Học</strong>
-                      <button type="button" onclick="toggleDashboardFormulas()"
-                        style="border:none;background:transparent;cursor:pointer;color:#94a3b8;font-size:12px">✕
-                        Đóng</button>
+                      <div style="display:flex;gap:8px;align-items:center">
+                        <button type="button" onclick="openAutomationRulesModal()"
+                          style="border:none;background:#eff6ff;color:#2563eb;cursor:pointer;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px">⚙️ Cấu hình Tự Động Hóa</button>
+                        <button type="button" onclick="toggleDashboardFormulas()"
+                          style="border:none;background:transparent;cursor:pointer;color:#94a3b8;font-size:12px">✕
+                          Đóng</button>
+                      </div>
                     </div>
                     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:8px">
                       <div style="background:#fff;padding:8px 10px;border-radius:8px;border:1px solid #e2e8f0">
@@ -715,10 +872,9 @@
                           = D01 + D02...</div>
                       </div>
                       <div style="background:#fff;padding:8px 10px;border-radius:8px;border:1px solid #e2e8f0">
-                        <div style="font-weight:700;color:#0284c7;font-size:11px">2. Chuẩn Hóa MRR</div>
+                        <div style="font-weight:700;color:#0284c7;font-size:11px">2. Quy Chuẩn Doanh Thu</div>
                         <div id="dash-formula-mrr"
-                          style="font-family:Consolas,monospace;font-size:11px;color:#334155;margin-top:2px">MRR = Gói /
-                          Chu kỳ</div>
+                          style="font-family:Consolas,monospace;font-size:11px;color:#334155;margin-top:2px">Doanh thu = ∑ Giá trị hợp đồng</div>
                       </div>
                       <div style="background:#fff;padding:8px 10px;border-radius:8px;border:1px solid #e2e8f0">
                         <div style="font-weight:700;color:#7e22ce;font-size:11px">3. Tỷ Trọng B2B / B2C</div>
@@ -731,6 +887,18 @@
                         <div id="dash-formula-debt"
                           style="font-family:Consolas,monospace;font-size:10.5px;color:#991b1b;margin-top:2px">Tuổi nợ: 1..12 tháng • Kịch trần 12/12 thg ➔ Chuyển nợ xấu</div>
                       </div>
+                      <div style="background:#f0fdf4;padding:8px 10px;border-radius:8px;border:1px solid #bbf7d0;grid-column:1 / -1">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                          <div style="font-weight:800;color:#166534;font-size:11.5px">🤖 5. Quy Tắc Tự Động Hóa Công Nợ (Dynamic SLA Engine)</div>
+                          <span style="background:#22c55e;color:#fff;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:700">Chế độ: Auto-Pilot BẬT</span>
+                        </div>
+                        <div style="font-size:11px;color:#15803d;margin-top:3px;line-height:1.45">
+                          • <strong>Trước hạn:</strong> Ngày &lt; billingDay ➔ 🟡 <strong>Chờ thu</strong><br>
+                          • <strong>Đến hạn:</strong> Thẻ / Ví / Auto-Debit trừ tiền tự động ➔ 🟢 <strong>Đã thu</strong> • Chuyển khoản trong hạn ➔ Ân hạn Net-3 ngày làm việc<br>
+                          • <strong>Quá hạn:</strong> Vượt quá thời gian ân hạn hoặc khách hàng có lịch sử nợ (debtMonths &gt; 0) ➔ 🔴 Tự động chuyển <strong>Nợ quá hạn</strong><br>
+                          • <strong>Chốt sổ cuối tháng:</strong> Ngày ≥ 30 ➔ Kế toán đối soát tự động hoàn tất 100% kỳ
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -738,7 +906,7 @@
                   <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:10px;max-height:450px"
                     id="dash-daily-table-wrap">
                     <table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed"
-                      id="dashboard-daily-table">
+                       id="dashboard-daily-table">
                       <thead>
                         <tr
                           style="background:#f8fafc;border-bottom:2px solid #e2e8f0;color:#475569;position:sticky;top:0;z-index:5">
@@ -748,7 +916,7 @@
                           <th style="padding:9px 10px;text-align:center;font-weight:700;width:70px">Khối</th>
                           <th style="padding:9px 10px;text-align:left;font-weight:700;width:120px">Gói & Chu Kỳ</th>
                           <th style="padding:9px 10px;text-align:right;font-weight:700;width:100px">Thực Thu</th>
-                          <th style="padding:9px 10px;text-align:left;font-weight:700;width:170px">Công Thức / MRR</th>
+                          <th style="padding:9px 10px;text-align:left;font-weight:700;width:170px">Phân Bổ Định Kỳ</th>
                           <th style="padding:9px 10px;text-align:center;font-weight:700;width:125px" title="Theo dõi trạng thái & thời gian công nợ (Tối đa 12 tháng)">Trạng Thái / Hạn Nợ</th>
                           <th style="padding:9px 10px;text-align:center;font-weight:700;width:55px">Xem</th>
                         </tr>
@@ -784,6 +952,112 @@
             </div><!-- /modal-body -->
           </div><!-- /modal-card -->
         </div><!-- /dash-view-daily modal-backdrop -->
+
+        <!-- Modal Cấu hình Tự Động Hóa Quản Lý Công Nợ & Đối Soát (Automated Billing & Dunning Policy) -->
+        <div id="modal-billing-automation" class="modal-backdrop" onclick="if(event.target===this) closeAutomationRulesModal()"
+          style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,0.68);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:999999;align-items:center;justify-content:center;padding:16px">
+          <div style="background:#ffffff;border-radius:18px;box-shadow:0 30px 60px -15px rgba(0,0,0,0.3);width:100%;max-width:680px;max-height:92vh;display:flex;flex-direction:column;border:1px solid #cbd5e1;overflow:hidden;animation:fadeIn 0.2s ease-out">
+            
+            <!-- Modal Header -->
+            <div style="padding:16px 22px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg, #2563eb, #3b82f6);color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(37,99,235,0.3)">
+                  🤖
+                </div>
+                <div>
+                  <h3 style="margin:0;font-size:15px;font-weight:800;color:#0f172a">Hệ Thống Tự Động Hóa Quản Lý Công Nợ & Đối Soát</h3>
+                  <p style="margin:2px 0 0;font-size:11.5px;color:#64748b">Quy tắc tự động tính trạng thái thanh toán (Đã thu • Chờ thu • Nợ quá hạn) theo SLA thực tế</p>
+                </div>
+              </div>
+              <button type="button" onclick="closeAutomationRulesModal()" style="border:none;background:#f1f5f9;width:32px;height:32px;border-radius:8px;cursor:pointer;color:#64748b;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div style="padding:20px 22px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:16px">
+              <!-- 1. Trạng thái Auto-Pilot -->
+              <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between">
+                <div>
+                  <div style="font-weight:800;font-size:13px;color:#166534;display:flex;align-items:center;gap:6px">
+                    <span>⚡ Chế độ Auto-Pilot (Tự Động Hóa 100%)</span>
+                    <span style="font-size:10.5px;background:#22c55e;color:#fff;padding:2px 7px;border-radius:10px;font-weight:700">HOẠT ĐỘNG</span>
+                  </div>
+                  <div style="font-size:11.5px;color:#15803d;margin-top:3px">
+                    Hệ thống tự động phân loại mọi HĐ dựa trên ngày đến hạn, phương thức thanh toán và lịch sử nợ (Không dùng ID cố định).
+                  </div>
+                </div>
+                <label style="position:relative;display:inline-block;width:44px;height:24px;cursor:pointer">
+                  <input type="checkbox" id="auto-config-autopilot" checked onchange="toggleAutoPilotMode(this.checked)" style="opacity:0;width:0;height:0">
+                  <span id="auto-pilot-slider" style="position:absolute;top:0;left:0;right:0;bottom:0;background:#22c55e;border-radius:24px;transition:0.3s"></span>
+                  <span id="auto-pilot-knob" style="position:absolute;height:18px;width:18px;left:22px;bottom:3px;background:white;border-radius:50%;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.3)"></span>
+                </label>
+              </div>
+
+              <!-- 2. Cấu hình Quy tắc Ân hạn & SLA -->
+              <div style="border:1px solid #e2e8f0;border-radius:12px;padding:16px;background:#ffffff">
+                <div style="font-weight:800;font-size:12.5px;color:#1e293b;margin-bottom:12px;display:flex;align-items:center;gap:6px">
+                  <span>⏱️ Cấu hình Thời Gian Ân Hạn (Grace Period SLA)</span>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                  <div>
+                    <label style="display:block;font-size:11.5px;font-weight:700;color:#334155;margin-bottom:5px">Chuyển khoản / UNC (Bank Transfer):</label>
+                    <select id="auto-config-grace-bank" class="form-control" style="width:100%;font-size:12px;font-weight:700;padding:7px 10px;border-radius:8px;border:1px solid #cbd5e1" onchange="updateAutomationParams()">
+                      <option value="1">1 ngày (Nghiêm ngặt - Net-1)</option>
+                      <option value="3" selected>3 ngày (Chuẩn doanh nghiệp - Net-3)</option>
+                      <option value="5">5 ngày (Nới lỏng - Net-5)</option>
+                    </select>
+                    <span style="font-size:10.5px;color:#64748b;margin-top:4px;display:block">Thời gian tối đa để kế toán nhận & đối soát ủy nhiệm chi</span>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:11.5px;font-weight:700;color:#334155;margin-bottom:5px">Thẻ tín dụng / Auto-Debit / Ví:</label>
+                    <select id="auto-config-grace-card" class="form-control" style="width:100%;font-size:12px;font-weight:700;padding:7px 10px;border-radius:8px;border:1px solid #cbd5e1" onchange="updateAutomationParams()">
+                      <option value="0">0 ngày (Tức thì - Same Day)</option>
+                      <option value="1" selected>1 ngày (Cho phép retry 24h)</option>
+                      <option value="2">2 ngày (Cho phép retry 48h)</option>
+                    </select>
+                    <span style="font-size:10.5px;color:#64748b;margin-top:4px;display:block">Tự động trừ thẻ; báo lỗi nợ quá hạn nếu charge thất bại</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Luồng xử lý tự động (Workflow Pipeline Diagram) -->
+              <div style="border:1px solid #e2e8f0;border-radius:12px;padding:16px;background:#f8fafc">
+                <div style="font-weight:800;font-size:12.5px;color:#1e293b;margin-bottom:10px">
+                  🔄 Quy trình 4 bước Tự Động Hóa Dòng Tiền:
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:11.5px">
+                  <div style="display:flex;align-items:center;gap:10px;background:#ffffff;padding:8px 12px;border-radius:8px;border:1px solid #e2e8f0">
+                    <span style="font-weight:800;color:#0284c7;background:#e0f2fe;padding:2px 8px;border-radius:6px;font-size:10.5px">BƯỚC 1</span>
+                    <div><strong>Phát hành HĐ (bDay):</strong> Trước ngày nạp ➔ Tự động gán 🟡 <span style="color:#b45309;font-weight:700">CHỜ THU</span>.</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;background:#ffffff;padding:8px 12px;border-radius:8px;border:1px solid #e2e8f0">
+                    <span style="font-weight:800;color:#16a34a;background:#dcfce7;padding:2px 8px;border-radius:6px;font-size:10.5px">BƯỚC 2</span>
+                    <div><strong>Ân hạn (Grace Days):</strong> Cổng tự động khớp ngay ➔ 🟢 <span style="color:#15803d;font-weight:700">ĐÃ THU</span>. Chuyển khoản trong hạn Net-3 ➔ Tiếp tục xử lý.</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;background:#ffffff;padding:8px 12px;border-radius:8px;border:1px solid #fee2e2">
+                    <span style="font-weight:800;color:#dc2626;background:#fee2e2;padding:2px 8px;border-radius:6px;font-size:10.5px">BƯỚC 3</span>
+                    <div><strong>Quá hạn (Auto-Dunning):</strong> Quá thời gian ân hạn mà chưa có tiền hoặc nợ lịch sử ➔ Tự động chuyển 🔴 <span style="color:#dc2626;font-weight:700">NỢ QUÁ HẠN</span> & kích hoạt nhắc nợ.</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;background:#ffffff;padding:8px 12px;border-radius:8px;border:1px solid #e2e8f0">
+                    <span style="font-weight:800;color:#7e22ce;background:#f3e8ff;padding:2px 8px;border-radius:6px;font-size:10.5px">BƯỚC 4</span>
+                    <div><strong>Chốt sổ định kỳ (Batch Settlement):</strong> Thu hồi qua dunning / cuối tháng chốt sổ (ngày ≥ 30) ➔ Tự động ghi nhận 🟢 <span style="color:#15803d;font-weight:700">ĐÃ THU</span>.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div style="padding:14px 22px;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;background:#f8fafc">
+              <div style="font-size:11px;color:#64748b">
+                💡 Kế toán vẫn có thể click trực tiếp vào badge bất kỳ HĐ để chuyển đổi thủ công khi cần.
+              </div>
+              <div style="display:flex;gap:8px">
+                <button type="button" class="btn btn-sm" onclick="closeAutomationRulesModal()" style="background:#fff;border:1px solid #cbd5e1;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;color:#475569;cursor:pointer">Đóng</button>
+                <button type="button" class="btn btn-sm" onclick="applyAndRecalculateAutomation()" style="background:#2563eb;color:#fff;border:none;padding:6px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 6px rgba(37,99,235,0.3)">⚡ Áp dụng & Tính toán lại</button>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- /modal-billing-automation -->
 
             <!-- Modal: Bảng Dòng Tiền Thực Thu Đến Ngày Cụ Thể (Tháng 09/2026) -->
             <div id="daily-cash-modal" class="modal-backdrop" onclick="if(event.target===this) closeDailyCashModal()"

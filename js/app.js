@@ -5518,7 +5518,7 @@ var apCompanyDataMap = {
     code: 'CMP-001',
     name: 'Apex Global Logistics',
     plan: 'Enterprise Pro (1 Năm - Giảm 15%)',
-    mrr: '¥48,000 / tháng ($320)',
+    fee: '¥48,000 / tháng ($320)',
     seats: '78 / 80 ghế (97.5% công suất)',
     invoices: [
       { id: 'in_1N3k89', date: '2026-05-01', amount: '¥48,000', status: 'Đã thanh toán' },
@@ -5530,7 +5530,7 @@ var apCompanyDataMap = {
     code: 'CMP-004',
     name: 'Mirai FinTech Corp',
     plan: 'Enterprise Pro (6 Tháng - Giảm 10%)',
-    mrr: '¥36,000 / tháng ($240)',
+    fee: '¥36,000 / tháng ($240)',
     seats: '53 / 55 ghế (96.3% công suất)',
     invoices: [
       { id: 'in_1M7k22', date: '2026-05-01', amount: '¥36,000', status: 'Đã thanh toán' },
@@ -5541,7 +5541,7 @@ var apCompanyDataMap = {
     code: 'CMP-007',
     name: 'Kanto Robotics Ltd',
     plan: 'Standard AI Suite (1 Tháng)',
-    mrr: '¥28,000 / tháng ($185)',
+    fee: '¥28,000 / tháng ($185)',
     seats: '32 / 40 ghế (80.0% công suất)',
     invoices: [
       { id: 'in_1K9p44', date: '2026-05-05', amount: '¥28,000', status: 'Đã thanh toán' }
@@ -5551,7 +5551,7 @@ var apCompanyDataMap = {
     code: 'CMP-002',
     name: 'XYZ 合同会社',
     plan: 'Standard AI Suite (Trial 14 ngày - Còn 6 ngày)',
-    mrr: '¥0 (Kỳ vọng: ¥15,000 / tháng)',
+    fee: '¥0 (Kỳ vọng: ¥15,000 / tháng)',
     seats: '9 / 10 ghế (90% công suất)',
     invoices: [
       { id: 'trial_free', date: '2026-05-14', amount: '¥0 (Trial)', status: 'Đang dùng thử' }
@@ -5561,7 +5561,7 @@ var apCompanyDataMap = {
     code: 'CMP-099',
     name: 'Công ty Cổ phần Test',
     plan: 'Starter Growth (1 Tháng)',
-    mrr: '¥8,500 / tháng (Quá hạn 5 ngày)',
+    fee: '¥8,500 / tháng (Quá hạn 5 ngày)',
     seats: '1 / 5 ghế (20% công suất)',
     invoices: [
       { id: 'in_fail_2', date: '2026-05-10', amount: '¥8,500', status: 'Quá hạn (Lần 2)' }
@@ -5581,7 +5581,7 @@ window.openDrawerForCompany = function (key) {
   if (cCode) cCode.innerText = data.code;
   if (cName) cName.innerText = data.name;
   if (cPlan) cPlan.innerText = data.plan;
-  if (cMrr) cMrr.innerText = data.mrr;
+  if (cMrr) cMrr.innerText = data.fee || data.mrr || '';
   if (cSeats) cSeats.innerText = data.seats;
 
   if (invBody && data.invoices) {

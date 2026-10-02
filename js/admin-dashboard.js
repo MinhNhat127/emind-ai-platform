@@ -182,25 +182,33 @@
       var rt = window.getRealTimeContext();
 
       sel.innerHTML = [
-        '<optgroup label="📍 HIỆN TẠI (THỜI GIAN THỰC — BÂY GIỜ / HÔM NAY)">',
-        '  <option value="NOW_REAL" selected>🔴 Hôm nay: Ngày ' + rt.dd + '/' + rt.mm + '/' + rt.year + ' (Live Real-Time)</option>',
+        '<optgroup label="QUÁ KHỨ (ĐÃ QUA)">',
+        '  <option value="PAST_LAST_MONTH">Tháng trước: Tháng ' + rt.prevMMM + '/' + rt.prevMY + ' (Đã chốt đối soát)</option>',
+        '  <option value="PAST_LAST_WEEK">Tuần trước: Ngày ' + rt.lastWDD + '/' + rt.lastWMM + '/' + rt.year + '</option>',
+        '  <option value="PAST_YESTERDAY">Hôm qua: Ngày ' + rt.ystDD + '/' + rt.ystMM + '/' + rt.ystY + '</option>',
+        '  <option value="PAST_2026-09-29">Mẫu Ngày 29/09: Thu 22/24 HĐ (¥248.5k)</option>',
+        '  <option value="PAST_2026-09-30">Mẫu Chốt Tháng 9: Thu 24/24 HĐ (¥269.8k)</option>',
         '</optgroup>',
-        '<optgroup label="⏱️ VÀI NGÀY NỮA (SẮP TỚI)">',
-        '  <option value="SOON_TOMORROW">⏳ Ngày mai: Ngày ' + rt.tmrDD + '/' + rt.tmrMM + '/' + rt.tmrY + '</option>',
-        '  <option value="SOON_IN_3_DAYS">⏱️ 3 ngày nữa: Ngày ' + rt.in3dDD + '/' + rt.in3dMM + '/' + rt.year + '</option>',
-        '  <option value="SOON_END_OF_MONTH">🏁 Cuối tháng này: Ngày ' + rt.lastDayOfCurMonth + '/' + rt.mm + '/' + rt.year + ' (Chốt 100% KPI)</option>',
+        '<optgroup label="HIỆN TẠI (THỜI GIAN THỰC — BÂY GIỜ / HÔM NAY)">',
+        '  <option value="NOW_REAL" selected>Hôm nay: Ngày ' + rt.dd + '/' + rt.mm + '/' + rt.year + ' (Live Real-Time)</option>',
         '</optgroup>',
-        '<optgroup label="🔮 THÁNG SAU & TƯƠNG LAI">',
-        '  <option value="FUTURE_NEXT_MONTH">📅 Tháng sau: Tháng ' + rt.nextMMM + '/' + rt.nextMY + '</option>',
-        '  <option value="FUTURE_NEXT_2_MONTHS">🚀 2 tháng nữa: Tháng ' + rt.next2MMM + '/' + rt.next2MY + '</option>',
-        '  <option value="FUTURE_2026-12">🎯 Chốt năm: Tháng 12/2026 (Đại hội FDI ¥1.37M)</option>',
+        '<optgroup label="VÀI NGÀY NỮA (SẮP TỚI)">',
+        '  <option value="SOON_TOMORROW">Ngày mai: Ngày ' + rt.tmrDD + '/' + rt.tmrMM + '/' + rt.tmrY + '</option>',
+        '  <option value="SOON_IN_3_DAYS">3 ngày nữa: Ngày ' + rt.in3dDD + '/' + rt.in3dMM + '/' + rt.year + '</option>',
+        '  <option value="SOON_END_OF_MONTH">Cuối tháng này: Ngày ' + rt.lastDayOfCurMonth + '/' + rt.mm + '/' + rt.year + ' (Chốt 100% KPI)</option>',
         '</optgroup>',
-        '<optgroup label="⏪ QUÁ KHỨ (ĐÃ QUA)">',
-        '  <option value="PAST_YESTERDAY">⏪ Hôm qua: Ngày ' + rt.ystDD + '/' + rt.ystMM + '/' + rt.ystY + '</option>',
-        '  <option value="PAST_LAST_WEEK">⏪ Tuần trước: Ngày ' + rt.lastWDD + '/' + rt.lastWMM + '/' + rt.year + '</option>',
-        '  <option value="PAST_LAST_MONTH">⏮️ Tháng trước: Tháng ' + rt.prevMMM + '/' + rt.prevMY + ' (Đã chốt đối soát)</option>',
-        '  <option value="PAST_2026-09-29">📜 Mẫu Ngày 29/09: Thu 22/24 HĐ (¥248.5k)</option>',
-        '  <option value="PAST_2026-09-30">📜 Mẫu Chốt Tháng 9: Thu 24/24 HĐ (¥269.8k)</option>',
+        '<optgroup label="THÁNG SAU & TƯƠNG LAI 2026">',
+        '  <option value="FUTURE_NEXT_MONTH">Tháng sau: Tháng ' + rt.nextMMM + '/' + rt.nextMY + '</option>',
+        '  <option value="FUTURE_NEXT_2_MONTHS">2 tháng nữa: Tháng ' + rt.next2MMM + '/' + rt.next2MY + '</option>',
+        '  <option value="FUTURE_2026-12">Chốt năm: Tháng 12/2026 (Đại hội FDI ¥1.37M)</option>',
+        '</optgroup>',
+        '<optgroup label="NĂM SAU 2027 (KẾ HOẠCH & DỰ BÁO NGÂN SÁCH)">',
+        '  <option value="FUTURE_2027-01">Tháng 01/2027 (Gia hạn năm Q1 & Tái nạp Quý)</option>',
+        '  <option value="FUTURE_2027-03">Tháng 03/2027 (Kỳ nạp Quý 1 & HĐ năm)</option>',
+        '  <option value="FUTURE_2027-06">Tháng 06/2027 (Chốt bán niên H1/2027)</option>',
+        '  <option value="FUTURE_2027-09">Tháng 09/2027 (Kỳ nạp Quý 3/2027)</option>',
+        '  <option value="FUTURE_2027-10">Tháng 10/2027 (Kỳ nạp Quý 4/2027)</option>',
+        '  <option value="FUTURE_2027-12">Tháng 12/2027 (Chốt năm tài chính 2027)</option>',
         '</optgroup>'
       ].join('\n');
     };
@@ -265,69 +273,201 @@
       return (data.b2b || 0) + (data.b2c || 0);
     }
 
-    // ===== HỆ THỐNG PHÂN LOẠI TRẠNG THÁI HỢP ĐỒNG (ĐÃ THU - CHƯA THU - ĐANG NỢ) =====
+    // ===== HÀM KIỂM TRA HỢP ĐỒNG CÓ ĐẾN KỲ THU PHÍ TRONG THÁNG (HỖ TRỢ 2026 VÀ 2027+) =====
+    window.isContractPayingInMonth = function (c, targetMonth) {
+      if (!c || !targetMonth) return false;
+      var effectiveMonth = (targetMonth.length === 10) ? targetMonth.slice(0, 7) : targetMonth;
+
+      // 1. Nếu có trong paymentMonths (dữ liệu mẫu năm 2026)
+      if (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1) return true;
+
+      // 2. Dự phóng cho các năm tương lai (2027 trở đi)
+      var parts = effectiveMonth.split('-');
+      var tYear = parseInt(parts[0], 10);
+      var tMonth = parseInt(parts[1], 10);
+      if (isNaN(tYear) || isNaN(tMonth)) return false;
+
+      var sDate = c.startDate || '2026-01-01';
+      var sParts = sDate.split('-');
+      var sYear = parseInt(sParts[0], 10);
+      var sMonth = parseInt(sParts[1], 10);
+      if (isNaN(sYear) || isNaN(sMonth)) return false;
+
+      // Hợp đồng chưa có hiệu lực trước ngày bắt đầu
+      if (tYear < sYear || (tYear === sYear && tMonth < sMonth)) return false;
+
+      var diffMonths = (tYear - sYear) * 12 + (tMonth - sMonth);
+      var cycle = c.cycleMonths;
+      if (!cycle) {
+        if (c.billingCycle && c.billingCycle.indexOf('Năm') !== -1) cycle = 12;
+        else if (c.billingCycle && c.billingCycle.indexOf('Quý') !== -1) cycle = 3;
+        else cycle = 1;
+      }
+
+      if (cycle === 1) {
+        // Gói tháng: nạp đều đặn mỗi tháng
+        return true;
+      }
+      if (cycle === 3) {
+        // Gói quý: nạp định kỳ mỗi 3 tháng
+        return (diffMonths % 3 === 0);
+      }
+      if (cycle === 12) {
+        // Gói năm: kỷ niệm nạp lại mỗi 12 tháng
+        return (diffMonths % 12 === 0);
+      }
+
+      return false;
+    };
+
+    // ===== HỆ THỐNG TỰ ĐỘNG HÓA QUẢN LÝ CÔNG NỢ & ĐỐI SOÁT (AUTOMATION ENGINE) =====
     window.CONTRACT_MANUAL_STATUS = {}; // Lưu can thiệp thủ công: { [id_month]: 'collected' | 'pending' | 'overdue' }
+
+    // Cấu hình quy tắc tự động hóa dòng tiền & công nợ
+    window.BILLING_AUTOMATION_CONFIG = {
+      autoPilot: true,              // Bật/tắt tự động hóa hoàn toàn
+      gracePeriodBankTransfer: 3,   // Ân hạn Chuyển khoản ngân hàng (Net-3 ngày làm việc)
+      gracePeriodCard: 1,           // Ân hạn Thẻ tín dụng / Auto-debit (Net-1 ngày)
+      dunningWindowDays: 3,         // Khoảng ngày kích hoạt dunning trước khi đối soát giải tỏa
+      autoReconcileMonthEnd: true,  // Tự động chốt sổ đối soát hoàn tất vào cuối tháng
+      strictMode: false             // Chế độ nghiêm ngặt
+    };
+
+    /**
+     * BỘ MÁY TÍNH TOÁN TRẠNG THÁI HỢP ĐỒNG TỰ ĐỘNG (HOÀN TOÀN DỰA TRÊN THUẬT TOÁN & THUỘC TÍNH NGHIỆP VỤ)
+     * Tuyệt đối không dùng bất kỳ ID hợp đồng cố định nào!
+     * @param {Object} c - Đối tượng hợp đồng
+     * @param {string} targetMonth - Tháng đánh giá (VD: '2026-10', '2026-09', '2027-01')
+     * @param {number|string} targetDay - Ngày đánh giá trong tháng (1..31 hoặc 'ALL')
+     * @param {string} checkpointKey - Mã mốc demo nếu có (NOW_REAL, SOON_TOMORROW, SOON_IN_3_DAYS, SOON_END_OF_MONTH, v.v.)
+     */
+    window.evaluateAutomatedContractStatus = function (c, targetMonth, targetDay, checkpointKey) {
+      if (!c) return 'PENDING';
+      var cfg = window.BILLING_AUTOMATION_CONFIG || {
+        autoPilot: true,
+        gracePeriodBankTransfer: 3,
+        gracePeriodCard: 1,
+        dunningWindowDays: 3,
+        autoReconcileMonthEnd: true
+      };
+
+      var bDay = Number(c.billingDay || 1);
+      var evalDay = (targetDay === undefined || targetDay === null || targetDay === 'ALL') ? 31 : Number(targetDay);
+      if (isNaN(evalDay)) evalDay = 1;
+
+      // 1. Nếu ngày đánh giá chưa tới ngày phát hành hóa đơn -> CHỜ THU (PENDING)
+      if (evalDay < bDay) {
+        return 'PENDING';
+      }
+
+      // 2. Chốt sổ cuối tháng (ngày >= 30 hoặc checkpoint SOON_END_OF_MONTH / chốt kỳ quá khứ):
+      // Đợt đối soát tổng cuối tháng tự động thanh toán toàn bộ dòng tiền thường kỳ
+      if (cfg.autoReconcileMonthEnd && (evalDay >= 30 || checkpointKey === 'SOON_END_OF_MONTH')) {
+        return 'COLLECTED';
+      }
+
+      // 3. Số ngày trôi qua kể từ ngày đến hạn
+      var daysPastDue = evalDay - bDay;
+
+      // 4. Phân loại phương thức thanh toán & thời gian ân hạn
+      var pMethod = (c.paymentMethod || '').toLowerCase();
+      var isAutoOrCard = pMethod.indexOf('thẻ') !== -1 || pMethod.indexOf('credit') !== -1 || pMethod.indexOf('ví') !== -1 || pMethod.indexOf('tự động') !== -1;
+      var graceLimit = isAutoOrCard ? (cfg.gracePeriodCard || 1) : (cfg.gracePeriodBankTransfer || 3);
+
+      // 5. Khách hàng có nợ khó đòi / lịch sử nợ đọng (c.debtMonths > 0):
+      // Tự động chuyển sang OVERDUE ngay sau ngày đến hạn (daysPastDue >= 1)
+      var hasDebtHistory = (c.debtMonths && Number(c.debtMonths) > 0);
+      if (hasDebtHistory) {
+        if (daysPastDue >= 1) return 'OVERDUE';
+        return 'PENDING';
+      }
+
+      // 6. Khách hàng tiêu chuẩn (không có lịch sử nợ):
+      // a. Đúng ngày đến hạn (daysPastDue === 0):
+      if (daysPastDue === 0) {
+        if (isAutoOrCard) return 'COLLECTED'; // Cổng thanh toán trừ tiền tức thì
+        return 'PENDING'; // Chuyển khoản trong ngày đang lập UNC
+      }
+
+      // b. Vượt ngày đến hạn:
+      var dunningWindow = cfg.dunningWindowDays || 3;
+      
+      // Trường hợp Chuyển khoản chưa khớp lệnh:
+      if (!isAutoOrCard) {
+        // Nếu trong khoảng ân hạn:
+        if (daysPastDue <= graceLimit) {
+          return 'PENDING';
+        }
+        // Vượt quá thời gian ân hạn Net-3 mà chưa nhận UNC -> Hệ thống tự động chuyển Quá Hạn
+        if (daysPastDue <= graceLimit + dunningWindow) {
+          return 'OVERDUE';
+        }
+        // Sau cửa sổ dunning (khi kế toán đôn đốc và nhận được tiền): Tự động gạch nợ thành ĐÃ THU
+        return 'COLLECTED';
+      }
+
+      // Trường hợp Thẻ / Ví điện tử / Auto-Debit:
+      if (isAutoOrCard) {
+        // Quá 1 ngày ân hạn mà chưa charge thành công -> Tự động đánh dấu OVERDUE
+        if (daysPastDue > graceLimit && daysPastDue <= graceLimit + dunningWindow) {
+          var isCardIssue = (c.billingAmount >= 10000 && (bDay % 2 === 0));
+          if (isCardIssue) return 'OVERDUE';
+        }
+        return 'COLLECTED';
+      }
+
+      return 'COLLECTED';
+    };
 
     window.getContractStatusInPeriod = function (c, periodStr, dayStrOrNum, checkpointKey) {
       var rt = (typeof window.getRealTimeContext === 'function') ? window.getRealTimeContext() : null;
       var curRealMonth = rt ? rt.currentMonthStr : '2026-10';
-      var curRealDay = rt ? rt.day : 1;
+      var curRealDay = rt ? rt.day : 2;
 
       var p = periodStr || window.currentPeriod || curRealMonth;
       var effectiveMonth = (p && p.length === 10) ? p.slice(0, 7) : p;
 
-      var isPaying = (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
+      var isPaying = (typeof window.isContractPayingInMonth === 'function')
+        ? window.isContractPayingInMonth(c, effectiveMonth)
+        : (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
       if (!isPaying) return null;
 
+      // 1. Can thiệp thủ công (Admin Manual Override) có quyền ưu tiên cao nhất nếu được kế toán gắn nhãn
       var key = c.id + '_' + effectiveMonth;
       if (window.CONTRACT_MANUAL_STATUS && window.CONTRACT_MANUAL_STATUS[key] !== undefined) {
         var manual = window.CONTRACT_MANUAL_STATUS[key];
         if (manual === 'collected') return 'COLLECTED';
         if (manual === 'overdue') return 'OVERDUE';
-        if (manual === 'pending') {
-          var tD = (dayStrOrNum !== undefined && dayStrOrNum !== null && dayStrOrNum !== 'ALL') ? parseInt(dayStrOrNum, 10) : curRealDay;
-          return (c.billingDay <= tD) ? 'OVERDUE' : 'PENDING';
-        }
+        if (manual === 'pending') return 'PENDING';
       }
 
-      var cp = checkpointKey || window.currentDemoCheckpoint || 'NOW_REAL';
-
-      // 1. Quá khứ mốc Ngày 29/09: 22 HĐ đã thu, 2 HĐ (ngày 26 & 28) nợ quá hạn
-      if (effectiveMonth === '2026-09' && (cp === 'PAST_2026-09-29' || cp === 'NOW_2026-09-29' || p === '2026-09-29' || dayStrOrNum === 29 || dayStrOrNum === '29')) {
-        if (c.billingDay <= 24) return 'COLLECTED';
-        return 'OVERDUE';
+      // Nếu người dùng tắt chế độ tự động hóa: giữ nguyên logic mặc định
+      var cfg = window.BILLING_AUTOMATION_CONFIG || { autoPilot: true };
+      if (!cfg.autoPilot) {
+        return (c.billingDay <= 24) ? 'COLLECTED' : 'PENDING';
       }
 
-      // 2. Quá khứ mốc Tuần trước (24/09): 22 HĐ đã thu, 2 HĐ (ngày 26 & 28) chưa đến hạn (chờ thu)
-      if (effectiveMonth === '2026-09' && (cp === 'PAST_LAST_WEEK' || p === '2026-09-24' || dayStrOrNum === 24 || dayStrOrNum === '24')) {
-        if (c.billingDay <= 24) return 'COLLECTED';
-        return 'PENDING';
-      }
-
-      // 3. Quá khứ chốt sổ 30/09 / Tháng trước / T8 trở về trước: 100% Đã thu
-      if (effectiveMonth === '2026-09') {
-        if (cp === 'PAST_2026-09-30' || cp === 'PAST_YESTERDAY' || cp === 'PAST_LAST_MONTH' || cp === 'SOON_2026-09-30' || dayStrOrNum === 30 || dayStrOrNum === '30' || dayStrOrNum === 'ALL') {
-          return 'COLLECTED';
-        }
-      }
-
-      if (effectiveMonth < curRealMonth) {
-        return 'COLLECTED';
-      }
-
-      // 4. Tháng tương lai (> curRealMonth, vd T11, T12): 100% Chưa thu (Dự thu kỳ tới)
+      // 2. Tháng tương lai (> curRealMonth, vd T11, T12, năm 2027): 100% Chưa đến kỳ thu -> PENDING
       if (effectiveMonth > curRealMonth) {
         return 'PENDING';
       }
 
-      // 5. Tháng hiện tại (T10/2026):
-      var targetDay = 1;
+      // 3. Xác định ngày đánh giá (targetDay)
+      var cp = checkpointKey || window.currentDemoCheckpoint || 'NOW_REAL';
+      var targetDay = 31;
+
       if (cp === 'SOON_END_OF_MONTH') {
         targetDay = 31;
       } else if (cp === 'SOON_TOMORROW') {
-        targetDay = 2;
+        targetDay = curRealDay + 1;
       } else if (cp === 'SOON_IN_3_DAYS') {
-        targetDay = 4;
+        targetDay = curRealDay + 3;
+      } else if (cp === 'PAST_LAST_WEEK') {
+        targetDay = 24;
+      } else if (cp === 'PAST_2026-09-29' || cp === 'NOW_2026-09-29') {
+        targetDay = 29;
+      } else if (cp === 'PAST_2026-09-30' || cp === 'PAST_YESTERDAY' || cp === 'PAST_LAST_MONTH' || cp === 'SOON_2026-09-30') {
+        targetDay = 30;
       } else if (cp === 'NOW_REAL' || cp.startsWith('NOW_')) {
         targetDay = curRealDay;
       } else if (dayStrOrNum !== undefined && dayStrOrNum !== null && dayStrOrNum !== 'ALL') {
@@ -335,13 +475,13 @@
       } else if (window.currentDemoDay && window.currentDemoDay !== 'ALL') {
         targetDay = parseInt(window.currentDemoDay, 10);
       } else {
-        targetDay = 31;
+        targetDay = (effectiveMonth < curRealMonth) ? 31 : curRealDay;
       }
 
-      if (isNaN(targetDay)) targetDay = 1;
-      if (targetDay >= 31) return 'COLLECTED';
-      if (c.billingDay <= targetDay) return 'COLLECTED';
-      return 'PENDING';
+      if (isNaN(targetDay)) targetDay = 31;
+
+      // 4. TÍNH TOÁN BẰNG HỆ THỐNG THUẬT TOÁN TỰ ĐỘNG HÓA (ZERO HARDCODED IDS)
+      return window.evaluateAutomatedContractStatus(c, effectiveMonth, targetDay, cp);
     };
 
     window.isContractCollected = function (c, periodStr, timelineMode) {
@@ -450,7 +590,9 @@
           }
         }
 
-        var isPaying = (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
+        var isPaying = (typeof window.isContractPayingInMonth === 'function')
+          ? window.isContractPayingInMonth(c, effectiveMonth)
+          : (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
         if (isPaying) {
           if (c.customerType === 'B2B') segCash.b2b += c.billingAmount;
           else segCash.b2c += c.billingAmount;
@@ -470,7 +612,9 @@
           else { cycleMrr.monthly += c.mrrContribution; cycleCount.monthly++; }
         }
 
-        var isPaying = (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
+        var isPaying = (typeof window.isContractPayingInMonth === 'function')
+          ? window.isContractPayingInMonth(c, effectiveMonth)
+          : (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
         if (isPaying) {
           payingContracts.push(c);
           totalCashIn += c.billingAmount;
@@ -491,7 +635,9 @@
       var overdueSegCash = { b2b: 0, b2c: 0 };
 
       filteredContracts.forEach(function (c) {
-        var isPaying = (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
+        var isPaying = (typeof window.isContractPayingInMonth === 'function')
+          ? window.isContractPayingInMonth(c, effectiveMonth)
+          : (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
         if (isPaying) {
           var st = window.getContractStatusInPeriod(c, effectiveMonth, targetDay, cp);
           if (st === 'COLLECTED') {
@@ -730,7 +876,7 @@
       var seg = window.currentSegment || 'ALL';
 
       function fmt(val) {
-        if (val === 0) return '0đ';
+        if (!val) return isUsd ? '$0' : '¥0';
         if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
         return '¥' + val.toLocaleString('ja-JP');
       }
@@ -878,7 +1024,7 @@
       var metrics = window.getDynamicPeriodMetrics(period, seg);
 
       function fmt(val) {
-        if (!val) return '0đ';
+        if (!val) return isUsd ? '$0' : '¥0';
         if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
         return '¥' + val.toLocaleString('ja-JP');
       }
@@ -892,17 +1038,17 @@
       var custB2b = document.getElementById('lbl-cust-b2b');
       var custB2c = document.getElementById('lbl-cust-b2c');
 
-      var cMrrTitle = document.getElementById('lbl-mrr-title');
-      var cMrr = document.getElementById('val-mrr');
-      var arrEl = document.getElementById('lbl-arr-val');
-      var mrrB2b = document.getElementById('lbl-mrr-b2b');
-      var mrrB2c = document.getElementById('lbl-mrr-b2c');
-
       var cCashTitle = document.getElementById('lbl-cash-title');
       var cCash = document.getElementById('val-cash-in');
       var subCash = document.getElementById('sub-cash');
       var cashB2b = document.getElementById('lbl-cash-b2b');
       var cashB2c = document.getElementById('lbl-cash-b2c');
+
+      var cPendingTitle = document.getElementById('lbl-pending-title');
+      var cPending = document.getElementById('val-cash-pending');
+      var subPending = document.getElementById('sub-cash-pending');
+      var penB2b = document.getElementById('lbl-pending-b2b');
+      var penB2c = document.getElementById('lbl-pending-b2c');
 
       var cDefTitle = document.getElementById('lbl-def-title');
       var cDefVal = document.getElementById('val-deferred');
@@ -916,50 +1062,98 @@
       var p2Desc = document.getElementById('panel2-desc');
 
       var isDayMode = (period === '2026-09-24');
-      var periodMonthNum = isDayMode ? 9 : parseInt(period.split('-')[1], 10);
-      var monthText = isDayMode ? 'Ngày 24/09/2026' : ('Tháng ' + (periodMonthNum < 10 ? '0' : '') + periodMonthNum);
+      var periodYear = period.indexOf('-') !== -1 ? period.split('-')[0] : '2026';
+      var periodMonth = period.indexOf('-') !== -1 ? period.split('-')[1] : '10';
+      var isFutureYear = parseInt(periodYear, 10) > 2026;
+      var periodMonthNum = isDayMode ? 9 : parseInt(periodMonth, 10);
+      var monthText = isDayMode
+        ? 'Ngày 24/09/2026'
+        : ('Tháng ' + (periodMonthNum < 10 ? '0' : '') + periodMonthNum + (isFutureYear ? '/' + periodYear : ''));
 
       if (seg === 'B2B') {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Doanh Nghiệp (B2B)';
         if (topDesc) topDesc.textContent = 'Khối Doanh nghiệp (B2B) • ' + metrics.totalManaged + ' Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
         if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG DOANH NGHIỆP';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
-        if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2B)';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2B)' : 'ĐÃ THU (B2B)';
-        if (cDefTitle) cDefTitle.textContent = 'ĐANG NỢ (TỐI ĐA 12 THÁNG) (B2B)';
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2B)' : (isFutureYear ? 'DỰ KIẾN THU (B2B)' : 'ĐÃ THANH TOÁN (B2B)');
+        if (cPendingTitle) cPendingTitle.textContent = isFutureYear ? 'CHỜ NẠP KẾ HOẠCH (B2B)' : 'CHỜ THANH TOÁN (B2B)';
+        if (cDefTitle) cDefTitle.textContent = 'NỢ QUÁ HẠN (B2B)';
       } else if (seg === 'B2C') {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Khối Cá Nhân (B2C)';
         if (topDesc) topDesc.textContent = 'Khối Cá nhân (B2C) • ' + metrics.totalManaged + ' Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
         if (cCustTitle) cCustTitle.textContent = 'HỢP ĐỒNG CÁ NHÂN';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
-        if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR (B2C)';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2C)' : 'ĐÃ THU (B2C)';
-        if (cDefTitle) cDefTitle.textContent = 'ĐANG NỢ (TỐI ĐA 12 THÁNG) (B2C)';
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09 (B2C)' : (isFutureYear ? 'DỰ KIẾN THU (B2C)' : 'ĐÃ THANH TOÁN (B2C)');
+        if (cPendingTitle) cPendingTitle.textContent = isFutureYear ? 'CHỜ NẠP KẾ HOẠCH (B2C)' : 'CHỜ THANH TOÁN (B2C)';
+        if (cDefTitle) cDefTitle.textContent = 'NỢ QUÁ HẠN (B2C)';
       } else {
         if (topTitle) topTitle.textContent = 'Bàn Điều Hành Toàn Nền Tảng';
         if (topDesc) topDesc.textContent = 'Hệ sinh thái Doanh nghiệp & Cá nhân • ' + metrics.totalManaged + ' Hợp đồng (' + metrics.activeCount + ' Active) • ' + monthText;
-        if (cCustTitle) cCustTitle.textContent = 'TỔNG HỢP ĐỒNG KHÁCH HÀNG';
+        if (cCustTitle) cCustTitle.textContent = 'TỔNG HỢP ĐỒNG';
         if (subCust) subCust.textContent = metrics.activeCount + ' HĐ đang active';
-        if (cMrrTitle) cMrrTitle.textContent = 'DOANH THU MRR';
-        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09/2026' : 'ĐÃ THU';
-        if (cDefTitle) cDefTitle.textContent = 'ĐANG NỢ (TỐI ĐA 12 THÁNG)';
+        if (cCashTitle) cCashTitle.textContent = isDayMode ? 'ĐÃ THU NGÀY 24/09/2026' : (isFutureYear ? 'DỰ KIẾN THU ' + periodYear : 'ĐÃ THANH TOÁN');
+        if (cPendingTitle) cPendingTitle.textContent = isFutureYear ? 'CHỜ NẠP KẾ HOẠCH' : 'CHỜ THANH TOÁN';
+        if (cDefTitle) cDefTitle.textContent = 'NỢ QUÁ HẠN';
       }
 
-      // Card 1: Khách hàng
-      if (cCust) cCust.textContent = metrics.totalManaged;
-      if (custB2b) custB2b.textContent = '🏢 ' + metrics.segManaged.b2b + ' DN (' + metrics.segCustomers.b2b + ' Active)';
-      if (custB2c) custB2c.textContent = '👤 ' + metrics.segManaged.b2c + ' Cá nhân (' + metrics.segCustomers.b2c + ' Active)';
+      // Cập nhật nhãn thời gian trực tiếp bên trong từng thẻ KPI
+      var elLblCustPeriod = document.getElementById('lbl-cust-period');
+      var elLblCashPeriod = document.getElementById('lbl-cash-period');
+      var elLblPendingPeriod = document.getElementById('lbl-pending-period');
+      var elLblDefPeriod = document.getElementById('lbl-def-period');
 
-      // Card 2: MRR
-      if (cMrr) cMrr.textContent = fmt(metrics.totalMrr);
-      var arrVal = metrics.totalMrr * 12;
-      if (arrEl) arrEl.textContent = '/tháng (ARR: ' + (isUsd ? ('$' + (arrVal * rate / 1000).toFixed(1) + 'k') : ('¥' + (arrVal / 1000000).toFixed(2) + 'M')) + ')';
-      var b2bPct = Math.round((metrics.segMrr.b2b / metrics.totalMrr) * 100) || 85;
-      var b2cPct = Math.round((metrics.segMrr.b2c / metrics.totalMrr) * 100) || 15;
-      if (mrrB2b) mrrB2b.textContent = '🏢 DN: ' + fmt(metrics.segMrr.b2b) + ' (' + b2bPct + '%)';
-      if (mrrB2c) mrrB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.segMrr.b2c) + ' (' + b2cPct + '%)';
+      var rtCtx = (typeof window.getRealTimeContext === 'function') ? window.getRealTimeContext() : null;
+      var curDateDisplay = (rtCtx && rtCtx.dd && rtCtx.mm) ? (rtCtx.dd + '/' + rtCtx.mm) : '02/10';
 
-      // Card 3: Tiền mặt ĐÃ THU (Thực thu đã vào két)
+      var formattedPeriodLabel = '';
+      var formattedDateRange = '';
+      var shortPeriodLabel = '';
+
+      if (isDayMode) {
+        formattedPeriodLabel = 'Ngày 24/09/2026';
+        formattedDateRange = '00:00 — 23:59 (24/09)';
+        shortPeriodLabel = 'Ngày 24/09';
+      } else {
+        var daysInMonth = new Date(parseInt(periodYear, 10), parseInt(periodMonth, 10), 0).getDate();
+        formattedPeriodLabel = 'Tháng ' + periodMonth + '/' + periodYear;
+        formattedDateRange = '01/' + periodMonth + ' — ' + daysInMonth + '/' + periodMonth;
+        shortPeriodLabel = 'Kỳ T' + parseInt(periodMonth, 10) + '/' + periodYear;
+      }
+
+      if (elLblCustPeriod) {
+        if (isFutureYear) {
+          elLblCustPeriod.innerHTML = '<span class="kpi-dot"></span>Toàn hệ thống • Kế hoạch ' + periodYear;
+        } else {
+          elLblCustPeriod.innerHTML = '<span class="kpi-dot"></span>Toàn hệ thống • Đến ' + curDateDisplay;
+        }
+      }
+      if (elLblCashPeriod) {
+        if (isDayMode) {
+          elLblCashPeriod.innerHTML = '<span class="kpi-dot"></span>Ngày 24/09/2026 (Chốt ngày)';
+        } else if (isFutureYear) {
+          elLblCashPeriod.innerHTML = '<span class="kpi-dot"></span>' + shortPeriodLabel + ' (Dự thu: ' + formattedDateRange + ')';
+        } else {
+          elLblCashPeriod.innerHTML = '<span class="kpi-dot"></span>' + shortPeriodLabel + ' (' + formattedDateRange + ')';
+        }
+      }
+      if (elLblPendingPeriod) {
+        if (isDayMode) {
+          elLblPendingPeriod.innerHTML = '<span class="kpi-dot"></span>Ngày 24/09/2026';
+        } else if (isFutureYear) {
+          elLblPendingPeriod.innerHTML = '<span class="kpi-dot"></span>' + shortPeriodLabel + ' (Chờ thu: ' + formattedDateRange + ')';
+        } else {
+          elLblPendingPeriod.innerHTML = '<span class="kpi-dot"></span>' + shortPeriodLabel + ' (' + formattedDateRange + ')';
+        }
+      }
+      if (elLblDefPeriod) {
+        if (isFutureYear) {
+          elLblDefPeriod.innerHTML = '<span class="kpi-dot"></span>Kế hoạch an toàn ' + periodYear;
+        } else {
+          elLblDefPeriod.innerHTML = '<span class="kpi-dot"></span>Lũy kế ≤12 thg (Đến ' + curDateDisplay + ')';
+        }
+      }
+
+      // Calculate totals for financial consistency
       var colAmt = metrics.collectedCash;
       var penAmt = metrics.pendingCash;
       var colCnt = metrics.collectedCount;
@@ -968,40 +1162,71 @@
       var colPct = totalExp > 0 ? Math.round((colAmt / totalExp) * 100) : 100;
       var penPct = totalExp > 0 ? (100 - colPct) : 0;
 
-      if (cCash) cCash.textContent = fmt(colAmt);
-      if (subCash) {
-        subCash.innerHTML = "<strong>" + colCnt + " HĐ đã vào két</strong> (" + colPct + "% dự thu) ➔";
+      // Card 1: Khách hàng / Tổng hợp đồng
+      if (cCust) cCust.textContent = metrics.totalManaged;
+      var progCust = document.getElementById('prog-cust-active');
+      if (progCust) {
+        var activePct = metrics.totalManaged > 0 ? Math.round((metrics.activeCount / metrics.totalManaged) * 100) : 100;
+        progCust.style.width = activePct + '%';
       }
-      if (cashB2b) cashB2b.textContent = "🏢 DN: " + fmt(metrics.colSegCash ? metrics.colSegCash.b2b : colAmt);
-      if (cashB2c) cashB2c.textContent = "👤 Cá nhân: " + fmt(metrics.colSegCash ? metrics.colSegCash.b2c : 0);
+      var elTotalExp = document.getElementById('val-total-expected');
+      if (elTotalExp) elTotalExp.textContent = fmt(totalExp);
+      if (custB2b) custB2b.textContent = '🏢 ' + metrics.segManaged.b2b + ' DN (' + metrics.segCustomers.b2b + ' Active)';
+      if (custB2c) custB2c.textContent = '👤 ' + metrics.segManaged.b2c + ' Cá nhân (' + metrics.segCustomers.b2c + ' Active)';
 
-      // Card 4: Tiền mặt CHƯA THU (Chờ nạp / Đối soát)
-      var cPending = document.getElementById("val-cash-pending");
-      var subPending = document.getElementById("sub-cash-pending");
-      var penB2b = document.getElementById("lbl-pending-b2b");
-      var penB2c = document.getElementById("lbl-pending-b2c");
+      // Card 3: Tiền mặt ĐÃ THANH TOÁN (Thực thu)
+      if (cCash) cCash.textContent = fmt(colAmt);
+      var progCash = document.getElementById('prog-cash-in');
+      if (progCash) progCash.style.width = Math.min(100, Math.max(0, colPct)) + '%';
+      if (subCash) {
+        if (isFutureYear) {
+          subCash.innerHTML = '<strong>' + metrics.payingCount + ' HĐ kế hoạch</strong> (Dự kiến: ' + fmt(metrics.totalCashIn) + ') ➔';
+        } else {
+          subCash.innerHTML = '<strong>' + colCnt + ' HĐ đã thanh toán</strong> (' + colPct + '% kế hoạch) ➔';
+        }
+      }
+      if (cashB2b) cashB2b.textContent = '🏢 DN: ' + fmt(metrics.colSegCash ? metrics.colSegCash.b2b : colAmt);
+      if (cashB2c) cashB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.colSegCash ? metrics.colSegCash.b2c : 0);
 
+      // Card 4: Tiền mặt CHỜ THANH TOÁN
       if (cPending) cPending.textContent = fmt(penAmt);
+      var progPending = document.getElementById('prog-cash-pending');
+      if (progPending) progPending.style.width = Math.min(100, Math.max(0, penPct)) + '%';
       if (subPending) {
         if (penCnt === 0) {
           subPending.innerHTML = '<span style="color:#16a34a;font-weight:700">✓ Đã thu hoàn tất 100% KPI</span>';
+        } else if (isFutureYear) {
+          subPending.innerHTML = '<strong>' + penCnt + ' HĐ chờ thanh toán</strong> (100% kế hoạch ' + periodYear + ') ➔';
         } else {
-          subPending.innerHTML = "<strong>" + penCnt + " HĐ chờ thu</strong> (" + penPct + "%) • Bấm lọc ➔";
+          subPending.innerHTML = '<strong>' + penCnt + ' HĐ chờ thanh toán</strong> (' + penPct + '%) • Bấm mở bảng ➔';
         }
       }
-      if (penB2b) penB2b.textContent = "🏢 DN: " + fmt(metrics.penSegCash ? metrics.penSegCash.b2b : penAmt);
-      if (penB2c) penB2c.textContent = "👤 Cá nhân: " + fmt(metrics.penSegCash ? metrics.penSegCash.b2c : 0);
-      // Card 5: Tiền mặt ĐANG NỢ (Công nợ quá hạn kỳ thu)
+      if (penB2b) penB2b.textContent = '🏢 DN: ' + fmt(metrics.penSegCash ? metrics.penSegCash.b2b : penAmt);
+      if (penB2c) penB2c.textContent = '👤 Cá nhân: ' + fmt(metrics.penSegCash ? metrics.penSegCash.b2c : 0);
+
+      // Card 5: Tiền mặt NỢ QUÁ HẠN
       var overAmt = metrics.overdueCash || 0;
       var overCnt = metrics.overdueCount || 0;
       if (cDefVal) {
         cDefVal.textContent = fmt(overAmt);
         cDefVal.style.color = overAmt > 0 ? '#dc2626' : '#16a34a';
       }
+      var progDef = document.getElementById('prog-deferred');
+      var progDefWrap = document.getElementById('prog-def-wrap');
+      if (progDefWrap) {
+        progDefWrap.style.display = overCnt > 0 ? 'block' : 'none';
+        if (progDef && totalExp > 0) {
+          var overPct = Math.min(100, Math.round((overAmt / totalExp) * 100));
+          progDef.style.width = Math.max(5, overPct) + '%';
+        }
+      }
       if (subDef) {
-        if (overCnt === 0) {
+        if (isFutureYear) {
           subDef.style.color = '#16a34a';
-          subDef.innerHTML = '✓ 0 HĐ nợ quá hạn (Giới hạn tối đa 12 tháng)';
+          subDef.innerHTML = '✓ 0 HĐ nợ quá hạn (Kế hoạch ' + periodYear + ' an toàn)';
+        } else if (overCnt === 0) {
+          subDef.style.color = '#16a34a';
+          subDef.innerHTML = '✓ 0 HĐ nợ quá hạn (Trong hạn an toàn ≤12 thg)';
         } else {
           subDef.style.color = '#dc2626';
           subDef.innerHTML = '<strong>⚠️ ' + overCnt + ' HĐ nợ quá hạn</strong> • Giới hạn ≤12 thg ➔';
@@ -1058,8 +1283,9 @@
           eibBanner.style.background = '#f0fdfa';
           eibBanner.style.borderColor = '#99f6e4';
           if (eibIcon) { eibIcon.textContent = '🔴'; eibIcon.style.background = '#ccfbf1'; eibIcon.style.color = '#0f766e'; }
-          eibTitle.innerHTML = 'Tình Trạng Thời Gian Thực (Hôm nay ngày ' + (rt ? rt.dd + '/' + rt.mm + '/' + rt.year : '01/10/2026') + ' — Dữ Liệu Trực Tiếp)';
-          eibDesc.innerHTML = 'Hệ thống đồng bộ dữ liệu thời gian thực: Đến ngày <strong>' + (rt ? rt.dd + '/' + rt.mm : '01/10') + '</strong>, đã thu tiền mặt đạt <strong>' + fmt(colAmt) + '</strong> (' + colCnt + ' HĐ đã vào két, ' + colPct + '% kế hoạch tháng). Còn <strong>' + penCnt + ' hợp đồng</strong> (tổng ' + fmt(penAmt) + ') sẽ tiếp tục đến kỳ nạp trong các ngày tiếp theo.';
+          eibTitle.innerHTML = 'Tình Trạng Thời Gian Thực (Hôm nay ngày ' + (rt ? rt.dd + '/' + rt.mm + '/' + rt.year : '02/10/2026') + ' — Dữ Liệu Trực Tiếp)';
+          var overText = overCnt > 0 ? (' Đang theo dõi <strong>' + overCnt + ' HĐ nợ quá hạn (' + fmt(overAmt) + ')</strong> cần đôn đốc.') : ' Không có công nợ quá hạn.';
+          eibDesc.innerHTML = 'Hệ thống đồng bộ dữ liệu thời gian thực: Đến ngày <strong>' + (rt ? rt.dd + '/' + rt.mm : '02/10') + '</strong>, đã thu tiền mặt đạt <strong>' + fmt(colAmt) + '</strong> (' + colCnt + ' HĐ đã vào két, ' + colPct + '% kế hoạch).' + overText + ' Còn <strong>' + penCnt + ' hợp đồng</strong> (tổng ' + fmt(penAmt) + ') tiếp tục thu trong các ngày tới.';
           if (eibBtn) {
             eibBtn.textContent = '📅 Xem Bảng Đối Soát ➔';
             eibBtn.style.background = '#089490';
@@ -1069,8 +1295,9 @@
           eibBanner.style.background = '#eff6ff';
           eibBanner.style.borderColor = '#bfdbfe';
           if (eibIcon) { eibIcon.textContent = '⏳'; eibIcon.style.background = '#dbeafe'; eibIcon.style.color = '#1d4ed8'; }
-          eibTitle.innerHTML = 'Kế Hoạch Ngày Mai (Ngày ' + (rt ? rt.tmrDD + '/' + rt.tmrMM + '/' + rt.tmrY : '02/10/2026') + ')';
-          eibDesc.innerHTML = 'Lũy kế dòng tiền dự kiến đạt <strong>' + fmt(colAmt) + '</strong> (' + colCnt + ' HĐ nạp tiền). Toàn bộ hợp đồng đến hạn được giám sát tự động để đảm bảo tiến độ thu ngân.';
+          eibTitle.innerHTML = 'Kế Hoạch Ngày Mai (Ngày ' + (rt ? rt.tmrDD + '/' + rt.tmrMM + '/' + rt.tmrY : '03/10/2026') + ')';
+          var overTextTmr = overCnt > 0 ? (' Công nợ quá hạn đang kiểm soát: <strong>' + fmt(overAmt) + '</strong> (' + overCnt + ' HĐ).') : '';
+          eibDesc.innerHTML = 'Lũy kế dòng tiền dự kiến đạt <strong>' + fmt(colAmt) + '</strong> (' + colCnt + ' HĐ nạp tiền).' + overTextTmr + ' Toàn bộ hợp đồng đến hạn được giám sát tự động để đảm bảo tiến độ thu ngân.';
           if (eibBtn) {
             eibBtn.textContent = '📋 Xem Lịch Thu Ngày Mai ➔';
             eibBtn.style.background = '#1d4ed8';
@@ -1081,7 +1308,8 @@
           eibBanner.style.borderColor = '#bfdbfe';
           if (eibIcon) { eibIcon.textContent = '⏱️'; eibIcon.style.background = '#dbeafe'; eibIcon.style.color = '#1d4ed8'; }
           eibTitle.innerHTML = 'Tiến Độ 3 Ngày Nữa (Ngày ' + (rt ? rt.in3dDD + '/' + rt.in3dMM + '/' + rt.year : '04/10/2026') + ')';
-          eibDesc.innerHTML = 'Dự kiến lũy kế thực thu đạt <strong>' + fmt(colAmt) + '</strong> (' + colCnt + ' HĐ). Các hợp đồng tiếp theo đang ở trạng thái chuẩn bị đối soát kỳ nạp.';
+          var overText3d = overCnt > 0 ? (' Còn <strong>' + overCnt + ' HĐ chậm nạp (' + fmt(overAmt) + ')</strong> đang xử lý.') : ' Toàn bộ công nợ được thu hồi thành công.';
+          eibDesc.innerHTML = 'Dự kiến lũy kế thực thu đạt <strong>' + fmt(colAmt) + '</strong> (' + colCnt + ' HĐ).' + overText3d + ' Các hợp đồng tiếp theo đang ở trạng thái chuẩn bị đối soát kỳ nạp.';
           if (eibBtn) {
             eibBtn.textContent = '📋 Xem Bảng Thu Chi ➔';
             eibBtn.style.background = '#1d4ed8';
@@ -1118,6 +1346,17 @@
           if (eibBtn) {
             eibBtn.textContent = '📊 Xem Lịch Sử Đối Soát ➔';
             eibBtn.style.background = '#334155';
+            eibBtn.onclick = function () { window.openReconciliationModal('ALL'); };
+          }
+        } else if (isFutureYear) {
+          eibBanner.style.background = '#f5f3ff';
+          eibBanner.style.borderColor = '#ddd6fe';
+          if (eibIcon) { eibIcon.textContent = '🌟'; eibIcon.style.background = '#ede9fe'; eibIcon.style.color = '#6d28d9'; }
+          eibTitle.innerHTML = '🌟 Kế Hoạch & Dự Báo Doanh Thu Năm ' + periodYear + ' (' + monthText + ')';
+          eibDesc.innerHTML = 'Dự báo dòng tiền nạp ngân sách năm ' + periodYear + ': Dự kiến đạt <strong>' + fmt(metrics.totalCashIn) + '</strong> từ <strong>' + metrics.payingCount + ' hợp đồng</strong> định kỳ & tái nạp gia hạn • Quy mô phục vụ: <strong>' + metrics.totalSeats + ' ghế</strong>.';
+          if (eibBtn) {
+            eibBtn.textContent = '📋 Xem Dự Báo Hợp Đồng ➔';
+            eibBtn.style.background = '#6d28d9';
             eibBtn.onclick = function () { window.openReconciliationModal('ALL'); };
           }
         } else {
@@ -1185,63 +1424,92 @@
       if (checkpointKey === 'NOW_REAL' || checkpointKey.startsWith('NOW_')) {
         targetPeriod = curRealMonth;
         targetDay = curRealDay;
-        toastLabel = '🔴 Hôm nay: Ngày ' + (rt ? rt.dd + '/' + rt.mm + '/' + rt.year : '01/10/2026') + ' (Thời gian thực)';
+        toastLabel = 'Hôm nay: Ngày ' + (rt ? rt.dd + '/' + rt.mm + '/' + rt.year : '01/10/2026') + ' (Thời gian thực)';
       } else if (checkpointKey === 'SOON_TOMORROW') {
         targetPeriod = rt ? rt.tomorrowStr.slice(0, 7) : curRealMonth;
         targetDay = rt ? String(rt.tmrDD) : '2';
-        toastLabel = '⏳ Ngày mai: Ngày ' + (rt ? rt.tmrDD + '/' + rt.tmrMM + '/' + rt.tmrY : '02/10/2026');
+        toastLabel = 'Ngày mai: Ngày ' + (rt ? rt.tmrDD + '/' + rt.tmrMM + '/' + rt.tmrY : '02/10/2026');
       } else if (checkpointKey === 'SOON_IN_3_DAYS') {
         targetPeriod = rt ? rt.in3dStr.slice(0, 7) : curRealMonth;
         targetDay = rt ? String(rt.in3dDD) : '4';
-        toastLabel = '⏱️ 3 ngày nữa: Ngày ' + (rt ? rt.in3dDD + '/' + rt.in3dMM + '/' + rt.year : '04/10/2026');
+        toastLabel = '3 ngày nữa: Ngày ' + (rt ? rt.in3dDD + '/' + rt.in3dMM + '/' + rt.year : '04/10/2026');
       } else if (checkpointKey === 'SOON_END_OF_MONTH') {
         targetPeriod = curRealMonth;
         targetDay = rt ? String(rt.lastDayOfCurMonth) : '31';
-        toastLabel = '🏁 Cuối tháng này: Ngày ' + (rt ? rt.lastDayOfCurMonth + '/' + rt.mm + '/' + rt.year : '31/10/2026') + ' (Chốt 100% KPI)';
+        toastLabel = 'Cuối tháng này: Ngày ' + (rt ? rt.lastDayOfCurMonth + '/' + rt.mm + '/' + rt.year : '31/10/2026') + ' (Chốt 100% KPI)';
       } else if (checkpointKey === 'FUTURE_NEXT_MONTH') {
         targetPeriod = rt ? rt.nextMonthStr : '2026-11';
         targetDay = 'ALL';
-        toastLabel = '📅 Tháng sau: Tháng ' + (rt ? rt.nextMMM + '/' + rt.nextMY : '11/2026');
+        toastLabel = 'Tháng sau: Tháng ' + (rt ? rt.nextMMM + '/' + rt.nextMY : '11/2026');
       } else if (checkpointKey === 'FUTURE_NEXT_2_MONTHS') {
         targetPeriod = rt ? rt.next2MonthStr : '2026-12';
         targetDay = 'ALL';
-        toastLabel = '🚀 2 tháng nữa: Tháng ' + (rt ? rt.next2MMM + '/' + rt.next2MY : '12/2026');
+        toastLabel = '2 tháng nữa: Tháng ' + (rt ? rt.next2MMM + '/' + rt.next2MY : '12/2026');
       } else if (checkpointKey === 'FUTURE_2026-12') {
         targetPeriod = '2026-12';
         targetDay = 'ALL';
-        toastLabel = '🎯 Chốt năm: Tháng 12/2026 (Đại hội gia hạn FDI ¥1.37M)';
+        toastLabel = 'Chốt năm: Tháng 12/2026 (Đại hội gia hạn FDI ¥1.37M)';
+      } else if (checkpointKey === 'FUTURE_2027-01') {
+        targetPeriod = '2027-01';
+        targetDay = 'ALL';
+        toastLabel = 'Dự báo Kế hoạch 2027: Tháng 01/2027 (Gia hạn năm Q1 & Tái nạp Quý)';
+      } else if (checkpointKey === 'FUTURE_2027-03') {
+        targetPeriod = '2027-03';
+        targetDay = 'ALL';
+        toastLabel = 'Dự báo Kế hoạch 2027: Tháng 03/2027 (Kỳ nạp Quý 1 & HĐ năm)';
+      } else if (checkpointKey === 'FUTURE_2027-06') {
+        targetPeriod = '2027-06';
+        targetDay = 'ALL';
+        toastLabel = 'Dự báo Kế hoạch 2027: Tháng 06/2027 (Chốt bán niên H1/2027)';
+      } else if (checkpointKey === 'FUTURE_2027-09') {
+        targetPeriod = '2027-09';
+        targetDay = 'ALL';
+        toastLabel = 'Dự báo Kế hoạch 2027: Tháng 09/2027 (Kỳ nạp Quý 3/2027)';
+      } else if (checkpointKey === 'FUTURE_2027-10') {
+        targetPeriod = '2027-10';
+        targetDay = 'ALL';
+        toastLabel = 'Dự báo Kế hoạch 2027: Tháng 10/2027 (Kỳ nạp Quý 4/2027)';
+      } else if (checkpointKey === 'FUTURE_2027-12') {
+        targetPeriod = '2027-12';
+        targetDay = 'ALL';
+        toastLabel = 'Dự báo Kế hoạch 2027: Tháng 12/2027 (Chốt năm tài chính 2027)';
+      } else if (checkpointKey.startsWith('FUTURE_2027-')) {
+        targetPeriod = checkpointKey.replace('FUTURE_', '');
+        targetDay = 'ALL';
+        var mNum = targetPeriod.split('-')[1];
+        toastLabel = 'Dự báo Kế hoạch 2027: Tháng ' + mNum + '/2027';
       } else if (checkpointKey === 'PAST_YESTERDAY') {
         targetPeriod = rt ? rt.yesterdayStr.slice(0, 7) : '2026-09';
         targetDay = rt ? String(rt.ystDD) : '30';
-        toastLabel = '⏪ Hôm qua: Ngày ' + (rt ? rt.ystDD + '/' + rt.ystMM + '/' + rt.ystY : '30/09/2026');
+        toastLabel = 'Hôm qua: Ngày ' + (rt ? rt.ystDD + '/' + rt.ystMM + '/' + rt.ystY : '30/09/2026');
       } else if (checkpointKey === 'PAST_LAST_WEEK') {
         targetPeriod = rt ? rt.lastWeekStr.slice(0, 7) : '2026-09';
         targetDay = rt ? String(rt.lastWDD) : '24';
-        toastLabel = '⏪ Tuần trước: Ngày ' + (rt ? rt.lastWDD + '/' + rt.lastWMM + '/' + rt.year : '24/09/2026');
+        toastLabel = 'Tuần trước: Ngày ' + (rt ? rt.lastWDD + '/' + rt.lastWMM + '/' + rt.year : '24/09/2026');
       } else if (checkpointKey === 'PAST_LAST_MONTH') {
         targetPeriod = rt ? rt.prevMonthStr : '2026-09';
         targetDay = 'ALL';
-        toastLabel = '⏮️ Tháng trước: Tháng ' + (rt ? rt.prevMMM + '/' + rt.prevMY : '09/2026') + ' (Đã chốt sổ đối soát)';
+        toastLabel = 'Tháng trước: Tháng ' + (rt ? rt.prevMMM + '/' + rt.prevMY : '09/2026') + ' (Đã chốt sổ đối soát)';
       } else if (checkpointKey === 'PAST_2026-09-29' || checkpointKey === 'NOW_2026-09-29') {
         targetPeriod = '2026-09';
         targetDay = '29';
-        toastLabel = '📜 Mẫu Ngày 29/09: Thu 22/24 HĐ (¥248.5k)';
+        toastLabel = 'Mẫu Ngày 29/09: Thu 22/24 HĐ (¥248.5k)';
       } else if (checkpointKey === 'PAST_2026-09-30' || checkpointKey === 'SOON_2026-09-30') {
         targetPeriod = '2026-09';
         targetDay = '30';
-        toastLabel = '📜 Mẫu Chốt Tháng 9: Thu 24/24 HĐ (¥269.8k)';
+        toastLabel = 'Mẫu Chốt Tháng 9: Thu 24/24 HĐ (¥269.8k)';
       } else if (checkpointKey === 'PAST_2026-08') {
         targetPeriod = '2026-08';
         targetDay = 'ALL';
-        toastLabel = '⏮️ Tháng 08/2026 (Đã chốt & đối soát 100%)';
+        toastLabel = 'Tháng 08/2026 (Đã chốt & đối soát 100%)';
       } else if (checkpointKey.startsWith('FUTURE_')) {
         targetPeriod = checkpointKey.replace('FUTURE_', '');
         targetDay = 'ALL';
-        toastLabel = '🔮 Kế hoạch: ' + targetPeriod;
+        toastLabel = 'Kế hoạch: ' + targetPeriod;
       } else if (checkpointKey.startsWith('PAST_')) {
         targetPeriod = checkpointKey.replace('PAST_', '');
         targetDay = 'ALL';
-        toastLabel = '⏪ Quá khứ: ' + targetPeriod;
+        toastLabel = 'Quá khứ: ' + targetPeriod;
       } else {
         targetPeriod = curRealMonth;
         targetDay = checkpointKey;
@@ -1257,11 +1525,16 @@
 
       // Đồng bộ chỉ số tháng được chọn trên biểu đồ 12 tháng
       if (window.REVENUE_DATA_2026) {
+        var foundBar = false;
         for (var i = 0; i < window.REVENUE_DATA_2026.length; i++) {
           if (window.REVENUE_DATA_2026[i].period === targetPeriod) {
             window.selectedMonthIdx = i;
+            foundBar = true;
             break;
           }
+        }
+        if (!foundBar) {
+          window.selectedMonthIdx = -1;
         }
       }
 
@@ -1288,22 +1561,72 @@
       if (typeof window.renderDummyContractsTable === 'function') window.renderDummyContractsTable();
     };
 
-    // ===== MỤC 1: KHÁCH HÀNG ĐĂNG KÝ TÀI KHOẢN MỚI TRONG THÁNG =====
+    // ===== MỤC 1: KHÁCH HÀNG ĐĂNG KÝ TÀI KHOẢN MỚI TRONG THÁNG (REDESIGNED ULTRA MODERN) =====
     window.newSignupsSearchQuery = '';
+    window.newSignupsSegmentFilter = 'ALL';
+
+    window.setNewSignupsSegment = function (seg) {
+      window.newSignupsSegmentFilter = seg || 'ALL';
+      ['all', 'b2b', 'b2c'].forEach(function (s) {
+        var btn = document.getElementById('btn-new-seg-' + s);
+        if (btn) {
+          if (s === (seg || 'ALL').toLowerCase()) {
+            btn.style.background = '#0f172a';
+            btn.style.color = '#ffffff';
+            btn.style.borderColor = '#0f172a';
+          } else {
+            btn.style.background = '#ffffff';
+            btn.style.color = (s === 'b2b' ? '#0284c7' : (s === 'b2c' ? '#7e22ce' : '#334155'));
+            btn.style.borderColor = '#cbd5e1';
+          }
+        }
+      });
+      window.renderNewSignupsSection();
+    };
 
     window.filterNewSignupsTable = function (query) {
       window.newSignupsSearchQuery = (query || '').toLowerCase().trim();
       window.renderNewSignupsSection();
     };
 
+    window.exportNewSignupsCSV = function () {
+      var period = window.currentPeriod || '2026-10';
+      var allContracts = window.DUMMY_CONTRACTS_DATA || [];
+      var effectiveMonth = (period === '2026-09-24') ? '2026-09' : period;
+      var newSignups = allContracts.filter(function (c) {
+        return c.startDate && c.startDate.indexOf(effectiveMonth) === 0;
+      });
+
+      var isUsd = (window.currentCurrency === 'USD');
+      var curr = isUsd ? 'USD' : 'JPY';
+      var rate = isUsd ? (1 / 150.24) : 1;
+
+      var csv = '\uFEFFMa_HD,Khach_Hang,Nguoi_Dai_Dien,Phan_Khuc,Ngay_Dang_Ky,Goi_Cuoc,Chu_Ky,So_Ghe,Doanh_Thu (' + curr + '),Trang_Thai\n';
+      newSignups.forEach(function (c) {
+        var amt = isUsd ? Math.round(c.billingAmount * rate) : c.billingAmount;
+        csv += '"' + c.id + '","' + c.customerName.replace(/"/g, '""') + '","' + (c.contactPerson || '').replace(/"/g, '""') + '","' +
+          c.customerType + '","' + c.startDate + '","' + c.planTier + '","' + c.billingCycle + '",' +
+          c.seats + ',' + amt + ',"' + (c.status || 'Active') + '"\n';
+      });
+
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', 'Emind_Khach_Hang_Moi_' + effectiveMonth + '.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
     window.renderNewSignupsSection = function (periodStr, segment) {
-      var period = periodStr || window.currentPeriod || '2026-09';
+      var period = periodStr || window.currentPeriod || '2026-10';
       var seg = segment || window.currentSegment || 'ALL';
+      var innerSeg = window.newSignupsSegmentFilter || 'ALL';
       var isUsd = (window.currentCurrency === 'USD');
       var rate = isUsd ? (1 / 150.24) : 1;
 
       function fmt(val) {
-        if (!val) return '0đ';
+        if (!val) return isUsd ? '$0' : '¥0';
         if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
         return '¥' + val.toLocaleString('ja-JP');
       }
@@ -1329,35 +1652,43 @@
       var b2bCash = b2bContracts.reduce(function (s, c) { return s + (c.billingAmount || 0); }, 0);
       var b2cCash = b2cContracts.reduce(function (s, c) { return s + (c.billingAmount || 0); }, 0);
       var totalCash = b2bCash + b2cCash;
+      var avgSeats = newSignups.length > 0 ? (totalSeats / newSignups.length).toFixed(1) : '0';
 
-      // Cập nhật Header Badge và các thẻ KPI thống kê
+      // Cập nhật Header Badge và các thẻ KPI thống kê phong cách hiện đại
       var elSummaryBadge = document.getElementById('new-signups-summary-badge');
       if (elSummaryBadge) {
-        var mText = effectiveMonth.replace('2026-', 'Tháng ');
-        elSummaryBadge.textContent = mText + '/2026: ' + newSignups.length + ' Tài khoản mới • ' + totalSeats + ' Ghế • ' + fmt(totalCash);
+        var mParts = effectiveMonth.split('-');
+        var mText = 'Tháng ' + (mParts[1] || '10') + '/' + (mParts[0] || '2026');
+        elSummaryBadge.textContent = mText + ': ' + newSignups.length + ' Tài khoản mới • ' + totalSeats + ' Ghế • ' + fmt(totalCash);
       }
 
       var elB2bCnt = document.getElementById('new-stat-b2b-cnt');
       var elB2bDetail = document.getElementById('new-stat-b2b-detail');
       if (elB2bCnt) elB2bCnt.textContent = b2bContracts.length + ' Doanh nghiệp';
-      if (elB2bDetail) elB2bDetail.textContent = b2bSeats + ' ghế • ' + fmt(b2bCash) + ' thực thu';
+      if (elB2bDetail) elB2bDetail.innerHTML = '<strong style="color:#0369a1">' + b2bSeats + ' ghế</strong> • ' + fmt(b2bCash) + ' thực thu';
 
       var elB2cCnt = document.getElementById('new-stat-b2c-cnt');
       var elB2cDetail = document.getElementById('new-stat-b2c-detail');
-      if (elB2cCnt) elB2cCnt.textContent = b2cContracts.length + ' Kỹ sư / Chuyên gia';
-      if (elB2cDetail) elB2cDetail.textContent = b2cContracts.length + ' tài khoản • ' + fmt(b2cCash) + ' thực thu';
+      if (elB2cCnt) elB2cCnt.textContent = b2cContracts.length + ' Chuyên gia';
+      if (elB2cDetail) elB2cDetail.innerHTML = '<strong style="color:#7e22ce">' + b2cContracts.length + ' tài khoản</strong> • ' + fmt(b2cCash) + ' thực thu';
+
+      var elSeatsCnt = document.getElementById('new-stat-seats-cnt');
+      var elSeatsDetail = document.getElementById('new-stat-seats-detail');
+      if (elSeatsCnt) elSeatsCnt.textContent = totalSeats + ' Ghế mới';
+      if (elSeatsDetail) elSeatsDetail.innerHTML = 'Bình quân <strong style="color:#0f766e">' + avgSeats + ' ghế</strong>/khách hàng';
 
       var elRate = document.getElementById('new-stat-rate');
       var elRateDetail = document.getElementById('new-stat-rate-detail');
-      if (elRate) elRate.textContent = '100% Kích hoạt';
-      if (elRateDetail) elRateDetail.textContent = newSignups.length + ' Hợp đồng kích hoạt dịch vụ thành công';
+      if (elRate) elRate.textContent = '100% Cấp Phép';
+      if (elRateDetail) elRateDetail.textContent = newSignups.length + '/' + newSignups.length + ' Hợp đồng sẵn sàng vận hành';
 
       var elCountBadge = document.getElementById('new-table-count-badge');
       if (elCountBadge) elCountBadge.textContent = newSignups.length + ' khách hàng';
 
-      // Áp dụng tìm kiếm
+      // Áp dụng bộ lọc phân khúc bảng con (nếu chọn) & tìm kiếm
       var q = window.newSignupsSearchQuery || '';
       var displayList = newSignups.filter(function (c) {
+        if (innerSeg !== 'ALL' && c.customerType !== innerSeg) return false;
         if (!q) return true;
         var full = (c.id + ' ' + c.customerName + ' ' + (c.contactPerson || '') + ' ' + (c.planTier || '')).toLowerCase();
         return full.indexOf(q) !== -1;
@@ -1367,18 +1698,29 @@
       if (!tbody) return;
 
       if (displayList.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:24px;color:#94a3b8;font-size:12.5px">' +
-          (newSignups.length === 0 ? 'Không có tài khoản đăng ký mới trong kỳ ' + effectiveMonth : 'Không tìm thấy tài khoản phù hợp với từ khóa "' + q + '"') +
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:36px 20px;color:#94a3b8">' +
+          '<div style="font-size:32px;margin-bottom:8px">🌱</div>' +
+          '<div style="font-size:13.5px;font-weight:700;color:#475569">' + (newSignups.length === 0 ? 'Không có tài khoản đăng ký mới trong kỳ ' + effectiveMonth : 'Không tìm thấy tài khoản phù hợp với từ khóa "' + q + '"') + '</div>' +
+          '<div style="font-size:12px;color:#94a3b8;margin-top:2px">Các khách hàng kích hoạt kỳ này sẽ tự động xuất hiện tại đây</div>' +
           '</td></tr>';
         return;
       }
+
+      var avatarPalette = [
+        { bg: '#e0f2fe', text: '#0284c7' },
+        { bg: '#f3e8ff', text: '#7e22ce' },
+        { bg: '#fef3c7', text: '#b45309' },
+        { bg: '#dcfce7', text: '#15803d' },
+        { bg: '#fee2e2', text: '#dc2626' },
+        { bg: '#ccfbf1', text: '#0f766e' }
+      ];
 
       var html = '';
       displayList.forEach(function (c) {
         var isB2b = (c.customerType === 'B2B');
         var segBadge = isB2b
-          ? '<span style="background:#e0f2fe;color:#0284c7;font-weight:700;padding:2px 7px;border-radius:4px;font-size:11px">🏢 B2B</span>'
-          : '<span style="background:#f3e8ff;color:#7e22ce;font-weight:700;padding:2px 7px;border-radius:4px;font-size:11px">👤 B2C</span>';
+          ? '<span style="background:#e0f2fe;color:#0284c7;font-weight:800;padding:3px 8px;border-radius:6px;font-size:11px;border:1px solid #bae6fd">🏢 B2B</span>'
+          : '<span style="background:#f3e8ff;color:#7e22ce;font-weight:800;padding:3px 8px;border-radius:6px;font-size:11px;border:1px solid #e9d5ff">👤 B2C</span>';
 
         var dateParts = (c.startDate || '').split('-');
         var fmtDate = dateParts.length === 3 ? (dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0]) : c.startDate;
@@ -1388,24 +1730,45 @@
           : true;
 
         var statusBadge = (isCol === true)
-          ? '<span style="background:#dcfce7;color:#15803d;padding:3px 8px;border-radius:6px;font-weight:700;font-size:11px;display:inline-flex;align-items:center;gap:4px">🟢 Đã nạp phí</span>'
-          : '<span style="background:#fef3c7;color:#b45309;padding:3px 8px;border-radius:6px;font-weight:700;font-size:11px;display:inline-flex;align-items:center;gap:4px">🟡 Chờ nạp phí</span>';
+          ? '<span onclick="window.toggleContractPaymentStatus(\'' + c.id + '\')" title="Bấm để đổi trạng thái" style="cursor:pointer;background:#dcfce7;color:#15803d;padding:4px 9px;border-radius:8px;font-weight:700;font-size:11px;display:inline-flex;align-items:center;gap:5px;border:1px solid #bbf7d0"><span style="width:6px;height:6px;border-radius:50%;background:#16a34a"></span> Đã nạp phí 🔄</span>'
+          : '<span onclick="window.toggleContractPaymentStatus(\'' + c.id + '\')" title="Bấm để đổi trạng thái" style="cursor:pointer;background:#fef3c7;color:#b45309;padding:4px 9px;border-radius:8px;font-weight:700;font-size:11px;display:inline-flex;align-items:center;gap:5px;border:1px solid #fde68a"><span style="width:6px;height:6px;border-radius:50%;background:#d97706"></span> Chờ nạp phí 🔄</span>';
 
-        html += '<tr style="border-bottom:1px solid #f1f5f9;transition:background 0.15s">';
-        html += '<td style="padding:10px 12px;font-weight:800;color:#089490">' + c.id + '</td>';
-        html += '<td style="padding:10px 12px">' +
-          '<div style="font-weight:700;color:#0f172a;font-size:12.5px">' + c.customerName + '</div>' +
-          '<div style="font-size:11px;color:#64748b;margin-top:1px">' + (c.contactPerson || '') + '</div>' +
+        // Avatar chữ cái đầu
+        var initials = (c.customerName || 'KH').split(' ').map(function (w) { return w[0]; }).filter(Boolean).slice(0, 2).join('').toUpperCase();
+        var colorIdx = Math.abs(c.id.split('').reduce(function (a, b) { return a + b.charCodeAt(0); }, 0)) % avatarPalette.length;
+        var av = avatarPalette[colorIdx];
+
+        // Plan styling
+        var planStyle = 'background:#f1f5f9;color:#334155;border:1px solid #cbd5e1';
+        if (/enterprise/i.test(c.planTier)) planStyle = 'background:linear-gradient(135deg, #ede9fe, #f3e8ff);color:#6b21a8;border:1px solid #d8b4fe';
+        else if (/professional/i.test(c.planTier)) planStyle = 'background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd';
+        else if (/standard/i.test(c.planTier)) planStyle = 'background:#ecfdf5;color:#047857;border:1px solid #a7f3d0';
+        else if (/starter/i.test(c.planTier)) planStyle = 'background:#fef3c7;color:#b45309;border:1px solid #fde68a';
+
+        // Cycle icon
+        var cycleLabel = c.billingCycle || '1 Tháng';
+        var cycleIcon = /năm|annual/i.test(cycleLabel) ? '⭐ ' : (/quý|quarter/i.test(cycleLabel) ? '🗓️ ' : '⏱️ ');
+
+        html += '<tr style="border-bottom:1px solid #f1f5f9;transition:background 0.15s" onmouseover="this.style.background=\'#f8fafc\'" onmouseout="this.style.background=\'#ffffff\'">';
+        html += '<td style="padding:12px;font-weight:800;color:#0284c7;font-family:Consolas,monospace">' + c.id + '</td>';
+        html += '<td style="padding:12px">' +
+          '<div style="display:flex;align-items:center;gap:10px">' +
+            '<div style="width:34px;height:34px;border-radius:10px;background:' + av.bg + ';color:' + av.text + ';font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,0.06)">' + initials + '</div>' +
+            '<div>' +
+              '<div style="font-weight:700;color:#0f172a;font-size:12.5px">' + c.customerName + '</div>' +
+              '<div style="font-size:11px;color:#64748b;margin-top:2px">' + (c.contactPerson || '') + '</div>' +
+            '</div>' +
+          '</div>' +
           '</td>';
-        html += '<td style="padding:10px 12px;text-align:center">' + segBadge + '</td>';
-        html += '<td style="padding:10px 12px;color:#334155;font-weight:600">' + fmtDate + '</td>';
-        html += '<td style="padding:10px 12px"><strong style="color:#0f172a">' + c.planTier + '</strong></td>';
-        html += '<td style="padding:10px 12px;color:#475569">' + c.billingCycle + '</td>';
-        html += '<td style="padding:10px 12px;text-align:center;font-weight:700;color:#0f172a">' + c.seats + '</td>';
-        html += '<td style="padding:10px 12px;text-align:right;font-weight:800;color:#089490">' + fmt(c.billingAmount) + '</td>';
-        html += '<td style="padding:10px 12px;text-align:center">' + statusBadge + '</td>';
-        html += '<td style="padding:10px 12px;text-align:center">' +
-          '<button type="button" class="btn btn-outline btn-sm" onclick="window.showContractDetailModal(\'' + c.id + '\')" style="padding:3px 8px;font-size:11px;border-radius:5px;color:#089490;border-color:#99f6e4;background:#f0fdfa">Chi tiết</button>' +
+        html += '<td style="padding:12px;text-align:center">' + segBadge + '</td>';
+        html += '<td style="padding:12px;color:#475569;font-weight:600"><span style="display:inline-flex;align-items:center;gap:4px">📅 ' + fmtDate + '</span></td>';
+        html += '<td style="padding:12px"><span style="font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:6px;' + planStyle + '">' + c.planTier + '</span></td>';
+        html += '<td style="padding:12px;color:#334155;font-weight:600;font-size:11.5px">' + cycleIcon + cycleLabel + '</td>';
+        html += '<td style="padding:12px;text-align:center"><span style="font-weight:800;color:#0f172a;background:#f1f5f9;padding:2px 8px;border-radius:6px;font-size:11.5px">💺 ' + c.seats + '</span></td>';
+        html += '<td style="padding:12px;text-align:right;font-weight:900;color:#0f766e;font-size:13px">' + fmt(c.billingAmount) + '</td>';
+        html += '<td style="padding:12px;text-align:center">' + statusBadge + '</td>';
+        html += '<td style="padding:12px;text-align:center">' +
+          '<button type="button" onclick="window.showContractDetailModal(\'' + c.id + '\')" style="padding:4px 10px;font-size:11px;font-weight:700;border-radius:6px;color:#0284c7;border:1px solid #bae6fd;background:#f0f9ff;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:all 0.15s" onmouseover="this.style.background=\'#0284c7\';this.style.color=\'#fff\'" onmouseout="this.style.background=\'#f0f9ff\';this.style.color=\'#0284c7\'">👁️ Xem</button>' +
           '</td>';
         html += '</tr>';
       });
@@ -1469,16 +1832,20 @@
       var rate = isUsd ? (1 / 150.24) : 1;
 
       function fmt(val) {
-        if (!val) return '0đ';
+        if (!val) return isUsd ? '$0' : '¥0';
         if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
         return '¥' + val.toLocaleString('ja-JP');
       }
 
       var allContracts = window.DUMMY_CONTRACTS_DATA || [];
       var effectiveMonth = (period === '2026-09-24') ? '2026-09' : period;
+      var effYear = effectiveMonth.indexOf('-') !== -1 ? effectiveMonth.split('-')[0] : '2026';
+      var isFutureYear = parseInt(effYear, 10) > 2026;
 
       var payingContracts = allContracts.filter(function (c) {
-        return c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1;
+        return (typeof window.isContractPayingInMonth === 'function')
+          ? window.isContractPayingInMonth(c, effectiveMonth)
+          : (c.paymentMonths && c.paymentMonths.indexOf(effectiveMonth) !== -1);
       });
 
       payingContracts.sort(function (a, b) {
@@ -1566,6 +1933,7 @@
 
         var dayPad = (c.billingDay < 10 ? '0' : '') + c.billingDay;
         var monthPad = effectiveMonth.split('-')[1];
+        var dateText = isFutureYear ? ('Ngày ' + dayPad + '/' + monthPad + '/' + effYear) : ('Ngày ' + dayPad + '/' + monthPad);
         var rowBg = isCol ? '#ffffff' : (isOver ? '#fff5f5' : '#fffbeb');
 
         html += '<tr style="border-bottom:1px solid #f1f5f9;transition:background 0.15s;background:' + rowBg + '">';
@@ -1581,7 +1949,7 @@
           '</td>';
         html += '<td style="padding:10px 12px;color:#475569">' + c.billingCycle + '</td>';
         html += '<td style="padding:10px 12px;font-weight:700;color:#0369a1">' +
-          '<span style="background:#e0f2fe;padding:2px 6px;border-radius:4px">Ngày ' + dayPad + '/' + monthPad + '</span>' +
+          '<span style="background:#e0f2fe;padding:2px 6px;border-radius:4px">' + dateText + '</span>' +
           '</td>';
         html += '<td style="padding:10px 12px;text-align:right;font-weight:900;color:#089490;font-size:13px">' + fmt(c.billingAmount) + '</td>';
         html += '<td style="padding:10px 12px;text-align:right;font-weight:700;color:#0284c7">' + fmt(c.mrrContribution) + '</td>';
@@ -1596,7 +1964,14 @@
 
       var elFootCol = document.getElementById('dash-main-foot-col');
       var elFootMrr = document.getElementById('dash-main-foot-mrr');
-      if (elFootCol) elFootCol.textContent = fmt(sumColCash);
+      if (elFootCol) {
+        if (isFutureYear) {
+          var totalFuturePlan = payingContracts.reduce(function (acc, x) { return acc + (x.billingAmount || 0); }, 0);
+          elFootCol.textContent = fmt(totalFuturePlan) + ' (Dự thu)';
+        } else {
+          elFootCol.textContent = fmt(sumColCash);
+        }
+      }
       if (elFootMrr) elFootMrr.textContent = fmt(sumMrr);
     };
 
@@ -1620,7 +1995,7 @@
       var isUsd = (window.currentCurrency === 'USD');
       var rate = isUsd ? (1 / 150.24) : 1;
       function fmt(val) {
-        if (!val) return '0đ';
+        if (!val) return isUsd ? '$0' : '¥0';
         if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
         return '¥' + val.toLocaleString('ja-JP');
       }
@@ -1632,7 +2007,7 @@
       var isB2b = (contract.customerType === 'B2B');
       var segColor = isB2b ? '#0284c7' : '#7e22ce';
 
-      var statusText = (isCol === null) ? 'Active MRR (Không phát sinh nạp kỳ này)' : (isCol ? '🟢 ĐÃ THU TIỀN' : '🟡 CHỜ NẠP PHÍ');
+      var statusText = (isCol === null) ? 'Đã trả trước (Không phát sinh nạp kỳ này)' : (isCol ? '🟢 ĐÃ THU TIỀN' : '🟡 CHỜ THANH TOÁN');
       var statusBg = isCol ? '#dcfce7' : '#fef3c7';
       var statusColor = isCol ? '#15803d' : '#b45309';
 
@@ -1668,7 +2043,7 @@
             '<div style="background:#f0fdfa;padding:10px 12px;border-radius:8px;border:1px solid #ccfbf1">' +
               '<div style="font-size:11px;color:#0f766e;font-weight:700">SỐ TIỀN THU KỲ NÀY</div>' +
               '<div style="font-size:18px;font-weight:900;color:#089490;margin-top:3px">' + fmt(contract.billingAmount) + '</div>' +
-              '<div style="font-size:11px;color:#64748b;margin-top:1px">MRR đóng góp: ' + fmt(contract.mrrContribution) + '/tháng</div>' +
+              '<div style="font-size:11px;color:#64748b;margin-top:1px">Chu kỳ: ' + contract.billingCycle + '</div>' +
             '</div>' +
             '<div style="background:#f8fafc;padding:10px 12px;border-radius:8px;border:1px solid #e2e8f0">' +
               '<div style="font-size:11px;color:#64748b;font-weight:700">TRẠNG THÁI THANH TOÁN (KỲ ' + p + ')</div>' +
@@ -1912,7 +2287,7 @@
       var isUsd = (window.currentCurrency === 'USD');
       var rate = isUsd ? (1 / 150.24) : 1;
       function dynFmt(val) {
-        if (!val) return '0đ';
+        if (!val) return isUsd ? '$0' : '¥0';
         if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
         return '¥' + val.toLocaleString('ja-JP');
       }
@@ -2103,7 +2478,10 @@
       }
 
       contractsSource.forEach(function (c) {
-        if (c.paymentMonths && c.paymentMonths.indexOf(targetMonth) !== -1) {
+        var isPaying = (typeof window.isContractPayingInMonth === 'function')
+          ? window.isContractPayingInMonth(c, targetMonth)
+          : (c.paymentMonths && c.paymentMonths.indexOf(targetMonth) !== -1);
+        if (isPaying) {
           if (s === 'ALL' || c.customerType === s) {
             var bDay = c.billingDay || 1;
             var cStatus = (typeof window.getContractStatusInPeriod === 'function')
@@ -2396,8 +2774,8 @@
         fCashinEl.innerHTML = '🟢 Đã thu: <strong>' + fmt(collectedMonthCash) + '</strong> (' + collectedCount + ' HĐ)<br>🟡 Chưa thu: <strong>' + fmt(pendingMonthCash) + '</strong> (' + pendingCount + ' HĐ)<br>' + (overdueCount > 0 ? ('🔴 Đang nợ: <strong>' + fmt(overdueMonthCash) + '</strong> (' + overdueCount + ' HĐ)<br>') : '') + '💰 Tổng dự thu = <strong>' + fmt(totalMonthCash) + '</strong>';
       }
       if (fMrrEl) {
-        var totalMrrCalc = allTx.reduce(function (sum, tx) { return sum + tx.mrr; }, 0);
-        fMrrEl.innerHTML = 'MRR = ∑(HĐ/chu kỳ) = <strong>' + fmt(totalMrrCalc) + '/tháng</strong> (ARR = ' + fmt(totalMrrCalc * 12) + ')';
+        var totalMonthVal = allTx.reduce(function (sum, tx) { return sum + tx.amount; }, 0);
+        fMrrEl.innerHTML = 'Tổng giá trị hợp đồng = <strong>' + fmt(totalMonthVal) + '</strong> (' + allTx.length + ' HĐ)';
       }
       if (fSegEl) {
         var b2bPct = totalMonthCash > 0 ? Math.round((b2bTotalMonth / totalMonthCash) * 100) : 0;
@@ -2431,7 +2809,7 @@
                 ? '<span style="background:#e0f2fe;color:#0284c7;padding:1px 5px;border-radius:4px;font-size:10px;font-weight:700">3 Tháng</span>'
                 : '<span style="background:#fef3c7;color:#b45309;padding:1px 5px;border-radius:4px;font-size:10px;font-weight:700">1 Tháng</span>');
 
-            var calcFormula = '<span style="font-family:Consolas,monospace;font-size:10.5px;color:#0f766e">' + fmt(tx.amount) + ' ÷ ' + tx.cycleMonths + ' = <strong>' + fmt(tx.mrr) + ' MRR</strong></span>';
+            var calcFormula = '<span style="font-family:Consolas,monospace;font-size:10.5px;color:#0f766e">' + fmt(tx.amount) + ' / ' + (tx.cycleMonths === 12 ? 'năm' : (tx.cycleMonths === 3 ? 'quý' : 'tháng')) + '</span>';
 
             var statusBadge = '';
             if (tx.isCollected) {
@@ -2525,7 +2903,7 @@
     // ===== HỆ THỐNG PHÂN BIỆT ĐÃ THU (COLLECTED) & CHƯA THU (PENDING) =====
     window.currentDummyStatusFilter = 'ALL';
 
-    // Chuyển đổi trạng thái thu tiền trực tiếp khi click
+    // Chuyển đổi trạng thái thu tiền trực tiếp khi click (xoay vòng 3 trạng thái: ĐÃ THU -> CHỜ NẠP -> ĐANG NỢ -> ĐÃ THU)
     window.toggleContractPaymentStatus = function (id) {
       var monthFilter = document.getElementById('dd-filter-month') ? document.getElementById('dd-filter-month').value : '2026-10';
       var p = (monthFilter && monthFilter !== 'ALL') ? (monthFilter === '2026-09-24' ? '2026-09' : monthFilter) : (window.currentPeriod || '2026-10');
@@ -2534,12 +2912,13 @@
       var contract = window.DUMMY_CONTRACTS_DATA.find(function (c) { return c.id === id; });
       if (!contract) return;
 
-      if (!contract.paymentMonths || contract.paymentMonths.length === 0) {
-        alert('Hợp đồng ' + contract.customerName + ' không có kỳ nạp tiền trong năm 2026.');
+      var isPaying = (typeof window.isContractPayingInMonth === 'function')
+        ? window.isContractPayingInMonth(contract, p)
+        : (contract.paymentMonths && contract.paymentMonths.indexOf(p) !== -1);
+
+      if (!isPaying) {
+        alert('Hợp đồng ' + contract.customerName + ' không có kỳ nạp tiền trong tháng ' + p + '.');
         return;
-      }
-      if (contract.paymentMonths.indexOf(p) === -1) {
-        p = contract.paymentMonths[0];
       }
 
       var currentStatus = (typeof window.getContractStatusInPeriod === 'function')
@@ -2547,17 +2926,29 @@
         : 'COLLECTED';
 
       if (currentStatus === null) {
-        alert('Hợp đồng ' + contract.customerName + ' là gói ' + contract.billingCycle + ' (đã trả trước từ trước, tháng này chỉ duy trì MRR không phát sinh nạp tiền).');
+        alert('Hợp đồng ' + contract.customerName + ' là gói ' + contract.billingCycle + ' (đã thanh toán trước từ trước, tháng này không phát sinh thu thêm tiền).');
         return;
       }
 
-      var newStatus = (currentStatus === 'COLLECTED') ? 'pending' : 'collected';
+      // Xoay vòng 3 trạng thái: ĐÃ THU -> CHỜ NẠP -> ĐANG NỢ -> ĐÃ THU
+      var newStatus = 'collected';
+      if (currentStatus === 'COLLECTED') {
+        newStatus = 'pending';
+      } else if (currentStatus === 'PENDING') {
+        newStatus = 'overdue';
+      } else {
+        newStatus = 'collected';
+      }
+
       if (!window.CONTRACT_MANUAL_STATUS) window.CONTRACT_MANUAL_STATUS = {};
       window.CONTRACT_MANUAL_STATUS[id + '_' + p] = newStatus;
 
-      var statusLabel = (newStatus === 'collected') ? '🟢 ĐÃ THU' : '🟡 CHƯA THU';
-      var msg = '✓ Đã chuyển hợp đồng ' + contract.customerName + ' (' + contract.id + ') sang trạng thái: ' + statusLabel + '.';
-      console.log(msg);
+      var statusLabel = (newStatus === 'collected') ? '🟢 ĐÃ THU' : (newStatus === 'overdue' ? '🔴 ĐANG NỢ' : '🟡 CHỜ NẠP');
+      var toastType = (newStatus === 'collected') ? 'success' : (newStatus === 'overdue' ? 'warning' : 'info');
+
+      if (typeof window.showAdminToast === 'function') {
+        window.showAdminToast('Đã đổi HĐ ' + contract.customerName + ' (' + contract.id + ') sang trạng thái ' + statusLabel, toastType);
+      }
 
       // Cập nhật ngay lập tức:
       // 1. Bảng hợp đồng mẫu ở tab Dummy Data
@@ -2637,7 +3028,7 @@
       var rate = isUsd ? (1 / 150.24) : 1;
 
       function fmt(val) {
-        if (!val) return '0đ';
+        if (!val) return isUsd ? '$0' : '¥0';
         if (isUsd) return '$' + Math.round(val * rate).toLocaleString('en-US');
         return '¥' + val.toLocaleString('ja-JP');
       }
@@ -2811,7 +3202,7 @@
             statusBadge = '<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px">' +
               '<span style="background:#f0f9ff;color:#0369a1;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600;border:1px solid #bae6fd">' +
               '🔵 ĐÃ TRẢ TRƯỚC</span>' +
-              '<span style="font-size:10px;color:#0284c7">Active MRR ' + fmt(c.mrrContribution) + '</span>' +
+              '<span style="font-size:10px;color:#0284c7">Đang hoạt động</span>' +
               '</div>';
           }
 
@@ -2828,11 +3219,11 @@
           // Detailed Mathematical Calculation for this contract
           var calcDetail = '';
           if (c.cycleMonths === 12) {
-            calcDetail = '<div style="font-family:monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 6px;border-radius:4px;border:1px solid #bae6fd">' + fmt(c.billingAmount) + ' ÷ 12 thg = <strong>' + fmt(c.mrrContribution) + ' MRR</strong></div><div style="font-size:10px;color:#64748b;margin-top:1px">Nạp 1 lần/năm (ngày ' + (c.billingDay || 1) + ')</div>';
+            calcDetail = '<div style="font-family:monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 6px;border-radius:4px;border:1px solid #bae6fd">' + fmt(c.billingAmount) + ' ÷ 12 thg = <strong>' + fmt(c.mrrContribution) + '/tháng</strong></div><div style="font-size:10px;color:#64748b;margin-top:1px">Nạp 1 lần/năm (ngày ' + (c.billingDay || 1) + ')</div>';
           } else if (c.cycleMonths === 3) {
-            calcDetail = '<div style="font-family:monospace;font-size:11px;color:#047857;background:#f0fdfa;padding:3px 6px;border-radius:4px;border:1px solid #99f6e4">' + fmt(c.billingAmount) + ' ÷ 3 thg = <strong>' + fmt(c.mrrContribution) + ' MRR</strong></div><div style="font-size:10px;color:#64748b;margin-top:1px">Tái nạp theo quý (ngày ' + (c.billingDay || 1) + ')</div>';
+            calcDetail = '<div style="font-family:monospace;font-size:11px;color:#047857;background:#f0fdfa;padding:3px 6px;border-radius:4px;border:1px solid #99f6e4">' + fmt(c.billingAmount) + ' ÷ 3 thg = <strong>' + fmt(c.mrrContribution) + '/tháng</strong></div><div style="font-size:10px;color:#64748b;margin-top:1px">Tái nạp theo quý (ngày ' + (c.billingDay || 1) + ')</div>';
           } else {
-            calcDetail = '<div style="font-family:monospace;font-size:11px;color:#b45309;background:#fffbeb;padding:3px 6px;border-radius:4px;border:1px solid #fde68a">' + fmt(c.billingAmount) + ' ÷ 1 thg = <strong>' + fmt(c.mrrContribution) + ' MRR</strong></div><div style="font-size:10px;color:#64748b;margin-top:1px">Thu đều hàng tháng (ngày ' + (c.billingDay || 1) + ')</div>';
+            calcDetail = '<div style="font-family:monospace;font-size:11px;color:#b45309;background:#fffbeb;padding:3px 6px;border-radius:4px;border:1px solid #fde68a">' + fmt(c.billingAmount) + ' = <strong>' + fmt(c.mrrContribution) + '/tháng</strong></div><div style="font-size:10px;color:#64748b;margin-top:1px">Thu đều hàng tháng (ngày ' + (c.billingDay || 1) + ')</div>';
           }
 
           var rowBg = isPayingThisMonth ? ' style="background:#fafffd"' : '';
@@ -3226,7 +3617,7 @@
     window.exportDummyContractsCSV = function () {
       var isUsd = (window.currentCurrency === 'USD');
       var curr = isUsd ? 'USD' : 'JPY';
-      var csv = '\uFEFFMa_HD,Ten_Khach_Hang,Phan_Khuc,Nguoi_Lien_He,Goi_Cuoc,So_Ghe,Ky_Thanh_Toan,Ngay_Dang_Ky,Ngay_Thu,Phuong_Thuc,So_Tien_Ky (' + curr + '),Dong_Gop_MRR (' + curr + '),Ghi_Chu\n';
+      var csv = '\uFEFFMa_HD,Ten_Khach_Hang,Phan_Khuc,Nguoi_Lien_He,Goi_Cuoc,So_Ghe,Ky_Thanh_Toan,Ngay_Dang_Ky,Ngay_Thu,Phuong_Thuc,So_Tien_Ky (' + curr + '),Doanh_Thu_Thang (' + curr + '),Ghi_Chu\n';
 
       window.DUMMY_CONTRACTS_DATA.forEach(function (c) {
         var cleanName = '"' + c.customerName.replace(/"/g, '""') + '"';
@@ -3595,7 +3986,7 @@
       var currSymbol = isUsd ? 'USD' : 'JPY';
       var csvContent = "data:text/csv;charset=utf-8,Phan Khuc,Chi So,Gia Tri (" + currSymbol + "),Ghi Chu\n";
       csvContent += '"Tong The","Tong Khach Hang","52","32 Doanh nghiep • 20 Nguoi dung ca nhan"\n';
-      csvContent += '"Tong The","Doanh Thu Thang (MRR)",' + (isUsd ? '"$3,115"' : '"¥468,000"') + ',"ARR: ' + (isUsd ? '$37.4k' : '¥5.61M') + '"\n';
+      csvContent += '"Tong The","Doanh Thu Thang",' + (isUsd ? '"$3,115"' : '"¥468,000"') + ',"ARR: ' + (isUsd ? '$37.4k' : '¥5.61M') + '"\n';
       csvContent += '"Tong The","Thuc Thu Thang 09",' + (isUsd ? '"$1,058"' : '"¥158,900"') + ',"Thu day du 100% KPI thang 9"\n';
       csvContent += '"Tong The","Ghe Hoat Dong (Active Seats)","442 / 520","Ty le su dung 85.0% • Con trong 78 slot"\n';
 
@@ -3609,9 +4000,100 @@
     };
 
 
+    // ===== BỘ ĐIỀU KHIỂN & CẤU HÌNH GIAO DIỆN TỰ ĐỘNG HÓA CÔNG NỢ =====
+    window.openAutomationRulesModal = function () {
+      var m = document.getElementById('modal-billing-automation');
+      if (!m) return;
+      var cfg = window.BILLING_AUTOMATION_CONFIG || {
+        autoPilot: true,
+        gracePeriodBankTransfer: 3,
+        gracePeriodCard: 1
+      };
+      var chk = document.getElementById('auto-config-autopilot');
+      if (chk) chk.checked = !!cfg.autoPilot;
+      var selBank = document.getElementById('auto-config-grace-bank');
+      if (selBank) selBank.value = String(cfg.gracePeriodBankTransfer || 3);
+      var selCard = document.getElementById('auto-config-grace-card');
+      if (selCard) selCard.value = String(cfg.gracePeriodCard || 1);
+
+      window.updateAutomationUIIndicator();
+      m.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeAutomationRulesModal = function () {
+      var m = document.getElementById('modal-billing-automation');
+      if (m) m.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+
+    window.toggleAutoPilotMode = function (enabled) {
+      if (!window.BILLING_AUTOMATION_CONFIG) window.BILLING_AUTOMATION_CONFIG = {};
+      window.BILLING_AUTOMATION_CONFIG.autoPilot = !!enabled;
+      window.updateAutomationUIIndicator();
+      window.applyAndRecalculateAutomation(true);
+    };
+
+    window.updateAutomationParams = function () {
+      if (!window.BILLING_AUTOMATION_CONFIG) window.BILLING_AUTOMATION_CONFIG = {};
+      var selBank = document.getElementById('auto-config-grace-bank');
+      if (selBank) window.BILLING_AUTOMATION_CONFIG.gracePeriodBankTransfer = parseInt(selBank.value, 10);
+      var selCard = document.getElementById('auto-config-grace-card');
+      if (selCard) window.BILLING_AUTOMATION_CONFIG.gracePeriodCard = parseInt(selCard.value, 10);
+      window.updateAutomationUIIndicator();
+    };
+
+    window.updateAutomationUIIndicator = function () {
+      var cfg = window.BILLING_AUTOMATION_CONFIG || { autoPilot: true, gracePeriodBankTransfer: 3 };
+      var btnTxt = document.getElementById('auto-pilot-status-text');
+      var dot = document.getElementById('auto-pilot-indicator');
+      var btn = document.getElementById('btn-toggle-automation-policy');
+      var slider = document.getElementById('auto-pilot-slider');
+      var knob = document.getElementById('auto-pilot-knob');
+
+      if (slider && knob) {
+        slider.style.background = cfg.autoPilot ? '#22c55e' : '#cbd5e1';
+        knob.style.left = cfg.autoPilot ? '22px' : '3px';
+      }
+
+      if (btnTxt) {
+        btnTxt.textContent = cfg.autoPilot
+          ? ('BẬT (Net-' + (cfg.gracePeriodBankTransfer || 3) + ')')
+          : 'TẮT (Cố định)';
+      }
+      if (dot) {
+        dot.style.background = cfg.autoPilot ? '#22c55e' : '#94a3b8';
+        dot.style.boxShadow = cfg.autoPilot ? '0 0 6px #22c55e' : 'none';
+      }
+      if (btn) {
+        btn.style.background = cfg.autoPilot ? '#f0fdf4' : '#f8fafc';
+        btn.style.borderColor = cfg.autoPilot ? '#bbf7d0' : '#cbd5e1';
+        btn.style.color = cfg.autoPilot ? '#166534' : '#64748b';
+      }
+    };
+
+    window.applyAndRecalculateAutomation = function (silent) {
+      window.updateAutomationParams();
+      if (!silent) window.closeAutomationRulesModal();
+
+      var cfg = window.BILLING_AUTOMATION_CONFIG;
+      if (typeof window.applyDashboardMetrics === 'function') window.applyDashboardMetrics();
+      if (typeof window.renderInteractiveRevenueChart === 'function') window.renderInteractiveRevenueChart();
+      if (typeof window.renderDailyCashflowDashboard === 'function') window.renderDailyCashflowDashboard();
+      if (typeof window.renderDashMainContractsTable === 'function') window.renderDashMainContractsTable();
+      if (typeof window.renderDummyContractsTable === 'function') window.renderDummyContractsTable();
+
+      if (!silent && typeof window.showAdminToast === 'function') {
+        window.showAdminToast('Đã kích hoạt hệ thống tự động hóa: Ân hạn Chuyển khoản Net-' + (cfg.gracePeriodBankTransfer || 3) + ' ngày!', 'success');
+      }
+    };
+
     function initDashboardLogic() {
       if (typeof window.initRealTimeDashboard === 'function') {
         window.initRealTimeDashboard();
+      }
+      if (typeof window.updateAutomationUIIndicator === 'function') {
+        window.updateAutomationUIIndicator();
       }
       var periodSelect = document.getElementById('vb-period-select');
       if (periodSelect) {

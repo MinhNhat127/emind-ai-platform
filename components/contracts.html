@@ -117,7 +117,7 @@
                   </button>
                   <button type="button" class="vb-pill-btn" id="dd-btn-st-mrr"
                     onclick="setDummyStatusFilter('ACTIVE_MRR')" style="font-size:11px;padding:4px 9px;color:#0369a1">
-                    🔵 Duy Trì (<span id="dd-count-mrr-btn">30</span>)
+                    🔵 Đã Trả Trước (<span id="dd-count-mrr-btn">30</span>)
                   </button>
                 </div>
                 <span style="font-size:11.5px;color:#64748b;margin-left:6px" id="dd-timeline-status-hint">
@@ -138,7 +138,7 @@
                 <option value="ALL">💳 Toàn bộ Trạng thái Thu</option>
                 <option value="COLLECTED">🟢 Đã Thu Tiền (Collected)</option>
                 <option value="PENDING">🟡 Chưa Thu / Chờ Thu (Pending)</option>
-                <option value="ACTIVE_MRR">🔵 Đã Trả Trước / Duy Trì (Active MRR)</option>
+                <option value="ACTIVE_MRR">🔵 Đã Trả Trước / Duy Trì</option>
               </select>
               <select id="dd-filter-segment" onchange="renderDummyContractsTable()"
                 style="padding:6px 9px;border:1px solid #cbd5e1;border-radius:7px;font-size:11.5px;font-weight:600;color:#0f172a">
@@ -209,7 +209,7 @@
                     <th style="width:110px">Ngày Đăng Ký</th>
                     <th style="width:95px">Ngày Thu</th>
                     <th style="text-align:right">Số Tiền/Kỳ</th>
-                    <th style="text-align:right">MRR/Tháng</th>
+                    <th style="text-align:right">Doanh Thu/Tháng</th>
                     <th style="min-width:230px;text-align:left">Chi Tiết Tính Toán (Công Thức)</th>
                     <th style="text-align:center;min-width:150px">Trạng Thái Thu Tiền</th>
                     <th style="width:110px;text-align:center">Thao Tác</th>
