@@ -1662,26 +1662,6 @@
         elSummaryBadge.textContent = mText + ': ' + newSignups.length + ' Tài khoản mới • ' + totalSeats + ' Ghế • ' + fmt(totalCash);
       }
 
-      var elB2bCnt = document.getElementById('new-stat-b2b-cnt');
-      var elB2bDetail = document.getElementById('new-stat-b2b-detail');
-      if (elB2bCnt) elB2bCnt.textContent = b2bContracts.length + ' Doanh nghiệp';
-      if (elB2bDetail) elB2bDetail.innerHTML = '<strong style="color:#0369a1">' + b2bSeats + ' ghế</strong> • ' + fmt(b2bCash) + ' thực thu';
-
-      var elB2cCnt = document.getElementById('new-stat-b2c-cnt');
-      var elB2cDetail = document.getElementById('new-stat-b2c-detail');
-      if (elB2cCnt) elB2cCnt.textContent = b2cContracts.length + ' Chuyên gia';
-      if (elB2cDetail) elB2cDetail.innerHTML = '<strong style="color:#7e22ce">' + b2cContracts.length + ' tài khoản</strong> • ' + fmt(b2cCash) + ' thực thu';
-
-      var elSeatsCnt = document.getElementById('new-stat-seats-cnt');
-      var elSeatsDetail = document.getElementById('new-stat-seats-detail');
-      if (elSeatsCnt) elSeatsCnt.textContent = totalSeats + ' Ghế mới';
-      if (elSeatsDetail) elSeatsDetail.innerHTML = 'Bình quân <strong style="color:#0f766e">' + avgSeats + ' ghế</strong>/khách hàng';
-
-      var elRate = document.getElementById('new-stat-rate');
-      var elRateDetail = document.getElementById('new-stat-rate-detail');
-      if (elRate) elRate.textContent = '100% Cấp Phép';
-      if (elRateDetail) elRateDetail.textContent = newSignups.length + '/' + newSignups.length + ' Hợp đồng sẵn sàng vận hành';
-
       var elCountBadge = document.getElementById('new-table-count-badge');
       if (elCountBadge) elCountBadge.textContent = newSignups.length + ' khách hàng';
 
